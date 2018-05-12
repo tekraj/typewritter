@@ -1,0 +1,10 @@
+.page-wrapper{border:solid #ccc;border-width: 25px 40px 20px 20px;position: relative;background: #666666;}
+.top-fake-div{
+    position: absolute;
+    height: 26px;
+    width: 100%;
+    top: -26px;
+    z-index: 99999;
+    background: #ccc;
+    opacity: 1;
+}
