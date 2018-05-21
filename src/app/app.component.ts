@@ -9,8 +9,27 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   providers: [{ provide: 'Window', useValue: window }]
 })
 export class AppComponent {
-	public innerHeight : any;
-  	title = 'app';
+	public innerHeight : number;
+	public backgroundNo :number;
+	public background :string;
+
+	title = 'app';
+
+	constructor(){
+			this.backgroundNo = 0;
+			this.background = '../assets/images/typewriter'+this.backgroundNo+'.png';
+			
+	}
+	changeBackground() {
+		
+		this.backgroundNo+=1;
+		if(this.backgroundNo>26){
+			this.backgroundNo =0;
+		}
+		this.background = '../assets/images/typewriter'+this.backgroundNo+'.png';
+		
+	} 
+
   	ngOnInit() {
   		this.innerHeight = window.innerHeight;
   	}

@@ -1,4 +1,7 @@
-<div class="page-wrapper" [style.height.px]="innerHeight">
-	<div class="top-fake-div"></div>
+<section [style.background]="'url('+background+')'" >
+	<div class="top-theme">
+		<p>Wahle delman Llebllng&rahmen</p>
+		<span (click)="changeBackground()" class="change-border">{{backgroundNo}}</span>
+	</div>
 	<router-outlet></router-outlet>
-</div>
+</section>

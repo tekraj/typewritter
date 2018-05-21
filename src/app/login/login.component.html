@@ -1,50 +1,73 @@
 
-	<button class="button-change-border"></button>
-	<p class="theme-text">Wahie deiman Liablingsrahman</p>
-	<div class="top-text-wrapper text-center">
-		<h1>MM-Schreibtrainer</h1>
-		<h2>MultiMedia-Abteilung</h2>
-		<h3>PH der Diozese Linz</h3>
-		<h4>(C17) alois.bachinger@ph-linz.at</h4>
-		<h5>Flashpayer grober Vers. 6 notwendig! (et0nzt0)</h5>
-		<h5 class="version">Version . 8.0</h5>
-	</div>
-	<p class="login-intro text-center">
-		Zum Testen kannst du den Geheimcode 'ms' vverwenden!
-		Allerding kannst du damit keine personlichen Ergebnisse specihern
-	</p>
-	
-	<div class="login-form-wrapper">
-		<form (ngSubmit)="login()">
-			<div class="container-fluid  upper-password">
-				<div class="row">
-					<div class="col-sm-7">
-						<label for="guest-password">Eingabe deines Geheimcodes</label>
-					</div>	
-					<div class="col-sm-3" style="margin-top:5px;">
-						<input type="password"  name="password" class="form-control" [(ngModel)]="model.password" >
-					</div>
-					<div>
-						<button class="btn btn-default">Login</button>
-					</div>
+	<header>
+		<div class="container-fluid">
+			<h1 class="text-center">MM-Schreibtrainer</h1>
+			<div class="row">
+				<div class="col-md-2 text-center typing">
+					<img src="../assets/images/12.gif">
+					<a href="#" class="btn btn-default btn-block">
+						Anmelden
+					</a>
 				</div>
-			</div>
-			<div class="container-fluid">
-				<div class="row email-text">
-					<div class="col-sm-6">
-						<p>Nach 5 Password-Fehiversuchen wird die Adresse gespent Du kanns				aber unterhalb deine Emailaddersse eigeben dann wird dir das Passwod an deine eingetragene Emailaddress geschickt</p>
-					</div>
-					<div class="col-sm-6"></div>
+				<div class="col-md-8">
+					<p>Multimedia-Abteilung</p>
+					<p> PH der Diozese Linz</p>
+					<p>(c17) alois.bachinger@ph-linz.at</p>
+					<p class="small">Flashplayer grober Vers. 6 notwending! (etonzto)</p>
+					<p class="small version">Vers. 8.0</p>
 				</div>
+				<div class="col-md-2 typing">
+					<img src="../assets/images/12.gif">
+					<a href="#" class="btn btn-default btn-block">
+						Programende
+					</a>
 
-				<div class="row email-input">
-					<div class="col-sm-8" style="margin-top:5px;">
-						<input type="password" name="password" class="form-control" [(ngModel)]="model.password" >
-					</div>
-					<div class="col-sm-4">
-						<button class="btn btn-default">Password Vergessen</button>
-					</div>
 				</div>
 			</div>
-		</form>
+		</div>
+	</header>
+	<div class="container2 container-fluid">
+		<div class="info-text text-center">
+			<p>Zum Testen kannst du den Geheimcode 'ms' verwenden!</p>
+			<p>Allerdings kannst du dammit keine personlichen Ergebnisse speichern.</p>
+		</div>
+		<div class="container">
+			<form (ngSubmit)="login()">
+				<div class="box text-left col-sm-8 centered">
+					<div class="row">
+						<div class="col-sm-6">
+							<h4>Eingabe deines gemcodes:</h4>
+						</div>
+						<div class="col-sm-3 input-div">
+							<input type="password"  [(ngModel)]="model.password" name="password" class="login-input">
+						</div>
+						<div class="col-sm-3">
+							<button type="submit" class="btn btn-default btn-block">Login</button>
+						</div>
+
+					</div>
+
+					<div class="clearfix-div">
+						<span>&nbsp;</span>
+						<span>&nbsp;</span>
+						<span>&nbsp;</span>
+					</div>
+					<div class="row">
+						<div class="col-sm-9 next-input-div">
+							<p class="text-left">Nach 5 Password-Fehlversuchen wird die Addresse gesperrt. Du kanst</p>
+							<p> aber unterhalb deine Emailaddresse eingeben dann wird dir das Password</p>
+							<p> an deine eingetragene Emailaddresse geschickt.</p>
+							<input type="email" class="next-login-input" [(ngModel)]="model.email" name="email">
+						</div>
+						<div class="col-sm-3">
+							<button type="submit" class="btn btn-default btn-block verify-password">
+								<p>Password</p>
+								<p>Bergessan</p>
+							</button>
+						</div>
+
+					</div>
+				</div>
+			</form>
+		</div>
 	</div>
