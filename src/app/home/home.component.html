@@ -1,18 +1,29 @@
 <header class="home">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-3 text-center typing maria-holder">
+      <div class="col-sm-4 text-center typing maria-holder">
         <img src="../assets/images/maria.png">
       </div>
-      <div class="col-md-6 text-center">
+      <div class="col-sm-4 text-center">
         <h1>MM-Schreibtrainer</h1>
-        <button class="btn btn-top-bright w-80 centered">10Kleine fingerlien</button>
-        <button class="btn btn-top-bright w-70 head-sec-btn centered">10Kleine fingerlien</button>
+        <div class="book-dropdown">
+          <button class="btn btn-top-bright" (click)="showBookDropDown()">
+            <span *ngIf="!showAllBooks">Alle Bucher zeigen</span>
+            <!-- Show All books -->
+            <span *ngIf="showAllBooks">Nur mein Buch anzeigen</span>
+            <!-- Just show my book -->
+          </button>
+          <ul>
+            <li *ngFor="let b of copyBooks;let a=index" [ngClass]="{'active':showAllBooks,'first-active' : (a===currentBookIndex),'hide':(a>5 && a!=currentBookIndex && !showAllBooks)}">
+              <button class="btn btn-top" (click)="findLession(b.id,a)">{{b.name}}</button>
+            </li>
+          </ul>
+        </div>
       </div>
-      <div class="col-md-3 typing  nach-holder">
+      <div class="col-sm-4 typing  nach-holder">
         <img src="../assets/images/12.gif">
         <p class="col-sm-9 centered">Meine bisherigen Arbeiten: sortiert nach</p>
-        <div class="text-center">
+        <div class="text-center nach-buttons-group">
           <button class="btn btn-default">
             Datum
           </button>
@@ -26,56 +37,57 @@
 </header>
 
 <div class="container-fluid container5">
-  <div  *ngIf="!pageContent">
-  <div class="row box-titles">
-    <div class="col-sm-4 text-right">
-      <h3>Auswahl der Lektion :</h3>
+  <div *ngIf="!pageContent">
+    <div class="row box-titles">
+      <div class="col-sm-4 text-right">
+        <h3>Auswahl der Lektion :</h3>
+      </div>
+      <div class="col-sm-6 text-right">
+        <h3>Aushwal der Ubung:</h3>
+      </div>
+      <div class="col-sm-2"></div>
     </div>
-    <div class="col-sm-6 text-right">
-      <h3>Aushwal der Ubung:</h3>
+    <div class="row">
+      <div class="col-md-3" *ngFor="let i of totalLessionPage;let p=index">
+        <ul class="main-page-list">
+          <ng-container *ngFor="let t of createArrayRange(lessions,i);let a=index">
+            <li *ngIf="(a+1)<=((p+1)*12)" (click)="findTitle(t.id,a)" [ngClass]="{'active':currentLession==a}">
+              <span class="red"></span> {{t.name}}
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+      <div class="col-md-3" *ngFor="let i of totalTitlesPage;let p=index">
+        <ul class="main-page-list">
+          <ng-container *ngFor="let t of createArrayRange(titles,i);let a=index">
+            <li *ngIf="(a+1)<=((p+1)*12)" (click)="getExercise(t.id)">
+              <span class="red"></span> {{t.name}}
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+      <div class="col-md-3 titles" *ngFor="let i of totalExercisePage;let p=index">
+        <ul class="main-page-list">
+          <ng-container *ngFor="let t of createArrayRange(exercises,i);let a=index">
+            <li (click)="getPageContent(t.id)">
+              <span class="red"></span> {{t.name}}
+            </li>
+          </ng-container>
+        </ul>
+      </div>
     </div>
-    <div class="col-sm-2"></div>
+    <div class="last-buttons-wrapper">
+      <div class="row last-buttons">
+        <div class="col-sm-6 text-left">
+          <a class="btn rounded-button">Belkeninfo</a>
+        </div>
+        <div class="col-sm-6 text-right">
+          <a class="btn rounded-button">Programmende</a>
+          <button class="btn btn-default m-l-10">I</button>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="row">
-    <div class="col-md-3" *ngFor="let i of totalBooksPage;let p=index">
-      <ul class="main-page-list">
-        <ng-container *ngFor="let b of books;let a=index">
-          <li *ngIf="(a+1)<=((p+1)*12)" (click)="findLession(b.id,a)" [ngClass]="{'active':currentBook==a}">
-            <span class="red"></span> {{b.name}}
-          </li>
-        </ng-container>
-      </ul>
-    </div>
-    <div class="col-md-3" *ngFor="let i of totalLessionPage;let p=index">
-      <ul class="main-page-list">
-        <ng-container *ngFor="let t of lessions;let a=index">
-          <li *ngIf="(a+1)<=((p+1)*12)" (click)="findExerciseTitle(t.id,a)" [ngClass]="{'active':currentLession==a}">
-            <span class="red"></span> {{t.name}}
-          </li>
-        </ng-container>
-      </ul>
-    </div>
-    <div class="col-md-3 titles" *ngFor="let i of totalTitlesPage;let p=index">
-      <ul class="main-page-list">
-        <ng-container *ngFor="let t of titles;let a=index" >
-          <li *ngIf="(a+1)<=((p+1)*12)" (click)="getPageContent(t.id)">
-            <span class="red"></span> {{t.name}}
-          </li>
-        </ng-container>
-      </ul>
-    </div>
-  </div>
-
-  <div class="row last-buttons">
-    <div class="col-sm-6 text-left">
-      <a class="btn rounded-button">Belkeninfo</a>
-    </div>
-    <div class="col-sm-6 text-right">
-      <a class="btn rounded-button">Programmende</a>
-      <button class="btn btn-default m-l-10">I</button>
-    </div>
-  </div>
-</div>
   <div *ngIf="pageContent" class="page-content" [innerHTML]="pageContent">
 
   </div>

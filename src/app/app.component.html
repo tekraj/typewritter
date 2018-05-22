@@ -1,4 +1,4 @@
-<section [style.background]="'url('+background+')'" >
+<section [ngStyle]="{'background': 'url('+background+') 0% 0%/ 100% '+innerHeight+'px','height':innerHeight+'px'}" >
 	<div class="top-theme">
 		<p>Wahle delman Llebllng&rahmen</p>
 		<span (click)="changeBackground()" class="change-border">{{backgroundNo}}</span>

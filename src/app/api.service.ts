@@ -30,7 +30,7 @@ export class ApiService {
    return this.http.get(baseUrl+'flag=lekt&autor=732&lekt_nr=14&st_lfdnr='+bookId+'&api=1').toPromise();
   }
 
-  getExerciseTitles(lessionId:number,bookId:number){
+  getTitles(lessionId:number,bookId:number){
     return this.http.get(baseUrl+'flag=uebg_t&lekt_nr='+lessionId+'&st_lfdnr'+bookId+'&api=1').toPromise();
   }
 
