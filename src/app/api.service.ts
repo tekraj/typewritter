@@ -17,8 +17,8 @@ export class ApiService {
     return this.http.get(baseUrl+'flag=1&gnr=ch52ne&myVersion=8.0&api=1').toPromise();;
   }
 
-  forgotPassword(email:string){
-    return this.http.get(baseUrl+'flag=2&suchname=chandrantwins@gmail.com&api').toPromise();
+  resetPassword(email:string){
+    return this.http.get(baseUrl+'flag=2&suchname='+email+'&api').toPromise();
   }
 
   getBooks(){

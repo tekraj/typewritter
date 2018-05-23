@@ -32,42 +32,50 @@
 			<p>Allerdings kannst du dammit keine personlichen Ergebnisse speichern.</p>
 		</div>
 		<div class="container">
-			<form (ngSubmit)="login()">
 				<div class="box text-left col-sm-8 centered">
-					<div class="row">
-						<div class="col-sm-6">
-							<h4>Eingabe deines gemcodes:</h4>
-						</div>
-						<div class="col-sm-3 input-div">
-							<input type="password"  [(ngModel)]="model.password" name="password" class="login-input">
-						</div>
-						<div class="col-sm-3">
-							<button type="submit" class="btn btn-default btn-block">Login</button>
-						</div>
+					<form (ngSubmit)="login()">
+						<div class="row">
+							<div class="col-sm-6">
+								<h4>Eingabe deines gemcodes:</h4>
+							</div>
+							<div class="col-sm-3 input-div">
+								<input type="password"  [(ngModel)]="model.password" name="password" class="login-input">
+							</div>
+							<div class="col-sm-3">
+								<button type="submit" class="btn btn-default btn-block">Login</button>
+							</div>
 
-					</div>
-
-					<div class="clearfix-div">
-						<span>&nbsp;</span>
-						<span>&nbsp;</span>
-						<span>&nbsp;</span>
-					</div>
-					<div class="row">
-						<div class="col-sm-9 next-input-div">
-							<p class="text-left">Nach 5 Password-Fehlversuchen wird die Addresse gesperrt. Du kanst</p>
-							<p> aber unterhalb deine Emailaddresse eingeben dann wird dir das Password</p>
-							<p> an deine eingetragene Emailaddresse geschickt.</p>
-							<input type="email" class="next-login-input" [(ngModel)]="model.email" name="email">
 						</div>
-						<div class="col-sm-3">
-							<button type="submit" class="btn btn-default btn-block verify-password">
-								<p>Password</p>
-								<p>Bergessan</p>
-							</button>
+					</form>
+					<div class="clearfix-div show-bar-span-login">
+						<div class="bar-span" *ngIf="!loginProgress">
+							<span>&nbsp;</span>
+							<span>&nbsp;</span>
+							<span>&nbsp;</span>
 						</div>
-
+						<div class="login-status" *ngIf="loginProgress">
+								{{message}}
+						</div>
+						
 					</div>
+					<form (ngSubmit)="resetPassword()">
+						<div class="row">
+							<div class="col-sm-9 next-input-div">
+								<p class="text-left">Nach 5 Password-Fehlversuchen wird die Addresse gesperrt. Du kanst</p>
+								<p> aber unterhalb deine Emailaddresse eingeben dann wird dir das Password</p>
+								<p> an deine eingetragene Emailaddresse geschickt.</p>
+								<input type="email" class="next-login-input" [(ngModel)]="model.email" name="email">
+							</div>
+							<div class="col-sm-3">
+								<button type="submit" class="btn btn-default btn-block verify-password">
+									<p>Password</p>
+									<p>Bergessan</p>
+								</button>
+							</div>
+
+						</div>
+					</form>
 				</div>
-			</form>
+			
 		</div>
 	</div>

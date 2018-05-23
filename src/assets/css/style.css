@@ -1,8 +1,8 @@
 body{
 	overflow: hidden;
-	font-family: 'Noticia Text', serif;
+	font-family:'arial';
 }
-body,p,h1,h2,h3,h4,h5,h6,p,li,a,span,button{
+header{
 	font-family: 'Noticia Text', serif!important;
 }
 
@@ -173,21 +173,21 @@ margin-right: 380px;
 
 .show {display:block;}
 
-.btn.btn-top{
+.btn.btn-top {
     background: #d2e2ff;
     border: 1px solid #5555d4;
     border-radius: 30px;
-    color: #ff5151;
+    color: #d21212;
     font-weight: bold;
     text-align: center;
-    padding: 4px 20px;
-    max-height: 28px;
+    padding: 2px 20px;
+    max-height: 24px;
     line-height: normal;
     width: 100%;
-	display: block;
-	font-size:13px;
-	overflow: hidden;
-	transition: none!important;
+    display: block;
+    font-size: 12px;
+    overflow: hidden;
+    transition: none!important;
 }
 .btn.btn-top:hover{background:#fff;}
 .btn.btn-top-bright,.btn.btn-top-bright.active,.first-active .btn.btn-top{
@@ -197,12 +197,12 @@ margin-right: 380px;
     color: #ff5151;
     font-weight: bold;
     text-align: center;
-    padding: 4px 20px;
-    max-height: 28px;
+	padding: 2px 20px;
+    max-height: 24px;
     line-height: normal;
     width: 100%;
 	display: block;
-	font-size:13px;
+	font-size:12px;
 	overflow: hidden;
 	transition: none!important;
 }
@@ -352,7 +352,7 @@ span.red {
     position: absolute;
     left: 4px;
     z-index: 22222;
-    top: 0px;
+    top: -1px;
     width: 21px;
     height: 16px;
     border-radius: 50%;
@@ -427,7 +427,13 @@ span.red {
 }
 .typing .btn{margin-top:6px;}
 .info-text{margin-top:5px;margin-bottom: 5px;}
-.info-text p{font-size:16px; color:#bbb;margin-bottom:0;line-height: normal;}
+.info-text p {
+    font-size: 14px;
+    color: #d6d6d6;
+    margin-bottom: 0;
+    line-height: normal;
+    font-family: arial!important;
+}
 .centered{float:none;clear: both;margin:auto;}
 .box input{display: block;width:100%;height:27px;padding:10px;border:2px solid #000;}
 .box .input-div input{color:#ea0408;background:#fff;outline:none!important;}
@@ -492,7 +498,7 @@ span.red {
 	margin: 0;
 	z-index: 999;
 }
-.book-dropdown ul li{visibility: hidden;opacity: 0;}
+.book-dropdown ul li{visibility: hidden;opacity: 0;position: relative;}
 .book-dropdown ul li.active,.book-dropdown ul li.first-active{visibility: visible;opacity: 1;}
 .hide{display: none;}
 .nach-buttons-group {
@@ -503,3 +509,72 @@ span.red {
 }
 .nach-buttons-group .btn:first-child{margin-right: 5px;}
 .last-buttons-wrapper{position: absolute;left:15px;right:15px;bottom:5px;}
+.login-status{
+    width: 50%;
+    margin: auto;
+    font-size: 19px;
+    line-height: normal;
+    color: #00abc0;
+}
+.show-bar-span-login{min-height: 92px;}
+.bar-span{padding-top:12px;}
+.book-desc {
+    position: absolute;
+    right: -250px;
+    top: 1px;
+    width: 243px;
+    min-height: 42px;
+    padding: 5px 10px;
+    text-align: left;
+    background: rgb(163, 176, 185);
+    border-radius: 15px;
+    color: #3366d2;
+	line-height: 20px;
+	display:none;
+	z-index: 999;
+}
+.book-dropdown ul li:hover .book-desc{display: inline-block;}
+.sign-color-info {
+    width: 725px;
+    position: relative;
+    margin: auto;
+    background: #003366;
+    border: 2px solid red;
+    border-radius: 15px;
+    top: -425px;
+    z-index: 1000;
+    padding: 20px;
+    color: #fff;
+    text-align: center;
+}
+.sign-color-info p {
+    line-height: 18px;
+    margin: 0;
+    font-size: 15px;
+}
+.btn-direction{
+    border: 2px solid #dd3333;
+    border-radius: 20px;
+    background: linear-gradient(#f35555, white, #980000);
+    text-align: center;
+    position: relative;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 0;
+    font-weight: bold;
+	color: #000;
+	width: 75%!important;
+    margin: 5px auto 20px auto;
+}
+.btn-direction .red{top:8px;}
+.wertz-wrapper {margin-top:25px;}
+.color-indicator-info{padding:0;margin:0;list-style: none;}
+.color-indicator-info li{padding:0px 0;margin:0;}
+.color-box{
+    display: inline-block;
+    width: 25px;
+    height: 20px;
+    vertical-align: middle;
+}
+.pull-right{float:right;}
+.wertz-wrapper .rounded-button{margin-top:-15px;}

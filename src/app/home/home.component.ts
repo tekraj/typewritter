@@ -8,13 +8,13 @@ import { ApiService } from '../api.service';
   providers: [ApiService]
 })
 export class HomeComponent implements OnInit {
-  public books: Array<{ id: number, name: string }>;
+  public books: Array<{ id: number, name: string,desc:string }>;
   public lessions: Array<{ id: number, name: string }>;
   public titles: Array<{ id: number, name: string }>;
   public exercises: Array<{ id: number, name: string }>;
   private bookId: number;
   public totalBooksPage: Array<number>;
-  public copyBooks: Array<{ id: number, name: string }>;
+  public copyBooks: Array<{ id: number, name: string,desc:string }>;
   public totalLessionPage: Array<number>;
   public totalTitlesPage : Array<number>;
   public currentLession : number;
@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   public showAllBooks : boolean = false;
   public currentBookIndex:number = 0;
   public totalExercisePage : Array<number>;
-
+  public colorInfo : boolean = false;
   constructor(private _apiService: ApiService) {
     this.books = [];
     this.lessions = [];
@@ -40,10 +40,11 @@ export class HomeComponent implements OnInit {
   public findBooks = ()=>{
     this._apiService.getBooks().then((books) => {
       let ids = books['1'].replace('a_lfdnr=', '').replace('0', '').split('|');
-      let allBooks = books['3'].replace('a_bemerk=|', '').replace('0', '').split('|');
+      let allBooks = books['2'].replace('a_name=chandran nepolean|', '').replace('0', '').split('|');
+      let allDesc = books['3'].replace('a_bemerk=|', '').replace('0', '').split('|');
       allBooks.forEach((element, i) => {
         if (element != '0' && element != 0) {
-          this.books.push({ id: ids[i], name: element });
+          this.books.push({ id: ids[i], name: element,desc:allDesc[i] });
         }
       });
       this.copyBooks = this.books;
@@ -65,6 +66,7 @@ export class HomeComponent implements OnInit {
     this.lessions = [];
    this.exercises = [];
     this._apiService.getLessions(bookId).then((lessions) => {
+      console.log(lessions);
       let ids = lessions['3'].replace('lekt_nr=', '').replace('0', '').split('|');
       let allLessions = lessions['4'].replace('lekt_name=', '').replace('0', '').split('|');
       allLessions.forEach((element, i) => {
@@ -142,8 +144,12 @@ export class HomeComponent implements OnInit {
       }
         
     }
-    console.log(arrayPart);
+    
     return arrayPart;
   }
 
+
+  showColorInfo(){
+    this.colorInfo = this.colorInfo ? false : true;
+  }
 }

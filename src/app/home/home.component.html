@@ -16,6 +16,7 @@
           <ul>
             <li *ngFor="let b of copyBooks;let a=index" [ngClass]="{'active':showAllBooks,'first-active' : (a===currentBookIndex),'hide':(a>5 && a!=currentBookIndex && !showAllBooks)}">
               <button class="btn btn-top" (click)="findLession(b.id,a)">{{b.name}}</button>
+              <span class="book-desc">{{b.desc}}</span>
             </li>
           </ul>
         </div>
@@ -24,12 +25,12 @@
         <img src="../assets/images/12.gif">
         <p class="col-sm-9 centered">Meine bisherigen Arbeiten: sortiert nach</p>
         <div class="text-center nach-buttons-group">
-          <button class="btn btn-default">
+          <a href="http://mms.pphlinz.at/mms_get_protokoll.php?flag=get_prot&st_lfdnr=910&reihg_flag=0" target="_blank" class="btn btn-default">
             Datum
-          </button>
-          <button class="btn btn-default">
+          </a>
+          <a href="http://mms.pphlinz.at/mms_get_protokoll.php?flag=get_prot&st_lfdnr=910&reihg_flag=1" target="_blank" class="btn btn-default">
             Ubgs-Nr .
-          </button>
+          </a>
         </div>
       </div>
     </div>
@@ -79,10 +80,10 @@
     <div class="last-buttons-wrapper">
       <div class="row last-buttons">
         <div class="col-sm-6 text-left">
-          <a class="btn rounded-button">Belkeninfo</a>
+          <a class="btn rounded-button" href="http://mms.pphlinz.at/lektionen/default.php" target="_blank">Lehrer</a>
         </div>
         <div class="col-sm-6 text-right">
-          <a class="btn rounded-button">Programmende</a>
+          <button class="btn rounded-button" (click)="showColorInfo()">Balkeninfo</button>
           <button class="btn btn-default m-l-10">I</button>
         </div>
       </div>
@@ -91,4 +92,67 @@
   <div *ngIf="pageContent" class="page-content" [innerHTML]="pageContent">
 
   </div>
+ 
 </div>
+<div class="sign-color-info" *ngIf="colorInfo">
+    <h3>Zeichen-und farbenerklarung</h3>
+    <div class="row">
+      <div class="col-sm-6">
+        <p>
+          <b>Fehlerfreiheit</b>
+        </p>
+        <p>
+          <b>(grober Balken)</b>
+        </p>
+        <p>dies ist die wichtigset</p>
+        <p>Zahl: bester</p>
+        <p>Wert=100%</p>
+      </div>
+      <div class="col-sm-6">
+        <p>
+          <b>Geschwindigkeit:</b>
+        </p>
+        <p>optimaler Wert=200 A.</p>
+        <p>(Anschlage/Min)</p>
+      </div>
+    </div>
+    <div class="direction-button">
+      <span class="top-left-dir"></span>
+      <span class="top-right-dir"></span>
+      <button class="btn-direction btn-block">
+          <span _ngcontent-c1="" class="red"></span>
+          Diktat 2 Grundreihe
+        </button>
+      <span class="bottom-left-dir"></span>
+      <span class="bottom-right-dir"></span>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <p>
+          <b>Anzahl der Wiederholungen:</b>
+        </p>
+        <p> wie oft wurde diese Übung</p>
+        <p>bereits durchgefuhrt!</p>
+      </div>
+      <div class="col-sm-6">
+        <p>
+          <b>Taktschreiben:</b>
+        </p>
+        <p>zweitwichtigster Wert</p>
+        <p>bester Wert=100 Pkt</p>
+      </div>
+    </div>
+    <div class="wertz-wrapper text-left" >
+      <p>
+        <b>Wertungsfarben und -stufe:</b>1.Leistungesstufef</p>
+      <ul class="color-indicator-info">
+        <li>
+          <span class="color-box" [style.background]="'#0000ff'"></span> Farbe blau: 0 bis 30 Anschläge/Minute </li>
+        <li>
+          <span class="color-box" [style.background]="'#ffff00'"></span> Farbe gelb : 30 bis 60 Anschlage/Minute</li>
+        <li>
+          <span class="color-box" [style.background]="'#ff0000'"></span> Farbe rot: mehr als 60 Anschlage/Minute</li>
+      </ul>
+      <button class="btn rounded-button pull-right" (click)="showColorInfo()">Schlieben</button>
+    </div>
+  </div>
