@@ -1,0 +1,216 @@
+<header class="login-header">
+  <div class="container-fluid">
+    <h1 class="text-center">MM-Schreibtrainer</h1>
+    <div class="row">
+      <div class="col-md-2 text-center typing">
+        <img src="../assets/images/12.gif">
+        <a href="#" class="btn btn-default btn-block">
+          Anmelden
+        </a>
+      </div>
+      <div class="col-md-8">
+        <p>Multimedia-Abteilung</p>
+        <p> PH der Diozese Linz</p>
+        <p>(c17) alois.bachinger@ph-linz.at</p>
+        <p class="small">Flashplayer grober Vers. 6 notwending! (etonzto)</p>
+        <p class="small version">Vers. 8.0</p>
+      </div>
+      <div class="col-md-2 typing">
+        <img src="../assets/images/12.gif">
+        <a href="#" class="btn btn-default btn-block">
+          Programende
+        </a>
+
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="container-fluid container5 module-container">
+  <div class="module-content">
+    <h1>INDIVIDUALMODULES</h1>
+    <div class="row">
+      <div class="col-sm-3">
+        <h4>A) Tastatur</h4>
+        <ul class="keybord-tast first-tast">
+          <li>
+            <span class="spn-text">Oberreihe:</span>
+            <span class="sp-btn-group">
+              <button class="btn btn-default first-tast-btn" (click)="setTypeValue('quert',1,1)">li</button>
+              <button class="btn btn-default first-tast-btn" (click)="setTypeValue('zuiop',1,2)">re</button>
+            </span>
+          </li>
+          <li>
+            <span class="spn-text">Grundreihe:</span>
+            <span class="sp-btn-group">
+              <button class="btn btn-default first-tast-btn" (click)="setTypeValue('asdfg',2,3)">li</button>
+              <button class="btn btn-default first-tast-btn" (click)="setTypeValue('hjklö',2,4)">re</button>
+            </span>
+          </li>
+          <li>
+            <span class="spn-text">Unterreihe:</span>
+            <span class="sp-btn-group">
+              <button class="btn btn-default first-tast-btn" (click)="setTypeValue('yxcvb',3,5)">li</button>
+              <button class="btn btn-default first-tast-btn" (click)="setTypeValue('nm,.-',3,6)">re</button>
+            </span>
+          </li>
+          <li>
+            <span class="spn-text">Ziffernreihe:</span>
+            <span class="sp-btn-group">
+              <button class="btn btn-default first-tast-btn" (click)="setTypeValue('123456',4,7)">li</button>
+              <button class="btn btn-default first-tast-btn" (click)="setTypeValue('7890ß',4,8)">re</button>
+            </span>
+          </li>
+          <li>
+            <span class="spn-text">Zeichen und Symbole:</span>
+            <span class="sp-btn-group">
+              <button class="btn btn-default first-tast-btn" (click)='setTypeValue("!§$\"%&",5,9)'>a</button>
+              <button class="btn btn-default first-tast-btn" (click)="setTypeValue('/()=?',5,10)">b</button>
+            </span>
+          </li>
+          <li>
+            <span class="spn-text">Alt-GR-Zeichnen:</span>
+            <span class="sp-btn-group">
+              <button class="btn btn-default first-tast-btn" (click)="setTypeValue('+`´#*\'^°',6,11)">a</button>
+              <button class="btn btn-default first-tast-btn" (click)="setTypeValue('{}[]\€~|@',6,12)">b</button>
+            </span>
+          </li>
+          <li>
+            <span class="spn-text">Alle Zeichen:</span>
+            <span class="sp-btn-group">
+              <button class="btn btn-default first-tast-btn" (click)="setTypeValue('Alle Zeichen',7,13)">a</button>
+              <button class="btn btn-default first-tast-btn" (click)="setTypeValue('Künft. Erweiterung',7,14)">&nbsp;</button>
+            </span>
+          </li>
+        </ul>
+      </div>
+      <div class="col-sm-4">
+        <h4>B) Arbeitsmodus</h4>
+        <ul class="keybord-tast arbeit">
+          <li>
+            <span class="spn-text">Schreibmaschinenmodus:</span>
+            <span class="sp-btn-group">
+              <button class="btn btn-default arbeit-btn">SM</button>
+            </span>
+          </li>
+          <li>
+            <span class="spn-text">Dikkat: Zufallsbuchstaben:</span>
+            <span class="sp-btn-group">
+              <button class="btn btn-default arbeit-btn">DZ</button>
+            </span>
+          </li>
+          <li>
+            <span class="spn-text">Dikkat - Texte:</span>
+            <span class="sp-btn-group">
+              <button class="btn btn-default arbeit-btn">DT</button>
+            </span>
+          </li>
+          <li>
+            <span class="spn-text">Buchstabensuche:</span>
+            <span class="sp-btn-group">
+              <button class="btn btn-default arbeit-btn">BS</button>
+            </span>
+          </li>
+          <li>
+            <span class="spn-text">Buchstabenspiel:</span>
+            <span class="sp-btn-group">
+              <button class="btn btn-default arbeit-btn">SP</button>
+            </span>
+          </li>
+        </ul>
+      </div>
+      <div class="col-sm-3">
+        <h4>C) Darstellung</h4>
+        <ul class="keybord-tast darst">
+          <li>
+            <span class="spn-text">Tastatur, Buchstable und Tastenicon:</span>
+            <span class="sp-btn-group">
+              <button class="btn btn-default darst-btn">1</button>
+            </span>
+          </li>
+          <li>
+            <span class="spn-text">Buchstabe und Icon:</span>
+            <span class="sp-btn-group">
+              <button class="btn btn-default darst-btn">2</button>
+            </span>
+          </li>
+          <li>
+            <span class="spn-text">Buchstabe:</span>
+            <span class="sp-btn-group">
+              <button class="btn btn-default darst-btn">3</button>
+            </span>
+          </li>
+          <li>
+            <span class="spn-text">Icon:</span>
+            <span class="sp-btn-group">
+              <button class="btn btn-default darst-btn">4</button>
+            </span>
+          </li>
+          <li>
+            <span class="spn-text">Buchstable-Sprache:</span>
+            <span class="sp-btn-group">
+              <button class="btn btn-default darst-btn">5</button>
+            </span>
+          </li>
+        </ul>
+      </div>
+      <div class="col-sm-2">
+        <h4>D) Sound</h4>
+        <div class="sound-group">
+          <button class="btn btn-default sound-btn active">Kein Sound</button>
+          <button class="btn btn-default sound-btn">Klick</button>
+          <button class="btn btn-default sound-btn">Bst</button>
+          <button class="btn btn-default sound-btn">Icon</button>
+          <button class="btn btn-default sound-btn">Metro aus</button>
+          <button class="btn btn-default sound-btn">HG1</button>
+          <button class="btn btn-default sound-btn">HG2</button>
+          <button class="btn btn-default sound-btn">HG3</button>
+          <button class="btn btn-default sound-btn">HG4</button>
+          <button class="btn btn-default sound-btn">HG5</button>
+          <button class="btn btn-default sound-btn">HG6</button>
+          <button class="btn btn-default sound-btn">HG7</button>
+          <button class="btn btn-default sound-btn">HG8</button>
+          <button class="btn btn-default sound-btn">HG9</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row last-btn-module">
+    <div class="col-sm-1 col-sm-half text-left btn-l-d">
+      <a class="btn btn-default m-l-10" href="http://mms.pphlinz.at/mmms_docu.pdf" target="_blank">D</a>
+    </div>
+    <div class="col-sm-11">
+      <div class="space-bars">
+        <div class="row text-right space-top-bar">
+          <div class="col-sm-3">
+            <p>Ubungstext:</p>
+          </div>
+          <div class="col-sm-6">
+            <input type="text" [(ngModel)]="typeSettins.value" value="asdfghjklo" class="form-control">
+          </div>
+          <div class="col-sm-3 mult-ul-div">
+            <p class="text-right">Anzahl/Whlg:</p>
+            <ul>
+              <li>
+                <button class="btn btn-default size-btn">1</button>
+              </li>
+              <li>
+                <button class="btn btn-default size-btn">20</button>
+              </li>
+              <li>
+                <button class="btn btn-default size-btn">50</button>
+              </li>
+              <li>
+                <button class="btn btn-default size-btn">100</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <button class="btn btn-default btn-block">Ubungsstart</button>
+      </div>
+    </div>
+    <div class="col-sm-1 col-sm-half text-right btn-r-d">
+      <a class="btn btn-default m-l-10" routerLink="/home">L</a>
+    </div>
+  </div>
+</div>

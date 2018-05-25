@@ -35,7 +35,7 @@ export class ApiService {
   }
 
   getExercise(titleId:number){
-    return this.http.get(baseUrl+'flag=uebg&lekt_nr=14&api=1').toPromise();
+    return this.http.get(baseUrl+'flag=uebg&lekt_nr='+titleId+'&api=1').toPromise();
   }
 
   setProt(){
