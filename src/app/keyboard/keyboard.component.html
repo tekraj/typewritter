@@ -76,21 +76,22 @@
 </div>
 <div class="container-fluid container5 info-container">
     <ul id="keyboard">
-        <li [ngClass]="{'active':keyValue==='`'}" class="symbol" (click)="writeText('`')"><span class="off">`</span><span class="on">~</span></li>
+        <li [ngClass]="{'active':keyValue==='`'}" class="symbol" (click)="writeText('`')"><span class="off"></span>°<span class="on">^</span></li>
         <li [ngClass]="{'active':keyValue==='1'}" class="symbol" (click)="writeText(1)"><span class="off">1</span><span class="on">!</span></li>
-        <li [ngClass]="{'active':keyValue==='2'}" class="symbol" (click)="writeText(2)"><span class="off">2</span><span class="on">@</span></li>
-        <li [ngClass]="{'active': keyValue==='3'}" class="symbol" (click)="writeText(3)"><span class="off">3</span><span class="on">#</span></li>
+        <li [ngClass]="{'active':keyValue==='2'}" class="symbol" (click)="writeText(2)"><span class="off">2</span><span class="on">//"</span></li>
+        <li [ngClass]="{'active': keyValue==='3'}" class="symbol" (click)="writeText(3)"><span class="off">3</span><span class="on">§</span></li>
         <li [ngClass]="{'active':keyValue==='4'}" class="symbol" (click)="writeText(4)"><span class="off">4</span><span class="on">$</span></li>
         <li [ngClass]="{'active':keyValue==='5'}" class="symbol" (click)="writeText(5)"><span class="off">5</span><span class="on">%</span></li>
-        <li [ngClass]="{'active':keyValue==='6'}" class="symbol" (click)="writeText(6)"><span class="off">6</span><span class="on">^</span></li>
+        <li [ngClass]="{'active':keyValue==='6'}" class="symbol" (click)="writeText(6)"><span class="off">6</span><span class="on">&</span></li>
         <li [ngClass]="{'active':keyValue==='7'}" class="symbol" (click)="writeText(7)"><span class="off">7</span><span class="on">&amp;</span></li>
-        <li [ngClass]="{'active':keyValue==='8'}" class="symbol" (click)="writeText(8)"><span class="off">8</span><span class="on">*</span></li>
-        <li [ngClass]="{'active':keyValue==='9'}" class="symbol" (click)="writeText(9)"><span class="off">9</span><span class="on">(</span></li>
-        <li [ngClass]="{'active':keyValue==='0'}" class="symbol" (click)="writeText(10)"><span class="off">0</span><span class="on">)</span></li>
-        <li [ngClass]="{'active':keyValue==='-'}" class="symbol" (click)="writeText('-')"><span class="off">-</span><span class="on">_</span></li>
-        <li [ngClass]="{'active':keyValue==='='}" class="symbol" (click)="writeText('=')"><span class="off">=</span><span class="on">+</span></li>
-        <li class="delete lastitem">delete</li>
-        <li class="tab">tab</li>
+        <li [ngClass]="{'active':keyValue==='8'}" class="symbol" (click)="writeText(8)"><span class="off">8</span><span class="on">(</span></li>
+        <li [ngClass]="{'active':keyValue==='9'}" class="symbol" (click)="writeText(9)"><span class="off">9</span><span class="on">)</span></li>
+        <li [ngClass]="{'active':keyValue==='0'}" class="symbol" (click)="writeText(10)"><span class="off">0</span><span class="on">=</span></li>
+        <li [ngClass]="{'active':keyValue==='-'}" class="symbol" (click)="writeText('?')"><span class="off">ß</span><span class="on">?</span></li>
+        <li [ngClass]="{'active':keyValue==='='}" class="symbol" (click)="writeText('`')"><span class="off">´</span><span class="on">`</span></li>
+        <li [ngClass]="{'active':keyValue==='='}" class="symbol" (click)="writeText('=')"><span class="off">#</span></li>
+        <li class="backspace lastitem"><-</li>
+        <li class="tab">->|<br>|<-</li>
         <li [ngClass]="{'active':keyValue==='q'}" class="letter" (click)="writeText('q')">q</li>
         <li [ngClass]="{'active':keyValue==='w'}" class="letter" (click)="writeText('w')">w</li>
         <li [ngClass]="{'active':keyValue==='e'}" class="letter" (click)="writeText('e')">e</li>
@@ -101,9 +102,8 @@
         <li [ngClass]="{'active':keyValue==='i'}" class="letter" (click)="writeText('i')">i</li>
         <li [ngClass]="{'active':keyValue==='o'}" class="letter" (click)="writeText('o')">o</li>
         <li [ngClass]="{'active':keyValue==='p'}" class="letter" (click)="writeText('p')">p</li>
-        <li [ngClass]="{'active':keyValue==='['}" class="symbol" (click)="writeText('[')"><span class="off">[</span><span class="on">{{'{'}}</span></li>
-        <li [ngClass]="{'active':keyValue===']'}" class="symbol" (click)="writeText(']')"><span class="off">]</span><span class="on">{{'}'}}</span></li>
-        <li class="symbol lastitem" [ngClass]="{'active':keyValue==='|'}" (click)="writeText('|')"><span class="off">\</span><span class="on">|</span></li>
+        <li [ngClass]="{'active':keyValue==='ü'}" class="letter" (click)="writeText('ü')">ü</li>
+        <li [ngClass]="{'active':keyValue==='['}" class="symbol" (click)="writeText('+')"><span class="off">+</span><span class="on">*</span></li>
         <li class="capslock">caps lock</li>
         <li [ngClass]="{'active':keyValue==='a'}" class="letter" (click)="writeText('a')">a</li>
         <li [ngClass]="{'active':keyValue==='s'}" class="letter" (click)="writeText('s')">s</li>
@@ -116,7 +116,7 @@
         <li [ngClass]="{'active':keyValue==='l'}" class="letter" (click)="writeText('l')">l</li>
         <li [ngClass]="{'active':keyValue===':'}" class="symbol" (click)="writeText(';')"><span class="off">;</span><span class="on">:</span></li>
         <li [ngClass]="{'active':keyValue==='`'}" class="symbol" (click)="writeText('`')"><span class="off">'</span><span class="on">&quot;</span></li>
-        <li class="return lastitem">return</li>
+        <li class="return lastitem">Enter</li>
         <li class="left-shift">shift</li>
         <li [ngClass]="{'active':keyValue==='z'}" class="letter" (click)="writeText('z')">z</li>
         <li [ngClass]="{'active':keyValue==='x'}" class="letter" (click)="writeText('x')">x</li>
