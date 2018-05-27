@@ -36,50 +36,50 @@
           <li>
             <span class="spn-text">Oberreihe:</span>
             <span class="sp-btn-group">
-              <button class="btn btn-default first-tast-btn" (click)="setTypeValue('quert',1,1)">li</button>
-              <button class="btn btn-default first-tast-btn" (click)="setTypeValue('zuiop',1,2)">re</button>
+              <button class="btn btn-default first-tast-btn" [ngClass]="{'active':tasterButton==1}"  (click)="setTypeValue('quert',1,1)">li</button>
+              <button class="btn btn-default first-tast-btn" [ngClass]="{'active':tasterButton==2}" (click)="setTypeValue('zuiop',1,2)">re</button>
             </span>
           </li>
           <li>
             <span class="spn-text">Grundreihe:</span>
             <span class="sp-btn-group">
-              <button class="btn btn-default first-tast-btn" (click)="setTypeValue('asdfg',2,3)">li</button>
-              <button class="btn btn-default first-tast-btn" (click)="setTypeValue('hjklö',2,4)">re</button>
+              <button class="btn btn-default first-tast-btn" [ngClass]="{'active':tasterButton==3}" (click)="setTypeValue('asdfg',2,3)">li</button>
+              <button class="btn btn-default first-tast-btn" [ngClass]="{'active':tasterButton==4}" (click)="setTypeValue('hjklö',2,4)">re</button>
             </span>
           </li>
           <li>
             <span class="spn-text">Unterreihe:</span>
             <span class="sp-btn-group">
-              <button class="btn btn-default first-tast-btn" (click)="setTypeValue('yxcvb',3,5)">li</button>
-              <button class="btn btn-default first-tast-btn" (click)="setTypeValue('nm,.-',3,6)">re</button>
+              <button class="btn btn-default first-tast-btn" [ngClass]="{'active':tasterButton==5}" (click)="setTypeValue('yxcvb',3,5)">li</button>
+              <button class="btn btn-default first-tast-btn" [ngClass]="{'active':tasterButton==6}" (click)="setTypeValue('nm,.-',3,6)">re</button>
             </span>
           </li>
           <li>
             <span class="spn-text">Ziffernreihe:</span>
             <span class="sp-btn-group">
-              <button class="btn btn-default first-tast-btn" (click)="setTypeValue('123456',4,7)">li</button>
-              <button class="btn btn-default first-tast-btn" (click)="setTypeValue('7890ß',4,8)">re</button>
+              <button class="btn btn-default first-tast-btn" [ngClass]="{'active':tasterButton==7}" (click)="setTypeValue('123456',4,7)">li</button>
+              <button class="btn btn-default first-tast-btn" [ngClass]="{'active':tasterButton==8}" (click)="setTypeValue('7890ß',4,8)">re</button>
             </span>
           </li>
           <li>
             <span class="spn-text">Zeichen und Symbole:</span>
             <span class="sp-btn-group">
-              <button class="btn btn-default first-tast-btn" (click)='setTypeValue("!§$\"%&",5,9)'>a</button>
-              <button class="btn btn-default first-tast-btn" (click)="setTypeValue('/()=?',5,10)">b</button>
+              <button class="btn btn-default first-tast-btn" [ngClass]="{'active':tasterButton==9}" (click)='setTypeValue("!§$\"%&",5,9)'>a</button>
+              <button class="btn btn-default first-tast-btn" [ngClass]="{'active':tasterButton==10}" (click)="setTypeValue('/()=?',5,10)">b</button>
             </span>
           </li>
           <li>
             <span class="spn-text">Alt-GR-Zeichnen:</span>
             <span class="sp-btn-group">
-              <button class="btn btn-default first-tast-btn" (click)="setTypeValue('+`´#*\'^°',6,11)">a</button>
-              <button class="btn btn-default first-tast-btn" (click)="setTypeValue('{}[]\€~|@',6,12)">b</button>
+              <button class="btn btn-default first-tast-btn" [ngClass]="{'active':tasterButton==11}" (click)="setTypeValue('+`´#*\'^°',6,11)">a</button>
+              <button class="btn btn-default first-tast-btn" [ngClass]="{'active':tasterButton==12}" (click)="setTypeValue('{}[]\€~|@',6,12)">b</button>
             </span>
           </li>
           <li>
             <span class="spn-text">Alle Zeichen:</span>
             <span class="sp-btn-group">
-              <button class="btn btn-default first-tast-btn" (click)="setTypeValue('Alle Zeichen',7,13)">a</button>
-              <button class="btn btn-default first-tast-btn" (click)="setTypeValue('Künft. Erweiterung',7,14)">&nbsp;</button>
+              <button class="btn btn-default first-tast-btn" [ngClass]="{'active':tasterButton==13}" (click)="setTypeValue('Alle Zeichen',7,13)">a</button>
+              <button class="btn btn-default first-tast-btn" [ngClass]="{'active':tasterButton==14}" (click)="setTypeValue('Künft. Erweiterung',7,14)">&nbsp;</button>
             </span>
           </li>
         </ul>
@@ -90,31 +90,31 @@
           <li>
             <span class="spn-text">Schreibmaschinenmodus:</span>
             <span class="sp-btn-group">
-              <button class="btn btn-default arbeit-btn">SM</button>
+              <button class="btn btn-default arbeit-btn" (click)="setWorkingMode('typewriterMode')" [ngClass]="{'active':typeSettings.typewriterMode=='typewriterMode'}">SM</button>
             </span>
           </li>
           <li>
             <span class="spn-text">Dikkat: Zufallsbuchstaben:</span>
             <span class="sp-btn-group">
-              <button class="btn btn-default arbeit-btn">DZ</button>
+              <button class="btn btn-default arbeit-btn" (click)="setWorkingMode('randomNumber')" [ngClass]="{'active':typeSettings.typewriterMode=='randomNumber'}" >DZ</button>
             </span>
           </li>
           <li>
             <span class="spn-text">Dikkat - Texte:</span>
             <span class="sp-btn-group">
-              <button class="btn btn-default arbeit-btn">DT</button>
+              <button class="btn btn-default arbeit-btn" (click)="setWorkingMode('text')" [ngClass]="{'active':typeSettings.typewriterMode=='text'}">DT</button>
             </span>
           </li>
           <li>
             <span class="spn-text">Buchstabensuche:</span>
             <span class="sp-btn-group">
-              <button class="btn btn-default arbeit-btn">BS</button>
+              <button class="btn btn-default arbeit-btn" (click)="setWorkingMode('letterSeek')" [ngClass]="{'active':typeSettings.typewriterMode=='letterSeek'}">BS</button>
             </span>
           </li>
           <li>
             <span class="spn-text">Buchstabenspiel:</span>
             <span class="sp-btn-group">
-              <button class="btn btn-default arbeit-btn">SP</button>
+              <button class="btn btn-default arbeit-btn" (click)="setWorkingMode('letterGame')" [ngClass]="{'active':typeSettings.typewriterMode=='letterGame'}">SP</button>
             </span>
           </li>
         </ul>
@@ -125,31 +125,31 @@
           <li>
             <span class="spn-text">Tastatur, Buchstable und Tastenicon:</span>
             <span class="sp-btn-group">
-              <button class="btn btn-default darst-btn">1</button>
+              <button class="btn btn-default darst-btn" (click)="setPresentation(1)" [ngClass]="{'active':typeSettings.presentation===1}">1</button>
             </span>
           </li>
           <li>
             <span class="spn-text">Buchstabe und Icon:</span>
             <span class="sp-btn-group">
-              <button class="btn btn-default darst-btn">2</button>
+              <button class="btn btn-default darst-btn" (click)="setPresentation(2)" [ngClass]="{'active':typeSettings.presentation===2}">2</button>
             </span>
           </li>
           <li>
             <span class="spn-text">Buchstabe:</span>
             <span class="sp-btn-group">
-              <button class="btn btn-default darst-btn">3</button>
+              <button class="btn btn-default darst-btn" (click)="setPresentation(3)" [ngClass]="{'active':typeSettings.presentation===3}">3</button>
             </span>
           </li>
           <li>
             <span class="spn-text">Icon:</span>
             <span class="sp-btn-group">
-              <button class="btn btn-default darst-btn">4</button>
+              <button class="btn btn-default darst-btn" (click)="setPresentation(4)" [ngClass]="{'active':typeSettings.presentation===4}">4</button>
             </span>
           </li>
           <li>
             <span class="spn-text">Buchstable-Sprache:</span>
             <span class="sp-btn-group">
-              <button class="btn btn-default darst-btn">5</button>
+              <button class="btn btn-default darst-btn" (click)="setPresentation(5)" [ngClass]="{'active':typeSettings.presentation===5}">5</button>
             </span>
           </li>
         </ul>
@@ -157,20 +157,20 @@
       <div class="col-sm-2">
         <h4>D) Sound</h4>
         <div class="sound-group">
-          <button class="btn btn-default sound-btn active">Kein Sound</button>
-          <button class="btn btn-default sound-btn">Klick</button>
-          <button class="btn btn-default sound-btn">Bst</button>
-          <button class="btn btn-default sound-btn">Icon</button>
-          <button class="btn btn-default sound-btn">Metro aus</button>
-          <button class="btn btn-default sound-btn">HG1</button>
-          <button class="btn btn-default sound-btn">HG2</button>
-          <button class="btn btn-default sound-btn">HG3</button>
-          <button class="btn btn-default sound-btn">HG4</button>
-          <button class="btn btn-default sound-btn">HG5</button>
-          <button class="btn btn-default sound-btn">HG6</button>
-          <button class="btn btn-default sound-btn">HG7</button>
-          <button class="btn btn-default sound-btn">HG8</button>
-          <button class="btn btn-default sound-btn">HG9</button>
+          <button class="btn btn-default sound-btn"  (click)="setSound('kein_sound')" [ngClass]="{'active':typeSettings.sound=='kein_sound'}">Kein Sound</button>
+          <button class="btn btn-default sound-btn" (click)="setSound('click')" [ngClass]="{'active':typeSettings.sound=='click'}">Klick</button>
+          <button class="btn btn-default sound-btn" (click)="setSound('bst')" [ngClass]="{'active':typeSettings.sound=='bst'}">Bst</button>
+          <button class="btn btn-default sound-btn" (click)="setSound('icon')" [ngClass]="{'active':typeSettings.sound=='icon'}">Icon</button>
+          <button class="btn btn-default sound-btn" (click)="setSound('metro_aus')" [ngClass]="{'active':typeSettings.sound=='metro_aus'}">Metro aus</button>
+          <button class="btn btn-default sound-btn" (click)="setSound('hg1')" [ngClass]="{'active':typeSettings.sound=='hg1'}">HG1</button>
+          <button class="btn btn-default sound-btn" (click)="setSound('hg2')" [ngClass]="{'active':typeSettings.sound=='hg2'}">HG2</button>
+          <button class="btn btn-default sound-btn" (click)="setSound('hg3')" [ngClass]="{'active':typeSettings.sound=='hg3'}">HG3</button>
+          <button class="btn btn-default sound-btn" (click)="setSound('hg4')" [ngClass]="{'active':typeSettings.sound=='hg4'}">HG4</button>
+          <button class="btn btn-default sound-btn" (click)="setSound('hg5')" [ngClass]="{'active':typeSettings.sound=='hg5'}">HG5</button>
+          <button class="btn btn-default sound-btn" (click)="setSound('hg6')" [ngClass]="{'active':typeSettings.sound=='hg6'}">HG6</button>
+          <button class="btn btn-default sound-btn" (click)="setSound('hg7')" [ngClass]="{'active':typeSettings.sound=='hg7'}">HG7</button>
+          <button class="btn btn-default sound-btn" (click)="setSound('hg8')" [ngClass]="{'active':typeSettings.sound=='hg8'}">HG8</button>
+          <button class="btn btn-default sound-btn" (click)="setSound('hg9')" [ngClass]="{'active':typeSettings.sound=='hg9'}">HG9</button>
         </div>
       </div>
     </div>
@@ -186,22 +186,22 @@
             <p>Ubungstext:</p>
           </div>
           <div class="col-sm-6">
-            <input type="text" [(ngModel)]="typeSettins.value" value="asdfghjklo" class="form-control">
+            <input type="text" [(ngModel)]="typeSettings.value" value="asdfghjklo" class="form-control">
           </div>
           <div class="col-sm-3 mult-ul-div">
             <p class="text-right">Anzahl/Whlg:</p>
             <ul>
               <li>
-                <button class="btn btn-default size-btn">1</button>
+                <button class="btn btn-default size-btn" (click)="setStringLength(1)" [ngClass]="{'active':typeSettings.stringLength===1}">1</button>
               </li>
               <li>
-                <button class="btn btn-default size-btn">20</button>
+                <button class="btn btn-default size-btn" (click)="setStringLength(20)" [ngClass]="{'active':typeSettings.stringLength===20}">20</button>
               </li>
               <li>
-                <button class="btn btn-default size-btn">50</button>
+                <button class="btn btn-default size-btn" (click)="setStringLength(50)" [ngClass]="{'active':typeSettings.stringLength===50}">50</button>
               </li>
               <li>
-                <button class="btn btn-default size-btn">100</button>
+                <button class="btn btn-default size-btn" (click)="setStringLength(100)" [ngClass]="{'active':typeSettings.stringLength===100}">100</button>
               </li>
             </ul>
           </div>

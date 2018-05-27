@@ -3,29 +3,31 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ModuleComponent } from './module/module.component';
-
-
+import { InfoComponent } from './info/info.component';
+import { BrowserAnimationsModule  } from '@angular/platform-browser/animations';
+import {  MatSliderModule } from '@angular/material';
+import { KeyboardComponent } from './keyboard/keyboard.component';
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
     LoginComponent,
     HomeComponent,
-    ModuleComponent
+    ModuleComponent,
+    InfoComponent,
+    KeyboardComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
-   
+    HttpClientModule,
+    MatSliderModule   
   ],
   providers: [],
   bootstrap: [AppComponent]

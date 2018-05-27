@@ -70,23 +70,8 @@
     line-height: 16px;
     margin-top: -7px;
 }
-.sound-group .btn{
-    font-size: 12px;
-    font-family: arial;
-    width: 53px;
-    max-width: 53px;
-    white-space: normal;
-    line-height: 10px;
-    padding: 0 2px;
-    height: 30px;
-}
-.sound-group .btn:first-child{width:106px;max-width: 106px;}
+
 .btn-l-d .btn{margin-left:-7px;}
 .btn-r-d .btn{margin-left:-15px;}
-.btn.btn-default.active {
-    border-style: inset;
-    background: #999999;
-    border-color: #ccc;
-}
-.first-tast li span 
- .btn.btn-default.first-tast-btn.active{color:#676767!important;}
+
+.first-tast li span  .btn.btn-default.first-tast-btn.active{color:#676767!important;}
