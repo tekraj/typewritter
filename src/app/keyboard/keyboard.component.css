@@ -16,17 +16,19 @@
     }
     #keyboard li {
    float: left;
-    margin: 0 10px 5px 0;
-    width: 70px;
+    margin: 1px;
+    width: 6.4%;
     height: 50px;
     line-height: 40px;
     text-align: center;
     background: #fff;
     border: 1px solid #f9f9f9;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
+    border-radius:6px;
+    font-size:16px;
+    font-weight: bold;
+    color:#000;
     }
-    #keyboard li.active{background: green;color:#fff;}
+   
     .capslock, .tab, .left-shift {
     clear: left;
     }
@@ -52,11 +54,10 @@
     text-transform: uppercase;
     }
     #keyboard .space {
-    clear: left;
-    width: 90%;margin:auto;
+     width: 72%;
     }
     .on {
-    display: none;
+    display: block;
     }
     #keyboard li:hover {
     position: relative;
@@ -64,4 +65,57 @@
     left: 1px;
     border-color: #e5e5e5;
     cursor: pointer;
+    }
+    .on,.off{
+        display: block;
+        height: 20px;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        float: none;
+        line-height: normal;
+    }
+    #keyboard li.default{
+        background-color:#ccc!important;
+        border: outset #ccc;
+        border-width: 3px 8px;
+    }
+    #keyboard li.return:before {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        width: 117px;
+        height: 50px;
+        background: #ccc;
+        border: outset #ccc;
+        top: -50px;
+        left: -48px;
+        right: initial;
+        border-radius: 4px 4px 0px 5px;
+        border-width: 3px 8px;
+        border-bottom: 0;
+    }
+
+    #keyboard li.primary{
+        background-color:#0000cd!important;
+        border: outset #0000cd;
+        border-width: 3px 8px;
+    }
+    #keyboard li.warning{
+        background-color:#ffcc00!important;
+        border: outset #ffcc00;
+        border-width: 3px 8px;
+    }
+    #keyboard li.success{
+        background-color:#009900!important;
+        border: outset #009900;
+        border-width: 3px 8px;
+    }
+    #keyboard li.danger{
+        background-color:#ff0000!important;
+        border: outset #ff0000;
+        border-width: 3px 8px;
+    }
+    #keyboard li.active{
+        border-style: inset;
     }

@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from '../local-storage.service';
 import { trigger, style, animate, transition } from '@angular/animations';
+import { Howl, Howler } from 'howler';
 @Component({
   selector: 'app-keyboard',
   templateUrl: './keyboard.component.html',
   styleUrls: ['./keyboard.component.css'],
   host: {
-    '(document:keypress)': 'handleKeyPressEvent($event)',
- 	  '(document:keyup)': 'handleKeyUpEvent($event)',
- 	  '(document:mouseup)': 'handleMouseUpEvent($event)',
+    '(document:keydown)': 'handleKeyDownEvent($event)',
+    '(document:keyup)': 'handleKeyUpEvent($event)',
+    '(document:mouseup)': 'handleMouseUpEvent($event)',
   }
 })
 export class KeyboardComponent implements OnInit {
@@ -20,18 +21,26 @@ export class KeyboardComponent implements OnInit {
   public collapseHeader: boolean;
   public words: string[];
   public wordIndex: any;
-  public totalWords: any;
-  public wordIndexInterval: any;
-  public animationInterval: any;
-  public bottomPosition: any;
-  public wordMatch: boolean;
-  public totalAttempt: any;
-  public totalHit: any;
-  public hitPercent: any;
+  public totalWords: number;
+  public totalRight: number = 0;
+  public totalWrong: number = 0;
   public keyValue: any;
   public keyboard: any = {};
+  public typedString: string = '';
+  public typingValue: string = '';
+  public letterTypedIndex: number;
+  public letterNextTyped: number = 0;
+  public currentLetterImage: string;
+  public letterClasses: Array<{ class: string, letters: Array<string> }>;
+  public doubleQuote = '"';
+  public singleQuote = "'";
+  public currentTypedLetter: string;
+  public currentTypedLetterClass: string;
+  public clickRightSound: any;
+  public clickWrongSound: any;
   constructor(private localStorageService: LocalStorageService) {
-    this.keyboard.typingValue = 'aaa sss ddd fff ggg fff ggg aaaa ddd sss';
+    this.typingValue = 'aaa sss ddd fff ggg fff ggg aaaa ddd sss';
+    this.keyboard.typingValue = this.typingValue.split('');
     let settingData = localStorageService.select('typeSettings');
     if (settingData == false) {
       this.typeSettings = { stringLength: 0, value: "asdfghjklö", typewriterMode: '', presentation: 0, sound: 'kein_sound', soundVolume: 1, muteSound: false };
@@ -39,18 +48,20 @@ export class KeyboardComponent implements OnInit {
       this.typeSettings = settingData;
 
     }
+    this.totalWords = this.typingValue.length;
 
-    this.words = [
-      "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n",
-      "o", "p", "q", "r", "s", "t", "u", "v", "w", "y", "z"
-    ];
-    this.totalWords = this.words.length;
-    this.bottomPosition = -100;
-    this.wordMatch = false;
-    this.totalAttempt = 0;
-    this.totalHit = 0;
-    this.hitPercent = 0;
-    this.keyValue = '';
+    this.letterClasses = [{ class: 'primary', letters: ['a', 'q', 'z', '1', , '!', '2', '"', 'ß', '?', '´', '`', 'p', 'ü', '-', '_', 'ö', 'ä'] },
+    { class: 'warning', letters: ['3', '§', 'w', 's', 'x', '0', '=', 'o', 'l', ':', '.'] },
+    { class: 'success', letters: ['4', '$', '9', ')', 'i', 'k', ';', ','] },
+    { class: 'danger', letters: ['5', '%', '5', '&', '7', '/', '8', '(', 'r', 't', 'y', 'u', 'f', 'g', 'h', 'j', 'v', 'b', 'n', 'm'] }];
+
+    this.clickRightSound = new Howl({
+      src: ['../assets/sounds/right-click.mp3']
+    });
+    this.clickWrongSound = new Howl({
+      src: ['../assets/sounds/wrong-click.mp3']
+    });
+    Howler.volume(this.typeSettings.soundVolume/100);
   }
 
   ngOnInit() {
@@ -60,43 +71,56 @@ export class KeyboardComponent implements OnInit {
     }, 500);
   }
 
-  setSoundVolume = (value: number) => {
+  setSoundVolume = (event:any) => {
+    let value = event.value;
     this.typeSettings.soundVolume = value;
+    Howler.volume(value/100);
     this.localStorageService.insert('typeSettings', this.typeSettings);
   }
   soundSetting = (value: boolean) => {
     this.typeSettings.muteSound = value;
+    if (value){
+      Howler.volume(0);
+      this.typeSettings.soundVolume = 0;
+    }
+      
     this.localStorageService.insert('typeSettings', this.typeSettings);
   }
 
-  writeText (key){
-		this.keyValue = key;
-		 if(key==this.words[this.wordIndex]){
-    		this.totalHit += 1;
-    		this.hitPercent = ((this.totalHit/this.totalAttempt)*100).toFixed(2);
-    		 clearInterval(this.animationInterval);
-    		this.wordMatch = true;
-    	}
-	}
+  writeText(key: string, altKey: string = '') {
 
-	handleKeyPressEvent(event: KeyboardEvent) {
-    	let key = event.key;
-    	this.keyValue = key;
-    	if(key==this.words[this.wordIndex]){
-    		this.totalHit += 1;
-    		this.hitPercent = ((this.totalHit/this.totalAttempt)*100).toFixed(2);
-    		 clearInterval(this.animationInterval);
-    		this.wordMatch = true;
-    	}
-  	}
+  }
 
-  	handleKeyUpEvent (event : KeyboardEvent){
-  		this.keyValue = '';
-  	}
-  	handleMouseUpEvent (event : MouseEvent){
-  		setInterval ( () => {
-			this.keyValue = '';
-  		},200);
-  		
-  	}
+  handleKeyDownEvent(event: KeyboardEvent) {
+    console.log(event);
+    let key = event.key;
+    this.keyValue = key;
+    let typedString = this.typedString + this.keyValue;
+    if (this.typingValue.indexOf(typedString) == 0) {
+      this.clickRightSound.play();
+      let keyCode = event.keyCode == 32 ? 32 : (event.keyCode + 32);
+      this.currentLetterImage = '../assets/images/typer/db_' + keyCode + '.jpg';
+      this.currentTypedLetter = key;
+      this.letterClasses.forEach((element) => {
+        if (element.letters.indexOf(key) >= 0) {
+          this.currentTypedLetterClass = element.class;
+        }
+      });
+      this.typedString = typedString;
+      this.letterTypedIndex = this.typedString.length - 1;
+      this.letterNextTyped = this.typedString.length;
+      this.totalRight++;
+    } else {
+      this.clickWrongSound.play();
+      this.totalWrong++;
+    }
+  }
+
+  handleKeyUpEvent(event: KeyboardEvent) {
+    this.keyValue = '';
+  }
+  handleMouseUpEvent(event: MouseEvent) {
+
+
+  }
 }

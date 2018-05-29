@@ -32,8 +32,9 @@ export class InfoComponent implements OnInit {
     },500);
   }
  
-  setSoundVolume = (value:number)=>{
-    this.typeSettings.soundVolume = value;
+  setSoundVolume = (event:any)=>{
+    
+    this.typeSettings.soundVolume = event.value;
     this.localStorageService.insert('typeSettings',this.typeSettings);
   }
   soundSetting = (value:boolean)=>{

@@ -634,9 +634,12 @@ input[type=number]:focus,
     width: 53px;
     max-width: 53px;
     white-space: normal;
-    line-height: 10px;
     padding: 0 2px;
     height: 30px;
+    line-height: normal;
+}
+.sound-group .btn:nth-child(5){
+    line-height: 10px;
 }
 .info-group table{width:100%;}
 .info-group table tbody tr td
@@ -684,7 +687,7 @@ input[type=number]:focus,
     width:140px;
     border:2px solid #ea0408;
     padding:6px;
-    color:#5d5de7;
+    color:#0000ec;
     border-radius: 8px;
 }
 .info-group h4{text-align: center;}
@@ -724,12 +727,16 @@ input[type=number]:focus,
     width:180px;
     border:2px solid #ea0408;
     padding:3px 6px;
-    color:#5d5de7;
+    color:#0000ec;
     border-radius: 8px;
 }
 
 .info .sound-group .btn{
     height:34px;
+    line-height: 34px;
+}
+.info .sound-group .btn.metro_aus{
+    line-height: 15px;
 }
 .info-group{display: inline-block;margin-left:15px;}
 header.info{border:none;border-radius:0;background:none;padding:0;}
@@ -778,9 +785,21 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 .continue-btn-holder{margin-top:-20px;position: relative;z-index: 999;}
 
 .top-blank-white{background:#fff;border-radius:8px;margin-bottom:3px;border:3px solid #000;height:110px;}
-.bottom-blank-white{background:#fff;border-radius:8px;border:3px solid #000;height:40px;}
+.bottom-blank-white{
+    background: #fff;
+    border-radius: 8px;
+    border: 3px solid #000;
+    height: 40px;
+    text-align: center;
+    font-size: 24px;
+    line-height: 28px;
+}
+.bottom-blank-white.primary{color:#0000cd;}
+.bottom-blank-white.warning{color:#ffcc00;}
+.bottom-blank-white.danger{color:#ff0000;}
+.bottom-blank-white.success{color:#009900;}
 .keyboard-input-field input{width:100%;display:block;}
-.keyboard-input-field input {
+.keyboard-input-field .typing-text {
     width: 100%;
     display: block;
     background: #cccccc;
@@ -792,4 +811,41 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     height: 32px;
     line-height: normal;
     pointer-events: none;
+}
+#keyboard li.backspace {
+    width: 156px!important;
+    background: url(../images/backspace.png) no-repeat center!important;
+}
+#keyboard li.return {
+    position: relative;
+    background: url(../images/enter.png) no-repeat center!important;
+    height: 54px!important;
+    margin-top: -10px!important;
+    border-radius: 0px 0px 4px 4px!important;
+    top: 6px!important;
+}
+
+
+#keyboard li.tab {
+    width: 118px!important;
+    background: url(../images/tab.png) no-repeat center!important;
+}
+#keyboard li.capslock {
+    width: 160px!important;
+    background: url(../images/caps-lock.png) no-repeat center!important;
+}
+#keyboard li.left-shift {
+    width: 120px!important;
+    background: url(../images/shift.png) no-repeat center!important;
+}
+#keyboard li.right-shift {
+    width: 201px!important;
+    background: url(../images/shift.png) no-repeat center!important;
+}
+#keyboard li.blank{background-image:none!important;}
+.keyboard-input-field .typing-text span.active{font-weight:bold;}
+.keyboard-input-field .typing-text span.underline{text-decoration: underline;}
+.keyboard-display-image{
+    height:100%;
+    width:100%;
 }

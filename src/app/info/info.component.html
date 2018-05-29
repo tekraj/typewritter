@@ -52,7 +52,7 @@
             </tr>
           </table>
           <div class="sound-slider">
-            <mat-slider class="mat-slider" min="1" max="100" step="5" value="typeSettings.soundVolume" (MatSliderChange)="setSoundLevel()"></mat-slider>
+            <mat-slider class="mat-slider" min="1" max="100" step="5" value="typeSettings.soundVolume" (input)="setSoundVolume($event)"></mat-slider>
           </div>
           <div class="mute-open-btns">
             <button class="btn btn-default" (click)="soundSetting(true)" [ngClass]="{'active':typeSettings.muteSound==true}">
