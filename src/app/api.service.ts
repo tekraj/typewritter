@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {LocalStorageService} from './local-storage.service';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -8,13 +9,15 @@ const baseUrl = 'http://mms.pphlinz.at/mms_flash_get_v15.php?';
   providedIn: 'root'
 })
 export class ApiService {
-
-  constructor(private http:HttpClient) { 
-
+  public stGet : number;
+  public  stLnfdnr : number;
+  constructor(private http:HttpClient,private localStorageService:LocalStorageService) { 
+    this.stGet = this.localStorageService.select('gegenstand');
+    this.stLnfdnr = this.localStorageService.select('st_lfdnr');
   }
 
   login(user:object) {
-    return this.http.get(baseUrl+'flag=1&gnr=ch52ne&myVersion=8.0&api=1').toPromise();;
+    return this.http.get(baseUrl+'flag=1&gnr=ms&myVersion=8.0&api=1').toPromise();;
   }
 
   resetPassword(email:string){
@@ -22,20 +25,22 @@ export class ApiService {
   }
 
   getBooks(){
-    return this.http.get(baseUrl+'flag=a&st_geg=68812&gnr=ch52ne&api=1').toPromise();
+    
+    return this.http.get(baseUrl+'flag=a&st_geg='+this.stGet+'&gnr=ms&api=1').toPromise();
   }
 
 
   getLessions (bookId:number){
-   return this.http.get(baseUrl+'flag=lekt&autor=732&lekt_nr=14&st_lfdnr='+bookId+'&api=1').toPromise();
+   return this.http.get(baseUrl+'flag=lekt&autor='+bookId+'&st_lfdnr='+this.stLnfdnr+'&api=1').toPromise();
   }
 
-  getTitles(lessionId:number,bookId:number){
-    return this.http.get(baseUrl+'flag=uebg_t&lekt_nr='+lessionId+'&st_lfdnr'+bookId+'&api=1').toPromise();
+  getTitles(lessionId:number){
+    return this.http.get(baseUrl+'flag=uebg_t&lekt_nr='+lessionId+'&st_lfdnr='+this.stLnfdnr+'&api=1').toPromise();
   }
 
-  getExercise(titleId:number){
-    return this.http.get(baseUrl+'flag=uebg&lekt_nr='+titleId+'&api=1').toPromise();
+  getExercise(lessionId:number){
+    
+    return this.http.get(baseUrl+'flag=uebg&lekt_nr='+lessionId+'&st_lfdnr='+this.stLnfdnr+'&api=1').toPromise();
   }
 
   setProt(){

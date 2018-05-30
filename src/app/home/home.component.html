@@ -2,6 +2,11 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-4 text-left typing maria-holder">
+        <div  class="maria-text">
+            <p>Hallo {{studentLastName}}!</p>
+            <p> Wahle nun die Lektion aus!</p>
+        </div>
+        
         <img src="../assets/images/maria.png">
       </div>
       <div class="col-sm-4 text-center">
@@ -52,8 +57,10 @@
       <div class="col-md-3" *ngFor="let i of totalLessionPage;let p=index">
         <ul class="main-page-list">
           <ng-container *ngFor="let t of createArrayRange(lessions,i);let a=index">
-            <li *ngIf="(a+1)<=((p+1)*12)" (click)="findTitle(t.id,a)" [ngClass]="{'active':currentLession==a}">
-              <span class="red"></span> {{t.name}}
+            <li *ngIf="(a+1)<=((p+1)*12)" (click)="findTitle(t.id,((p*12)+a))" [ngClass]="{'active':currentLession==((p*12)+a)}">
+              <span class="red"></span> 
+              <span class="text-span">{{'L'+((p*12)+a+1)+': '+t.name}}</span>
+              <span class="percent-indicator" [ngStyle]="{'width':t.percent+'%'}"></span>
             </li>
           </ng-container>
         </ul>
@@ -61,13 +68,22 @@
       <div class="col-md-3" *ngFor="let i of totalTitlesPage;let p=index">
         <ul class="main-page-list">
           <ng-container *ngFor="let t of createArrayRange(titles,i);let a=index">
-            <li *ngIf="(a+1)<=((p+1)*12)" (click)="getExercise(t.id)">
-              <span class="red"></span> {{t.name}}
+            <li *ngIf="(a+1)<=((p+1)*12)" [routerLink]="['/exercise', currentLessionId,((p*12)+a)]">
+              <span class="red">{{t.mod}}</span>
+              <span class="text-span">{{'Ü'+((p*12)+a+1)+': '+t.name}}</span>
+              <span class="percent-indicator" [ngStyle]="{'width':t.percent+'%'}"></span>
+              <span class="gray-percent" [ngStyle]="{'width':t.grayPercent+'%'}"></span>
+              <span class="yellow-percent" [ngStyle]="{'width':t.yellowPercent+'%'}"></span>
+              <span class="three-params">
+                <span>{{t.percent}}% R</span>
+                <span>{{t.grayPercent}} A</span>
+                <span>{{t.yellowPercent}} T</span>
+              </span>
             </li>
           </ng-container>
         </ul>
       </div>
-      <div class="col-md-3 titles" *ngFor="let i of totalExercisePage;let p=index">
+      <!-- <div class="col-md-3 titles" *ngFor="let i of totalExercisePage;let p=index">
         <ul class="main-page-list">
           <ng-container *ngFor="let t of createArrayRange(exercises,i);let a=index">
             <li (click)="getPageContent(t.id)">
@@ -75,7 +91,7 @@
             </li>
           </ng-container>
         </ul>
-      </div>
+      </div> -->
     </div>
     <div class="last-buttons-wrapper">
       <div class="row last-buttons">

@@ -1,29 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from '../local-storage.service';
 import { trigger, style, animate, transition } from '@angular/animations';
+import { ActivatedRoute } from '@angular/router';
 import { Howl, Howler } from 'howler';
+import {ApiService} from '../api.service';
 @Component({
-  selector: 'app-keyboard',
-  templateUrl: './keyboard.component.html',
-  styleUrls: ['./keyboard.component.css'],
+  selector: 'app-exercise',
+  templateUrl: './exercise.component.html',
+  styleUrls: ['./exercise.component.css'],
   host: {
     '(document:keydown)': 'handleKeyDownEvent($event)',
     '(document:keyup)': 'handleKeyUpEvent($event)',
     '(document:mouseup)': 'handleMouseUpEvent($event)',
   }
 })
-export class KeyboardComponent implements OnInit {
+export class ExerciseComponent implements OnInit {
   public typeSettings: any = {};
-  public pageHeader: string = 'U3: Info';
-  public mainInfoText: string = 'Schreib die folgenden Zeile langsam and ohne auf die tastaur zu secen. Bechte dabei, dass die Finger aut ihren richtigen Tasten bleiben';
   public nextInfo: number = 1;
   public headerHide: boolean = true;
+  public exercises: Array<{ name: string,header:string,flagText:string,content:string  }>;
   public collapseHeader: boolean;
   public words: string[];
   public wordIndex: any;
   public totalWords: number;
   public totalRight: number = 0;
   public totalWrong: number = 0;
+  public currentExercise ={ name: '',header:'',flagText:'',content:''  };
   public keyValue: any;
   public keyboard: any = {};
   public typedString: string = '';
@@ -38,7 +40,9 @@ export class KeyboardComponent implements OnInit {
   public currentTypedLetterClass: string;
   public clickRightSound: any;
   public clickWrongSound: any;
-  constructor(private localStorageService: LocalStorageService) {
+  public exerciseParams:any;
+  public currentLessionIndex :number;
+  constructor(private _apiService : ApiService,private localStorageService: LocalStorageService, private route: ActivatedRoute) {
     this.typingValue = 'aaa sss ddd fff ggg fff ggg aaaa ddd sss';
     this.keyboard.typingValue = this.typingValue.split('');
     let settingData = localStorageService.select('typeSettings');
@@ -61,29 +65,32 @@ export class KeyboardComponent implements OnInit {
     this.clickWrongSound = new Howl({
       src: ['../assets/sounds/wrong-click.mp3']
     });
-    Howler.volume(this.typeSettings.soundVolume/100);
+    Howler.volume(this.typeSettings.soundVolume / 100);
+    this.exercises = [];
   }
 
   ngOnInit() {
-
+    this.exerciseParams = this.route.params['value'];
+    this.currentLessionIndex = parseInt(this.exerciseParams.lessionIndex);
+    this.getExercise(this.exerciseParams);
     setTimeout(() => {
       this.headerHide = false;
     }, 500);
   }
 
-  setSoundVolume = (event:any) => {
+  setSoundVolume = (event: any) => {
     let value = event.value;
     this.typeSettings.soundVolume = value;
-    Howler.volume(value/100);
+    Howler.volume(value / 100);
     this.localStorageService.insert('typeSettings', this.typeSettings);
   }
   soundSetting = (value: boolean) => {
     this.typeSettings.muteSound = value;
-    if (value){
+    if (value) {
       Howler.volume(0);
       this.typeSettings.soundVolume = 0;
     }
-      
+
     this.localStorageService.insert('typeSettings', this.typeSettings);
   }
 
@@ -122,5 +129,26 @@ export class KeyboardComponent implements OnInit {
   handleMouseUpEvent(event: MouseEvent) {
 
 
+  }
+
+  private getExercise = (exerciseParams)=>{
+    this._apiService.getExercise(exerciseParams.lekt_nr).then((exercise) => {
+      let allTItles = exercise[3].replace('uebg_titel=', '').split('|');
+      let headers = exercise[4].replace('uebg_anw=','').split('|');
+      let flagTexts = exercise[5].replace('anw_mann=','').split('|');
+      let contents = exercise[6].replace('uebg_text=','').split('|');
+      allTItles.forEach((element, i) => {
+        if (element != '0' && element != 0) {
+          this.exercises.push({name: 'Ü'+(i+1)+': '+element,header:headers[i],flagText:flagTexts[i],content:contents[i] });
+        }
+      });
+      this.currentExercise = this.exercises[exerciseParams.lessionIndex];
+      
+    })
+  }
+
+  nextExercise(){
+   this.currentLessionIndex = this.currentLessionIndex+1;
+    this.currentExercise = this.exercises[this.currentLessionIndex];
   }
 }

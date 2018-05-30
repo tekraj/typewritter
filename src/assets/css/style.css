@@ -291,18 +291,67 @@ ul{
 }
 .main-page-list{padding:0;margin:0;}
 .main-page-list li {
-    height: 20px;
-    border: 2px solid #dd3333;
+    height: 23px;
+    border: 1.5px solid #dd3333;
     border-radius: 20px;
     line-height: 15px;
-    background: linear-gradient(#f35555, white, #980000);
+    background: #cccccc;
     text-align: center;
-    position: relative;
     font-size: 13px;
     font-weight: bold;
     margin-bottom: 0;
     font-weight: bold;
     color: #000;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    z-index: 9;
+}
+.main-page-list li .percent-indicator{
+    background: linear-gradient(#f35555, white, #980000);
+    width: 114%;
+    display: inline-block;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    border-radius: 16px 0px 0px 16px;
+    z-index: 9;
+}
+.main-page-list li .gray-percent {
+    position: absolute;
+    left: 0;
+    display: none;
+    height: 4px;
+    background: rgba(0,0,0,0.3);
+    z-index: 13;
+    top: 4px;
+}
+.main-page-list li .yellow-percent {
+    position: absolute;
+    left: 0;
+    display: none;
+    height: 3px;
+    background: #00ff00;
+    z-index: 13;
+    bottom: 0;
+    
+}
+.main-page-list li .three-params {
+    position: absolute;
+    right: 0;
+    z-index: 14;
+    display: none;
+    font-size: 7px;
+    font-weight: normal;
+    color: #000;
+    width: 40px;
+    top: -1px;
+}
+.main-page-list li .three-params span{display: block;line-height: 6px;}
+.main-page-list li:hover .yellow-percent,.main-page-list li:hover .gray-percent,.main-page-list li:hover .three-params{display: inline-block;}
+.main-page-list li .text-span{
+    position: relative;
+    z-index: 12;
 }
 .titles .main-page-list li{
 	border:2px solid #000;
@@ -350,13 +399,13 @@ ul li progress {
 span.red {
     background: radial-gradient(#ea0408, black);
     position: absolute;
-    left: 4px;
+    left: 0px;
     z-index: 22222;
-    top: -1px;
+    top: 1px;
     width: 21px;
     height: 16px;
     border-radius: 50%;
-    color: #ff0e00;
+    color: #fff;
 }
 .active span.red {
     background: radial-gradient(white,#02d40a,#0b770b,white);
@@ -474,7 +523,25 @@ span.red {
 
 .home h1{color:#1c1cec;margin:0;}
 .typing{text-align: center;}
-.maria-holder{padding-top:28px;}
+.maria-holder{margin-top:28px;}
+.maria-text{
+    position: absolute;
+    width: 150px;
+    right: 102px;
+    top: 55px;
+    z-index: 9;
+    text-align: center;
+   
+   
+}
+.maria-text p{
+    color:#000;
+    line-height: normal;
+    color:#ea0408;
+    font-size: 16px;
+    font-weight: bold;
+    margin:0;
+}
 .maria-holder img{
     width: 80%;
     display: inline-block;

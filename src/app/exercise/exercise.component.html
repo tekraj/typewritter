@@ -1,14 +1,17 @@
-<h1 class="page-header">{{pageHeader}}</h1>
+<h1 class="page-header">{{currentExercise.name}}</h1>
 <header class="home info keyboard-header">
   <div class="main-info-text-hoder">
     <h2 class="main-info-text" [ngClass]="{'active': headerHide ==false,'hide':collapseHeader==true}">
-      {{mainInfoText}}
+      {{currentExercise.header}}
     </h2>
   </div>
   <div class="clearfix"></div>
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-5 text-left typing maria-holder">
+          <div  class="maria-text large">
+              <p>{{currentExercise.flagText}}</p>
+          </div>
         <img src="../assets/images/maria.png">
       </div>
       <div class="col-sm-2">
@@ -141,12 +144,12 @@
 <div class="bottom-botton-holder">
   <div class="row">
     <div class="col-sm-6 text-left">
-      <a class="btn rounded-button rounded-white">
+      <a class="btn rounded-button rounded-white" (click)="nextExercise()">
         Ubung abbrechen
       </a>
     </div>
     <div class="col-sm-6 text-right">
-      <a class="btn rounded-button rounded-white">
+      <a class="btn rounded-button rounded-white" routerLink="/home">
         Lektion beenden
       </a>
     </div>

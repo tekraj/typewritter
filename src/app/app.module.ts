@@ -11,7 +11,8 @@ import { ModuleComponent } from './module/module.component';
 import { InfoComponent } from './info/info.component';
 import { BrowserAnimationsModule  } from '@angular/platform-browser/animations';
 import {  MatSliderModule } from '@angular/material';
-import { KeyboardComponent } from './keyboard/keyboard.component';
+
+import { ExerciseComponent } from './exercise/exercise.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +20,7 @@ import { KeyboardComponent } from './keyboard/keyboard.component';
     HomeComponent,
     ModuleComponent,
     InfoComponent,
-    KeyboardComponent
+    ExerciseComponent
   ],
   imports: [
     BrowserModule,

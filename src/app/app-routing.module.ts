@@ -4,13 +4,13 @@ import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { ModuleComponent } from './module/module.component';
 import { InfoComponent } from './info/info.component';
-import { KeyboardComponent } from './keyboard/keyboard.component';
+import { ExerciseComponent } from './exercise/exercise.component';
 const routes: Routes = [
   { path: '', component: LoginComponent, pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'info', component: InfoComponent },
   { path: 'module', component: ModuleComponent },
-  {path: 'keyboard', component : KeyboardComponent}
+  {path: 'exercise/:lekt_nr/:lessionIndex', component : ExerciseComponent}
 
 ];
 

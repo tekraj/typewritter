@@ -119,3 +119,7 @@
     #keyboard li.active{
         border-style: inset;
     }
+    .maria-text.large{
+        width: 200px;
+        right: 124px;
+    }
