@@ -59,4 +59,8 @@ export class InfoComponent implements OnInit {
       this.headerHide = false;
     },500);
   }
+  setSound(value:string){
+    this.typeSettings.sound = value;
+    this.localStorageService.insert('typeSettings',this.typeSettings);
+  }
 }

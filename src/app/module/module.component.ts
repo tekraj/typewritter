@@ -45,21 +45,29 @@ export class ModuleComponent implements OnInit {
       this.currentType = type;
       this.typeSettings.value = value;
     }
-     this.localStorageService.insert('typeSettings',this.typeSettings);
+    
   }
 
 
   setWorkingMode = (mode: string) => {
     this.typeSettings.typewriterMode = mode;
-    this.localStorageService.insert('typeSettings',this.typeSettings);
+   
   }
   setPresentation = (presentation: number) => {
     this.typeSettings.presentation = presentation;
-    this.localStorageService.insert('typeSettings',this.typeSettings);
+   
   }
   setStringLength(stringLength: number) {
     this.typeSettings.stringLength = stringLength;
-    this.localStorageService.insert('typeSettings',this.typeSettings);
+   
   }
 
+  setSound(value:string){
+    this.typeSettings.sound = value;
+   
+  }
+
+  saveSettings(){
+    this.localStorageService.insert('typeSettings',this.typeSettings);
+  }
 }

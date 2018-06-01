@@ -123,3 +123,8 @@
         width: 200px;
         right: 124px;
     }
+.keyboard-holder{
+    background:transparent;
+    border:none;border-radius: 0;
+    margin-top:3.5%;
+}

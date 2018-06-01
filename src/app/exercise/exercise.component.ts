@@ -151,4 +151,8 @@ export class ExerciseComponent implements OnInit {
    this.currentLessionIndex = this.currentLessionIndex+1;
     this.currentExercise = this.exercises[this.currentLessionIndex];
   }
+  setSound(value:string){
+    this.typeSettings.sound = value;
+    this.localStorageService.insert('typeSettings',this.typeSettings);
+  }
 }

@@ -55,11 +55,11 @@
             <mat-slider class="mat-slider" min="1" max="100" step="5" value="typeSettings.soundVolume" (input)="setSoundVolume($event)"></mat-slider>
           </div>
           <div class="mute-open-btns">
-            <button class="btn btn-default" (click)="soundSetting(true)" [ngClass]="{'active':typeSettings.muteSound==true}">
-              <img src="../assets/images/mute.png">
+            <button class="btn btn-default mute-button" (click)="soundSetting(true)" [ngClass]="{'active':typeSettings.muteSound==true}">
+
             </button>
-            <button class="btn btn-default" (click)="soundSetting(false)" [ngClass]="{'active':typeSettings.muteSound==false}">
-              <img src="../assets/images/sound-open.png">
+            <button class="btn btn-default unmute-button" (click)="soundSetting(false)" [ngClass]="{'active':typeSettings.muteSound==false}">
+            
             </button>
           </div>
         </div>

@@ -9,16 +9,16 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-5 text-left typing maria-holder">
-          <div  class="maria-text large">
-              <p>{{currentExercise.flagText}}</p>
-          </div>
+        <div class="maria-text large">
+          <p>{{currentExercise.flagText}}</p>
+        </div>
         <img src="../assets/images/maria.png">
       </div>
       <div class="col-sm-2">
         <div class="top-blank-white">
           <img src="{{currentLetterImage}}" *ngIf="currentLetterImage" class="keyboard-display-image" alt="">
         </div>
-        <div class="bottom-blank-white {{currentTypedLetterClassa}}">{{currentTypedLetter}}</div>
+        <div class="bottom-blank-white {{currentTypedLetterClass}}">{{currentTypedLetter}}</div>
       </div>
       <div class="col-sm-5 text-right">
         <div class="sound-group">
@@ -61,14 +61,14 @@
             </tr>
           </table>
           <div class="sound-slider">
-            <mat-slider class="mat-slider" min="1" max="100" step="5" value="typeSettings.soundVolume"  (input)="setSoundVolume($event)"></mat-slider>
+            <mat-slider class="mat-slider" min="1" max="100" step="5" value="{{typeSettings.soundVolume}}" (input)="setSoundVolume($event)"></mat-slider>
           </div>
           <div class="mute-open-btns">
-            <a class="btn btn-default" (click)="soundSetting(true)" [ngClass]="{'active':typeSettings.muteSound==true}">
-              <img src="../assets/images/mute.png">
+            <a class="btn btn-default mute-button" (click)="soundSetting(true)" [ngClass]="{'active':typeSettings.muteSound==true}">
+             &nbsp;
             </a>
-            <a class="btn btn-default" (click)="soundSetting(false)" [ngClass]="{'active':typeSettings.muteSound==false}">
-              <img src="../assets/images/sound-open.png">
+            <a class="btn btn-default unmute-button" (click)="soundSetting(false)" [ngClass]="{'active':typeSettings.muteSound==false}">
+             &nbsp;
             </a>
           </div>
         </div>
@@ -76,82 +76,145 @@
     </div>
   </div>
 </header>
-<div class="keyboard-input-field">
-  <div class="typing-text"><span *ngFor="let i of keyboard.typingValue,let a=index" [ngClass]="{'underline':a==letterNextTyped,'active':a<=letterTypedIndex}">{{i}}</span></div>
-</div>
-<div class="keyboard-container">
+<div class="container5 keyboard-holder">
+  <div class="keyboard-input-field">
+    <div class="typing-text">
+      <span *ngFor="let i of keyboard.typingValue,let a=index" [ngClass]="{'underline':a==letterNextTyped ,'active': a<=letterTypedIndex}">{{i}}</span>
+    </div>
+  </div>
+  <div class="keyboard-container">
     <ul id="keyboard">
-        <li [ngClass]="{'active':keyValue==='^','active':keyValue==='°'}" class="symbol default" (click)="writeText('°','^')"><span class="off">°</span><span class="on">^</span></li>
-        <li [ngClass]="{'active':keyValue==='1','active':keyValue==='!'}" class="symbol primary" (click)="writeText('1','!')"><span class="off">1</span><span class="on">!</span></li>
-        <li [ngClass]="{'active':keyValue==='2','active':keyValue===doubleQuote}" class="symbol primary" (click)="writeText('2',doubleQuote)"><span class="off">2</span><span class="on">"</span></li>
-        <li [ngClass]="{'active': keyValue==='3','active':keyValue==='§'}" class="symbol warning" (click)="writeText('3','§')"><span class="off">3</span><span class="on">§</span></li>
-        <li [ngClass]="{'active':keyValue==='4','active':keyValue=='$'}" class="symbol success" (click)="writeText('4','$')"><span class="off">4</span><span class="on">$</span></li>
-        <li [ngClass]="{'active':keyValue==='5','active':keyValue=='%'}" class="symbol danger" (click)="writeText('5','%')"><span class="off">5</span><span class="on">%</span></li>
-        <li [ngClass]="{'active':keyValue==='6','active':keyValue=='&'}" class="symbol danger" (click)="writeText('6','&')"><span class="off">6</span><span class="on">&</span></li>
-        <li [ngClass]="{'active':keyValue==='7','active':keyValue=='/'}" class="symbol danger" (click)="writeText('7','/')"><span class="off">7</span><span class="on">/</span></li>
-        <li [ngClass]="{'active':keyValue==='8','active':keyValue=='('}" class="symbol danger" (click)="writeText('8','(')"><span class="off">8</span><span class="on">(</span></li>
-        <li [ngClass]="{'active':keyValue==='9','active':keyValue==')'}" class="symbol success" (click)="writeText('9',')')"><span class="off">9</span><span class="on">)</span></li>
-        <li [ngClass]="{'active':keyValue==='0','active':keyValue=='='}" class="symbol warning" (click)="writeText('10','=')"><span class="off">0</span><span class="on">=</span></li>
-        <li [ngClass]="{'active':keyValue==='ß','active':keyValue=='?'}" class="symbol primary" (click)="writeText('ß','?')"><span class="off">ß</span><span class="on">?</span></li>
-        <li [ngClass]="{'active':keyValue==='´','active':keyValue=='`'}" class="symbol primary" (click)="writeText('´','`')"><span class="off">´</span><span class="on">`</span></li>
-        <li class="backspace lastitem default" (click)="writeText('Backspace')" [ngClass]="{'active':keyValue=='Backspace'}">&nbsp;</li>
-        <li class="tab default" (click)="writeText('tab')" [ngClass]="{'active':keyValue=='tab'}"></li>
-        <li [ngClass]="{'active':keyValue==='q'}" class="letter primary" (click)="writeText('q')">q</li>
-        <li [ngClass]="{'active':keyValue==='w'}" class="letter  warning" (click)="writeText('w')">w</li>
-        <li [ngClass]="{'active':keyValue==='e'}" class="letter success" (click)="writeText('e')">e</li>
-        <li [ngClass]="{'active':keyValue==='r'}" class="letter danger" (click)="writeText('r')">r</li>
-        <li [ngClass]="{'active':keyValue==='t'}" class="letter danger" (click)="writeText('t')">t</li>
-        <li [ngClass]="{'active':keyValue==='y'}" class="letter danger" (click)="writeText('y')">y</li>
-        <li [ngClass]="{'active':keyValue==='u'}" class="letter danger" (click)="writeText('u')">u</li>
-        <li [ngClass]="{'active':keyValue==='i'}" class="letter success" (click)="writeText('i')">i</li>
-        <li [ngClass]="{'active':keyValue==='o'}" class="letter warning" (click)="writeText('o')">o</li>
-        <li [ngClass]="{'active':keyValue==='p'}" class="letter primary" (click)="writeText('p')">p</li>
-        <li [ngClass]="{'active':keyValue==='ü'}" class="letter primary" (click)="writeText('ü')">ü</li>
-        <li [ngClass]="{'active':keyValue==='*','active':keyValue=='+'}" class="symbol default" (click)="writeText('+')"><span class="off">+</span><span class="on">*</span></li>
-        <li class="capslock default" (click)="writeText('CapsLock')" [ngClass]="{'active':keyValue=='CapsLock'}"></li>
-        <li [ngClass]="{'active':keyValue==='a'}" class="letter primary" (click)="writeText('a')">a</li>
-        <li [ngClass]="{'active':keyValue==='s'}" class="letter warning" (click)="writeText('s')">s</li>
-        <li [ngClass]="{'active':keyValue==='d'}" class="letter success" (click)="writeText('d')">d</li>
-        <li [ngClass]="{'active':keyValue==='f'}" class="letter danger" (click)="writeText('f')">f</li>
-        <li [ngClass]="{'active':keyValue==='g'}" class="letter danger" (click)="writeText('g')">g</li>
-        <li [ngClass]="{'active':keyValue==='h'}" class="letter danger" (click)="writeText('h')">h</li>
-        <li [ngClass]="{'active':keyValue==='j'}" class="letter danger" (click)="writeText('j')">j</li>
-        <li [ngClass]="{'active':keyValue==='k'}" class=" success" (click)="writeText('k')">k</li>
-        <li [ngClass]="{'active':keyValue==='l'}" class="letter warning" (click)="writeText('l')">l</li>
-        <li [ngClass]="{'active':keyValue==='ö'}" class="symbol primary" (click)="writeText('ö')">ö</li>
-        <li [ngClass]="{'active':keyValue==='ä'}" class="symbol primary" (click)="writeText('ä')">ä</li>
-        <li [ngClass]="{'active':keyValue==='#','active':keyValue==singleQuote}" class="symbol default" (click)="writeText(singleQuote,'#')"><span class="off">'</span><span class="on">#</span></li>
-        <li class="return lastitem default" (click)="writeText('Enter')" [ngClass]="{'active':keyValue=='Enter'}"></li>
-        <li class="left-shift default" (click)="writeText('Shift')" [ngClass]="{'active':keyValue=='Shift'}"></li>
-        <li [ngClass]="{'active':keyValue==='>','active':keyValue=='<'}" class="symbol default" (click)="writeText('>','<')"><span class="off">></span><span class="on"><</span></li>
-        <li [ngClass]="{'active':keyValue==='z'}" class="letter primary" (click)="writeText('z')">z</li>
-        <li [ngClass]="{'active':keyValue==='x'}" class="letter warning" (click)="writeText('x')">x</li>
-        <li [ngClass]="{'active':keyValue==='c'}" class="letter success" (click)="writeText('c')">c</li>
-        <li [ngClass]="{'active':keyValue==='v'}" class="letter danger" (click)="writeText('v')">v</li>
-        <li [ngClass]="{'active':keyValue==='b'}" class="letter danger" (click)="writeText('b')">b</li>
-        <li [ngClass]="{'active':keyValue==='n'}" class="letter danger" (click)="writeText('n')">n</li>
-        <li [ngClass]="{'active':keyValue==='m'}" class="letter danger" (click)="writeText('m')">m</li>
-        <li [ngClass]="{'active':keyValue===':','active':keyValue==','}" class="symbol success" (click)="writeText(',',',')"><span class="off">;</span><span class="on">,</span></li>
-        <li [ngClass]="{'active':keyValue===':','active':keyValue=='.'}" class="symbol warning" (click)="writeText(':','.')"><span class="off">:</span><span class="on">.</span></li>
-        <li [ngClass]="{'active':keyValue==='_','active':keyValue=='-'}" class="symbol primary" (click)="writeText('_','-')"><span class="off">_</span><span class="on">-</span></li>
-        <li class="right-shift lastitem default"></li>
-        <li class="left-shift blank default"></li>
-        <li class="space lastitem default" [ngClass]="{'active':keyValue==' '}" (click)="writeText(' ')">&nbsp;</li>
-        <li class="right-shift lastitem blank default"></li>
+      <li [ngClass]="{'active':keyValue==='^' || keyValue==='°'}" class="symbol default" (click)="writeText('°','^')">
+        <span class="off">°</span>
+        <span class="on">^</span>
+      </li>
+      <li [ngClass]="{'active':keyValue==='1' || keyValue==='!'}" class="symbol primary" (click)="writeText('1','!')">
+        <span class="off">1</span>
+        <span class="on">!</span>
+      </li>
+      <li [ngClass]="{'active':keyValue==='2' || keyValue===doubleQuote}" class="symbol primary" (click)="writeText('2',doubleQuote)">
+        <span class="off">2</span>
+        <span class="on">"</span>
+      </li>
+      <li [ngClass]="{'active': keyValue==='3' || keyValue==='§'}" class="symbol warning" (click)="writeText('3','§')">
+        <span class="off">3</span>
+        <span class="on">§</span>
+      </li>
+      <li [ngClass]="{'active':keyValue==='4' || keyValue=='$'}" class="symbol success" (click)="writeText('4','$')">
+        <span class="off">4</span>
+        <span class="on">$</span>
+      </li>
+      <li [ngClass]="{'active':keyValue==='5' || keyValue=='%'}" class="symbol danger" (click)="writeText('5','%')">
+        <span class="off">5</span>
+        <span class="on">%</span>
+      </li>
+      <li [ngClass]="{'active':keyValue==='6' || keyValue=='&'}" class="symbol danger" (click)="writeText('6','&')">
+        <span class="off">6</span>
+        <span class="on">&</span>
+      </li>
+      <li [ngClass]="{'active':keyValue==='7' || keyValue=='/'}" class="symbol danger" (click)="writeText('7','/')">
+        <span class="off">7</span>
+        <span class="on">/</span>
+      </li>
+      <li [ngClass]="{'active':keyValue==='8' || keyValue=='('}" class="symbol danger" (click)="writeText('8','(')">
+        <span class="off">8</span>
+        <span class="on">(</span>
+      </li>
+      <li [ngClass]="{'active':keyValue==='9' || keyValue==')'}" class="symbol success" (click)="writeText('9',')')">
+        <span class="off">9</span>
+        <span class="on">)</span>
+      </li>
+      <li [ngClass]="{'active':keyValue==='0' || keyValue=='='}" class="symbol warning" (click)="writeText('10','=')">
+        <span class="off">0</span>
+        <span class="on">=</span>
+      </li>
+      <li [ngClass]="{'active':keyValue==='ß' || keyValue=='?'}" class="symbol primary" (click)="writeText('ß','?')">
+        <span class="off">ß</span>
+        <span class="on">?</span>
+      </li>
+      <li [ngClass]="{'active':keyValue==='´' || keyValue=='`'}" class="symbol primary" (click)="writeText('´','`')">
+        <span class="off">´</span>
+        <span class="on">`</span>
+      </li>
+      <li class="backspace lastitem default" (click)="writeText('Backspace')" [ngClass]="{'active':keyValue=='Backspace'}">&nbsp;</li>
+      <li class="tab default" (click)="writeText('Tab')" [ngClass]="{'active':keyValue=='Tab'}"></li>
+      <li [ngClass]="{'active':keyValue==='q'}" class="letter primary" (click)="writeText('q')">q</li>
+      <li [ngClass]="{'active':keyValue==='w'}" class="letter  warning" (click)="writeText('w')">w</li>
+      <li [ngClass]="{'active':keyValue==='e'}" class="letter success" (click)="writeText('e')">e</li>
+      <li [ngClass]="{'active':keyValue==='r'}" class="letter danger" (click)="writeText('r')">r</li>
+      <li [ngClass]="{'active':keyValue==='t'}" class="letter danger" (click)="writeText('t')">t</li>
+      <li [ngClass]="{'active':keyValue==='y'}" class="letter danger" (click)="writeText('y')">y</li>
+      <li [ngClass]="{'active':keyValue==='u'}" class="letter danger" (click)="writeText('u')">u</li>
+      <li [ngClass]="{'active':keyValue==='i'}" class="letter success" (click)="writeText('i')">i</li>
+      <li [ngClass]="{'active':keyValue==='o'}" class="letter warning" (click)="writeText('o')">o</li>
+      <li [ngClass]="{'active':keyValue==='p'}" class="letter primary" (click)="writeText('p')">p</li>
+      <li [ngClass]="{'active':keyValue==='ü'}" class="letter primary" (click)="writeText('ü')">ü</li>
+      <li [ngClass]="{'active':keyValue==='*' || keyValue=='+'}" class="symbol default" (click)="writeText('+')">
+        <span class="off">+</span>
+        <span class="on">*</span>
+      </li>
+      <li class="capslock default" (click)="writeText('CapsLock')" [ngClass]="{'active':keyValue=='CapsLock'}"></li>
+      <li [ngClass]="{'active':keyValue==='a'}" class="letter primary" (click)="writeText('a')">a</li>
+      <li [ngClass]="{'active':keyValue==='s'}" class="letter warning" (click)="writeText('s')">s</li>
+      <li [ngClass]="{'active':keyValue==='d'}" class="letter success" (click)="writeText('d')">d</li>
+      <li [ngClass]="{'active':keyValue==='f'}" class="letter danger" (click)="writeText('f')">f</li>
+      <li [ngClass]="{'active':keyValue==='g'}" class="letter danger" (click)="writeText('g')">g</li>
+      <li [ngClass]="{'active':keyValue==='h'}" class="letter danger" (click)="writeText('h')">h</li>
+      <li [ngClass]="{'active':keyValue==='j'}" class="letter danger" (click)="writeText('j')">j</li>
+      <li [ngClass]="{'active':keyValue==='k'}" class=" success" (click)="writeText('k')">k</li>
+      <li [ngClass]="{'active':keyValue==='l'}" class="letter warning" (click)="writeText('l')">l</li>
+      <li [ngClass]="{'active':keyValue==='ö'}" class="symbol primary" (click)="writeText('ö')">ö</li>
+      <li [ngClass]="{'active':keyValue==='ä'}" class="symbol primary" (click)="writeText('ä')">ä</li>
+      <li [ngClass]="{'active':keyValue==='#' || keyValue==singleQuote}" class="symbol default" (click)="writeText(singleQuote,'#')">
+        <span class="off">'</span>
+        <span class="on">#</span>
+      </li>
+      <li class="return lastitem default" (click)="writeText('Enter')" [ngClass]="{'active':keyValue=='Enter'}"></li>
+      <li class="left-shift default" (click)="writeText('Shift')" [ngClass]="{'active':keyValue=='Shift'}"></li>
+      <li [ngClass]="{'active':keyValue==='>' || keyValue=='<'}" class="symbol default" (click)="writeText('>','<')">
+        <span class="off">></span>
+        <span class="on">
+          <</span>
+      </li>
+      <li [ngClass]="{'active':keyValue==='z'}" class="letter primary" (click)="writeText('z')">z</li>
+      <li [ngClass]="{'active':keyValue==='x'}" class="letter warning" (click)="writeText('x')">x</li>
+      <li [ngClass]="{'active':keyValue==='c'}" class="letter success" (click)="writeText('c')">c</li>
+      <li [ngClass]="{'active':keyValue==='v'}" class="letter danger" (click)="writeText('v')">v</li>
+      <li [ngClass]="{'active':keyValue==='b'}" class="letter danger" (click)="writeText('b')">b</li>
+      <li [ngClass]="{'active':keyValue==='n'}" class="letter danger" (click)="writeText('n')">n</li>
+      <li [ngClass]="{'active':keyValue==='m'}" class="letter danger" (click)="writeText('m')">m</li>
+      <li [ngClass]="{'active':keyValue===':' || keyValue==','}" class="symbol success" (click)="writeText(',',',')">
+        <span class="off">;</span>
+        <span class="on">,</span>
+      </li>
+      <li [ngClass]="{'active':keyValue===':' || keyValue=='.'}" class="symbol warning" (click)="writeText(':','.')">
+        <span class="off">:</span>
+        <span class="on">.</span>
+      </li>
+      <li [ngClass]="{'active':keyValue==='_' || keyValue=='-'}" class="symbol primary" (click)="writeText('_','-')">
+        <span class="off">_</span>
+        <span class="on">-</span>
+      </li>
+      <li class="right-shift lastitem default"></li>
+      <li class="left-shift blank default"></li>
+      <li class="space lastitem default" [ngClass]="{'active':keyValue==' '}" (click)="writeText(' ')">&nbsp;</li>
+      <li class="right-shift lastitem blank default"></li>
     </ul>
     <div class="clearfix"></div>
-</div>
-<div class="bottom-botton-holder">
-  <div class="row">
-    <div class="col-sm-6 text-left">
-      <a class="btn rounded-button rounded-white" (click)="nextExercise()">
-        Ubung abbrechen
-      </a>
-    </div>
-    <div class="col-sm-6 text-right">
-      <a class="btn rounded-button rounded-white" routerLink="/home">
-        Lektion beenden
-      </a>
+  </div>
+
+  <div class="bottom-botton-holder">
+    <div class="row">
+      <div class="col-sm-6 text-left">
+        <a class="btn rounded-button rounded-white" (click)="nextExercise()">
+          Ubung abbrechen
+        </a>
+      </div>
+      <div class="col-sm-6 text-right">
+        <a class="btn rounded-button rounded-white" routerLink="/home">
+          Lektion beenden
+        </a>
+      </div>
     </div>
   </div>
 </div>
