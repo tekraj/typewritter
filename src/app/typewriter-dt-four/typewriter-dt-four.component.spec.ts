@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { KeyboardComponent } from './keyboard.component';
+import { TypewriterDtFourComponent } from './typewriter-dt-four.component';
 
-describe('KeyboardComponent', () => {
-  let component: KeyboardComponent;
-  let fixture: ComponentFixture<KeyboardComponent>;
+describe('TypewriterDtFourComponent', () => {
+  let component: TypewriterDtFourComponent;
+  let fixture: ComponentFixture<TypewriterDtFourComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ KeyboardComponent ]
+      declarations: [ TypewriterDtFourComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(KeyboardComponent);
+    fixture = TestBed.createComponent(TypewriterDtFourComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

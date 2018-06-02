@@ -1,5 +1,6 @@
 import { Component, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 import {LocalStorageService} from '../local-storage.service';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-module',
   templateUrl: './module.component.html',
@@ -12,14 +13,15 @@ export class ModuleComponent implements OnInit {
   public typeButtonNo: number = 0;
   public typeClicked: number = 1;
   public tasterButton:number = 0;
-  constructor(private localStorageService : LocalStorageService) {
+  constructor(private localStorageService : LocalStorageService, private router :Router) {
     let settingData = localStorageService.select('typeSettings');
     if(settingData==false){
-      this.typeSettings = { stringLength: 0, value: "asdfghjklö", typewriterMode: '', presentation: 0, sound: 'kein_sound',soundVolume:1,muteSound:false };
+      this.typeSettings = { stringLength: 1, value: "asdfghjklö", typewriterMode: 'sm', presentation: 0, sound: 'kein_sound',soundVolume:1,muteSound:false };
     }else{
       this.typeSettings = settingData;
       
     }
+    
     
   }
 
@@ -68,6 +70,10 @@ export class ModuleComponent implements OnInit {
   }
 
   saveSettings(){
+    let indexArray = ["one","two","three","four","five"];
+    let redirectUrl ='typewriter-'+ this.typeSettings.typewriterMode+'-'+ indexArray[this.typeSettings.presentation-1]
+    console.log( this.typeSettings.typewriterMode);
     this.localStorageService.insert('typeSettings',this.typeSettings);
+    this.router.navigate([redirectUrl]);
   }
 }
