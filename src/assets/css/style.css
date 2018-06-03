@@ -216,7 +216,7 @@ margin-right: 380px;
 
 
 
-.container5{
+.container-fluid.container5{
 	background-color: 	#999999;
 	border: 3px solid #ea0408;
 	border-radius: 20px;
@@ -1028,18 +1028,110 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 
 .complete-modal{
     position: fixed;
-    bottom: 10%;
+    bottom: 20%;
     left: 0;
     right: 0;
     z-index: 999;
 }
 
 .complete-modal .wrapper{
-    width:30%;
+    width:40%;
     margin:auto;
 }
 .complete-modal .top-info-bar,.complete-modal .bottom-info-bar{
     border: 2px solid #ea0408;
     border-radius: 8px;
-        
+    background:#ccc;
+    padding:20px;
+    position: relative;
+}
+.complete-modal h2{
+    color: red;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    margin-bottom: 0;
+}
+.complete-modal p{margin:0;line-height: normal;}
+.text-red{color:red;}
+.complete-modal .underline-div::after{
+    border-bottom: 2px solid red;
+    padding: 5px;
+    margin-bottom: 10px;
+    display:block;
+    content: '';
+}
+.img-responsive{
+    max-width: 100%;
+}
+
+.complete-modal .sm-btn{
+    border-width: 1px;
+    font-size: 12px;
+    line-height: normal;
+    padding: 1px 20px;
+    margin-top: 10px;
+}
+.super-alle{
+    color:#3a8fa5;
+    font-size:18px;
+}
+.top-info-bar .info-tooltip {
+    position: absolute;
+    width: inherit;
+    right: -100%;
+    background: #666666;
+    border: 2px solid #ea0408;
+    padding: 10px;
+    border-radius: 8px;
+    color: #fff;
+    top: 0;
+    height: 100%;
+    font-size: 20px;
+}
+.info-tooltip p{margin-bottom:10px;}
+
+
+.text-blue{
+    color:#0000cd;
+
+}
+.text-yellow{
+    color:yellow;
+}
+.simple-typing .typing-text{
+    border:none;background:none;padding:10px 0;height:100%;
+}
+
+.signle-blank-white {
+    background: #fff;
+    border: 16px solid #3c3b3b;
+    border-radius: 16px;
+    height: 15vh;
+    font-size: 80px;
+    text-align: center;
+    line-height: 8vh;
+    width:auto;
+    display:block;
+    font-weight: bold;
+    margin-top:10%;
+}
+.main-wrapper{
+    height: 100%;
+}
+
+.ex-one-five .keyboard-input-field{
+    height:50%;
+    overflow-y: auto;
+    margin-left:-20px;
+    margin-right:-20px;
+    padding-left:20px;
+    padding-right: 20px;
+    border-bottom:3px solid #ea0408;
+}
+
+.input-field-five{
+    padding:10px 0;
+    height:50%;
+    font-weight:bold;
 }

@@ -71,8 +71,8 @@ export class ModuleComponent implements OnInit {
 
   saveSettings(){
     let indexArray = ["one","two","three","four","five"];
-    let redirectUrl ='typewriter-'+ this.typeSettings.typewriterMode+'-'+ indexArray[this.typeSettings.presentation-1]
-    console.log( this.typeSettings.typewriterMode);
+    let redirectUrl ='typewriter-'+ this.typeSettings.typewriterMode+'/'+ indexArray[this.typeSettings.presentation-1]
+
     this.localStorageService.insert('typeSettings',this.typeSettings);
     this.router.navigate([redirectUrl]);
   }
