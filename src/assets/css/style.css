@@ -1,9 +1,13 @@
+@import url('https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900|IBM+Plex+Mono:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i');
+
 body{
 	overflow: hidden;
-	font-family:'arial';
+	/*font-family:'arial';*/
+    font-family: 'Catamaran', sans-serif !important;
 }
 header{
-	font-family: 'Noticia Text', serif!important;
+	/*font-family: 'Noticia Text', serif!important;
+    font-family: 'Catamaran', sans-serif !important;*/
 }
 
 header h1{
@@ -197,11 +201,11 @@ margin-right: 380px;
     font-weight: bold;
     text-align: center;
 	padding: 2px 20px;
-    max-height: 24px;
+    max-height: 30px;
     line-height: normal;
     width: 100%;
 	display: block;
-	font-size:12px;
+	font-size:15px;
 	overflow: hidden;
 	transition: none!important;
 }
@@ -247,13 +251,14 @@ ul{
 }
 .main-page-list{padding:0;margin:0;}
 .main-page-list li {
-    height: 3.5vh;
+    height: 3.2vh;
     border: 1.5px solid #dd3333;
     border-radius: 20px;
-    line-height: 15px;
+    line-height: 12px;
     background: #cccccc;
     text-align: center;
-    font-size: 13px;
+    font-size: 12px;
+    letter-spacing: .5px;
     font-weight: bold;
     margin-bottom: 0;
     font-weight: bold;
@@ -463,7 +468,13 @@ span.red {
 	color: #fff!important;
 	font-weight: bold;
 }
-.box-titles h3{font-size:18px;color:#1a1aed;margin-bottom: 4px;}
+.box-titles h3 {
+    font-size: 18px;
+    color: #1a1aed;
+    margin-bottom: 4px;
+    font-weight: bold;
+    letter-spacing: 3px;
+}
 .w-80{width:80%;}
 .w-70{width:70%;}
 .m-l-10{margin-left:10px;}
