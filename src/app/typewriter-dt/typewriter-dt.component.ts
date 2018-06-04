@@ -4,9 +4,11 @@ import { trigger, style, animate, transition } from '@angular/animations';
 import { Howl, Howler } from 'howler';
 import { ApiService } from '../api.service';
 import { ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-typewriter-dt',
   templateUrl: './typewriter-dt.component.html',
+  styleUrls : ['./typewriter-dt.component.css'],
   host: {
     '(document:keydown)': 'handleKeyDownEvent($event)',
     '(document:keyup)': 'handleKeyUpEvent($event)',
@@ -46,25 +48,22 @@ export class TypewriterDtComponent implements OnInit {
   public currentLessionIndex: number;
   public showTooltipInfo : boolean = false;
   public showCompleteBox : boolean = false;
+  public showZoomAnimation : boolean = true;
+  public zoomButtonAnimation : boolean = false;
   constructor(private _apiService: ApiService, private localStorageService: LocalStorageService,private route: ActivatedRoute) {
 
     this.exercise = this.route.params['value'].exercise;
-
     let settingData = localStorageService.select('typeSettings');
     if (settingData == false) {
       this.typeSettings = { stringLength: 1, value: "asdfghjklö", typewriterMode: '', presentation: 0, sound: 'kein_sound', soundVolume: 1, muteSound: false };
     } else {
       this.typeSettings = settingData;
-
     }
     for (let i = 1; i <= this.typeSettings.stringLength; i++) {
       this.typingValue += this.typeSettings.value + ' ';
     }
-   
     this.keyboard.typingValue = this.typingValue.trim().split('');
-    console.log(this.keyboard.typingValue);
     this.totalWords = this.typingValue.length;
-
     this.letterClasses = [{ class: 'primary', letters: ['a', 'q', 'z', '1', , '!', '2', '"', 'ß', '?', '´', '`', 'p', 'ü', '-', '_', 'ö', 'ä'] },
     { class: 'warning', letters: ['3', '§', 'w', 's', 'x', '0', '=', 'o', 'l', ':', '.'] },
     { class: 'success', letters: ['4', '$', '9', ')', 'i', 'k', ';', ','] },
@@ -81,7 +80,9 @@ export class TypewriterDtComponent implements OnInit {
   }
 
   ngOnInit() {
+
     setTimeout(() => {
+      this.zoomButtonAnimation = true;
       this.headerHide = false;
     }, 500);
   }
@@ -181,5 +182,9 @@ export class TypewriterDtComponent implements OnInit {
 
   showTooltipBox(){
     this.showTooltipInfo = this.showTooltipInfo ===true ? false : true;
+  }
+
+  hideZoomAnimation(){
+    this.showZoomAnimation = false;
   }
 }

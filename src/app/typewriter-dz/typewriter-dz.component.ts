@@ -135,7 +135,6 @@ export class TypewriterDzComponent implements OnInit {
   handleKeyDownEvent(event: KeyboardEvent) {
     
     let key = event.key;
-    console.log(event);
     this.keyValue = key;
     let typedString = this.typedString + this.keyValue;
     if (this.typingValue.indexOf(typedString) == 0) {

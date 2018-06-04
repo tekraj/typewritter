@@ -62,7 +62,6 @@ export class TypewriterSmComponent implements OnInit {
     }
    
     this.keyboard.typingValue = this.typingValue.trim().split('');
-    console.log(this.keyboard.typingValue);
     this.totalWords = this.typingValue.length;
 
     this.letterClasses = [{ class: 'primary', letters: ['a', 'q', 'z', '1', , '!', '2', '"', 'ß', '?', '´', '`', 'p', 'ü', '-', '_', 'ö', 'ä'] },
