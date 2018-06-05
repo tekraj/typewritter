@@ -38,7 +38,8 @@ export class TypewriterSpComponent implements OnInit {
     public currentLessionIndex: number;
     public exercise: number;
     public intervalTimer: any;
-
+    public currentLetters : Array<{letter:string,animation:boolean,left:any,bottom:any}>;
+    public cLetters = '';
     constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute) {
         let exercise = this.route.params['value'].exercise;
         let exerciseArray = ['one', 'two', 'three', 'four', 'five'];
@@ -59,10 +60,33 @@ export class TypewriterSpComponent implements OnInit {
 
         }
         for (let i = 1; i <= this.typeSettings.stringLength; i++) {
-            this.typingValue += this.typeSettings.value + ' ';
+            this.typingValue += this.typeSettings.value;
         }
-        this.keyboard.typingValue = this.typingValue.trim().split('');
         this.totalWords = this.typingValue.length;
+        let startIndex = Math.floor(Math.random() * (this.exercise - 1 + 1)) + 1;
+        let endIndex = Math.min(this.totalWords,startIndex+this.exercise);
+        this.currentLetters = [];
+        for(let i=startIndex;i<endIndex;i++){
+            let randomLeft = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
+            let thisText = this.typingValue[i-1];
+            this.cLetters += thisText;
+            this.currentLetters.push({letter: thisText,animation:false,left:randomLeft,bottom:50});
+            this.typingValue.replace(thisText,'');
+        }
+        if(startIndex+this.exercise > this.totalWords ){
+            let remainingIndex = startIndex+this.exercise - this.totalWords;
+            for(let i=0;i<remainingIndex;i++){
+                if(this.currentLetters.length<=this.totalWords){
+                    let randomLeft = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
+                    let thisText = this.typingValue[i];
+                    this.cLetters += thisText;
+                    this.currentLetters.push({letter: this.typingValue[i],animation:false,left:randomLeft,bottom:50});
+                    this.typingValue.replace(thisText,'');
+                }
+            }
+        }
+        
+        
         this.clickRightSound = new Howl({
             src: ['../assets/sounds/right-click.mp3']
         });
@@ -70,7 +94,7 @@ export class TypewriterSpComponent implements OnInit {
             src: ['../assets/sounds/wrong-click.mp3']
         });
         Howler.volume(this.typeSettings.soundVolume / 100);
-        this.exercises = [];
+
     }
 
     ngOnInit() {
@@ -80,10 +104,22 @@ export class TypewriterSpComponent implements OnInit {
 
 
         this.intervalTimer = setInterval( ()=> {
-            let randNumber = Math.floor(Math.random() * this.exercise) + 1;
-
-
-        }, 500);
+           
+            if(this.cLetters.length<this.exercise){
+                console.log(this.cLetters.length);
+                let currentTextLength = this.typingValue.length;
+               let randIndex = Math.floor(Math.random() * (currentTextLength - 0+ 1)) + 0;
+               let currentText = this.typingValue[randIndex];
+               this.cLetters += currentText;
+               this.typingValue.replace(currentText,'');
+               let randomLeft = Math.floor(Math.random() * (100 - 1 + 1)) + 1;
+               
+               this.currentLetters.push({letter: currentText,animation:false,left:randomLeft,bottom: -50  });
+                setTimeout(()=>{
+                    this.currentLetters[this.currentLetters.length-1].animation = true;
+                },100);
+            }
+        }, 100);
     }
 
     setSoundVolume = (event: any) => {
@@ -107,11 +143,15 @@ export class TypewriterSpComponent implements OnInit {
 
     handleKeyDownEvent(event: KeyboardEvent) {
         let key = event.key;
-        this.keyValue = key;
-        let typedString = this.typedString + this.keyValue;
-        if (this.typingValue.indexOf(typedString) == 0) {
+        var typedIndex = this.cLetters.indexOf(key)
+        if (typedIndex >= 0) {
+          
+            this.clickRightSound.play();
             this.clickRightSound.play();
             this.totalRight++;
+            this.cLetters = this.cLetters.replace(key,'');
+            this.currentLetters.splice(typedIndex,1);
+
         } else {
             this.clickWrongSound.play();
             this.totalWrong++;
