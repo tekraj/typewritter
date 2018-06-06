@@ -73,7 +73,7 @@
 </header>
 <div class="container5 keyboard-holder">
   <div class="ballon-holder">
-    <span *ngFor="let l of currentLetters" [ngStyle]="{'bottom':l.bottom+'px',left:l.left+'%'}" [ngClass]="{'animation':l.animation==true}">{{l.letter}}</span>
+    <span *ngFor="let l of currentLetters" class="{{getLetterClass(l.letter)}}" [ngStyle]="{'bottom':l.bottom+'px',left:l.left+'%'}" [ngClass]="{'animation':l.animation==true}" >{{l.letter}}</span>
   </div>
 
   <div class="keyboard-container">

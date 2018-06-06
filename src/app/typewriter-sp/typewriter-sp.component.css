@@ -4,18 +4,33 @@
 }
 .ballon-holder span{
     display: inline-block;
-    width: 60px;
-    height: 40px;
+    width: 120px;
+    height: 80px;
     border-radius: 50%;
     color: #fff;
     text-align: center;
-    line-height: 40px;
-    font-size: 30px;
+    line-height: 60px;
+    font-size: 50px;
     font-weight: bold;
-    background: radial-gradient(white ,#ff0505,white);
+
     position: absolute;
-    transition:all 3s ease;
+    transition:all 10s ease;
 }
 .ballon-holder span.animation{
-    bottom: 100%!important;
+    bottom: 500px!important;
 }
+.ballon-holder span.danger{
+    background: radial-gradient(white ,#cc0303,#770202,white);
+}
+.ballon-holder span.primary{
+    background: radial-gradient(white ,#2554ce,#04216b,white);
+}
+
+.ballon-holder span.success{
+    background: radial-gradient(white ,#4a9a1d,#795c04,white);
+}
+
+.ballon-holder span.warning{
+    background: radial-gradient(white ,#d6a10b,#795c04,white);
+}
+
