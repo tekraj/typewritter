@@ -29,3 +29,4 @@ export class LocalStorageService {
     return data;
   };
 }
+

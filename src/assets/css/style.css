@@ -796,6 +796,8 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     margin:0;
     max-height: 55px;
     overflow: hidden;
+    position: relative;
+    z-index: 100;
     
 }
 .info .main-info-text.active{
@@ -1145,4 +1147,10 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     padding:10px 0;
     height:50%;
     font-weight:bold;
+}
+
+.keyboard-container{
+    background: #6b6162;
+    position: relative;
+    z-index: 999;
 }

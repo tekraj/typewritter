@@ -4,21 +4,18 @@
 }
 .ballon-holder span{
     display: inline-block;
-    width: 120px;
-    height: 80px;
+    width: 90px;
+    height:56px;
     border-radius: 50%;
     color: #fff;
     text-align: center;
-    line-height: 60px;
-    font-size: 50px;
+    line-height: 50px;
+    font-size: 40px;
     font-weight: bold;
-
     position: absolute;
-    transition:all 10s ease;
+    z-index: 9;
 }
-.ballon-holder span.animation{
-    bottom: 500px!important;
-}
+
 .ballon-holder span.danger{
     background: radial-gradient(white ,#cc0303,#770202,white);
 }
