@@ -3,7 +3,7 @@ import { LocalStorageService } from '../local-storage.service';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { ActivatedRoute } from '@angular/router';
 import { Howl, Howler } from 'howler';
-import {ApiService} from '../api.service';
+import { ApiService } from '../api.service';
 @Component({
   selector: 'app-exercise',
   templateUrl: './exercise.component.html',
@@ -18,14 +18,14 @@ export class ExerciseComponent implements OnInit {
   public typeSettings: any = {};
   public nextInfo: number = 1;
   public headerHide: boolean = true;
-  public exercises: Array<{ name: string,header:string,flagText:string,content:string  }>;
+  public exercises: Array<{ name: string, header: string, flagText: string, content: string }>;
   public collapseHeader: boolean;
   public words: string[];
   public wordIndex: any;
   public totalWords: number;
   public totalRight: number = 0;
   public totalWrong: number = 0;
-  public currentExercise ={ name: '',header:'',flagText:'',content:''  };
+  public currentExercise = { name: '', header: '', flagText: '', content: '' };
   public keyValue: any;
   public keyboard: any = {};
   public typedString: string = '';
@@ -40,12 +40,13 @@ export class ExerciseComponent implements OnInit {
   public currentTypedLetterClass: string;
   public clickRightSound: any;
   public clickWrongSound: any;
-  public exerciseParams:any;
-  public typingValue:string='';
-  public currentLessionIndex :number;
-  constructor(private _apiService : ApiService,private localStorageService: LocalStorageService, private route: ActivatedRoute) {
-   
-    
+  public exerciseParams: any;
+  public typingValue: string = '';
+  public currentLessionIndex: number;
+  public currentSoundLevel = 0;
+  constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute) {
+
+
     let settingData = localStorageService.select('typeSettings');
     if (settingData == false) {
       this.typeSettings = { stringLength: 1, value: "asdfghjklö", typewriterMode: '', presentation: 0, sound: 'kein_sound', soundVolume: 1, muteSound: false };
@@ -53,15 +54,15 @@ export class ExerciseComponent implements OnInit {
       this.typeSettings = settingData;
 
     }
-    for(let i=1;i<=this.typeSettings.stringLength;i++){
-        this.typingValue += this.typeSettings.value+' ';
+    for (let i = 1; i <= this.typeSettings.stringLength; i++) {
+      this.typingValue += this.typeSettings.value + ' ';
     }
     this.keyboard.typingValue = this.typingValue.trim().split('');
     this.totalWords = this.typingValue.length;
 
     this.letterClasses = [{ class: 'primary', letters: ['a', 'q', 'z', '1', , '!', '2', '"', 'ß', '?', '´', '`', 'p', 'ü', '-', '_', 'ö', 'ä'] },
     { class: 'warning', letters: ['3', '§', 'w', 's', 'x', '0', '=', 'o', 'l', ':', '.'] },
-    { class: 'success', letters: ['4', '$', '9', ')', 'i', 'k', ';', ',','d'] },
+    { class: 'success', letters: ['4', '$', '9', ')', 'i', 'k', ';', ',', 'd'] },
     { class: 'danger', letters: ['5', '%', '5', '&', '7', '/', '8', '(', 'r', 't', 'y', 'u', 'f', 'g', 'h', 'j', 'v', 'b', 'n', 'm'] }];
 
     this.clickRightSound = new Howl({
@@ -72,6 +73,7 @@ export class ExerciseComponent implements OnInit {
     });
     Howler.volume(this.typeSettings.soundVolume / 100);
     this.exercises = [];
+    this.currentSoundLevel = this.typeSettings.soundVolume;
   }
 
   ngOnInit() {
@@ -83,21 +85,30 @@ export class ExerciseComponent implements OnInit {
     }, 500);
   }
 
+
   setSoundVolume = (event: any) => {
-    let value = event.value;
-    this.typeSettings.soundVolume = value;
-    Howler.volume(value / 100);
-    this.localStorageService.insert('typeSettings', this.typeSettings);
-  }
+    this.currentSoundLevel = event.value;
+    if (!this.typeSettings.muteSound) {
+      let value = event.value;
+      this.typeSettings.soundVolume = value;
+      Howler.volume(value / 100);
+      this.localStorageService.insert('typeSettings', this.typeSettings);
+    }
+
+  };
+
+
   soundSetting = (value: boolean) => {
     this.typeSettings.muteSound = value;
     if (value) {
-      Howler.volume(0);
+     
       this.typeSettings.soundVolume = 0;
+    } else {
+      this.typeSettings.soundVolume = this.currentSoundLevel;
     }
-
+    Howler.volume(this.typeSettings.soundVolume / 100);
     this.localStorageService.insert('typeSettings', this.typeSettings);
-  }
+  };
 
   writeText(key: string, altKey: string = '') {
 
@@ -136,33 +147,33 @@ export class ExerciseComponent implements OnInit {
 
   }
 
-  private getExercise = (exerciseParams)=>{
+  private getExercise = (exerciseParams) => {
     this._apiService.getExercise(exerciseParams.lekt_nr).then((exercise) => {
       let allTItles = exercise[3].replace('uebg_titel=', '').split('|');
-      let headers = exercise[4].replace('uebg_anw=','').split('|');
-      let flagTexts = exercise[5].replace('anw_mann=','').split('|');
-      let contents = exercise[6].replace('uebg_text=','').split('|');
+      let headers = exercise[4].replace('uebg_anw=', '').split('|');
+      let flagTexts = exercise[5].replace('anw_mann=', '').split('|');
+      let contents = exercise[6].replace('uebg_text=', '').split('|');
       allTItles.forEach((element, i) => {
         if (element != '0' && element != 0) {
-          this.exercises.push({name: 'Ü'+(i+1)+': '+element,header:headers[i],flagText:flagTexts[i],content:contents[i] });
+          this.exercises.push({ name: 'Ü' + (i + 1) + ': ' + element, header: headers[i], flagText: flagTexts[i], content: contents[i] });
         }
       });
       this.currentExercise = this.exercises[exerciseParams.lessionIndex];
-      
+
     })
   }
 
-  nextExercise(){
-   this.currentLessionIndex = this.currentLessionIndex+1;
+  nextExercise() {
+    this.currentLessionIndex = this.currentLessionIndex + 1;
     this.currentExercise = this.exercises[this.currentLessionIndex];
   }
-  setSound(value:string){
+  setSound(value: string) {
     this.typeSettings.sound = value;
-    this.localStorageService.insert('typeSettings',this.typeSettings);
+    this.localStorageService.insert('typeSettings', this.typeSettings);
   }
 
-  checkLetterExists(letter:string,extLetter:string=''){
-    if(this.typingValue.indexOf(letter)>=0)
+  checkLetterExists(letter: string, extLetter: string = '') {
+    if (this.typingValue.indexOf(letter) >= 0)
       return true;
     return false;
   }

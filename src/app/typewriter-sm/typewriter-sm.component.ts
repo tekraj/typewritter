@@ -44,9 +44,10 @@ export class TypewriterSmComponent implements OnInit {
   public exercise: any;
   public typingValue: string = '';
   public currentLessionIndex: number;
-  public showTooltipInfo : boolean = false;
-  public showCompleteBox : boolean = false;
-  constructor(private _apiService: ApiService, private localStorageService: LocalStorageService,private route: ActivatedRoute) {
+  public showTooltipInfo: boolean = false;
+  public showCompleteBox: boolean = false;
+  public currentSoundLevel = 0;
+  constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute) {
 
     this.exercise = this.route.params['value'].exercise;
 
@@ -57,10 +58,11 @@ export class TypewriterSmComponent implements OnInit {
       this.typeSettings = settingData;
 
     }
+    this.currentSoundLevel = this.typeSettings.soundVolume;
     for (let i = 1; i <= this.typeSettings.stringLength; i++) {
       this.typingValue += this.typeSettings.value + ' ';
     }
-   
+
     this.keyboard.typingValue = this.typingValue.trim().split('');
     this.totalWords = this.typingValue.length;
 
@@ -86,27 +88,35 @@ export class TypewriterSmComponent implements OnInit {
   }
 
   setSoundVolume = (event: any) => {
-    let value = event.value;
-    this.typeSettings.soundVolume = value;
-    Howler.volume(value / 100);
-    this.localStorageService.insert('typeSettings', this.typeSettings);
-  }
+    this.currentSoundLevel = event.value;
+    if (!this.typeSettings.muteSound) {
+      let value = event.value;
+      this.typeSettings.soundVolume = value;
+      Howler.volume(value / 100);
+      this.localStorageService.insert('typeSettings', this.typeSettings);
+    }
+
+  };
+
+
   soundSetting = (value: boolean) => {
     this.typeSettings.muteSound = value;
     if (value) {
       Howler.volume(0);
       this.typeSettings.soundVolume = 0;
+    } else {
+      this.typeSettings.soundVolume = this.currentSoundLevel;
+      Howler.volume(this.typeSettings.soundVolume / 100);
     }
-
     this.localStorageService.insert('typeSettings', this.typeSettings);
-  }
+  };
 
   writeText(key: string, altKey: string = '') {
 
   }
 
   handleKeyDownEvent(event: KeyboardEvent) {
-    
+
     let key = event.key;
     this.keyValue = key;
     let typedString = this.typedString + this.keyValue;
@@ -123,15 +133,15 @@ export class TypewriterSmComponent implements OnInit {
       this.typedString = typedString;
       this.letterTypedIndex = this.typedString.length - 1;
       this.letterNextTyped = this.typedString.length;
-      
+
       this.totalRight++;
 
-      
+
     } else {
       this.clickWrongSound.play();
       this.totalWrong++;
     }
-    if(this.totalRight==this.typingValue.length-1){
+    if (this.totalRight == this.typingValue.length - 1) {
       this.showCompleteBox = true;
     }
   }
@@ -160,7 +170,7 @@ export class TypewriterSmComponent implements OnInit {
       return true;
     return false;
   }
-  continueExercise (){
+  continueExercise() {
     this.typedString = '';
     this.letterTypedIndex = 0;
     this.letterNextTyped = 0;
@@ -169,7 +179,7 @@ export class TypewriterSmComponent implements OnInit {
     this.showCompleteBox = false;
   }
 
-  setNextPractice(){
+  setNextPractice() {
     for (let i = 1; i <= this.typeSettings.stringLength; i++) {
       this.typingValue += this.typeSettings.value + ' ';
     }
@@ -178,7 +188,7 @@ export class TypewriterSmComponent implements OnInit {
     this.showCompleteBox = false;
   }
 
-  showTooltipBox(){
-    this.showTooltipInfo = this.showTooltipInfo ===true ? false : true;
+  showTooltipBox() {
+    this.showTooltipInfo = this.showTooltipInfo === true ? false : true;
   }
 }

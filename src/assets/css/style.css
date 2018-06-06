@@ -708,7 +708,7 @@ input[type=number]:focus,
     top: -18px;
     background: #00cc00!important;
     transition: none;
-    border: none;
+    border: 1px solid #00cc00;
     width: 12px;
     transform: none;
 }
@@ -1153,4 +1153,9 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     background: #6b6162;
     position: relative;
     z-index: 999;
+}
+
+.sound-slider.mute .mat-slider-thumb{
+    border:1px solid #000!important;
+    background:#999999!important;
 }

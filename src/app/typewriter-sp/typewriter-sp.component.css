@@ -13,7 +13,7 @@
     font-size: 40px;
     font-weight: bold;
     position: absolute;
-    z-index: 9;
+    z-index: 99;
 }
 
 .ballon-holder span.danger{
