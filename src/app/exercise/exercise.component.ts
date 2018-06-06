@@ -29,7 +29,7 @@ export class ExerciseComponent implements OnInit {
   public keyValue: any;
   public keyboard: any = {};
   public typedString: string = '';
-  public typingValue: string = '';
+
   public letterTypedIndex: number;
   public letterNextTyped: number = 0;
   public currentLetterImage: string;
@@ -41,17 +41,22 @@ export class ExerciseComponent implements OnInit {
   public clickRightSound: any;
   public clickWrongSound: any;
   public exerciseParams:any;
+  public typingValue:string='';
   public currentLessionIndex :number;
   constructor(private _apiService : ApiService,private localStorageService: LocalStorageService, private route: ActivatedRoute) {
-    this.typingValue = 'aaa sss ddd fff ggg fff ggg aaaa ddd sss';
-    this.keyboard.typingValue = this.typingValue.split('');
+   
+    
     let settingData = localStorageService.select('typeSettings');
     if (settingData == false) {
-      this.typeSettings = { stringLength: 0, value: "asdfghjklö", typewriterMode: '', presentation: 0, sound: 'kein_sound', soundVolume: 1, muteSound: false };
+      this.typeSettings = { stringLength: 1, value: "asdfghjklö", typewriterMode: '', presentation: 0, sound: 'kein_sound', soundVolume: 1, muteSound: false };
     } else {
       this.typeSettings = settingData;
 
     }
+    for(let i=1;i<=this.typeSettings.stringLength;i++){
+        this.typingValue += this.typeSettings.value+' ';
+    }
+    this.keyboard.typingValue = this.typingValue.trim().split('');
     this.totalWords = this.typingValue.length;
 
     this.letterClasses = [{ class: 'primary', letters: ['a', 'q', 'z', '1', , '!', '2', '"', 'ß', '?', '´', '`', 'p', 'ü', '-', '_', 'ö', 'ä'] },
@@ -154,5 +159,11 @@ export class ExerciseComponent implements OnInit {
   setSound(value:string){
     this.typeSettings.sound = value;
     this.localStorageService.insert('typeSettings',this.typeSettings);
+  }
+
+  checkLetterExists(letter:string,extLetter:string=''){
+    if(this.typingValue.indexOf(letter)>=0)
+      return true;
+    return false;
   }
 }

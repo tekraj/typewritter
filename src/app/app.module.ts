@@ -12,7 +12,16 @@ import { InfoComponent } from './info/info.component';
 import { BrowserAnimationsModule  } from '@angular/platform-browser/animations';
 import {  MatSliderModule } from '@angular/material';
 
+
+
+import { TypewriterSpComponent } from './typewriter-sp/typewriter-sp.component';
 import { ExerciseComponent } from './exercise/exercise.component';
+import { GalleryComponent } from './gallery/gallery.component';
+import { TypewriterSmComponent } from './typewriter-sm/typewriter-sm.component';
+import { TypewriterDzComponent } from './typewriter-dz/typewriter-dz.component';
+import { TypewriterDtComponent } from './typewriter-dt/typewriter-dt.component';
+import { TypewriterBsComponent } from './typewriter-bs/typewriter-bs.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +29,13 @@ import { ExerciseComponent } from './exercise/exercise.component';
     HomeComponent,
     ModuleComponent,
     InfoComponent,
-    ExerciseComponent
+    ExerciseComponent,
+    TypewriterSmComponent,
+    TypewriterDzComponent,
+    TypewriterSpComponent,
+    TypewriterDtComponent,
+    TypewriterBsComponent,
+    GalleryComponent
   ],
   imports: [
     BrowserModule,

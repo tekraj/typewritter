@@ -1,0 +1,21 @@
+.ballon-holder{
+    position: relative;
+    min-height: 100px;
+}
+.ballon-holder span{
+    display: inline-block;
+    width: 60px;
+    height: 40px;
+    border-radius: 50%;
+    color: #fff;
+    text-align: center;
+    line-height: 40px;
+    font-size: 30px;
+    font-weight: bold;
+    background: radial-gradient(white ,#ff0505,white);
+    position: absolute;
+    transition:all 3s ease;
+}
+.ballon-holder span.animation{
+    bottom: 100%!important;
+}
