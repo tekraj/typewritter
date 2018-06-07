@@ -13,7 +13,9 @@
 .btn-r-d,.btn-l-d{
     margin-top:20px;
 }
-.last-btn-module{margin-top:30px;}
+.last-btn-module{
+    /*margin-top:30px;*/
+}
 .module-container h1 {
     text-align: center;
     font-size: 24px;
@@ -24,9 +26,21 @@
     font-family: serif;
     font-weight: bold;
 }
-.module-content h4{color:#4040d4;font-family: serif;font-size:22px;font-weight:bold;letter-spacing: 3px;margin-top:20px;}
+.module-content h4{
+    color:#4040d4;
+    font-family: serif;
+    font-size:22px;font-weight:bold;letter-spacing: 3px;margin-top:20px;
+    margin-bottom: 0;
+}
 .module-content{padding:2px 50px;}
 .keybord-tast span:first-child{border-bottom:2px solid #4040d4;}
+.keybord-tast span.spn-text{
+    letter-spacing: 2px;
+    line-height: 18px;
+}
+.row.margin-top-20.space-top-bar{
+    margin-top: 30px !important;
+}
 .space-bars ul{padding:0;margin:0;display: inline-block;vertical-align: middle;}
   .space-bars ul li{display: inline-block;}
  
@@ -49,8 +63,35 @@
     position: relative;
     top: -5px;
 }
+.space-bars .btn{
+    font-size: 18px;
+    letter-spacing: 3px;
+}
 .mult-ul-div{
-    margin-top: -26px;
+    /*margin-top: -26px;*/
+}
+.mult-ul-div p{
+    margin-top: -25px !important;
+    margin-right: 50px;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+.mult-ul-div ul li {
+    float: left;
+}
+.mult-ul-div ul li .btn{
+    padding: 3px 11px;
+}
+.space-top-bar input.form-control {
+    background: #ccc;
+    height: 25px;
+    border-color: #191919;
+    opacity: 1;
+    border-radius: 0;
+    color: #0202fe;
+    font-weight: 600;
+    font-family: serif;
+    letter-spacing: 1px;
 }
 .keybord-tast{margin:0;padding:0;}
 .keybord-tast li{clear:both;}
@@ -69,7 +110,17 @@
     margin-top: -7px;
 }
 
-.btn-l-d .btn{margin-left:-7px;}
-.btn-r-d .btn{margin-left:-15px;}
+.btn-l-d .btn, .btn-r-d .btn{
+    padding: 0px 11px;
+}
+.btn-r-d .btn{margin-left:-25px;}
 
 .first-tast li span  .btn.btn-default.first-tast-btn.active{color:#676767!important;}
+
+.module-container h1{
+    font-family: 'IBM Plex Mono', monospace;
+    letter-spacing: 15px;
+}
+.module-content h4 {
+color: #0202fe;
+}

@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-typewriter-sm',
   templateUrl: './typewriter-sm.component.html',
+  styleUrls: ['./typewriter-sm.component.css'],
   host: {
     '(document:keydown)': 'handleKeyDownEvent($event)',
     '(document:keyup)': 'handleKeyUpEvent($event)',

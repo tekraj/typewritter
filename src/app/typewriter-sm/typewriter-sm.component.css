@@ -1,0 +1,41 @@
+.page-header{
+	font-size: 16px;
+	letter-spacing: 3px;
+}
+.info .sound-group, .info-group{
+	background: #999;
+}
+.info .sound-group .btn{
+	font-weight: 600;
+	line-height: 31px;
+}
+#keyboard li{
+	height: 54px;
+}
+#keyboard li.default{
+	border-width: 6px 12px;
+}
+#keyboard li.success, #keyboard li.primary, #keyboard li.warning, #keyboard li.danger{
+	border-width: 6px 10px;
+}
+.bottom-botton-holder{
+	bottom: 4px;
+}
+.bottom-botton-holder a.btn.rounded-button{
+    color: #222 !important;
+    font-size: 12px;
+    line-height: 17px;
+    letter-spacing: 1px;
+    background: #ccc;
+    border-width: 1px;
+}
+#keyboard li.return:before {
+	height: 52px;
+	top: -51px;
+	left: -52px;
+	border-width: 4px 12px;
+	border-top-width: 8px;
+}
+#keyboard li.return.lastitem.default{
+	border-top-width: 0;
+}

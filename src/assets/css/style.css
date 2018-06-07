@@ -5,6 +5,136 @@ body{
 	/*font-family:'arial';*/
     font-family: 'Catamaran', sans-serif !important;
 }
+/*Margin*/
+.margin-top-0{
+    margin-top: 0px !important;
+}
+.margin-top-5{
+    margin-top: 5px !important;
+}
+.margin-top-10{
+    margin-top: 10px !important;
+}
+.margin-top-15{
+    margin-top: 15px !important;
+}
+.margin-top-20{
+    margin-top: 20px !important;
+}
+
+.margin-bottom-0{
+    margin-bottom: 0px !important;
+}
+.margin-bottom-5{
+    margin-bottom: 5px !important;
+}
+.margin-bottom-10{
+    margin-bottom: 10px !important;
+}
+.margin-bottom-15{
+    margin-bottom: 15px !important;
+}
+.margin-bottom-20{
+    margin-bottom: 20px !important;
+}
+
+.margin-left-0{
+    margin-left: 0px !important;
+}
+.margin-left-5{
+    margin-left: 5px !important;
+}
+.margin-left-10{
+    margin-left: 10px !important;
+}
+.margin-left-15{
+    margin-left: 15px !important;
+}
+.margin-left-20{
+    margin-left: 20px !important;
+}
+
+.margin-right-0{
+    margin-right: 0px !important;
+}
+.margin-right-5{
+    margin-right: 5px !important;
+}
+.margin-right-10{
+    margin-right: 10px !important;
+}
+.margin-right-15{
+    margin-right: 15px !important;
+}
+.margin-right-20{
+    margin-right: 20px !important;
+}
+
+/*Padding*/
+.padding-top-0{
+    padding-top: 0px !important;
+}
+.padding-top-5{
+    padding-top: 5px !important;
+}
+.padding-top-10{
+    padding-top: 10px !important;
+}
+.padding-top-15{
+    padding-top: 15px !important;
+}
+.padding-top-20{
+    padding-top: 20px !important;
+}
+
+.padding-bottom-0{
+    padding-bottom: 0px !important;
+}
+.padding-bottom-5{
+    padding-bottom: 5px !important;
+}
+.padding-bottom-10{
+    padding-bottom: 10px !important;
+}
+.padding-bottom-15{
+    padding-bottom: 15px !important;
+}
+.padding-bottom-20{
+    padding-bottom: 20px !important;
+}
+
+.padding-left-0{
+    padding-left: 0px !important;
+}
+.padding-left-5{
+    padding-left: 5px !important;
+}
+.padding-left-10{
+    padding-left: 10px !important;
+}
+.padding-left-15{
+    padding-left: 15px !important;
+}
+.padding-left-20{
+    padding-left: 20px !important;
+}
+
+.padding-right-0{
+    padding-right: 0px !important;
+}
+.padding-right-5{
+    padding-right: 5px !important;
+}
+.padding-right-10{
+    padding-right: 10px !important;
+}
+.padding-right-15{
+    padding-right: 15px !important;
+}
+.padding-right-20{
+    padding-right: 20px !important;
+}
+
 header{
 	/*font-family: 'Noticia Text', serif!important;
     font-family: 'Catamaran', sans-serif !important;*/
@@ -424,14 +554,14 @@ span.red {
 .btn.btn-default {
     background: #cccccc;
     outline: none!important;
-    color: #4545ee !important;
+    color: #2727f5 !important;
     font-family: 'IBM Plex Mono', monospace;
     border: outset #cacaca;
     padding: 2px 5px;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 900;
     border-radius: 6px;
-    border-width: 3px 8px;
+    border-width: 3px 5px;
     transition: none!important;
     margin:0;
 }
