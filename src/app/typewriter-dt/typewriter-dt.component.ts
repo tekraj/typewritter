@@ -8,7 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-typewriter-dt',
   templateUrl: './typewriter-dt.component.html',
-  styleUrls : ['./typewriter-dt.component.css'],
+  styleUrls: ['./typewriter-dt.component.css'],
   host: {
     '(document:keydown)': 'handleKeyDownEvent($event)',
     '(document:keyup)': 'handleKeyUpEvent($event)',
@@ -46,11 +46,12 @@ export class TypewriterDtComponent implements OnInit {
   public exercise: any;
   public typingValue: string = '';
   public currentLessionIndex: number;
-  public showTooltipInfo : boolean = false;
-  public showCompleteBox : boolean = false;
-  public showZoomAnimation : boolean = true;
-  public zoomButtonAnimation : boolean = false;
-  constructor(private _apiService: ApiService, private localStorageService: LocalStorageService,private route: ActivatedRoute) {
+  public showTooltipInfo: boolean = false;
+  public showCompleteBox: boolean = false;
+  public showZoomAnimation: boolean = true;
+  public zoomButtonAnimation: boolean = false;
+  public currentSoundLevel = 0;
+  constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute) {
 
     this.exercise = this.route.params['value'].exercise;
     let settingData = localStorageService.select('typeSettings');
@@ -62,6 +63,7 @@ export class TypewriterDtComponent implements OnInit {
     for (let i = 1; i <= this.typeSettings.stringLength; i++) {
       this.typingValue += this.typeSettings.value + ' ';
     }
+    this.currentSoundLevel = this.typeSettings.soundVolume;
     this.keyboard.typingValue = this.typingValue.trim().split('');
     this.totalWords = this.typingValue.length;
     this.letterClasses = [{ class: 'primary', letters: ['a', 'q', 'z', '1', , '!', '2', '"', 'ß', '?', '´', '`', 'p', 'ü', '-', '_', 'ö', 'ä'] },
@@ -86,29 +88,36 @@ export class TypewriterDtComponent implements OnInit {
       this.headerHide = false;
     }, 500);
   }
-
   setSoundVolume = (event: any) => {
-    let value = event.value;
-    this.typeSettings.soundVolume = value;
-    Howler.volume(value / 100);
-    this.localStorageService.insert('typeSettings', this.typeSettings);
-  }
+    this.currentSoundLevel = event.value;
+    if (!this.typeSettings.muteSound) {
+      let value = event.value;
+      this.typeSettings.soundVolume = value;
+      Howler.volume(value / 100);
+      this.localStorageService.insert('typeSettings', this.typeSettings);
+    }
+
+  };
+
+
   soundSetting = (value: boolean) => {
     this.typeSettings.muteSound = value;
     if (value) {
-      Howler.volume(0);
+     
       this.typeSettings.soundVolume = 0;
+    } else {
+      this.typeSettings.soundVolume = this.currentSoundLevel;
     }
-
+    Howler.volume(this.typeSettings.soundVolume / 100);
     this.localStorageService.insert('typeSettings', this.typeSettings);
-  }
+  };
 
   writeText(key: string, altKey: string = '') {
 
   }
 
   handleKeyDownEvent(event: KeyboardEvent) {
-    
+
     let key = event.key;
     this.keyValue = key;
     let typedString = this.typedString + this.keyValue;
@@ -125,15 +134,15 @@ export class TypewriterDtComponent implements OnInit {
       this.typedString = typedString;
       this.letterTypedIndex = this.typedString.length - 1;
       this.letterNextTyped = this.typedString.length;
-      
+
       this.totalRight++;
 
-      
+
     } else {
       this.clickWrongSound.play();
       this.totalWrong++;
     }
-    if(this.totalRight==this.typingValue.length-1){
+    if (this.totalRight == this.typingValue.length - 1) {
       this.showCompleteBox = true;
     }
   }
@@ -152,17 +161,8 @@ export class TypewriterDtComponent implements OnInit {
     this.currentLessionIndex = this.currentLessionIndex + 1;
     this.currentExercise = this.exercises[this.currentLessionIndex];
   }
-  setSound(value: string) {
-    this.typeSettings.sound = value;
-    this.localStorageService.insert('typeSettings', this.typeSettings);
-  }
 
-  checkLetterExists(letter: string, extLetter: string = '') {
-    if (this.typingValue.indexOf(letter) >= 0)
-      return true;
-    return false;
-  }
-  continueExercise (){
+  continueExercise() {
     this.typedString = '';
     this.letterTypedIndex = 0;
     this.letterNextTyped = 0;
@@ -171,7 +171,7 @@ export class TypewriterDtComponent implements OnInit {
     this.showCompleteBox = false;
   }
 
-  setNextPractice(){
+  setNextPractice() {
     for (let i = 1; i <= this.typeSettings.stringLength; i++) {
       this.typingValue += this.typeSettings.value + ' ';
     }
@@ -180,11 +180,11 @@ export class TypewriterDtComponent implements OnInit {
     this.showCompleteBox = false;
   }
 
-  showTooltipBox(){
-    this.showTooltipInfo = this.showTooltipInfo ===true ? false : true;
+  showTooltipBox() {
+    this.showTooltipInfo = this.showTooltipInfo === true ? false : true;
   }
 
-  hideZoomAnimation(){
+  hideZoomAnimation() {
     this.showZoomAnimation = false;
   }
 }

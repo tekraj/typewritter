@@ -43,7 +43,8 @@ import { TypewriterBsComponent } from './typewriter-bs/typewriter-bs.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatSliderModule   
+    MatSliderModule ,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
