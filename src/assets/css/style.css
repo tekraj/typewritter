@@ -557,7 +557,7 @@ span.red {
     color: #2727f5 !important;
     font-family: 'IBM Plex Mono', monospace;
     border: outset #cacaca;
-    padding: 2px 5px;
+    padding: 2px 14px;
     font-size: 14px;
     font-weight: 900;
     border-radius: 6px;
@@ -882,16 +882,21 @@ input[type=number]:focus,
 .btn.rounded-white{background-color:#fff;color:#ea0408!important;}
 .bottom-botton-holder {
     position: fixed;
-    bottom: 9px;
+    bottom: 4px;
     left: 0px;
     right: 0;
     padding: 0 45px;
 }
-.bottom-botton-holder .btn.rounded-button{
-    font-size: 10px;
+.bottom-botton-holder a.btn.rounded-button{
+    color: #222 !important;
     padding: 0px 20px;
     height: 19px;
-    line-height: normal;
+    font-size: 13px;
+    line-height: 17px;
+    letter-spacing: 2px;
+    background: #ccc;
+    border-width: 1px;
+    font-weight: 800;
 }
 .info .sound-group{
     display: inline-block;
@@ -915,6 +920,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 .main-info-text-hoder{
     text-align: center;
     min-height: 55px;
+    max-height: 55px;
 }
 .info .main-info-text{
     border: 2px solid #ea0408;
@@ -1065,16 +1071,17 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     #keyboard li {
     float: left;
     margin: 1px;
-    width: 6.4%;
-    height: 50px;
+    width: 6.5%;
     line-height: 40px;
     text-align: center;
     background: #fff;
     border: 1px solid #f9f9f9;
-    border-radius:6px;
-    font-size:16px;
     font-weight: bold;
     color:transparent;
+    height: 54px;
+    border-radius: 10px;
+    font-size: 22px;
+    text-transform: uppercase;
     }
     #keyboard li.visible{color:#000;}
     .capslock, .tab, .left-shift {
@@ -1126,7 +1133,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     #keyboard li.default{
         background-color:#ccc!important;
         border: outset #ccc;
-        border-width: 3px 8px;
+        border-width: 6px 12px;
     }
     #keyboard li.return:before {
         content: '';
@@ -1163,6 +1170,9 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
         background-color:#ff0000!important;
         border: outset #ff0000;
         border-width: 3px 8px;
+    }
+    #keyboard li.success, #keyboard li.primary, #keyboard li.warning, #keyboard li.danger{
+        border-width: 6px 10px;
     }
     #keyboard li.active{
         border-style: inset;
@@ -1296,4 +1306,30 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 .sound-slider.mute .mat-slider-thumb{
     border:1px solid #000!important;
     background:#999999!important;
+}
+#keyboard .return{
+    width: 89px !important;
+}
+#keyboard li.return:before {
+    height: 52px;
+    top: -51px;
+    left: -52px;
+    border-width: 4px 12px;
+    border-top-width: 8px;
+    width:129px;
+}
+#keyboard li.backspace{
+    width: 166px !important;
+}
+#keyboard li.return.lastitem.default{
+    border-top-width: 0;
+}
+.keyboard-holder{
+    margin-top:4.8%;
+}
+#keyboard .space{
+    width:73%;
+}
+#keyboard li.right-shift{
+    width: 214px !important;
 }
