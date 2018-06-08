@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
       this.localStoreageService.insert('st_lfdnr', st_lfdnr)
       this.localStoreageService.insert('std_name', studentName);
       if (studentName) {
-
         let stdNameArray = studentName.split(' ');
         if (stdNameArray.length > 1) {
           this.localStoreageService.insert('std_first_name', stdNameArray[0]);

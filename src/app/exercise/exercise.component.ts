@@ -44,6 +44,8 @@ export class ExerciseComponent implements OnInit {
   public typingValue: string = '';
   public currentLessionIndex: number;
   public currentSoundLevel = 0;
+  public metroSound = 'Metro aus';
+  public backgroundSound: any;
   constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute) {
 
 
@@ -65,9 +67,8 @@ export class ExerciseComponent implements OnInit {
     { class: 'success', letters: ['4', '$', '9', ')', 'i', 'k', ';', ',', 'd'] },
     { class: 'danger', letters: ['5', '%', '5', '&', '7', '/', '8', '(', 'r', 't', 'y', 'u', 'f', 'g', 'h', 'j', 'v', 'b', 'n', 'm'] }];
 
-    this.clickRightSound = new Howl({
-      src: ['../assets/sounds/right-click.mp3']
-    });
+    this.setSound(this.typeSettings.sound);
+
     this.clickWrongSound = new Howl({
       src: ['../assets/sounds/wrong-click.mp3']
     });
@@ -115,12 +116,12 @@ export class ExerciseComponent implements OnInit {
   }
 
   handleKeyDownEvent(event: KeyboardEvent) {
-    console.log(event);
+  
     let key = event.key;
     this.keyValue = key;
     let typedString = this.typedString + this.keyValue;
     if (this.typingValue.indexOf(typedString) == 0) {
-      this.clickRightSound.play();
+      
       let keyCode = event.keyCode == 32 ? 32 : (event.keyCode + 32);
       this.currentLetterImage = '../assets/images/typer/db_' + keyCode + '.jpg';
       this.currentTypedLetter = key;
@@ -129,10 +130,30 @@ export class ExerciseComponent implements OnInit {
           this.currentTypedLetterClass = element.class;
         }
       });
+
       this.typedString = typedString;
       this.letterTypedIndex = this.typedString.length - 1;
       this.letterNextTyped = this.typedString.length;
       this.totalRight++;
+      if (this.clickRightSound) {
+        if (this.clickRightSound == 'click') {
+          let clickSound = new Howl({
+            src: ['../assets/sounds/right-click.mp3']
+          });
+          clickSound.play();
+        } else if (this.clickRightSound == 'play-letter') {
+          let clickSound = new Howl({
+            src: ['../assets/sounds/cs_' + keyCode + '.mp3']
+          });
+          clickSound.play();
+        } else if (this.clickRightSound == 'icon-sound') {
+          let clickSound = new Howl({
+            src: ['../assets/sounds/notes/ds_' + keyCode + '.mp3']
+          });
+          clickSound.play();
+        }
+
+      }
     } else {
       this.clickWrongSound.play();
       this.totalWrong++;
@@ -170,6 +191,70 @@ export class ExerciseComponent implements OnInit {
   setSound(value: string) {
     this.typeSettings.sound = value;
     this.localStorageService.insert('typeSettings', this.typeSettings);
+    if (value.indexOf('hg') >= 0) {
+      this.metroSound = 'Metro aus'
+      this.clickRightSound = false;
+      Howler.unload();
+      this.backgroundSound = new Howl({
+        src: ['../assets/sounds/' + value + '.mp3']
+      });
+      this.backgroundSound.play();
+
+    } else if (value == 'metro_aus') {
+      Howler.unload();
+      if (this.metroSound == 'Metro aus') {
+        this.metroSound = 'Metro 1';
+
+        this.backgroundSound = new Howl({
+          src: ['../assets/sounds/right-click.mp3'],
+          loop: true,
+          rate: 0.10
+        });
+        this.backgroundSound.play();
+      } else if (this.metroSound == 'Metro 10') {
+        this.metroSound = 'Metro aus'
+      } else {
+        let metro = this.metroSound.split(' ');
+        let nextRate = parseInt(metro[1]) + 1;
+        this.metroSound = metro[0] + ' ' + nextRate;
+        Howler.unload();
+        let soundRate = 0.10 + (nextRate * 0.10);
+        soundRate = soundRate > 1 ? 1 : soundRate;
+        this.backgroundSound = new Howl({
+          src: ['../assets/sounds/right-click.mp3'],
+          loop: true,
+          rate: soundRate
+        });
+        this.backgroundSound.play();
+      }
+    } else {
+      this.metroSound = 'Metro aus'
+      this.setClickSound();
+    }
+  }
+
+  setClickSound() {
+    switch (this.typeSettings.sound) {
+
+      case 'click': {
+        this.clickRightSound = 'click';
+        break;
+      }
+      case 'bst': {
+        this.clickRightSound = 'play-letter';
+        break;
+      }
+      case 'icon': {
+        this.clickRightSound = 'icon-sound';
+        break;
+      }
+      default: {
+        this.clickRightSound = false;
+        break;
+      }
+    }
+    Howler.unload();
+
   }
 
   checkLetterExists(letter: string, extLetter: string = '') {

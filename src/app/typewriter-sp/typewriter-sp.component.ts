@@ -47,7 +47,7 @@ export class TypewriterSpComponent implements OnInit {
     public currentTypedLetter: string;
     public clickRightSound: any;
     public clickWrongSound: any;
-    public backgroundSound : any;
+    public backgroundSound: any;
     public exerciseParams: any;
     public typingValue = '';
     public currentLessionIndex: number;
@@ -58,6 +58,8 @@ export class TypewriterSpComponent implements OnInit {
     public clearLetterInterval: any;
     public letterClasses: Array<{ class: string, letters: Array<string> }>;
     public currentSoundLevel = 0;
+    public showCompleteBox : boolean = false;
+    public metroSound = 'Metro aus';
     constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute) {
         let exercise = this.route.params['value'].exercise;
         let exerciseArray = ['one', 'two', 'three', 'four', 'five'];
@@ -106,15 +108,12 @@ export class TypewriterSpComponent implements OnInit {
         }
 
 
-        this.clickWrongSound = new Howl({
-            src: ['../assets/sounds/wrong-click.mp3']
-        });
         Howler.volume(this.typeSettings.soundVolume / 100);
         this.letterClasses = [{ class: 'primary', letters: ['a', 'q', 'z', '1', , '!', '2', '"', 'ß', '?', '´', '`', 'p', 'ü', '-', '_', 'ö', 'ä'] },
         { class: 'warning', letters: ['3', '§', 'w', 's', 'x', '0', '=', 'o', 'l', ':', '.'] },
         { class: 'success', letters: ['4', '$', '9', ')', 'i', 'k', ';', ',', 'd'] },
         { class: 'danger', letters: ['5', '%', '5', '&', '7', '/', '8', '(', 'r', 't', 'y', 'u', 'f', 'g', 'h', 'j', 'v', 'b', 'n', 'm'] }];
-
+        this.setSound(this.typeSettings.sound);
     }
 
     ngOnInit() {
@@ -178,11 +177,11 @@ export class TypewriterSpComponent implements OnInit {
     soundSetting = (value: boolean) => {
         this.typeSettings.muteSound = value;
         if (value) {
-           
+
             this.typeSettings.soundVolume = 0;
         } else {
             this.typeSettings.soundVolume = this.currentSoundLevel;
-           
+
         }
         Howler.volume(this.typeSettings.soundVolume / 100);
         this.localStorageService.insert('typeSettings', this.typeSettings);
@@ -194,18 +193,43 @@ export class TypewriterSpComponent implements OnInit {
     handleKeyDownEvent(event: KeyboardEvent) {
         let key = event.key;
         var typedIndex = this.cLetters.indexOf(key)
-        console.log(typedIndex);
         if (typedIndex >= 0) {
-            if(this.clickRightSound){
-                this.clickRightSound.play();
+            let keyCode = event.keyCode == 32 ? 32 : (event.keyCode + 32);
+            if (this.clickRightSound) {
+                if (this.clickRightSound == 'click') {
+                    let clickSound = new Howl({
+                        src: ['../assets/sounds/right-click.mp3']
+                    });
+                    clickSound.play();
+                }else if(this.clickRightSound=='play-letter'){
+                    let clickSound = new Howl({
+                        src: ['../assets/sounds/cs_'+keyCode+'.mp3']
+                    });
+                    clickSound.play();
+                }else if(this.clickRightSound=='icon-sound'){
+                    let clickSound = new Howl({
+                        src: ['../assets/sounds/notes/ds_'+keyCode+'.mp3']
+                    });
+                    clickSound.play();
+                }
+
             }
-            
+
             this.totalRight++;
-            this.currentLetters[typedIndex].del = true;
+            if(this.currentLetters.length>typedIndex){
+                this.currentLetters[typedIndex].del = true;
+            }
         } else {
+
+            this.clickWrongSound = new Howl({
+                src: ['../assets/sounds/wrong-click.mp3']
+            });
             this.clickWrongSound.play();
             this.totalWrong++;
         }
+        if (this.totalRight == this.typingValue.length - 1) {
+            this.showCompleteBox = true;
+          }
     }
 
     handleKeyUpEvent(event: KeyboardEvent) {
@@ -219,15 +243,44 @@ export class TypewriterSpComponent implements OnInit {
     setSound(value: string) {
         this.typeSettings.sound = value;
         this.localStorageService.insert('typeSettings', this.typeSettings);
-        if(value.indexOf('hg')>=0){
+        if (value.indexOf('hg') >= 0) {
+            this.metroSound = 'Metro aus'
             this.clickRightSound = false;
             Howler.unload();
-            this.backgroundSound =  new Howl({
-                src: ['../assets/sounds/'+value+'.mp3']
+            this.backgroundSound = new Howl({
+                src: ['../assets/sounds/' + value + '.mp3']
             });
             this.backgroundSound.play();
 
-        }else{
+        } else if(value=='metro_aus'){
+            Howler.unload();
+            if(this.metroSound=='Metro aus'){
+                this.metroSound = 'Metro 1';
+               
+                this.backgroundSound = new Howl({
+                    src: ['../assets/sounds/right-click.mp3'],
+                    loop : true,
+                    rate : 0.10
+                });
+                this.backgroundSound.play();
+            }else if(this.metroSound=='Metro 10'){
+                this.metroSound = 'Metro aus'
+            }else{
+                let metro = this.metroSound.split(' ');
+                let nextRate = parseInt(metro[1])+1;
+                this.metroSound = metro[0] +' '+ nextRate;
+                Howler.unload();
+                let soundRate = 0.10 + (nextRate*0.10);
+                soundRate = soundRate > 1 ? 1 : soundRate;
+                this.backgroundSound = new Howl({
+                    src: ['../assets/sounds/right-click.mp3'],
+                    loop : true,
+                    rate : soundRate
+                });
+                this.backgroundSound.play();
+            }
+        }else  {
+            this.metroSound = 'Metro aus'
             this.setClickSound();
         }
     }
@@ -248,28 +301,28 @@ export class TypewriterSpComponent implements OnInit {
         return activeClass;
     }
 
-    setClickSound(){
-        switch(this.typeSettings.sound){
-           
-            case  'click' : {
+    setClickSound() {
+        switch (this.typeSettings.sound) {
+
+            case 'click': {
                 this.clickRightSound = 'click';
                 break;
             }
-            case 'bst' : {
+            case 'bst': {
                 this.clickRightSound = 'play-letter';
                 break;
             }
-            case 'icon' :{
+            case 'icon': {
                 this.clickRightSound = 'icon-sound';
                 break;
             }
-            default :{
+            default: {
                 this.clickRightSound = false;
                 break;
             }
         }
-       Howler.unload();
-       
+        Howler.unload();
+
     }
 
 
