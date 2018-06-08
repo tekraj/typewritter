@@ -496,7 +496,7 @@ span.red {
     position: absolute;
     left: 0px;
     z-index: 22222;
-    top: 1px;
+    top: 3px;
     width: 21px;
     height: 16px;
     border-radius: 50%;
@@ -629,7 +629,7 @@ span.red {
 .maria-text{
     position: absolute;
     width: 150px;
-    right: 102px;
+    right: 25%;
     top: 55px;
     z-index: 9;
     text-align: center;
@@ -882,7 +882,7 @@ input[type=number]:focus,
 .btn.rounded-white{background-color:#fff;color:#ea0408!important;}
 .bottom-botton-holder {
     position: fixed;
-    bottom: 4px;
+    bottom: 13px;
     left: 0px;
     right: 0;
     padding: 0 45px;
@@ -1011,28 +1011,29 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 #keyboard li.return {
     position: relative;
     background: url(../images/enter.png) no-repeat center!important;
-    height: 54px!important;
+    height: 9vh!important;
     margin-top: -10px!important;
     border-radius: 0px 0px 4px 4px!important;
-    top: 6px!important;
+    top: 8px!important;
+    width:7.8%;
 }
 
 
 #keyboard li.tab {
-    width: 118px!important;
+    width: 6.8%!important;
     background: url(../images/tab.png) no-repeat center!important;
 }
 #keyboard li.capslock {
-    width: 160px!important;
+    width: 9%!important;
     background: url(../images/caps-lock.png) no-repeat center!important;
 }
 #keyboard li.left-shift {
-    width: 120px!important;
+    width: 6.8%!important;
     background: url(../images/shift.png) no-repeat center!important;
 }
 #keyboard li.right-shift {
-    width: 201px!important;
     background: url(../images/shift.png) no-repeat center!important;
+    width:16.9%;
 }
 #keyboard li.blank{background-image:none!important;}
 .keyboard-input-field .typing-text span.active{font-weight:bold;}
@@ -1070,38 +1071,36 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     }
     #keyboard li {
     float: left;
-    margin: 1px;
-    width: 6.5%;
-    line-height: 40px;
+    width: 6.9%;
+    line-height: 8vh;
     text-align: center;
     background: #fff;
     border: 1px solid #f9f9f9;
     font-weight: bold;
     color:transparent;
-    height: 54px;
     border-radius: 10px;
     font-size: 22px;
     text-transform: uppercase;
+        height:9vh;
+        box-sizing: border-box;
     }
     #keyboard li.visible{color:#000;}
     .capslock, .tab, .left-shift {
     clear: left;
     }
-        #keyboard .tab, #keyboard .delete {
-        width: 70px;
-        }
-        #keyboard .capslock {
-        width: 80px;
-        }
-        #keyboard .return {
-        width: 77px;
-        }
-        #keyboard .left-shift {
-        width: 95px;
-        }
-        #keyboard .right-shift {
-        width: 109px;
-        }
+    #keyboard .tab, #keyboard .delete {
+    width: 70px;
+    }
+
+    #keyboard .return {
+    width: 77px;
+    }
+    #keyboard .left-shift {
+    width: 95px;
+    }
+    #keyboard .right-shift {
+    width: 109px;
+    }
     .lastitem {
     margin-right: 0;
     }
@@ -1139,16 +1138,17 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
         content: '';
         display: inline-block;
         position: absolute;
-        width: 117px;
-        height: 50px;
         background: #ccc;
         border: outset #ccc;
-        top: -50px;
-        left: -48px;
         right: initial;
         border-radius: 4px 4px 0px 5px;
-        border-width: 3px 8px;
-        border-bottom: 0;
+        top: -9vh;
+        left: -45%;
+        border-width: 4px 12px;
+        border-top-width: 8px;
+        width: 156%;
+        height: 9vh;
+        border-bottom:none;
     }
 
     #keyboard li.primary{
@@ -1307,19 +1307,10 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     border:1px solid #000!important;
     background:#999999!important;
 }
-#keyboard .return{
-    width: 89px !important;
-}
-#keyboard li.return:before {
-    height: 52px;
-    top: -51px;
-    left: -52px;
-    border-width: 4px 12px;
-    border-top-width: 8px;
-    width:129px;
-}
+
+
 #keyboard li.backspace{
-    width: 166px !important;
+    width: 10%!important;
 }
 #keyboard li.return.lastitem.default{
     border-top-width: 0;
@@ -1328,8 +1319,5 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     margin-top:4.8%;
 }
 #keyboard .space{
-    width:73%;
-}
-#keyboard li.right-shift{
-    width: 214px !important;
+    width:75.9%;
 }
