@@ -47,6 +47,7 @@ export class TypewriterSpComponent implements OnInit {
     public currentTypedLetter: string;
     public clickRightSound: any;
     public clickWrongSound: any;
+    public backgroundSound : any;
     public exerciseParams: any;
     public typingValue = '';
     public currentLessionIndex: number;
@@ -105,9 +106,6 @@ export class TypewriterSpComponent implements OnInit {
         }
 
 
-        this.clickRightSound = new Howl({
-            src: ['../assets/sounds/right-click.mp3']
-        });
         this.clickWrongSound = new Howl({
             src: ['../assets/sounds/wrong-click.mp3']
         });
@@ -198,7 +196,10 @@ export class TypewriterSpComponent implements OnInit {
         var typedIndex = this.cLetters.indexOf(key)
         console.log(typedIndex);
         if (typedIndex >= 0) {
-            this.clickRightSound.play();
+            if(this.clickRightSound){
+                this.clickRightSound.play();
+            }
+            
             this.totalRight++;
             this.currentLetters[typedIndex].del = true;
         } else {
@@ -218,6 +219,17 @@ export class TypewriterSpComponent implements OnInit {
     setSound(value: string) {
         this.typeSettings.sound = value;
         this.localStorageService.insert('typeSettings', this.typeSettings);
+        if(value.indexOf('hg')>=0){
+            this.clickRightSound = false;
+            Howler.unload();
+            this.backgroundSound =  new Howl({
+                src: ['../assets/sounds/'+value+'.mp3']
+            });
+            this.backgroundSound.play();
+
+        }else{
+            this.setClickSound();
+        }
     }
 
     checkLetterExists(letter: string, extLetter: string = '') {
@@ -234,6 +246,30 @@ export class TypewriterSpComponent implements OnInit {
             }
         });
         return activeClass;
+    }
+
+    setClickSound(){
+        switch(this.typeSettings.sound){
+           
+            case  'click' : {
+                this.clickRightSound = 'click';
+                break;
+            }
+            case 'bst' : {
+                this.clickRightSound = 'play-letter';
+                break;
+            }
+            case 'icon' :{
+                this.clickRightSound = 'icon-sound';
+                break;
+            }
+            default :{
+                this.clickRightSound = false;
+                break;
+            }
+        }
+       Howler.unload();
+       
     }
 
 
