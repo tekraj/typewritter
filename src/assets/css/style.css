@@ -157,8 +157,7 @@ header p{
 	font-weight: bold;
 	text-align: center;
 	margin-bottom:0;
-    letter-spacing: 5px;
-
+    letter-spacing: 1px;
 }
 
 
@@ -700,7 +699,7 @@ span.red {
     top:-1vh;
 }
 .col-sm-4.nach-holder{
-    padding-top: 1.8%;
+    padding-top: 1.5%;
     padding-left: 10%;
 }
 .nach-holder p{
@@ -731,7 +730,10 @@ span.red {
 .nach-text-holder{
     padding: 8% 0% 0% 10%;
 }
-.nach-buttons-group .btn:first-child{margin-right: 5px;}
+.nach-buttons-group .btn{
+    width:48%;
+}
+.nach-buttons-group .btn:first-child{margin-right: 2px;}
 .last-buttons-wrapper {
     position: absolute;
     left: 15px;
@@ -878,9 +880,10 @@ input[type=number]:focus,
     text-align: left;
     padding: 0px 5px;
     line-height: normal;
-    height: 16px;
+    height: 2vh;
     font-size: 12px;
     letter-spacing: 4px;
+    line-height: 14px;
 }
 
 .info .sound-group h4,.info-group h4{
@@ -967,8 +970,8 @@ input[type=number]:focus,
 }
 
 .info .sound-group .btn{
-    height:34px;
-    line-height: 34px;
+    height: 5vh;
+    line-height: 4vh;
 }
 .info .sound-group .btn.metro_aus{
     line-height: 15px;
@@ -1022,15 +1025,25 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 .info-container::-webkit-scrollbar-track-piece  {  width:12px;background: transparent; }
 .continue-btn-holder{margin-top:-20px;position: relative;z-index: 999;}
 
-.top-blank-white{background:#fff;border-radius:8px;margin-bottom:3px;border:3px solid #000;height:110px;}
+.top-blank-white{background: #fff;
+    border-radius: 14px;
+    margin-bottom: 3px;
+    border: 5px solid #333;
+    height: 22vh;
+    width: 50%;
+    margin: 4px auto;}
 .bottom-blank-white{
     background: #fff;
-    border-radius: 8px;
-    border: 3px solid #000;
-    height: 40px;
+    border-radius: 14px;
+    margin-bottom: 3px;
+    border: 5px solid #333;
+    height: 7vh;
+    width: 50%;
+    margin: 4px auto;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 4vh;
     text-align: center;
-    font-size: 24px;
-    line-height: 28px;
 }
 .bottom-blank-white.primary{color:#0000CC;}
 .bottom-blank-white.warning{color:#FFCC00;}
@@ -1047,7 +1060,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     font-size: 20px;
     letter-spacing: 1px;
     height: 32px;
-    line-height: normal;
+    line-height: 26px;
     pointer-events: none;
     overflow-x: auto;
     overflow-y: hidden
@@ -1277,7 +1290,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 .keyboard-holder{
     background:transparent;
     border:none;border-radius: 0;
-    margin-top:4.3%;
+    margin-top:2%;
 }
 
 .complete-modal{
@@ -1403,7 +1416,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 
 
 #keyboard li.backspace{
-     background: url(../images/backspace.png) no-repeat center!important;
+     background: url(../images/backspace.png) no-repeat center #ccc!important;
     width: 10%;
 }
 #keyboard li.backspace.active{
@@ -1422,7 +1435,4 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     width:70.1%;
     margin-left: 3%;
     margin-right:2.9%;
-}
-.maria-text.large {
-    right: 12%!important;
 }

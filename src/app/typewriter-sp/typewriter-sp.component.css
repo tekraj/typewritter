@@ -1,9 +1,15 @@
+.container5.keyboard-holder{
+    padding-top:2.5%;
+}
 .ballon-holder{
     position: absolute;
-    min-height: 100px;
-    margin-top: -90px;
+    min-height: 10vh;
+    margin-top: -9vh;
     left:0;
     right:0;
+}
+.maria-holder img{
+    top:6vh;
 }
 .ballon-holder span{
     display: inline-block;

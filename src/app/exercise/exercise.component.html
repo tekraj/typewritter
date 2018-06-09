@@ -8,19 +8,19 @@
   <div class="clearfix"></div>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-5 text-left typing maria-holder">
+      <div class="col-sm-4 text-left typing maria-holder">
         <div class="maria-text large">
           <p>{{currentExercise.flagText}}</p>
         </div>
         <img src="../assets/images/maria.png">
       </div>
-      <div class="col-sm-2">
+      <div class="col-sm-4">
         <div class="top-blank-white">
           <img src="{{currentLetterImage}}" *ngIf="currentLetterImage" class="keyboard-display-image" alt="">
         </div>
         <div class="bottom-blank-white {{currentTypedLetterClass}}">{{currentTypedLetter}}</div>
       </div>
-      <div class="col-sm-5 text-right">
+      <div class="col-sm-4 text-right">
         <div class="sound-group">
           <h4 class="text-center">SOUND</h4>
           <a class="btn btn-default kein-btn sound-btn" (click)="setSound('kein_sound')" [ngClass]="{'active':typeSettings.sound=='kein_sound'}">Kein Sound</a>

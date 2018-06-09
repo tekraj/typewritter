@@ -158,6 +158,9 @@ this.keyValue = key;
       }
 
     } else {
+      this.clickWrongSound = new Howl({
+        src: ['../assets/sounds/wrong-click.mp3']
+      });
       this.clickWrongSound.play();
       this.totalWrong++;
     }
