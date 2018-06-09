@@ -170,7 +170,7 @@ header{
     height:40%;
 }
 section {
-    padding: 5vh 3.75%;
+    padding: 4.7vh 3.2% 4.2vh 3.2%;
 	background-color: #6b6262!important;
 }
 .home h1 {
@@ -310,49 +310,96 @@ margin-right: 380px;
 .show {display:block;}
 
 .btn.btn-top {
-    background: #d2e2ff;
-    border: 1px solid #5555d4;
-    border-radius: 30px;
+    background: #ccc;
+    border: 2px solid #0000FF;
     color: #d21212;
     font-weight: bold;
     text-align: center;
-    padding: 2px 20px;
+    padding: 0px 20px;
     max-height: 24px;
     line-height: normal;
-    width: 100%;
-    display: block;
+    width: 90%;
+	display: inline-block;
     font-size: 12px;
-    overflow: hidden;
     transition: none!important;
+    position: relative;
+    margin-bottom: 1px;
+}
+.btn.btn-top::before{
+    content: '';
+    position: absolute;
+    left: -18px;
+    top: -2px;
+    background: inherit;
+    border-radius: 50% 0 0 50%;
+    display: block;
+    width: 12%;
+    border: inherit;
+    bottom: -2px;
+    border-right: none;
+}
+.btn.btn-top::after{
+    content: '';
+    position: absolute;
+    right: -18px;
+    top: -2px;
+    background: inherit;
+    border-radius: 0 50% 50% 0;
+    display: block;
+    width: 12%;
+    border: inherit;
+    bottom: -2px;
+    border-left: none;
 }
 .btn.btn-top:hover{background:#fff;}
 .btn.btn-top-bright,.btn.btn-top-bright.active,.first-active .btn.btn-top{
-    background: linear-gradient(#5c74ce, #f3f6fa, #5c74ce)!important;
-    border: 1.2px solid #2a3db5 !important;
-    border-radius: 30px;
+    background: linear-gradient(#7A94C9, #f3f6fa, #7A94C9)!important;
+    border: 1.2px solid #0018b1 !important;
     color: #ea0408;
     font-weight: bold;
     text-align: center;
-	padding: 2px 20px;
-    max-height: 4.3vh;
-    /*line-height: normal;*/
-    width: 100%;
-	display: block;
+	padding: 0px 20px;
+    max-height: 4vh;
+    width: 90%;
+	display: inline-block;
 	font-size:1.04rem;
-	overflow: hidden;
 	transition: none!important;
     margin-bottom: 2px;
+    position:relative;
+    line-height: 4vh;
+}
+.btn.btn-top-bright::before,.btn.btn-top-bright.active::before,.first-active .btn.btn-top::before{
+    content: '';
+    position: absolute;
+    left: -18px;
+    top: -1px;
+    background: inherit;
+    border-radius: 50% 0 0 50%;
+    display: block;
+    width: 12%;
+    border: inherit;
+    bottom: -1px;
+    border-right: none;
+}
+.btn.btn-top-bright::after,.btn.btn-top-bright.active::after,.first-active .btn.btn-top::after{
+    content: '';
+    position: absolute;
+    right: -18px;
+    top: -1px;
+    background: inherit;
+    border-radius: 0 50% 50% 0;
+    display: block;
+    width: 12%;
+    border: inherit;
+    bottom: -1px;
+    border-left: none;
 }
 .btn.btn-top-bright:hover,.btn.btn-top-bright:active,.btn.btn-top-bright:focus,
 .first-active .btn.btn-top:hover,.first-active .btn.btn-top:active,.first-active .btn.btn-top:focus{
 	background: linear-gradient(#6495ED, white, #6495ED);
     border: 1.2px solid #5555d4;
-	border-radius: 30px;
 	color: #ea0408;
 }
-
-
-
 
 .container-fluid.container5{
 	background-color: 	#999999;
@@ -362,11 +409,7 @@ margin-right: 380px;
 	height: 59%;
 	position: relative;
     overflow: hidden;
-
 }
-
-
-
 
 .col-md-7 h2{
 	position: relative;
@@ -385,26 +428,24 @@ ul{
 }
 .main-page-list{padding:0;margin:0;}
 .main-page-list li {
-    height: 3.2vh;
-    border: 1.5px solid #dd3333;
+    height: 3.4vh;
+    border: 1.5px solid #E80707;
     border-radius: 20px;
-    line-height: 12px;
     background: #cccccc;
     text-align: center;
-    font-size: 12px;
+    font-size: 13px;
     letter-spacing: .5px;
-    font-weight: bold;
-    margin-bottom: 0;
     font-weight: bold;
     color: #000;
     position: relative;
     overflow: hidden;
     cursor: pointer;
     z-index: 9;
+    box-sizing: border-box;
+    margin-bottom: 1px;
 }
 .main-page-list li .percent-indicator{
-    background: linear-gradient(#f35555, white, #980000);
-    width: 114%;
+    background: linear-gradient(#AE3636, white, #AE3636);
     display: inline-block;
     height: 100%;
     position: absolute;
@@ -436,17 +477,18 @@ ul{
     right: 0;
     z-index: 14;
     display: none;
-    font-size: 7px;
-    font-weight: normal;
+    font-size: 8px;
+    font-weight: bold;
     color: #000;
     width: 40px;
-    top: -1px;
+    top: 1px;
 }
 .main-page-list li .three-params span{display: block;line-height: 6px;}
 .main-page-list li:hover .yellow-percent,.main-page-list li:hover .gray-percent,.main-page-list li:hover .three-params{display: inline-block;}
 .main-page-list li .text-span{
     position: relative;
     z-index: 12;
+    line-height: 3.3vh;
 }
 .titles .main-page-list li{
 	border:2px solid #000;
@@ -496,7 +538,7 @@ span.red {
     position: absolute;
     left: 0px;
     z-index: 22222;
-    top: 3px;
+    top: 0.15vh;
     width: 21px;
     height: 16px;
     border-radius: 50%;
@@ -595,17 +637,21 @@ span.red {
 .verify-password p{line-height: 16px;}
 
 .btn.rounded-button{
-	padding:2px 30px;
-	background-color: #666666;
-	border:2px solid #ea0408;
-	border-radius: 40px;
-	text-align: center;
-	color: #fff!important;
-	font-weight: bold;
+	padding: 2px 30px;
+    background-color: #666666;
+    border: 2px solid #ea0408;
+    border-radius: 40px;
+    text-align: center;
+    color: #fff!important;
+    font-weight: bold;
+    font-size: 14px;
+    height: 26px;
+    line-height: 19px;
 }
+
 .box-titles h3 {
     font-size: 18px;
-    color: #1a1aed;
+    color: #0000FF;
     margin-bottom: 4px;
     font-weight: bold;
     letter-spacing: 3px;
@@ -619,22 +665,17 @@ span.red {
     overflow: hidden;
 }
 
-
-
 .typing{text-align: center;}
 
 .home h1{color:#1c1cec;margin:0;}
 .typing{text-align: center;}
-.maria-holder{margin-top:10px;}
-.maria-text{
+.maria-text {
     position: absolute;
-    width: 150px;
-    right: 25%;
+    width: 47%;
+    right: 4%;
     top: 55px;
     z-index: 9;
     text-align: center;
-   
-   
 }
 .maria-text p{
     color:#000;
@@ -645,14 +686,19 @@ span.red {
     margin:0;
 }
 .maria-holder img{
-    width: 80%;
+    width: 100%;
     display: inline-block;
 	height: max-content;
-	position: relative;
+    position: relative;
+    top:-1vh;
 }
-.col-sm-4.nach-holder{padding-top:30px;padding-left:115px;}
+.col-sm-4.nach-holder{
+    padding-top: 1.8%;
+    padding-left: 10%;
+}
 .nach-holder p{
-    font-size:9px;color:#1c1cec;line-height: 15px;margin-top:17px;position: relative;top:6px}
+    font-size:9px;color:#1c1cec;line-height: 12px;
+}
 
 
 .nach-holder img {
@@ -673,13 +719,18 @@ span.red {
 .book-dropdown ul li.active,.book-dropdown ul li.first-active{visibility: visible;opacity: 1;}
 .hide{display: none;}
 .nach-buttons-group {
-    padding-left: 5px;
-    padding-top: 5px;
-    top: 3px;
-    position: relative;
+    padding-left: 10%;
+}
+.nach-text-holder{
+    padding: 8% 0% 0% 10%;
 }
 .nach-buttons-group .btn:first-child{margin-right: 5px;}
-.last-buttons-wrapper{position: absolute;left:15px;right:15px;bottom:5px;}
+.last-buttons-wrapper {
+    position: absolute;
+    left: 15px;
+    right: 8px;
+    bottom:0px;
+}
 .login-status{
     width: 50%;
     margin: auto;
@@ -882,7 +933,7 @@ input[type=number]:focus,
 .btn.rounded-white{background-color:#fff;color:#ea0408!important;}
 .bottom-botton-holder {
     position: fixed;
-    bottom: 13px;
+    bottom: 5px;
     left: 0px;
     right: 0;
     padding: 0 45px;
@@ -1136,19 +1187,19 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     }
     #keyboard li.return:before {
         content: '';
-        display: inline-block;
-        position: absolute;
-        background: #ccc;
-        border: outset #ccc;
-        right: initial;
-        border-radius: 4px 4px 0px 5px;
-        top: -9vh;
-        left: -45%;
-        border-width: 4px 12px;
-        border-top-width: 8px;
-        width: 156%;
-        height: 9vh;
-        border-bottom:none;
+    display: inline-block;
+    position: absolute;
+    background: #ccc;
+    border: outset #ccc;
+    right: initial;
+    border-radius: 4px 4px 0px 5px;
+    top: -9vh;
+    left: -48%;
+    border-width: 4px 12px;
+    border-top-width: 8px;
+    width: 164%;
+    height: 9vh;
+    border-bottom: none;
     }
 
     #keyboard li.primary{
@@ -1177,14 +1228,11 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     #keyboard li.active{
         border-style: inset;
     }
-    .maria-text.large{
-        width: 200px;
-        right: 124px;
-    }
+
 .keyboard-holder{
     background:transparent;
     border:none;border-radius: 0;
-    margin-top:3.5%;
+    margin-top:4.3%;
 }
 
 .complete-modal{
@@ -1315,9 +1363,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 #keyboard li.return.lastitem.default{
     border-top-width: 0;
 }
-.keyboard-holder{
-    margin-top:4.8%;
-}
+
 #keyboard .space{
     width:75.9%;
 }

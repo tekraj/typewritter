@@ -1,5 +1,6 @@
 <header class="home">
   <div class="container-fluid">
+      <h1 class="text-center">MM-Schreibtrainer</h1>
     <div class="row">
       <div class="col-sm-4 text-left typing maria-holder">
         <div  class="maria-text">
@@ -10,7 +11,7 @@
         <img src="../assets/images/maria.png">
       </div>
       <div class="col-sm-4 text-center">
-        <h1>MM-Schreibtrainer</h1>
+       
         <div class="book-dropdown">
           <button class="btn btn-top-bright" (click)="showBookDropDown()">
             <span *ngIf="!showAllBooks">Alle Bucher zeigen</span>
@@ -19,7 +20,7 @@
             <!-- Just show my book -->
           </button>
           <ul>
-            <li *ngFor="let b of copyBooks;let a=index" [ngClass]="{'active':showAllBooks,'first-active' : (a===currentBookIndex),'hide':(a>5 && a!=currentBookIndex && !showAllBooks)}">
+            <li *ngFor="let b of copyBooks;let a=index" [ngClass]="{'active':showAllBooks,'first-active' : (a===currentBookIndex),'hide':(a>=5 && a!=currentBookIndex && !showAllBooks)}">
               <button class="btn btn-top" (click)="findLession(b.id,a)">{{b.name}}</button>
               <span class="book-desc">{{b.desc}}</span>
             </li>
@@ -28,7 +29,10 @@
       </div>
       <div class="col-sm-4 typing  nach-holder">
         <img src="../assets/images/12.gif">
-        <p class="col-sm-9 centered">Meine bisherigen Arbeiten: sortiert nach</p>
+        <div class="nach-text-holder">
+          <p class="text-center">Meine bisherigen Arbeiten:</p>
+          <p class="text-center"> sortiert nach</p>
+        </div>
         <div class="text-center nach-buttons-group">
           <a href="http://mms.pphlinz.at/mms_get_protokoll.php?flag=get_prot&st_lfdnr=910&reihg_flag=0" target="_blank" class="btn btn-default">
             Datum
@@ -96,12 +100,12 @@
     <div class="last-buttons-wrapper">
       <div class="row last-buttons">
         <div class="col-sm-6 text-left">
-          <a class="btn rounded-button" href="http://mms.pphlinz.at/lektionen/default.php" target="_blank">Lehrer</a>
+          <a class="btn rounded-button" href="http://mms.pphlinz.at/lektionen/default.php" target="_blank" style="position: relative;top:1px;">Lehrer</a>
         </div>
         <div class="col-sm-6 text-right">
           <button class="btn rounded-button" style="margin-right:20px;">Album</button>
           <button class="btn rounded-button" (click)="showColorInfo()">Balkeninfo</button>
-          <a class="btn btn-default m-l-10 margin-left-10" routerLink="/module">I</a>
+          <a class="btn btn-default m-l-10 margin-left-10" routerLink="/module" style="position:relative;top:-4px;">I</a>
         </div>
       </div>
     </div>

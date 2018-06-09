@@ -122,7 +122,7 @@ export class TypewriterSmComponent implements OnInit {
     this.keyValue = key;
     let typedString = this.typedString + this.keyValue;
     if (this.typingValue.indexOf(typedString) == 0) {
-      
+
       let keyCode = event.keyCode == 32 ? 32 : (event.keyCode + 32);
       this.currentLetterImage = '../assets/images/typer/db_' + keyCode + '.jpg';
       this.currentTypedLetter = key;
@@ -138,23 +138,23 @@ export class TypewriterSmComponent implements OnInit {
       this.totalRight++;
       if (this.clickRightSound) {
         if (this.clickRightSound == 'click') {
-            let clickSound = new Howl({
-                src: ['../assets/sounds/right-click.mp3']
-            });
-            clickSound.play();
-        }else if(this.clickRightSound=='play-letter'){
-            let clickSound = new Howl({
-                src: ['../assets/sounds/cs_'+keyCode+'.mp3']
-            });
-            clickSound.play();
-        }else if(this.clickRightSound=='icon-sound'){
-            let clickSound = new Howl({
-                src: ['../assets/sounds/notes/ds_'+keyCode+'.mp3']
-            });
-            clickSound.play();
+          let clickSound = new Howl({
+            src: ['../assets/sounds/right-click.mp3']
+          });
+          clickSound.play();
+        } else if (this.clickRightSound == 'play-letter') {
+          let clickSound = new Howl({
+            src: ['../assets/sounds/cs_' + keyCode + '.mp3']
+          });
+          clickSound.play();
+        } else if (this.clickRightSound == 'icon-sound') {
+          let clickSound = new Howl({
+            src: ['../assets/sounds/notes/ds_' + keyCode + '.mp3']
+          });
+          clickSound.play();
         }
 
-    }
+      }
 
     } else {
       this.clickWrongSound.play();
@@ -183,70 +183,70 @@ export class TypewriterSmComponent implements OnInit {
     this.typeSettings.sound = value;
     this.localStorageService.insert('typeSettings', this.typeSettings);
     if (value.indexOf('hg') >= 0) {
-        this.metroSound = 'Metro aus'
-        this.clickRightSound = false;
-        Howler.unload();
+      this.metroSound = 'Metro aus'
+      this.clickRightSound = false;
+      Howler.unload();
+      this.backgroundSound = new Howl({
+        src: ['../assets/sounds/' + value + '.mp3']
+      });
+      this.backgroundSound.play();
+
+    } else if (value == 'metro_aus') {
+      Howler.unload();
+      if (this.metroSound == 'Metro aus') {
+        this.metroSound = 'Metro 1';
+
         this.backgroundSound = new Howl({
-            src: ['../assets/sounds/' + value + '.mp3']
+          src: ['../assets/sounds/right-click.mp3'],
+          loop: true,
+          rate: 0.10
         });
         this.backgroundSound.play();
-
-    } else if(value=='metro_aus'){
-        Howler.unload();
-        if(this.metroSound=='Metro aus'){
-            this.metroSound = 'Metro 1';
-           
-            this.backgroundSound = new Howl({
-                src: ['../assets/sounds/right-click.mp3'],
-                loop : true,
-                rate : 0.10
-            });
-            this.backgroundSound.play();
-        }else if(this.metroSound=='Metro 10'){
-            this.metroSound = 'Metro aus'
-        }else{
-            let metro = this.metroSound.split(' ');
-            let nextRate = parseInt(metro[1])+1;
-            this.metroSound = metro[0] +' '+ nextRate;
-            Howler.unload();
-            let soundRate = 0.10 + (nextRate*0.10);
-            soundRate = soundRate > 1 ? 1 : soundRate;
-            this.backgroundSound = new Howl({
-                src: ['../assets/sounds/right-click.mp3'],
-                loop : true,
-                rate : soundRate
-            });
-            this.backgroundSound.play();
-        }
-    }else  {
+      } else if (this.metroSound == 'Metro 10') {
         this.metroSound = 'Metro aus'
-        this.setClickSound();
+      } else {
+        let metro = this.metroSound.split(' ');
+        let nextRate = parseInt(metro[1]) + 1;
+        this.metroSound = metro[0] + ' ' + nextRate;
+        Howler.unload();
+        let soundRate = 0.10 + (nextRate * 0.10);
+        soundRate = soundRate > 1 ? 1 : soundRate;
+        this.backgroundSound = new Howl({
+          src: ['../assets/sounds/right-click.mp3'],
+          loop: true,
+          rate: soundRate
+        });
+        this.backgroundSound.play();
+      }
+    } else {
+      this.metroSound = 'Metro aus'
+      this.setClickSound();
     }
-}
+  }
 
-setClickSound() {
+  setClickSound() {
     switch (this.typeSettings.sound) {
 
-        case 'click': {
-            this.clickRightSound = 'click';
-            break;
-        }
-        case 'bst': {
-            this.clickRightSound = 'play-letter';
-            break;
-        }
-        case 'icon': {
-            this.clickRightSound = 'icon-sound';
-            break;
-        }
-        default: {
-            this.clickRightSound = false;
-            break;
-        }
+      case 'click': {
+        this.clickRightSound = 'click';
+        break;
+      }
+      case 'bst': {
+        this.clickRightSound = 'play-letter';
+        break;
+      }
+      case 'icon': {
+        this.clickRightSound = 'icon-sound';
+        break;
+      }
+      default: {
+        this.clickRightSound = false;
+        break;
+      }
     }
     Howler.unload();
 
-}
+  }
 
   checkLetterExists(letter: string, extLetter: string = '') {
     if (this.typingValue.indexOf(letter) >= 0)

@@ -8,14 +8,14 @@
   <div class="clearfix"></div>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-6 text-left typing maria-holder">
+      <div class="col-sm-4 text-left typing maria-holder">
         <div class="maria-text large">
           <p>{{currentExercise.flagText}}</p>
         </div>
         <img src="../assets/images/maria.png">
       </div>
 
-      <div class="col-sm-6 text-right">
+      <div class="col-sm-8 text-right">
         <div class="sound-group">
           <h4 class="text-center">SOUND</h4>
           <a class="btn btn-default kein-btn sound-btn" (click)="setSound('kein_sound')" [ngClass]="{'active':typeSettings.sound=='kein_sound'}">Kein Sound</a>
@@ -212,6 +212,81 @@
           Lektion beenden
         </a>
       </div>
+    </div>
+  </div>
+</div>
+
+<div class="complete-modal" *ngIf="showCompleteBox">
+  <div class="wrapper">
+    <div class="top-info-bar container-fluid">
+      <div class="row">
+        <div class="col-sm-7">
+          <h2>Ubungsergebnis:</h2>
+          <p class="super-alle">Super - alle 9</p>
+          <p class="super-alle">Bonsusfelder aufgedeckt!</p>
+        </div>
+        <div class="col-sm-5">
+          <img src="../assets/images/pendilum.png" class="img-responsive" alt="">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <button class="btn rounded-button rounded-white" (click)="continueExercise()">Ubung wiederholen</button>
+        </div>
+        <div class="col-sm-6">
+          <button class="btn rounded-button rounded-white btn-block" routerLink="/gallery">Bild einkleben</button>
+        </div>
+        <div class="col-sm-12 underline-div"></div>
+        <div class="col-sm-6">
+          <p class="text-red">
+            Die nachste Ubung heibt: Information
+          </p>
+        </div>
+        <div class="col-sm-6"></div>
+        <div class="col-sm-12"></div>
+        <div class="col-sm-6">
+          <button class="btn rounded-button rounded-white btn-block" (click)="setNextPractice()">Nachste Ubung</button>
+        </div>
+        <div class="col-sm-6">
+          <button class="btn rounded-button rounded-white btn-block" routerLink="/module">Lektion beenden</button>
+        </div>
+        <div class="col-sm-12">
+          <button class="btn rounded-button btn-block sm-btn" (click)="showTooltipBox()">Erklarung zu diesem Zwischenergebnis</button>
+        </div>
+      </div>
+      <div class="info-tooltip" *ngIf="showTooltipInfo">
+        <p class="text-white">
+          <b>Abdeckfelder (1:9)</b>
+        </p>
+        <p>je
+          <b>weniger</b> Fehler beim Schreiben gemacht werden, umso mehr Felder werden frei gegeben.</p>
+        <p>Wenn alle 9 Felder frei sind, darfst du das dargestellte bild in dein Album einkleben.</p>
+        <p>Die Abdeckfelder sind
+          <b class="text-blue">blau</b>: wenn du langsam und mit wenigen Fehlern Schreibst, sie and
+          <b class="text-yellow">gelb</b>, wenn du bereits etwas schneller schreiben kannst oder songar rot, wenn deine Schreib-geschwindigkeit
+          bereits hoch ist. Aber viel wichtiger als Geschwindigkeit ist</p>
+        <p>
+          <b>Fehlerfreiheit</b>.
+          <b class="text-yellow">Die Geschwindigkeit kommt automatisch mit der Ubung.</b>
+        </p>
+      </div>
+    </div>
+    <div class="bottom-info-bar container-fluid">
+      <h2>Ergebnis in Prozenten:</h2>
+      <ul class="main-page-list">
+        <li>
+          <span class="red">1</span>
+          <span class="text-span">Demoubung</span>
+          <span class="percent-indicator" style="width: 100%;"></span>
+          <span class="gray-percent" style="width: 60%;"></span>
+          <span class="yellow-percent" style="width: 0%;"></span>
+          <span class="three-params">
+            <span>100% R</span>
+            <span>60 A</span>
+            <span>0 T</span>
+          </span>
+        </li>
+      </ul>
     </div>
   </div>
 </div>

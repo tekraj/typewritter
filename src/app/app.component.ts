@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LocalStorageService } from './local-storage.service';
 
 
 @Component({
@@ -15,8 +16,9 @@ export class AppComponent {
 
 	title = 'app';
 
-	constructor(){
-			this.backgroundNo = 0;
+	constructor(private localStorageService:LocalStorageService){
+			this.backgroundNo = this.localStorageService.select('backgroundNo');
+			this.backgroundNo = this.backgroundNo ? this.backgroundNo : 0;
 			this.background = '../assets/images/typewriter'+this.backgroundNo+'.png';
 			
 	}
@@ -27,7 +29,7 @@ export class AppComponent {
 			this.backgroundNo =0;
 		}
 		this.background = '../assets/images/typewriter'+this.backgroundNo+'.png';
-		
+		this.localStorageService.insert('backgroundNo',this.backgroundNo);
 	} 
 
   	ngOnInit() {

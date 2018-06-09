@@ -58,8 +58,10 @@ export class TypewriterSpComponent implements OnInit {
     public clearLetterInterval: any;
     public letterClasses: Array<{ class: string, letters: Array<string> }>;
     public currentSoundLevel = 0;
-    public showCompleteBox : boolean = false;
+    public showCompleteBox: boolean = false;
     public metroSound = 'Metro aus';
+    public deleteTimer : any;
+    public showTooltipInfo :boolean = false;
     constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute) {
         let exercise = this.route.params['value'].exercise;
         let exerciseArray = ['one', 'two', 'three', 'four', 'five'];
@@ -128,7 +130,7 @@ export class TypewriterSpComponent implements OnInit {
             }
         }, 100);
 
-        setInterval(() => {
+       this.deleteTimer = setInterval(() => {
             this.currentLetters.forEach((element, index) => {
                 if (element.del) {
                     this.currentLetters.splice(index, 1);
@@ -201,14 +203,14 @@ export class TypewriterSpComponent implements OnInit {
                         src: ['../assets/sounds/right-click.mp3']
                     });
                     clickSound.play();
-                }else if(this.clickRightSound=='play-letter'){
+                } else if (this.clickRightSound == 'play-letter') {
                     let clickSound = new Howl({
-                        src: ['../assets/sounds/cs_'+keyCode+'.mp3']
+                        src: ['../assets/sounds/cs_' + keyCode + '.mp3']
                     });
                     clickSound.play();
-                }else if(this.clickRightSound=='icon-sound'){
+                } else if (this.clickRightSound == 'icon-sound') {
                     let clickSound = new Howl({
-                        src: ['../assets/sounds/notes/ds_'+keyCode+'.mp3']
+                        src: ['../assets/sounds/notes/ds_' + keyCode + '.mp3']
                     });
                     clickSound.play();
                 }
@@ -216,7 +218,7 @@ export class TypewriterSpComponent implements OnInit {
             }
 
             this.totalRight++;
-            if(this.currentLetters.length>typedIndex){
+            if (this.currentLetters.length > typedIndex) {
                 this.currentLetters[typedIndex].del = true;
             }
         } else {
@@ -229,7 +231,9 @@ export class TypewriterSpComponent implements OnInit {
         }
         if (this.totalRight == this.typingValue.length - 1) {
             this.showCompleteBox = true;
-          }
+            clearInterval(this.deleteTimer);
+            clearInterval(this.intervalTimer);
+        }
     }
 
     handleKeyUpEvent(event: KeyboardEvent) {
@@ -252,53 +256,37 @@ export class TypewriterSpComponent implements OnInit {
             });
             this.backgroundSound.play();
 
-        } else if(value=='metro_aus'){
+        } else if (value == 'metro_aus') {
             Howler.unload();
-            if(this.metroSound=='Metro aus'){
+            if (this.metroSound == 'Metro aus') {
                 this.metroSound = 'Metro 1';
-               
+
                 this.backgroundSound = new Howl({
                     src: ['../assets/sounds/right-click.mp3'],
-                    loop : true,
-                    rate : 0.10
+                    loop: true,
+                    rate: 0.10
                 });
                 this.backgroundSound.play();
-            }else if(this.metroSound=='Metro 10'){
+            } else if (this.metroSound == 'Metro 10') {
                 this.metroSound = 'Metro aus'
-            }else{
+            } else {
                 let metro = this.metroSound.split(' ');
-                let nextRate = parseInt(metro[1])+1;
-                this.metroSound = metro[0] +' '+ nextRate;
+                let nextRate = parseInt(metro[1]) + 1;
+                this.metroSound = metro[0] + ' ' + nextRate;
                 Howler.unload();
-                let soundRate = 0.10 + (nextRate*0.10);
+                let soundRate = 0.10 + (nextRate * 0.10);
                 soundRate = soundRate > 1 ? 1 : soundRate;
                 this.backgroundSound = new Howl({
                     src: ['../assets/sounds/right-click.mp3'],
-                    loop : true,
-                    rate : soundRate
+                    loop: true,
+                    rate: soundRate
                 });
                 this.backgroundSound.play();
             }
-        }else  {
+        } else {
             this.metroSound = 'Metro aus'
             this.setClickSound();
         }
-    }
-
-    checkLetterExists(letter: string, extLetter: string = '') {
-        if (this.typingValue.indexOf(letter) >= 0) {
-            return true;
-        }
-        return false;
-    }
-    getLetterClass(letter: string) {
-        let activeClass: string;
-        this.letterClasses.forEach((element) => {
-            if (element.letters.indexOf(letter) >= 0) {
-                activeClass = element.class;
-            }
-        });
-        return activeClass;
     }
 
     setClickSound() {
@@ -324,6 +312,47 @@ export class TypewriterSpComponent implements OnInit {
         Howler.unload();
 
     }
+    checkLetterExists(letter: string, extLetter: string = '') {
+        if (this.typingValue.indexOf(letter) >= 0) {
+            return true;
+        }
+        return false;
+    }
+    getLetterClass(letter: string) {
+        let activeClass: string;
+        this.letterClasses.forEach((element) => {
+            if (element.letters.indexOf(letter) >= 0) {
+                activeClass = element.class;
+            }
+        });
+        return activeClass;
+    }
 
+    setNextPractice() {
+        for (let i = 1; i <= this.typeSettings.stringLength; i++) {
+          this.typingValue += this.typeSettings.value + ' ';
+        }
+        this.keyboard.typingValue = this.typingValue.trim().split('');
+        this.totalWords = this.typingValue.length;
+        this.showCompleteBox = false;
+        this.intervalTimer = setInterval(() => {
+            if (this.currentLetters.length < this.exercise) {
+                this.createElement();
+            }
+        }, 100);
+
+       this.deleteTimer = setInterval(() => {
+            this.currentLetters.forEach((element, index) => {
+                if (element.del) {
+                    this.currentLetters.splice(index, 1);
+                    this.cLetters = this.cLetters.replace(this.cLetters[index], '');
+                }
+            });
+        }, 100);
+      }
+    
+      showTooltipBox() {
+        this.showTooltipInfo = this.showTooltipInfo === true ? false : true;
+      }
 
 }
