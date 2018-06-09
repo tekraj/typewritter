@@ -113,7 +113,8 @@ export class TypewriterSmComponent implements OnInit {
   };
 
   writeText(key: string, altKey: string = '') {
-
+this.keyValue = key;
+    
   }
 
   handleKeyDownEvent(event: KeyboardEvent) {
@@ -169,8 +170,7 @@ export class TypewriterSmComponent implements OnInit {
     this.keyValue = '';
   }
   handleMouseUpEvent(event: MouseEvent) {
-
-
+    this.keyValue = '';
   }
 
 

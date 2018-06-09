@@ -17,13 +17,13 @@ import { ApiService } from '../api.service';
     animations: [
         trigger('ballonState', [
             state('inactive', style({
-                bottom: '-40px'
+                bottom: '-70px'
             })),
             state('preactive', style({
                 bottom: '20px'
             })),
             state('active', style({
-                transform: 'translateY(-43vh)'
+                transform: 'translateY(-30vh)'
             })),
             transition('inactive => active', animate('10000ms linear')),
         ])
@@ -113,7 +113,7 @@ export class TypewriterSpComponent implements OnInit {
         Howler.volume(this.typeSettings.soundVolume / 100);
         this.letterClasses = [{ class: 'primary', letters: ['a', 'q', 'z', '1', , '!', '2', '"', 'ß', '?', '´', '`', 'p', 'ü', '-', '_', 'ö', 'ä'] },
         { class: 'warning', letters: ['3', '§', 'w', 's', 'x', '0', '=', 'o', 'l', ':', '.'] },
-        { class: 'success', letters: ['4', '$', '9', ')', 'i', 'k', ';', ',', 'd'] },
+        { class: 'success', letters: ['4', '$', '9', ')', 'i', 'k', ';', ',', 'd','e'] },
         { class: 'danger', letters: ['5', '%', '5', '&', '7', '/', '8', '(', 'r', 't', 'y', 'u', 'f', 'g', 'h', 'j', 'v', 'b', 'n', 'm'] }];
         this.setSound(this.typeSettings.sound);
     }
@@ -190,6 +190,7 @@ export class TypewriterSpComponent implements OnInit {
     };
 
     writeText(key: string, altKey: string = '') {
+this.keyValue = key;
     }
 
     handleKeyDownEvent(event: KeyboardEvent) {
@@ -226,7 +227,10 @@ export class TypewriterSpComponent implements OnInit {
             this.clickWrongSound = new Howl({
                 src: ['../assets/sounds/wrong-click.mp3']
             });
-            this.clickWrongSound.play();
+            this.clickWrongSound = new Howl({
+                src: ['../assets/sounds/wrong-click.mp3']
+              });
+              this.clickWrongSound.play();
             this.totalWrong++;
         }
         if (this.totalRight == this.typingValue.length - 1) {
@@ -241,6 +245,7 @@ export class TypewriterSpComponent implements OnInit {
     }
 
     handleMouseUpEvent(event: MouseEvent) {
+this.keyValue = '';
 
 
     }

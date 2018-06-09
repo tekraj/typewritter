@@ -114,6 +114,7 @@ export class TypewriterDtComponent implements OnInit {
   };
 
   writeText(key: string, altKey: string = '') {
+this.keyValue = key;
 
   }
 
@@ -158,6 +159,9 @@ export class TypewriterDtComponent implements OnInit {
       }
 
     } else {
+      this.clickWrongSound = new Howl({
+        src: ['../assets/sounds/wrong-click.mp3']
+      });
       this.clickWrongSound.play();
       this.totalWrong++;
     }
@@ -170,6 +174,7 @@ export class TypewriterDtComponent implements OnInit {
     this.keyValue = '';
   }
   handleMouseUpEvent(event: MouseEvent) {
+this.keyValue = '';
 
 
   }

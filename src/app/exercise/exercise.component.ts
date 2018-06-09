@@ -112,7 +112,8 @@ export class ExerciseComponent implements OnInit {
   };
 
   writeText(key: string, altKey: string = '') {
-
+this.keyValue = key;
+      this.keyValue = key
   }
 
   handleKeyDownEvent(event: KeyboardEvent) {
@@ -155,6 +156,9 @@ export class ExerciseComponent implements OnInit {
 
       }
     } else {
+      this.clickWrongSound = new Howl({
+        src: ['../assets/sounds/wrong-click.mp3']
+      });
       this.clickWrongSound.play();
       this.totalWrong++;
     }
@@ -164,6 +168,7 @@ export class ExerciseComponent implements OnInit {
     this.keyValue = '';
   }
   handleMouseUpEvent(event: MouseEvent) {
+this.keyValue = '';
 
 
   }

@@ -14,7 +14,10 @@
     margin-top:20px;
 }
 .last-btn-module{
-    /*margin-top:30px;*/
+    position: absolute;
+    bottom: 6px;
+    left: 15px;
+    right: 15px;
 }
 .module-container h1 {
     text-align: center;
@@ -39,7 +42,7 @@
     line-height: 18px;
 }
 .row.margin-top-20.space-top-bar{
-    margin-top: 30px !important;
+    margin-top: 3%;
 }
 .space-bars ul{padding:0;margin:0;display: inline-block;vertical-align: middle;}
   .space-bars ul li{display: inline-block;}
@@ -66,10 +69,9 @@
 .space-bars .btn{
     font-size: 18px;
     letter-spacing: 3px;
+    height:6vh;
 }
-.mult-ul-div{
-    /*margin-top: -26px;*/
-}
+
 .mult-ul-div p{
     margin-top: -25px !important;
     margin-right: 50px;
@@ -78,9 +80,12 @@
 }
 .mult-ul-div ul li {
     float: left;
+    width:20%;
 }
 .mult-ul-div ul li .btn{
     padding: 3px 11px;
+    height: 6vh;
+    width:100%;
 }
 .space-top-bar input.form-control {
     background: #ccc;
@@ -98,7 +103,7 @@
 .keybord-tast:after{content:'';display: block;clear: both;}
 .keybord-tast li span:first-child{float:left;width:60%;box-sizing: border-box;}
 .keybord-tast  li span:last-child{float:left;text-align: right;width:40%;box-sizing: border-box;}
-.keybord-tast span .btn{width:50px;max-width: 50px;letter-spacing: 3px;padding:0 2px;}
+.keybord-tast span .btn{width:50px;max-width: 50px;letter-spacing: 3px;padding:0 2px;height:4vh;}
 .first-tast li span .btn{color:#868686!important;}
 .arbeit li span:first-child{width:83%;}
 .arbeit li span:last-child{width:17%;}
@@ -112,8 +117,19 @@
 
 .btn-l-d .btn, .btn-r-d .btn{
     padding: 0px 11px;
+    padding: 0px 11px;
+    height: 5vh;
+    line-height: 5vh;
+    width: 7vh;
 }
-.btn-r-d .btn{margin-left:-25px;}
+.btn-r-d .btn
+{
+    margin-left:-25px;
+    padding: 0px 11px;
+    height: 5vh;
+    line-height: 5vh;
+    width: 7vh;
+}
 
 .first-tast li span  .btn.btn-default.first-tast-btn.active{color:#676767!important;}
 

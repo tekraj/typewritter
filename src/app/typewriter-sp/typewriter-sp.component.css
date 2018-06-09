@@ -1,6 +1,9 @@
 .ballon-holder{
     position: absolute;
     min-height: 100px;
+    margin-top: -90px;
+    left:0;
+    right:0;
 }
 .ballon-holder span{
     display: inline-block;

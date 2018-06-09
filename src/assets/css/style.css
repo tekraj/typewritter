@@ -536,11 +536,11 @@ ul li progress {
 span.red {
     background: radial-gradient(#ea0408, black);
     position: absolute;
-    left: 0px;
+    left: 3px;
     z-index: 22222;
-    top: 0.15vh;
-    width: 21px;
-    height: 16px;
+    top: 7%;
+    width: 8%;
+    height: 2.5vh;
     border-radius: 50%;
     color: #fff;
 }
@@ -855,11 +855,11 @@ input[type=number]:focus,
     font-size: 12px;
     font-family: arial;
     width: 53px;
-    max-width: 53px;
     white-space: normal;
     padding: 0 2px;
-    height: 30px;
+    height: 5vh;
     line-height: normal;
+    width: 33%;
 }
 .sound-group .btn:nth-child(5){
     line-height: 10px;
@@ -883,7 +883,7 @@ input[type=number]:focus,
     font-weight: bold;
     margin-top:0;
 }
-.sound-group .btn:first-child{width:106px;max-width: 106px;}
+.sound-group .btn:first-child{width:66%;max-width: 66%;}
 .sound-slider .mat-slider{
     width: 115px;
     max-width: 100%;
@@ -923,7 +923,7 @@ input[type=number]:focus,
 }
 .page-header{
     position: fixed;
-    top: 3px;
+    top: 0px;
     right: 0px;
     text-align: center;
     left: 0;
@@ -1025,10 +1025,10 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     font-size: 24px;
     line-height: 28px;
 }
-.bottom-blank-white.primary{color:#0000cd;}
-.bottom-blank-white.warning{color:#ffcc00;}
-.bottom-blank-white.danger{color:#ff0000;}
-.bottom-blank-white.success{color:#009900;}
+.bottom-blank-white.primary{color:#0000CC;}
+.bottom-blank-white.warning{color:#FFCC00;}
+.bottom-blank-white.danger{color:#FF0000;}
+.bottom-blank-white.success{color:#006500;}
 .keyboard-input-field input{width:100%;display:block;}
 .keyboard-input-field .typing-text {
     width: 100%;
@@ -1055,10 +1055,13 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 .keyboard-input-field .typing-text>div{
     min-width:100%;
 }
-#keyboard li.backspace {
-    width: 156px!important;
-    background: url(../images/backspace.png) no-repeat center!important;
+#keyboard li.active{
+    width: 6.1%;
+    height: 8.2vh;
+    margin: 0.3vh 0.4%;
+    line-height: 7vh;
 }
+
 #keyboard li.return {
     position: relative;
     background: url(../images/enter.png) no-repeat center!important;
@@ -1068,23 +1071,48 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     top: 8px!important;
     width:7.8%;
 }
-
+#keyboard li.return.active{
+    width:7.2%;
+    margin-left:0.3%;
+    margin-right:0.3%;
+}
 
 #keyboard li.tab {
-    width: 6.8%!important;
+    width: 6.8%;
     background: url(../images/tab.png) no-repeat center!important;
 }
+#keyboard li.tab.active{
+    width:6.2%;
+    margin-left: 0.3%;
+    margin-right:0.3%;
+}
 #keyboard li.capslock {
-    width: 9%!important;
+    width: 9%;
     background: url(../images/caps-lock.png) no-repeat center!important;
 }
+
+#keyboard li.capslock.active{
+    width:8.4%;
+    margin-left: 0.3%;
+    margin-right:0.3%;
+}
 #keyboard li.left-shift {
-    width: 6.8%!important;
+    width: 6.8%;
     background: url(../images/shift.png) no-repeat center!important;
+}
+#keyboard li.left-shift.active{
+    width:6%;
+    margin-left: 0.3%;
+    margin-right:0.3%;
 }
 #keyboard li.right-shift {
     background: url(../images/shift.png) no-repeat center!important;
     width:16.9%;
+}
+#keyboard li.right-shift.active{
+    width:16.3%;
+    margin-left: 0.3%;
+    margin-right:0.3%;
 }
 #keyboard li.blank{background-image:none!important;}
 .keyboard-input-field .typing-text span.active{font-weight:bold;}
@@ -1164,12 +1192,24 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     .on {
     display: block;
     }
-    #keyboard li:hover {
-    position: relative;
-    top: 1px;
-    left: 1px;
-    border-color: #e5e5e5;
+    #keyboard li{position: relative;}
+    #keyboard li:after{
+        content: '';
+        position: absolute;
+        display: none;
+        top: -6px;
+        left: -11px;
+        right: -9px;
+        background: rgba(179, 177, 177,0.5);
+        z-index: 999;
+        bottom: -6px;
+        border-radius: 10px;
+    }
+    #keyboard li:hover{
     cursor: pointer;
+    }
+    #keyboard li:hover::after{
+        display: block;
     }
     .on,.off{
         display: block;
@@ -1225,9 +1265,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     #keyboard li.success, #keyboard li.primary, #keyboard li.warning, #keyboard li.danger{
         border-width: 6px 10px;
     }
-    #keyboard li.active{
-        border-style: inset;
-    }
+    
 
 .keyboard-holder{
     background:transparent;
@@ -1358,7 +1396,13 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 
 
 #keyboard li.backspace{
-    width: 10%!important;
+     background: url(../images/backspace.png) no-repeat center!important;
+    width: 10%;
+}
+#keyboard li.backspace.active{
+    width:9.4%;
+    margin-left: 0.3%;
+    margin-right:0.3%;
 }
 #keyboard li.return.lastitem.default{
     border-top-width: 0;
@@ -1366,4 +1410,12 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 
 #keyboard .space{
     width:75.9%;
+}
+#keyboard .space.active{
+    width:70.1%;
+    margin-left: 3%;
+    margin-right:2.9%;
+}
+.maria-text.large {
+    right: 12%!important;
 }

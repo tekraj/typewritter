@@ -86,120 +86,120 @@
   </div>
   <div class="keyboard-container">
     <ul id="keyboard">
-      <li [ngClass]="{'active':keyValue==='^' || keyValue==='°','visible':checkLetterExists('^' ,'°')}" class="symbol default" (click)="writeText('°','^')">
+      <li [ngClass]="{'active':keyValue=='^' || keyValue=='°','visible':checkLetterExists('^' ,'°')}" class="symbol default" (mousedown)="writeText('°','^')">
         <span class="off">°</span>
         <span class="on">^</span>
       </li>
-      <li [ngClass]="{'active':keyValue==='1' || keyValue==='!','visible':checkLetterExists('1' ,'!')}" class="symbol primary" (click)="writeText('1','!')">
+      <li [ngClass]="{'active':keyValue=='1' || keyValue=='!','visible':checkLetterExists('1' ,'!')}" class="symbol primary" (mousedown)="writeText('1','!')">
         <span class="off">1</span>
         <span class="on">!</span>
       </li>
-      <li [ngClass]="{'active':keyValue==='2' || keyValue===doubleQuote,'visible':checkLetterExists('2' ,doubleQuote)}" class="symbol primary" (click)="writeText('2',doubleQuote)">
+      <li [ngClass]="{'active':keyValue=='2' || keyValue==doubleQuote,'visible':checkLetterExists('2' ,doubleQuote)}" class="symbol primary" (mousedown)="writeText('2',doubleQuote)">
         <span class="off">2</span>
         <span class="on">"</span>
       </li>
-      <li [ngClass]="{'active': keyValue==='3' || keyValue==='§','visible':checkLetterExists('3' ,'§')}" class="symbol warning" (click)="writeText('3','§')">
+      <li [ngClass]="{'active': keyValue=='3' || keyValue=='§','visible':checkLetterExists('3' ,'§')}" class="symbol warning" (mousedown)="writeText('3','§')">
         <span class="off">3</span>
         <span class="on">§</span>
       </li>
-      <li [ngClass]="{'active':keyValue==='4' || keyValue=='$','visible':checkLetterExists('4' ,'$')}" class="symbol success" (click)="writeText('4','$')">
+      <li [ngClass]="{'active':keyValue=='4' || keyValue=='$','visible':checkLetterExists('4' ,'$')}" class="symbol success" (mousedown)="writeText('4','$')">
         <span class="off">4</span>
         <span class="on">$</span>
       </li>
-      <li [ngClass]="{'active':keyValue==='5' || keyValue=='%','visible':checkLetterExists('5' ,'%')}" class="symbol danger" (click)="writeText('5','%')">
+      <li [ngClass]="{'active':keyValue=='5' || keyValue=='%','visible':checkLetterExists('5' ,'%')}" class="symbol danger" (mousedown)="writeText('5','%')">
         <span class="off">5</span>
         <span class="on">%</span>
       </li>
-      <li [ngClass]="{'active':keyValue==='6' || keyValue=='&','visible':checkLetterExists('6' ,'&')}" class="symbol danger" (click)="writeText('6','&')">
+      <li [ngClass]="{'active':keyValue=='6' || keyValue=='&','visible':checkLetterExists('6' ,'&')}" class="symbol danger" (mousedown)="writeText('6','&')">
         <span class="off">6</span>
         <span class="on">&</span>
       </li>
-      <li [ngClass]="{'active':keyValue==='7' || keyValue=='/','visible':checkLetterExists('7' ,'/')}" class="symbol danger" (click)="writeText('7','/')">
+      <li [ngClass]="{'active':keyValue=='7' || keyValue=='/','visible':checkLetterExists('7' ,'/')}" class="symbol danger" (mousedown)="writeText('7','/')">
         <span class="off">7</span>
         <span class="on">/</span>
       </li>
-      <li [ngClass]="{'active':keyValue==='8' || keyValue=='(','visible':checkLetterExists('8' ,'(')}" class="symbol danger" (click)="writeText('8','(')">
+      <li [ngClass]="{'active':keyValue=='8' || keyValue=='(','visible':checkLetterExists('8' ,'(')}" class="symbol danger" (mousedown)="writeText('8','(')">
         <span class="off">8</span>
         <span class="on">(</span>
       </li>
-      <li [ngClass]="{'active':keyValue==='9' || keyValue==')','visible':checkLetterExists('9' ,')')}" class="symbol success" (click)="writeText('9',')')">
+      <li [ngClass]="{'active':keyValue=='9' || keyValue==')','visible':checkLetterExists('9' ,')')}" class="symbol success" (mousedown)="writeText('9',')')">
         <span class="off">9</span>
         <span class="on">)</span>
       </li>
-      <li [ngClass]="{'active':keyValue==='0' || keyValue=='=','visible':checkLetterExists('0' ,'=')}" class="symbol warning" (click)="writeText('10','=')">
+      <li [ngClass]="{'active':keyValue=='0' || keyValue=='=','visible':checkLetterExists('0' ,'=')}" class="symbol warning" (mousedown)="writeText('10','=')">
         <span class="off">0</span>
         <span class="on">=</span>
       </li>
-      <li [ngClass]="{'active':keyValue==='ß' || keyValue=='?','visible':checkLetterExists('ß' ,'?')}" class="symbol primary" (click)="writeText('ß','?')">
+      <li [ngClass]="{'active':keyValue=='ß' || keyValue=='?','visible':checkLetterExists('ß' ,'?')}" class="symbol primary" (mousedown)="writeText('ß','?')">
         <span class="off">ß</span>
         <span class="on">?</span>
       </li>
-      <li [ngClass]="{'active':keyValue==='´' || keyValue=='`','visible':checkLetterExists('´' ,'`')}" class="symbol primary" (click)="writeText('´','`')">
+      <li [ngClass]="{'active':keyValue=='´' || keyValue=='`','visible':checkLetterExists('´' ,'`')}" class="symbol primary" (mousedown)="writeText('´','`')">
         <span class="off">´</span>
         <span class="on">`</span>
       </li>
-      <li class="backspace lastitem default" (click)="writeText('Backspace')" [ngClass]="{'active':keyValue=='Backspace'}">&nbsp;</li>
-      <li class="tab default" (click)="writeText('Tab')" [ngClass]="{'active':keyValue=='Tab'}"></li>
-      <li [ngClass]="{'active':keyValue==='q','visible':checkLetterExists('q')}" class="letter primary" (click)="writeText('q')">q</li>
-      <li [ngClass]="{'active':keyValue==='w','visible':checkLetterExists('w')}" class="letter  warning" (click)="writeText('w')">w</li>
-      <li [ngClass]="{'active':keyValue==='e','visible':checkLetterExists('e')}" class="letter success" (click)="writeText('e')">e</li>
-      <li [ngClass]="{'active':keyValue==='r','visible':checkLetterExists('r')}" class="letter danger" (click)="writeText('r')">r</li>
-      <li [ngClass]="{'active':keyValue==='t','visible':checkLetterExists('t')}" class="letter danger" (click)="writeText('t')">t</li>
-      <li [ngClass]="{'active':keyValue==='y','visible':checkLetterExists('y')}" class="letter danger" (click)="writeText('y')">y</li>
-      <li [ngClass]="{'active':keyValue==='u','visible':checkLetterExists('u')}" class="letter danger" (click)="writeText('u')">u</li>
-      <li [ngClass]="{'active':keyValue==='i', 'visible': checkLetterExists('i')}" class="letter success" (click)="writeText('i')">i</li>
-      <li [ngClass]="{'active':keyValue==='o','visible':checkLetterExists('o')}" class="letter warning" (click)="writeText('o')">o</li>
-      <li [ngClass]="{'active':keyValue==='p','visible':checkLetterExists('p')}" class="letter primary" (click)="writeText('p')">p</li>
-      <li [ngClass]="{'active':keyValue==='ü','visible':checkLetterExists('ü')}" class="letter primary" (click)="writeText('ü')">ü</li>
-      <li [ngClass]="{'active':keyValue==='*' || keyValue=='+','visible':checkLetterExists('*','+')}" class="symbol default" (click)="writeText('+')">
+      <li class="backspace lastitem default" (mousedown)="writeText('Backspace')" [ngClass]="{'active':keyValue=='Backspace'}">&nbsp;</li>
+      <li class="tab default" (mousedown)="writeText('Tab')" [ngClass]="{'active':keyValue=='Tab'}"></li>
+      <li [ngClass]="{'active':keyValue=='q','visible':checkLetterExists('q')}" class="letter primary" (mousedown)="writeText('q')">q</li>
+      <li [ngClass]="{'active':keyValue=='w','visible':checkLetterExists('w')}" class="letter  warning" (mousedown)="writeText('w')">w</li>
+      <li [ngClass]="{'active':keyValue=='e','visible':checkLetterExists('e')}" class="letter success" (mousedown)="writeText('e')">e</li>
+      <li [ngClass]="{'active':keyValue=='r','visible':checkLetterExists('r')}" class="letter danger" (mousedown)="writeText('r')">r</li>
+      <li [ngClass]="{'active':keyValue=='t','visible':checkLetterExists('t')}" class="letter danger" (mousedown)="writeText('t')">t</li>
+      <li [ngClass]="{'active':keyValue=='y','visible':checkLetterExists('y')}" class="letter danger" (mousedown)="writeText('y')">y</li>
+      <li [ngClass]="{'active':keyValue=='u','visible':checkLetterExists('u')}" class="letter danger" (mousedown)="writeText('u')">u</li>
+      <li [ngClass]="{'active':keyValue=='i', 'visible': checkLetterExists('i')}" class="letter success" (mousedown)="writeText('i')">i</li>
+      <li [ngClass]="{'active':keyValue=='o','visible':checkLetterExists('o')}" class="letter warning" (mousedown)="writeText('o')">o</li>
+      <li [ngClass]="{'active':keyValue=='p','visible':checkLetterExists('p')}" class="letter primary" (mousedown)="writeText('p')">p</li>
+      <li [ngClass]="{'active':keyValue=='ü','visible':checkLetterExists('ü')}" class="letter primary" (mousedown)="writeText('ü')">ü</li>
+      <li [ngClass]="{'active':keyValue=='*' || keyValue=='+','visible':checkLetterExists('*','+')}" class="symbol default" (mousedown)="writeText('+')">
         <span class="off">+</span>
         <span class="on">*</span>
       </li>
-      <li class="capslock default" (click)="writeText('CapsLock')" [ngClass]="{'active':keyValue=='CapsLock'}"></li>
-      <li [ngClass]="{'active':keyValue==='a','visible':checkLetterExists('a')}" class="letter primary" (click)="writeText('a')">a</li>
-      <li [ngClass]="{'active':keyValue==='s','visible':checkLetterExists('s')}" class="letter warning" (click)="writeText('s')">s</li>
-      <li [ngClass]="{'active':keyValue==='d','visible':checkLetterExists('d')}" class="letter success" (click)="writeText('d')">d</li>
-      <li [ngClass]="{'active':keyValue==='f','visible':checkLetterExists('f')}" class="letter danger" (click)="writeText('f')">f</li>
-      <li [ngClass]="{'active':keyValue==='g','visible':checkLetterExists('g')}" class="letter danger" (click)="writeText('g')">g</li>
-      <li [ngClass]="{'active':keyValue==='h','visible':checkLetterExists('h')}" class="letter danger" (click)="writeText('h')">h</li>
-      <li [ngClass]="{'active':keyValue==='j','visible':checkLetterExists('j')}" class="letter danger" (click)="writeText('j')">j</li>
-      <li [ngClass]="{'active':keyValue==='k','visible':checkLetterExists('k')}" class=" success" (click)="writeText('k')">k</li>
-      <li [ngClass]="{'active':keyValue==='l','visible':checkLetterExists('l')}" class="letter warning" (click)="writeText('l')">l</li>
-      <li [ngClass]="{'active':keyValue==='ö','visible':checkLetterExists('ö')}" class="symbol primary" (click)="writeText('ö')">ö</li>
-      <li [ngClass]="{'active':keyValue==='ä','visible':checkLetterExists('ä')}" class="symbol primary" (click)="writeText('ä')">ä</li>
-      <li [ngClass]="{'active':keyValue==='#' || keyValue==singleQuote,'visible':checkLetterExists('#',singleQuote)}" class="symbol default" (click)="writeText(singleQuote,'#')">
+      <li class="capslock default" (mousedown)="writeText('CapsLock')" [ngClass]="{'active':keyValue=='CapsLock'}"></li>
+      <li [ngClass]="{'active':keyValue=='a','visible':checkLetterExists('a')}" class="letter primary" (mousedown)="writeText('a')">a</li>
+      <li [ngClass]="{'active':keyValue=='s','visible':checkLetterExists('s')}" class="letter warning" (mousedown)="writeText('s')">s</li>
+      <li [ngClass]="{'active':keyValue=='d','visible':checkLetterExists('d')}" class="letter success" (mousedown)="writeText('d')">d</li>
+      <li [ngClass]="{'active':keyValue=='f','visible':checkLetterExists('f')}" class="letter danger" (mousedown)="writeText('f')">f</li>
+      <li [ngClass]="{'active':keyValue=='g','visible':checkLetterExists('g')}" class="letter danger" (mousedown)="writeText('g')">g</li>
+      <li [ngClass]="{'active':keyValue=='h','visible':checkLetterExists('h')}" class="letter danger" (mousedown)="writeText('h')">h</li>
+      <li [ngClass]="{'active':keyValue=='j','visible':checkLetterExists('j')}" class="letter danger" (mousedown)="writeText('j')">j</li>
+      <li [ngClass]="{'active':keyValue=='k','visible':checkLetterExists('k')}" class=" success" (mousedown)="writeText('k')">k</li>
+      <li [ngClass]="{'active':keyValue=='l','visible':checkLetterExists('l')}" class="letter warning" (mousedown)="writeText('l')">l</li>
+      <li [ngClass]="{'active':keyValue=='ö','visible':checkLetterExists('ö')}" class="symbol primary" (mousedown)="writeText('ö')">ö</li>
+      <li [ngClass]="{'active':keyValue=='ä','visible':checkLetterExists('ä')}" class="symbol primary" (mousedown)="writeText('ä')">ä</li>
+      <li [ngClass]="{'active':keyValue=='#' || keyValue==singleQuote,'visible':checkLetterExists('#',singleQuote)}" class="symbol default" (click)="writeText(singleQuote,'#')">
         <span class="off">'</span>
         <span class="on">#</span>
       </li>
-      <li class="return lastitem default" (click)="writeText('Enter')" [ngClass]="{'active':keyValue=='Enter'}"></li>
-      <li class="left-shift default" (click)="writeText('Shift')" [ngClass]="{'active':keyValue=='Shift'}"></li>
-      <li [ngClass]="{'active':keyValue==='>' || keyValue=='<','visible':checkLetterExists('>','<')}" class="symbol default" (click)="writeText('>','<')">
+      <li class="return lastitem default" (mousedown)="writeText('Enter')" [ngClass]="{'active':keyValue=='Enter'}"></li>
+      <li class="left-shift default" (mousedown)="writeText('Shift')" [ngClass]="{'active':keyValue=='Shift'}"></li>
+      <li [ngClass]="{'active':keyValue=='>' || keyValue=='<','visible':checkLetterExists('>','<')}" class="symbol default" (mousedown)="writeText('>','<')">
         <span class="off">></span>
         <span class="on">
           <</span>
       </li>
-      <li [ngClass]="{'active':keyValue==='z','visible':checkLetterExists('z')}" class="letter primary" (click)="writeText('z')">z</li>
-      <li [ngClass]="{'active':keyValue==='x','visible':checkLetterExists('x')}" class="letter warning" (click)="writeText('x')">x</li>
-      <li [ngClass]="{'active':keyValue==='c','visible':checkLetterExists('c')}" class="letter success" (click)="writeText('c')">c</li>
-      <li [ngClass]="{'active':keyValue==='v','visible':checkLetterExists('v')}" class="letter danger" (click)="writeText('v')">v</li>
-      <li [ngClass]="{'active':keyValue==='b','visible':checkLetterExists('b')}" class="letter danger" (click)="writeText('b')">b</li>
-      <li [ngClass]="{'active':keyValue==='n','visible':checkLetterExists('n')}" class="letter danger" (click)="writeText('n')">n</li>
-      <li [ngClass]="{'active':keyValue==='m','visible':checkLetterExists('m')}" class="letter danger" (click)="writeText('m')">m</li>
-      <li [ngClass]="{'active':keyValue===':' || keyValue==',','visible':checkLetterExists(':',',')}" class="symbol success" (click)="writeText(',',',')">
+      <li [ngClass]="{'active':keyValue=='z','visible':checkLetterExists('z')}" class="letter primary" (mousedown)="writeText('z')">z</li>
+      <li [ngClass]="{'active':keyValue=='x','visible':checkLetterExists('x')}" class="letter warning" (mousedown)="writeText('x')">x</li>
+      <li [ngClass]="{'active':keyValue=='c','visible':checkLetterExists('c')}" class="letter success" (mousedown)="writeText('c')">c</li>
+      <li [ngClass]="{'active':keyValue=='v','visible':checkLetterExists('v')}" class="letter danger" (mousedown)="writeText('v')">v</li>
+      <li [ngClass]="{'active':keyValue=='b','visible':checkLetterExists('b')}" class="letter danger" (mousedown)="writeText('b')">b</li>
+      <li [ngClass]="{'active':keyValue=='n','visible':checkLetterExists('n')}" class="letter danger" (mousedown)="writeText('n')">n</li>
+      <li [ngClass]="{'active':keyValue=='m','visible':checkLetterExists('m')}" class="letter danger" (mousedown)="writeText('m')">m</li>
+      <li [ngClass]="{'active':keyValue==':' || keyValue==',','visible':checkLetterExists(':',',')}" class="symbol success" (mousedown)="writeText(',',',')">
         <span class="off">;</span>
         <span class="on">,</span>
       </li>
-      <li [ngClass]="{'active':keyValue===':' || keyValue=='.','visible':checkLetterExists(':','.')}" class="symbol warning" (click)="writeText(':','.')">
+      <li [ngClass]="{'active':keyValue==':' || keyValue=='.','visible':checkLetterExists(':','.')}" class="symbol warning" (mousedown)="writeText(':','.')">
         <span class="off">:</span>
         <span class="on">.</span>
       </li>
-      <li [ngClass]="{'active':keyValue==='_' || keyValue=='-','visible':checkLetterExists('_','-')}" class="symbol primary" (click)="writeText('_','-')">
+      <li [ngClass]="{'active':keyValue=='_' || keyValue=='-','visible':checkLetterExists('_','-')}" class="symbol primary" (mousedown)="writeText('_','-')">
         <span class="off">_</span>
         <span class="on">-</span>
       </li>
       <li class="right-shift lastitem default"></li>
       <li class="left-shift blank default"></li>
-      <li class="space lastitem default" [ngClass]="{'active':keyValue==' '}" (click)="writeText(' ')">&nbsp;</li>
+      <li class="space lastitem default" [ngClass]="{'active':keyValue==' '}" (mousedown)="writeText(' ')">&nbsp;</li>
       <li class="right-shift lastitem blank default"></li>
     </ul>
     <div class="clearfix"></div>

@@ -140,6 +140,7 @@ export class TypewriterDzComponent implements OnInit {
   };
 
   writeText(key: string, altKey: string = '') {
+this.keyValue = key;
 
   }
 
@@ -194,6 +195,9 @@ export class TypewriterDzComponent implements OnInit {
         }
       });
     } else {
+      this.clickWrongSound = new Howl({
+        src: ['../assets/sounds/wrong-click.mp3']
+      });
       this.clickWrongSound.play();
       this.totalWrong++;
     }
@@ -206,6 +210,7 @@ export class TypewriterDzComponent implements OnInit {
     this.keyValue = '';
   }
   handleMouseUpEvent(event: MouseEvent) {
+this.keyValue = '';
 
 
   }
