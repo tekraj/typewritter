@@ -151,12 +151,13 @@ header h1{
 }
 
 header p{
-	font-size: 18px;
+	font-size: 22px;
 	font-family: 'IBM Plex Mono', monospace;
 	color: white;
 	font-weight: bold;
 	text-align: center;
 	margin-bottom:0;
+    letter-spacing: 5px;
 
 }
 
@@ -571,7 +572,13 @@ span.red {
 	background:#ddd;
 	border-color:#d6d6d6;
 }
-.typing .btn{margin-top:6px;min-width: 100px;}
+.typing .btn{
+    margin-top:6px;
+    min-width: 100px;
+    width: 180px;
+    display: inline-block;
+    border-width: 5px 12px;
+}
 .info-text{margin-top:5px;margin-bottom: 5px;}
 .info-text p {
     font-size: 14px;
