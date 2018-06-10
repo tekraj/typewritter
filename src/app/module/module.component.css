@@ -1,8 +1,10 @@
-.login-header img{width: 126px;
-    height: 80px;}
+.login-header img{
+    width: 190px;
+    height: 90px;
+}
 .login-header h1{
-    margin: 0;
-    font-size: 32px;
+    margin: 30px 0 0 0;
+    /*font-size: 32px;*/
     letter-spacing: 10px;
 }
 .module-container p,.module-container span,.module-container li,.module-container a,.module-container .btn{
@@ -45,16 +47,16 @@
     margin-top: 3%;
 }
 .space-bars ul{padding:0;margin:0;display: inline-block;vertical-align: middle;}
-  .space-bars ul li{display: inline-block;}
- 
-  .space-bars p{
+.space-bars ul li{display: inline-block;}
+
+.space-bars p{
     margin: 0;
     line-height: normal;
     position: relative;
     top: -3px;
     letter-spacing: 1px;
-  }
-  .space-bars .form-control{
+}
+.space-bars .form-control{
     height: 24px;
     padding: 2px 10px;
     background: #ccc;
@@ -138,5 +140,5 @@
     letter-spacing: 15px;
 }
 .module-content h4 {
-color: #0202fe;
+    color: #0202fe;
 }
