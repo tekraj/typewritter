@@ -4,33 +4,68 @@
 .ex-two-two .top-blank-white{
     height:50vh;
     border:12px solid #3c3b3b;
+    width: 100%;
 }
 .ex-two-two .bottom-blank-white{
-    height: 15vh;
+    height: 15vh !important;
     border: 12px solid #3c3b3b;
     font-size: 80px;
     font-weight: bold;
     line-height: 8vh;
+    width: 100%;
+}
+.ex-two-three .info .bottom-blank-white {
+    height: 16vh;
+    width: 100%;
+    border-width: 12px;
+    margin-top: 10vh;
+    font-size: 80px;
+    padding-top: 10px;
+}
+.ex-two-four .top-blank-white {
+    border-radius: 40px;
+    border: 12px solid #333;
+    height: 50vh;
+    width: 100%;
+    margin-top: 15px;
+}
+.ex-two-four .keyboard-display-image{
+    border-radius: 40px;
 }
 
-.zoom-div{
+/*.zoom-div{
     position: fixed;
     left: 0;
     right: 0;
     bottom: 30%;
-}
+}*/
 .zoom-div .btn{
     position: relative;
     transition:all 1s ease-out;
 }
-.zoom-div .btn.animation{
+/*.zoom-div .btn.animation{
     transform: translateY(-200px);
     width: 30%;
     height: 50px;
     font-size: 24px;
     line-height: 51px;
-}
+}*/
 
 .btn.animation{
     line-height: 20px;
+}
+.info .bottom-blank-white{
+    height: 27vh;
+}
+.ex-two-one .info .bottom-blank-white{
+    height: 9vh;
+}
+.keyboard-holder{
+    margin-top:5%;
+}
+.maria-holder img{
+    top: auto;
+}
+.info .maria-holder{
+    margin-top:30px;
 }
