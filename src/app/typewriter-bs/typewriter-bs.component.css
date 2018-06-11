@@ -13,20 +13,30 @@
     line-height: 8vh;
 }
 
-.zoom-div{
+/*.zoom-div{
     position: fixed;
     left: 0;
     right: 0;
     bottom: 30%;
-}
+}*/
 .zoom-div .btn{
     position: relative;
     transition:all 1s ease-out;
 }
-.zoom-div .btn.animation{
+/*.zoom-div .btn.animation{
     transform: translateY(-200px);
     width: 30%;
     height: 50px;
     font-size: 24px;
     line-height: 51px;
+}*/
+.container-fluid.container5{
+    margin-top: 2%;
+    height: 56%;
+}
+.signle-blank-white{
+    margin-top:20%;
+}
+.zoom-div .btn.animation{
+    line-height: 21px;
 }
