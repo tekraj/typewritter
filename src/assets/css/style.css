@@ -693,7 +693,7 @@ span.red {
 .maria-holder img{
     width: 100%;
     display: inline-block;
-    height: 238px;
+    height: fit-content;
     position: relative;
     top:-1vh;
 }
