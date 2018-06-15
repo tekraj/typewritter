@@ -12,7 +12,8 @@ import { ActivatedRoute } from '@angular/router';
     '(document:keydown)': 'handleKeyDownEvent($event)',
     '(document:keyup)': 'handleKeyUpEvent($event)',
     '(document:mouseup)': 'handleMouseUpEvent($event)',
-  }
+  },
+ providers: [{ provide: 'Window', useValue: window }]
 })
 
 
@@ -51,6 +52,10 @@ export class TypewriterSmComponent implements OnInit {
   public metroSound = 'Metro aus';
   public backgroundSound: any;
   public iconSound = { 'a': 'w_artist', 'b': 'w_bonbons', 'c': 'w_ctief', 'd': 'w_diamant', 'e': 'w_elfenfluegel', 'f': 'w_feuerschlucker', 'g': 'w_geigenspieler', 'h': 'w_hund', 'i': 'w_Insel', 'j': 'w_jaguar', 'k': 'w_krokodil', 'l': 'w_Loewe', 'm': 'w_motorrad', 'n': 'w_nuesse', 'o': 'w_nuesse', 'p': 'w_peitsche', 'q': 'w_quasten', 'r': 'w_rauch', 's': 'w_seiltaenzerin', 't': 'w_trommel', 'u': 'w_umhang', 'v': 'w_umhang', 'w': 'w_wuerfel', 'x': 'w_Xylophon', 'y': 'w_ystand', 'z': 'w_zylinder', 'ä': 'w_aeffchen', 'ö': 'w_aeffchen', 'ü': 'w_ueberschlag', 'ß': 'w_scharfes' };
+  public totalWidth:number;
+  public totalWordWidth:number;
+  public textLeftMove = 0;
+  public showHeaderText = false;
   constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute) {
 
     this.exercise = this.route.params['value'].exercise;
@@ -81,12 +86,17 @@ export class TypewriterSmComponent implements OnInit {
     Howler.volume(this.typeSettings.soundVolume / 100);
     this.exercises = [];
     this.setSound(this.typeSettings.sound);
+   this.totalWordWidth = 15*this.keyboard.typingValue.length;
   }
 
   ngOnInit() {
     setTimeout(() => {
       this.headerHide = false;
     }, 500);
+    setTimeout(()=>{
+      this.showHeaderText = true;
+    },1500);
+    this.totalWidth = window.innerWidth - 80;
   }
 
   setSoundVolume = (event: any) => {
@@ -138,6 +148,10 @@ export class TypewriterSmComponent implements OnInit {
       this.letterNextTyped = this.typedString.length;
 
       this.totalRight++;
+      if(this.totalRight*15>this.totalWidth){
+        this.textLeftMove = this.totalWidth-(this.totalRight*15);
+      }
+
       if (this.clickRightSound) {
         if (this.clickRightSound == 'click') {
           let clickSound = new Howl({
@@ -267,6 +281,7 @@ export class TypewriterSmComponent implements OnInit {
     this.totalRight = 0;
     this.totalWrong = 0;
     this.showCompleteBox = false;
+    this.textLeftMove = 0;
   }
 
   setNextPractice() {

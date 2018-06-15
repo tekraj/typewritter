@@ -47,8 +47,8 @@
 }
 .keybord-tast span.spn-text{
     letter-spacing: 2px;
-    line-height: 13px;
-    padding: 8px 0;
+    line-height: 2.2vh;
+    padding: 1vh 0;
 }
 .row.margin-top-20.space-top-bar{
     margin-top: 3%;
@@ -133,10 +133,11 @@
     font-size: 2vh;
 }
 .keybord-tast  li span:last-child{
-    float:left;
-    text-align: right;
-    width:40%;
+    float: left;
+    text-align: left;
+    width: 40%;
     box-sizing: border-box;
+    padding-left: 4px;
 }
 .keybord-tast span .btn{
     letter-spacing: 3px;

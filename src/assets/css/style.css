@@ -1117,6 +1117,30 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     overflow-x: auto;
     overflow-y: hidden;
     line-height: 3vh;
+    position: relative;
+}
+.keyboard-input-field .typing-text.more:after {
+    content: '';
+    right: -4px;
+    position: absolute;
+    display: block;
+    background: inherit;
+    top: 3px;
+    bottom: 3px;
+    border: 12px solid;
+    border-color: transparent transparent transparent #ea0000;
+    z-index: 10;
+}
+.keyboard-input-field .typing-text.more:before {
+    content: '';
+    display: block;
+    right: 0;
+    width: 35px;
+    background: inherit;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    z-index: 9;
 }
 .keyboard-input-field .typing-text {
     -ms-overflow-style: none; 
@@ -1127,6 +1151,8 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 }
 .keyboard-input-field .typing-text>div{
     min-width:100%;
+    position:relative;
+    transition:all 0.3s ease;
 }
 #keyboard li.active{
     width: 6.1%;
@@ -1134,7 +1160,16 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     margin: 0.3vh 0.4%;
     line-height: 7vh;
 }
-
+.main-info-text span{
+    opacity:0;
+    position: relative;
+    top:4px;
+    transition:all 0.3s linear;
+}
+.main-info-text span.opacity{
+    opacity:1;
+    top:0;
+}
 #keyboard li.return {
     position: relative;
     background: url(../images/enter.png) no-repeat center!important;
@@ -1358,7 +1393,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 }
 
 .complete-modal .wrapper{
-    width:40%;
+    width:43%;
     margin:auto;
 }
 .complete-modal .top-info-bar,.complete-modal .bottom-info-bar{
@@ -1375,7 +1410,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     letter-spacing: 3px;
     margin-bottom: 0;
 }
-.complete-modal p{margin:0;line-height: normal;}
+.complete-modal p{margin:0;line-height: 1em;}
 .text-red{color:red;}
 .complete-modal .underline-div::after{
     border-bottom: 2px solid red;
@@ -1540,10 +1575,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     font-size: 24px;
     line-height: 51px;
 }
-.container-fluid.container5{
-    margin-top: 2%;
-    height: 56%;
-}
+
 .signle-blank-white{
     margin-top:20%;
 }
@@ -1578,9 +1610,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     left:0;
     right:0;
 }
-.maria-holder img{
-    top:6vh;
-}
+
 .ballon-holder span{
     display: inline-block;
     width: 90px;
@@ -1608,6 +1638,20 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 
 .ballon-holder span.warning{
     background: radial-gradient(white ,#d6a10b,#795c04,white);
+}
+
+.keyboard-input-field .typing-text span {
+    width: 2vh;
+    display: inline-block;
+    letter-spacing: 0;
+    text-align: center;
+    max-width: 2vh;
+}
+.status-group span{
+    display: inline-block;
+    color:#878787;
+    font-size:1em;
+    padding:1px 7px;
 }
 
 @media screen and (min-width: 1024px) and (max-width: 1200px){
