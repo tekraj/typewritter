@@ -5,7 +5,7 @@
   <header class="home info keyboard-header">
     <div class="main-info-text-hoder">
       <h2 class="main-info-text padding-top-15" [ngClass]="{'active': headerHide ==false,'hide':collapseHeader==true}">
-        {{currentExercise.header}}
+        <span [ngClass]="{'opacity':showHeaderText==true}">{{currentExercise.header}}</span>
       </h2>
     </div>
     <div class="clearfix"></div>
@@ -43,7 +43,7 @@
                 <td>z 0</td>
               </tr>
               <tr>
-                <td>&nbsp;</td>
+                <td></td>
                 <td style="color:#fff;">0A</td>
               </tr>
             </table>
@@ -83,9 +83,9 @@
   </header>
   <div class="container5 keyboard-holder">
     <div class="keyboard-input-field">
-      <div class="typing-text">
-        <div [style.width.px]="14*keyboard.typingValue.length">
-          <span *ngFor="let i of keyboard.typingValue,let a=index" [ngClass]="{'underline':a==letterNextTyped ,'active': a<=letterTypedIndex}">{{i}}</span>
+      <div class="typing-text" [ngClass]="{'more':totalWordWidth>totalWidth}">
+        <div [style.width.px]="totalWordWidth" [style.left.px]="textLeftMove">
+          <span *ngFor="let i of keyboard.typingValue,let a=index" [ngClass]="{'underline':a==letterNextTyped ,'active': a<=letterTypedIndex}">{{i==' '?'&nbsp;':i}}</span>
         </div>
       </div>
     </div>
@@ -226,7 +226,7 @@
   <header class="home info keyboard-header">
     <div class="main-info-text-hoder">
       <h2 class="main-info-text padding-top-15" [ngClass]="{'active': headerHide ==false,'hide':collapseHeader==true}">
-        {{currentExercise.header}}
+         <span [ngClass]="{'opacity':showHeaderText==true}">{{currentExercise.header}}</span>
       </h2>
     </div>
     <div class="clearfix"></div>
@@ -304,7 +304,7 @@
   <div class="container-fluid container5 ">
     <div class="keyboard-input-field simple-typing">
       <div class="typing-text">
-        <span *ngFor="let i of keyboard.typingValue,let a=index" [ngClass]="{'underline':a==letterNextTyped ,'active': a<=letterTypedIndex}">{{i}}</span>
+        <span *ngFor="let i of keyboard.typingValue,let a=index" [ngClass]="{'underline':a==letterNextTyped ,'active': a<=letterTypedIndex}">{{i==' '?'&nbsp;':i}}</span>
       </div>
     </div>
    
@@ -317,7 +317,7 @@
   <header class="home info keyboard-header">
     <div class="main-info-text-hoder">
       <h2 class="main-info-text padding-top-15" [ngClass]="{'active': headerHide ==false,'hide':collapseHeader==true}">
-        {{currentExercise.header}}
+         <span [ngClass]="{'opacity':showHeaderText==true}">{{currentExercise.header}}</span>
       </h2>
     </div>
     <div class="clearfix"></div>
@@ -395,7 +395,7 @@
   <div class="container-fluid container5 ">
     <div class="keyboard-input-field simple-typing">
       <div class="typing-text">
-        <span *ngFor="let i of keyboard.typingValue,let a=index" [ngClass]="{'underline':a==letterNextTyped ,'active': a<=letterTypedIndex}">{{i}}</span>
+        <span *ngFor="let i of keyboard.typingValue,let a=index" [ngClass]="{'underline':a==letterNextTyped ,'active': a<=letterTypedIndex}">{{i==' '?'&nbsp;':i}}</span>
       </div>
     </div>
    
@@ -408,7 +408,7 @@
   <header class="home info keyboard-header">
     <div class="main-info-text-hoder">
       <h2 class="main-info-text padding-top-15" [ngClass]="{'active': headerHide ==false,'hide':collapseHeader==true}">
-        {{currentExercise.header}}
+         <span [ngClass]="{'opacity':showHeaderText==true}">{{currentExercise.header}}</span>
       </h2>
     </div>
     <div class="clearfix"></div>
@@ -486,7 +486,7 @@
     <div class="keyboard-input-field simple-typing">
       <div class="typing-text">
         <div [style.width.px]="14*keyboard.typingValue.length">
-          <span *ngFor="let i of keyboard.typingValue,let a=index" [ngClass]="{'underline':a==letterNextTyped ,'active': a<=letterTypedIndex}">{{i}}</span>
+          <span *ngFor="let i of keyboard.typingValue,let a=index" [ngClass]="{'underline':a==letterNextTyped ,'active': a<=letterTypedIndex}">{{i==' '?'&nbsp;':i}}</span>
         </div>
       </div>
     </div>
@@ -502,7 +502,7 @@
   <header class="home info keyboard-header">
     <div class="main-info-text-hoder">
       <h2 class="main-info-text padding-top-15" [ngClass]="{'active': headerHide ==false,'hide':collapseHeader==true}">
-        {{currentExercise.header}}
+         <span [ngClass]="{'opacity':showHeaderText==true}">{{currentExercise.header}}</span>
       </h2>
     </div>
     <div class="clearfix"></div>
@@ -619,8 +619,11 @@
         <div class="col-sm-6">
           <button class="btn rounded-button rounded-white" (click)="continueExercise()">Ubung wiederholen</button>
         </div>
-        <div class="col-sm-6">
-          <button class="btn rounded-button rounded-white btn-block" routerLink="/gallery">Bild einkleben</button>
+        <div class="col-sm-6 text-center status-group">
+            
+                <span>R: 98%</span>
+                <span>A: 20</span>
+                <span>T: 100</span>
         </div>
         <div class="col-sm-12 underline-div"></div>
         <div class="col-sm-6">
@@ -638,6 +641,7 @@
         </div>
         <div class="col-sm-12">
           <button class="btn rounded-button btn-block sm-btn" (click)="showTooltipBox()">Erklarung zu diesem Zwischenergebnis</button>
+          
         </div>
       </div>
       <div class="info-tooltip" *ngIf="showTooltipInfo">
