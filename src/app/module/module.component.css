@@ -3,8 +3,7 @@
     height: 90px;
 }
 .login-header h1{
-    margin: 2% 0 0 0;
-    /*font-size: 32px;*/
+    margin: 1.5% 0 0 0;
     letter-spacing: 10px;
 }
 .module-container p,.module-container span,.module-container li,.module-container a,.module-container .btn{
@@ -23,7 +22,7 @@
 }
 .module-container h1 {
     text-align: center;
-    font-size: 24px;
+    font-size: 3.5vh;
     letter-spacing: 12px;
     color: red;
     margin: 0;
@@ -131,6 +130,7 @@
     float:left;
     width:60%;
     box-sizing: border-box;
+    font-size: 2vh;
 }
 .keybord-tast  li span:last-child{
     float:left;
@@ -139,14 +139,14 @@
     box-sizing: border-box;
 }
 .keybord-tast span .btn{
-    width:50px;
-    max-width: 50px;
     letter-spacing: 3px;
     padding:0 2px;
-    height:4vh;
+    height:5vh;
+    width: 80%;
 }
 .first-tast li span .btn{
     color:#868686!important;
+    width:45%;
 }
 .arbeit li span:first-child{
     width:83%;
@@ -164,8 +164,9 @@
     margin-top:13px;
 }
 .darst li:first-child span:first-child{
-    line-height: 16px;
+    line-height: 2vh;
     margin-top: -7px;
+    max-height: 6vh;
 }
 
 .btn-l-d .btn, .btn-r-d .btn{
@@ -208,7 +209,7 @@
 @media screen and (min-width: 1270px){
     .sound-group, .sound-group-heading{
         padding-left: 13px;
-        width: 172px;
+        /* width: 172px; */
     }
 
 }

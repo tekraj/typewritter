@@ -18,14 +18,14 @@ export class ExerciseComponent implements OnInit {
   public typeSettings: any = {};
   public nextInfo: number = 1;
   public headerHide: boolean = true;
-  public exercises:Array<{ id: number, name: string, percent:number,grayPercent:number,yellowPercent:number,mod:number,type:string,content:string,topBarTitle:string,flagTitle:string }>;
+  public exercises:Array<{ id: number, name: string, percent:number,grayPercent:number,yellowPercent:number,mode:number,type:Array<number>,content:string,topBarTitle:string,flagTitle:string }>;
   public collapseHeader: boolean;
   public words: string[];
   public wordIndex: any;
   public totalWords: number;
   public totalRight: number = 0;
   public totalWrong: number = 0;
-  public currentExercise : { id: number, name: string, percent:number,grayPercent:number,yellowPercent:number,mod:number,type:string,content:string,topBarTitle:string,flagTitle:string }
+  public currentExercise : { id: number, name: string, percent:number,grayPercent:number,yellowPercent:number,mode:number,type:Array<number>,content:string,topBarTitle:string,flagTitle:string }
   public keyValue: any;
   public keyboard: any = {};
   public typedString: string = '';
@@ -184,13 +184,25 @@ export class ExerciseComponent implements OnInit {
       return false;
     }
     this.currentExercise = this.exercises[exerciseParams.lessionIndex];
-    console.log(this.currentExercise);
+    this.currentLessionIndex = exerciseParams.lessionIndex;
   }
 
   nextExercise() {
     this.currentLessionIndex = this.currentLessionIndex + 1;
+    if(this.currentLessionIndex>=this.exercises.length){
+      this.currentLessionIndex = 0;
+    }
     this.currentExercise = this.exercises[this.currentLessionIndex];
   }
+
+  prevExercise() {
+    this.currentLessionIndex = this.currentLessionIndex - 1;
+    if(this.currentLessionIndex<=0){
+      this.currentLessionIndex = this.exercises.length-1;
+    }
+    this.currentExercise = this.exercises[this.currentLessionIndex];
+  }
+
   setSound(value: string) {
     this.typeSettings.sound = value;
     this.localStorageService.insert('typeSettings', this.typeSettings);

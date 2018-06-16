@@ -175,10 +175,10 @@ section {
 .home h1 {
     color: #1c1cec;
     margin: 0;
-    font-size: 20px;
+    font-size: 3vh;
     font-weight: bold;
-    letter-spacing: 2px;
-    margin:0;
+    letter-spacing: 6px;
+    margin: 0;
     transform: scalex(1.2);
     -webkit-transform: scalex(1.2);
     -moz-transform: scalex(1.2);
@@ -456,19 +456,20 @@ ul{
     position: absolute;
     left: 0;
     display: none;
-    height: 4px;
+    height: 6px;
     background: rgba(0,0,0,0.3);
     z-index: 13;
-    top: 4px;
+    top: 1vh;
 }
+
 .main-page-list li .yellow-percent {
     position: absolute;
     left: 0;
     display: none;
-    height: 3px;
-    background: #00ff00;
+    height: 4px;
+    background: #a6d000;
     z-index: 13;
-    bottom: 0;
+    bottom: 2px;
     
 }
 .main-page-list li .three-params {
@@ -544,7 +545,7 @@ span.red {
     color: #fff;
 }
 .active span.red {
-    background: radial-gradient(white,#02d40a,#0b770b,white);
+    background: radial-gradient(white,#08860d,#000,#000);
 }
 
 .col-md-6 .bt2{
@@ -604,7 +605,9 @@ span.red {
     border-radius: 6px;
     border-width: 4px 6px;
     transition: none!important;
-    margin:0;
+    margin: 0;
+    height: 5vh;
+    font-size: 2vh;
 }
 
 .btn.btn-default:active,.btn.btn-default:focus,.btn.btn-default:hover{
@@ -655,7 +658,7 @@ span.red {
 }
 
 .box-titles h3 {
-    font-size: 18px;
+    font-size: 3.5vh;
     color: #0000FF;
     margin-bottom: 4px;
     font-weight: bold;
@@ -678,12 +681,11 @@ span.red {
     position: absolute;
     width: 42%;
     right: 8% !important;
-    top: 55px;
+    top: 8vh;
     text-align: center;
-    z-index: 1;
+    z-index: 999;
 }
 .maria-text p{
-    color:#000;
     line-height: normal;
     color:#ea0408;
     font-size: 16px;
@@ -693,25 +695,25 @@ span.red {
 .maria-holder img{
     width: 100%;
     display: inline-block;
-    height: fit-content;
     position: relative;
-    top:1vh;
+    top:-1.5vh;
     z-index: 100;
 }
 .col-sm-4.nach-holder{
     padding-top: 1.5%;
     padding-left: 10%;
 }
-.nach-holder p{
-    font-size:9px;color:#1c1cec;line-height: 12px;
+.nach-holder p {
+    font-size: 1.2vh;
+    color: #1c1cec;
 }
 
 
 .nach-holder img {
-    width: 160px;
+    width: 50%;
     position: relative;
     left: 30px;
-    height: 90px;
+    height: 14vh;
 }
 .book-dropdown ul {
     padding: 0px 32px;
@@ -728,7 +730,7 @@ span.red {
     padding-left: 10%;
 }
 .nach-text-holder{
-    padding: 8% 0% 0% 10%;
+    padding: 8% 0% 5% 10%;
 }
 .nach-buttons-group .btn{
     width:48%;
@@ -863,12 +865,11 @@ input[type=number]:focus,
 .sound-group .btn{
     font-size: 12px;
     font-family: arial;
-    width: 53px;
     white-space: normal;
     padding: 0 2px;
     height: 5vh;
     line-height: normal;
-    /*width: 33%;*/
+    width: 33%;
 }
 .sound-group .btn:nth-child(5){
     line-height: 10px;
@@ -877,13 +878,11 @@ input[type=number]:focus,
 .info-group table tbody tr td
 {
     border: 1px solid #ea0408;
-    text-align: left;
     padding: 0px 5px;
-    line-height: normal;
-    height: 3.1vh;
-    font-size: 12px;
+    font-size: 14px;
     letter-spacing: 4px;
-    line-height: 14px;
+    line-height: 0.8rem;
+    font-weight: bold;
 }
 
 .info .sound-group h4,.info-group h4{
@@ -921,12 +920,15 @@ input[type=number]:focus,
     background: #999999;
     border-color: #ccc;
 }
-.info-group{
-    width:140px;
-    border:2px solid #ea0408;
-    padding:6px;
-    color:#0000ec;
+.info-group {
+    width: 30%;
+    border: 2px solid #ea0408;
+    padding: 4px 6px;
+    color: #0000ec;
     border-radius: 8px;
+    margin-left: 15px;
+    display: inline-block;
+    margin-top: 0.5vh;
 }
 .info-group h4{text-align: center;}
 
@@ -944,20 +946,12 @@ input[type=number]:focus,
     font-weight: 600;
     line-height: 31px;
 }
-.info-group{
-    padding: 2px 6px;
-    margin-left: 7px;
-}
-.info-group, .info .sound-group{
-    display: block;
-    margin-top:4px;
-}
+
 
 
 
 .sound-group .btn.kein-btn{
-    width:106px;
-    max-width: 106px;
+    width:66%;
 }
 .mute-open-btns .btn{
     width: 49%;
@@ -1000,21 +994,22 @@ input[type=number]:focus,
 .info .sound-group{
     display: inline-block;
     text-align: left;
-    width:180px;
-    border:2px solid #ea0408;
-    padding:3px 6px;
-    color:#0000ec;
+    width: 45%;
+    border: 2px solid #ea0408;
+    padding: 1vh 2%;
+    color: #0000ec;
     border-radius: 8px;
 }
-
-.info .sound-group .btn{
-    height: 5.6vh;
-    /*line-height: 4vh;*/
+.info .sound-group .btn {
+    height: 4.5vh;
+    line-height: 3.5vh;
+    font-size: 12px;
+    font-weight: normal;
 }
 .info .sound-group .btn.metro_aus{
-    line-height: 15px;
+    line-height: 1.5vh;
 }
-.info-group{display: inline-block;margin-left:15px;}
+
 header.info{border:none;border-radius:0;background:none;padding:0;}
 .main-info-text-hoder{
     text-align: center;
@@ -1039,7 +1034,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     transition: all  1s ease-out;
     opacity: 0;
     margin:0;
-    max-height: 55px;
+    max-height: 8vh;
     overflow: hidden;
     position: relative;
     z-index: 100;
@@ -1049,7 +1044,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     width:100%;
     opacity: 1;;
     color:#000;
-    height:55px;
+    height:8vh;
 }
 .info .main-info-text.hide{display: none;}
 .info .maria-holder{
@@ -1074,16 +1069,18 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     border-radius: 14px;
     margin-bottom: 3px;
     border: 5px solid #333;
-    height: 25vh;
-    width: 70%;
-    margin: 4px auto;}
+    height: 20vh;
+    width: 50%;
+    margin: 4px auto;
+    margin-top:1.5vh;
+}
 .bottom-blank-white{
     background: #fff;
     border-radius: 14px;
     margin-bottom: 3px;
     border: 5px solid #333;
     height: 7vh;
-    width: 70%;
+    width: 50%;
     margin: 4px auto;
     font-size: 30px;
     font-weight: bold;
@@ -1101,14 +1098,14 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     background: #cccccc;
     border: 4px solid #ff0000;
     border-radius: 8px;
-    padding: 0 15px 3px 15px;
-    font-size: 20px;
+    padding: 5px 20px;
+    font-size: 4vh;
     letter-spacing: 1px;
-    height: 32px;
-    line-height: 26px;
+    height: 6vh;
     pointer-events: none;
     overflow-x: auto;
-    overflow-y: hidden
+    overflow-y: hidden;
+    line-height: 3vh;
 }
 .keyboard-input-field .typing-text {
     -ms-overflow-style: none; 
@@ -1202,7 +1199,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     padding: 5px;
     width: 671px;
     height: 200px;
-    font: 1em/1.5 Verdana, Sans-Serif;
+    font: 1rem/1.5 Verdana, Sans-Serif;
     background: #fff;
     border: 1px solid #f9f9f9;
     -moz-border-radius: 5px;
@@ -1214,18 +1211,18 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     list-style: none;
     }
     #keyboard li {
-    float: left;
-    width: 6.9%;
-    line-height: 8vh;
-    text-align: center;
-    background: #fff;
-    border: 1px solid #f9f9f9;
-    font-weight: bold;
-    color:transparent;
-    border-radius: 10px;
-    font-size: 22px;
-    text-transform: uppercase;
-        height:9vh;
+        float: left;
+        width: 6.9%;
+        line-height: 9vh;
+        text-align: center;
+        background: #fff;
+        border: 1px solid #f9f9f9;
+        font-weight: bold;
+        color: transparent;
+        border-radius: 10px;
+        font-size: 2em;
+        text-transform: uppercase;
+        height: 9.6vh;
         box-sizing: border-box;
     }
     #keyboard li.visible{color:#000;}
@@ -1335,8 +1332,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 .keyboard-holder{
     background:transparent;
     border:none;border-radius: 0;
-    margin-top:2%;
-    height: 54%;
+    height: 60%;
 }
 .keyboard-header .container-fluid {
     height: 80%;
@@ -1539,3 +1535,16 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
         width: 248%;
     }
 }
+
+@media(min-width:1800px){
+    .info-group table tbody tr td{
+        line-height: normal;
+    }
+}
+.main-wrapper{height: 100%;}
+.information-text {
+    font-size: 3.5vh;
+    letter-spacing: 2px;
+    text-align: left;
+}
+.information-text ul{list-style: disc;}

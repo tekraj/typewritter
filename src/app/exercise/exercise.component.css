@@ -1,0 +1,19 @@
+.maria-holder img {
+    width: 100%;
+    display: inline-block;
+    height: auto;
+    position: relative;
+    top: 1vh;
+    z-index: 100;
+    top: -2vh;
+}
+
+
+.bottom-botton-holder a.btn.middle-btn{
+    border: 3px solid #ea0408;
+    background: #fff;
+    color: #ea0408!important;
+    padding: 12px;
+    line-height: 3px;
+    margin-top: -3.5vh;
+}

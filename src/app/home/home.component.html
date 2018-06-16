@@ -85,7 +85,7 @@
         <ul class="main-page-list title-list">
           <ng-container *ngFor="let t of createArrayRange(titles,i);let a=index">
             <li *ngIf="(a+1)<=((p+1)*12)" [routerLink]="['/exercise', ((p*12)+a)]">
-              <span class="red">{{t.mod}}</span>
+              <span class="red">{{t.type[0]}}</span>
               <span class="text-span">{{'Ü'+((p*12)+a+1)+': '+t.name}}</span>
               <span class="percent-indicator" [ngStyle]="{'width':t.percent+'%'}"></span>
               <span class="gray-percent" [ngStyle]="{'width':t.grayPercent+'%'}"></span>

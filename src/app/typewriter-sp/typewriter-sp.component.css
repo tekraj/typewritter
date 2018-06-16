@@ -1,10 +1,9 @@
-.container5.keyboard-holder{
+/* .container5.keyboard-holder{
     padding-top:2.5%;
-}
+} */
 .ballon-holder{
-    position: absolute;
-    min-height: 10vh;
-    margin-top: -9vh;
+    position: relative;
+    min-height: 6vh;
     left:0;
     right:0;
 }
