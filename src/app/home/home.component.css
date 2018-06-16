@@ -1,1 +1,3 @@
-
+.title-list  li .percent-indicator{
+    background: linear-gradient(#ff9292, white, #ff4f4f);
+}

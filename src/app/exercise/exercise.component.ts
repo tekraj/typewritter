@@ -18,14 +18,14 @@ export class ExerciseComponent implements OnInit {
   public typeSettings: any = {};
   public nextInfo: number = 1;
   public headerHide: boolean = true;
-  public exercises: Array<{ name: string, header: string, flagText: string, content: string }>;
+  public exercises:Array<{ id: number, name: string, percent:number,grayPercent:number,yellowPercent:number,mod:number,type:string,content:string,topBarTitle:string,flagTitle:string }>;
   public collapseHeader: boolean;
   public words: string[];
   public wordIndex: any;
   public totalWords: number;
   public totalRight: number = 0;
   public totalWrong: number = 0;
-  public currentExercise = { name: '', header: '', flagText: '', content: '' };
+  public currentExercise : { id: number, name: string, percent:number,grayPercent:number,yellowPercent:number,mod:number,type:string,content:string,topBarTitle:string,flagTitle:string }
   public keyValue: any;
   public keyboard: any = {};
   public typedString: string = '';
@@ -46,8 +46,8 @@ export class ExerciseComponent implements OnInit {
   public currentSoundLevel = 0;
   public metroSound = 'Metro aus';
   public backgroundSound: any;
-  public iconSound = {'a': 'w_artist','b': 'w_bonbons','c': 'w_ctief','d': 'w_diamant','e': 'w_elfenfluegel','f': 'w_feuerschlucker','g': 'w_geigenspieler','h': 'w_hund','i': 'w_Insel','j': 'w_jaguar','k': 'w_krokodil','l': 'w_Loewe','m': 'w_motorrad','n': 'w_nuesse','o': 'w_nuesse','p': 'w_peitsche','q': 'w_quasten','r': 'w_rauch','s': 'w_seiltaenzerin','t': 'w_trommel','u': 'w_umhang','v': 'w_umhang','w': 'w_wuerfel','x': 'w_Xylophon','y': 'w_ystand','z': 'w_zylinder','ä': 'w_aeffchen','ö': 'w_aeffchen','ü': 'w_ueberschlag','ß': 'w_scharfes'};
-  
+  public iconSound = { 'a': 'w_artist', 'b': 'w_bonbons', 'c': 'w_ctief', 'd': 'w_diamant', 'e': 'w_elfenfluegel', 'f': 'w_feuerschlucker', 'g': 'w_geigenspieler', 'h': 'w_hund', 'i': 'w_Insel', 'j': 'w_jaguar', 'k': 'w_krokodil', 'l': 'w_Loewe', 'm': 'w_motorrad', 'n': 'w_nuesse', 'o': 'w_nuesse', 'p': 'w_peitsche', 'q': 'w_quasten', 'r': 'w_rauch', 's': 'w_seiltaenzerin', 't': 'w_trommel', 'u': 'w_umhang', 'v': 'w_umhang', 'w': 'w_wuerfel', 'x': 'w_Xylophon', 'y': 'w_ystand', 'z': 'w_zylinder', 'ä': 'w_aeffchen', 'ö': 'w_aeffchen', 'ü': 'w_ueberschlag', 'ß': 'w_scharfes' };
+
   constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute) {
 
 
@@ -66,7 +66,7 @@ export class ExerciseComponent implements OnInit {
 
     this.letterClasses = [{ class: 'primary', letters: ['a', 'q', 'z', '1', , '!', '2', '"', 'ß', '?', '´', '`', 'p', 'ü', '-', '_', 'ö', 'ä'] },
     { class: 'warning', letters: ['3', '§', 'w', 's', 'x', '0', '=', 'o', 'l', ':', '.'] },
-    { class: 'success', letters: ['4', '$', '9', ')', 'i', 'k', ';', ',', 'd'] },
+    { class: 'success', letters: ['4', '$', '9', ')', 'i', 'k', ';', ',', 'd','e'] },
     { class: 'danger', letters: ['5', '%', '5', '&', '7', '/', '8', '(', 'r', 't', 'y', 'u', 'f', 'g', 'h', 'j', 'v', 'b', 'n', 'm'] }];
 
     this.setSound(this.typeSettings.sound);
@@ -104,7 +104,7 @@ export class ExerciseComponent implements OnInit {
   soundSetting = (value: boolean) => {
     this.typeSettings.muteSound = value;
     if (value) {
-     
+
       this.typeSettings.soundVolume = 0;
     } else {
       this.typeSettings.soundVolume = this.currentSoundLevel;
@@ -114,17 +114,17 @@ export class ExerciseComponent implements OnInit {
   };
 
   writeText(key: string, altKey: string = '') {
-this.keyValue = key;
-      this.keyValue = key
+    this.keyValue = key;
+    this.keyValue = key
   }
 
   handleKeyDownEvent(event: KeyboardEvent) {
-  
+
     let key = event.key;
     this.keyValue = key;
     let typedString = this.typedString + this.keyValue;
     if (this.typingValue.indexOf(typedString) == 0) {
-      
+
       let keyCode = event.keyCode == 32 ? 32 : (event.keyCode + 32);
       this.currentLetterImage = '../assets/images/typer/db_' + keyCode + '.jpg';
       this.currentTypedLetter = key;
@@ -173,25 +173,18 @@ this.keyValue = key;
     this.keyValue = '';
   }
   handleMouseUpEvent(event: MouseEvent) {
-this.keyValue = '';
+    this.keyValue = '';
 
 
   }
 
   private getExercise = (exerciseParams) => {
-    this._apiService.getExercise(exerciseParams.lekt_nr).then((exercise) => {
-      let allTItles = exercise[3].replace('uebg_titel=', '').split('|');
-      let headers = exercise[4].replace('uebg_anw=', '').split('|');
-      let flagTexts = exercise[5].replace('anw_mann=', '').split('|');
-      let contents = exercise[6].replace('uebg_text=', '').split('|');
-      allTItles.forEach((element, i) => {
-        if (element != '0' && element != 0) {
-          this.exercises.push({ name: 'Ü' + (i + 1) + ': ' + element, header: headers[i], flagText: flagTexts[i], content: contents[i] });
-        }
-      });
-      this.currentExercise = this.exercises[exerciseParams.lessionIndex];
-
-    })
+    this.exercises = this.localStorageService.select('exerciseTitles');
+    if (!this.exercises) {
+      return false;
+    }
+    this.currentExercise = this.exercises[exerciseParams.lessionIndex];
+    console.log(this.currentExercise);
   }
 
   nextExercise() {

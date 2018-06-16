@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'info', component: InfoComponent },
   { path: 'module', component: ModuleComponent },
-  { path: 'exercise/:lekt_nr/:lessionIndex', component: ExerciseComponent },
+  { path: 'exercise/:lessionIndex', component: ExerciseComponent },
   { path: 'typewriter-sm/:exercise', component: TypewriterSmComponent },
   { path: 'typewriter-dz/:exercise', component: TypewriterDzComponent },
   { path: 'typewriter-dt/:exercise', component: TypewriterDtComponent },

@@ -2,7 +2,7 @@
 <header class="home info keyboard-header">
   <div class="main-info-text-hoder">
     <h2 class="main-info-text" [ngClass]="{'active': headerHide ==false,'hide':collapseHeader==true}">
-      {{currentExercise.header}}
+      {{currentExercise.topBarTitle}}
     </h2>
   </div>
   <div class="clearfix"></div>
@@ -10,7 +10,7 @@
     <div class="row">
       <div class="col-sm-4 text-left typing maria-holder">
         <div class="maria-text large">
-          <p>{{currentExercise.flagText}}</p>
+          <p>{{currentExercise.flagTitle}}</p>
         </div>
         <img src="../assets/images/maria.png">
       </div>

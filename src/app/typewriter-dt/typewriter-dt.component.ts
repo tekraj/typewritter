@@ -72,7 +72,7 @@ export class TypewriterDtComponent implements OnInit {
     this.totalWords = this.typingValue.length;
     this.letterClasses = [{ class: 'primary', letters: ['a', 'q', 'z', '1', , '!', '2', '"', 'ß', '?', '´', '`', 'p', 'ü', '-', '_', 'ö', 'ä'] },
     { class: 'warning', letters: ['3', '§', 'w', 's', 'x', '0', '=', 'o', 'l', ':', '.'] },
-    { class: 'success', letters: ['4', '$', '9', ')', 'i', 'k', ';', ','] },
+    { class: 'success', letters: ['4', '$', '9', ')', 'i', 'k', ';', ',', 'd','e'] },
     { class: 'danger', letters: ['5', '%', '5', '&', '7', '/', '8', '(', 'r', 't', 'y', 'u', 'f', 'g', 'h', 'j', 'v', 'b', 'n', 'm'] }];
 
 

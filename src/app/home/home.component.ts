@@ -10,7 +10,7 @@ import {LocalStorageService} from '../local-storage.service';
 export class HomeComponent implements OnInit {
   public books: Array<{ id: number, name: string,desc:string }>;
   public lessions: Array<{ id: number, name: string,percent:number }>;
-  public titles: Array<{ id: number, name: string, percent:number,grayPercent:number,yellowPercent:number,mod:number }>;
+  public titles: Array<{ id: number, name: string, percent:number,grayPercent:number,yellowPercent:number,mod:number,type:string,content:string,topBarTitle:string,flagTitle:string }>;
 
   private bookId: number;
   public totalBooksPage: Array<number>;
@@ -88,7 +88,6 @@ export class HomeComponent implements OnInit {
   }
  
   findTitle(lessionId: number,currentLession:number) {
-   
     if (this.loadingEx) {
       return false;
     }
@@ -97,7 +96,8 @@ export class HomeComponent implements OnInit {
     this.titles = [];
     this.loadingEx = true;
     this._apiService.getTitles(lessionId).then((titles) => {
-       
+    
+
       let ids = titles[2].replace('uebg_lfdnr=', '').split('|');
       let allTItles = titles[1].replace('uebg_titel=', '').split('|');
       let allPercents = titles[5].replace('uebg_proz=','').split('|');
@@ -106,18 +106,36 @@ export class HomeComponent implements OnInit {
       let mods = titles[3].replace('uebg_modus=','').split('|');
       allTItles.forEach((element, i) => {
         if (element != '0' && element != 0) {
-          this.titles.push({ id: ids[i], name: element,percent:allPercents[i],grayPercent:allGrayPercents[i],yellowPercent:allYellowPercents[i],mod:mods[i] });
+          this.titles.push({ id: ids[i], name: element,percent:allPercents[i],grayPercent:allGrayPercents[i],yellowPercent:allYellowPercents[i],mod:mods[i],type:'',content:'',topBarTitle:'',flagTitle:'' });
         }
       });
-      this.totalTitlesPage = Array(Math.ceil(this.titles.length/12) ).fill(0).map((x,i)=>i);
-      this.loadingEx = false;
-    })
-  }
-  
-  
-
-
-
+      this._apiService.getExercise(lessionId).then((lessions)=>{
+        let lessionTypes = lessions[2].replace('uebg_opt=','').split('|');
+        let allTopTitles = lessions[4].replace('uebg_anw=','').split('|');
+        let allFlagTitles = lessions[5].replace('anw_mann=','').split('|');
+        let allContents = lessions[6].replace('uebg_text=','').split('|');
+        lessionTypes.forEach((element,index) => {
+          if(index<this.titles.length){
+            this.titles[index].type = element;
+            if(index<allTopTitles.length){
+              this.titles[index].topBarTitle = allTopTitles[index];
+            }
+            if(index<allFlagTitles.length){
+              this.titles[index].flagTitle = allFlagTitles[index];
+            }
+            if(index<allContents.length){
+              this.titles[index].content = allContents[index];
+            }
+          }
+         
+        });
+        this.localStorageService.insert('exerciseTitles',this.titles);
+        this.totalTitlesPage = Array(Math.ceil((this.titles.length>24 ? 24: this.titles.length)/12) ).fill(0).map((x,i)=>i);
+        this.loadingEx = false;
+      });
+    });
+    
+  }  
   showBookDropDown (){
     this.showAllBooks = this.showAllBooks===true ? false : true;
   }
@@ -128,7 +146,7 @@ export class HomeComponent implements OnInit {
     let offset = (index-1)*12;
     let limit = index*12 > inputArray.length ? inputArray.length : index*12;
     let arrayPart = [];
-    for(let a=offset;a<=limit;a++){
+    for(let a=offset;a<limit;a++){
       var inArray = inputArray[a];
       if(typeof inArray ==='object'){
         arrayPart.push(inArray);

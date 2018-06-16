@@ -58,21 +58,33 @@
       <div class="col-sm-2"></div>
     </div>
     <div class="row">
-      <div class="col-md-3" *ngFor="let i of totalLessionPage;let p=index">
+      <div class="col-md-3">
         <ul class="main-page-list">
-          <ng-container *ngFor="let t of createArrayRange(lessions,i);let a=index">
-            <li *ngIf="(a+1)<=((p+1)*12)" (click)="findTitle(t.id,((p*12)+a))" [ngClass]="{'active':currentLession==((p*12)+a)}">
+          <ng-container *ngFor="let t of createArrayRange(lessions,0);let a=index">
+            <li  (click)="findTitle(t.id,a)" [ngClass]="{'active':currentLession==a}">
               <span class="red"></span> 
-              <span class="text-span">{{'L'+((p*12)+a+1)+': '+t.name}}</span>
+              <span class="text-span">{{'L'+(a+1)+': '+t.name}}</span>
               <span class="percent-indicator" [ngStyle]="{'width':t.percent+'%'}"></span>
             </li>
           </ng-container>
         </ul>
       </div>
-      <div class="col-md-3" *ngFor="let i of totalTitlesPage;let p=index">
+      <div class="col-md-3">
         <ul class="main-page-list">
+          <ng-container *ngFor="let t of createArrayRange(lessions,1);let a=index">
+            <li  (click)="findTitle(t.id,(12+a))" [ngClass]="{'active':currentLession==(12+a)}">
+              <span class="red"></span> 
+              <span class="text-span">{{'L'+(12+a+1)+': '+t.name}}</span>
+              <span class="percent-indicator" [ngStyle]="{'width':t.percent+'%'}"></span>
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+
+      <div class="col-md-3" *ngFor="let i of totalTitlesPage;let p=index">
+        <ul class="main-page-list title-list">
           <ng-container *ngFor="let t of createArrayRange(titles,i);let a=index">
-            <li *ngIf="(a+1)<=((p+1)*12)" [routerLink]="['/exercise', currentLessionId,((p*12)+a)]">
+            <li *ngIf="(a+1)<=((p+1)*12)" [routerLink]="['/exercise', ((p*12)+a)]">
               <span class="red">{{t.mod}}</span>
               <span class="text-span">{{'Ü'+((p*12)+a+1)+': '+t.name}}</span>
               <span class="percent-indicator" [ngStyle]="{'width':t.percent+'%'}"></span>
@@ -87,15 +99,7 @@
           </ng-container>
         </ul>
       </div>
-      <!-- <div class="col-md-3 titles" *ngFor="let i of totalExercisePage;let p=index">
-        <ul class="main-page-list">
-          <ng-container *ngFor="let t of createArrayRange(exercises,i);let a=index">
-            <li (click)="getPageContent(t.id)">
-              <span class="red"></span> {{t.name}}
-            </li>
-          </ng-container>
-        </ul>
-      </div> -->
+      
     </div>
     <div class="last-buttons-wrapper">
       <div class="row last-buttons">
