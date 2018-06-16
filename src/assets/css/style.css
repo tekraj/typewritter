@@ -695,7 +695,8 @@ span.red {
     display: inline-block;
     height: fit-content;
     position: relative;
-    top:-1vh;
+    top:1vh;
+    z-index: 100;
 }
 .col-sm-4.nach-holder{
     padding-top: 1.5%;
@@ -892,12 +893,17 @@ input[type=number]:focus,
     font-weight: bold;
     margin-top:0;
 }
+
 .sound-group .btn:first-child{width:66%;max-width: 66%;}
 .sound-slider .mat-slider{
     width: 115px;
     max-width: 100%;
     min-width: 115px;
     background: url(../images/volume.png) no-repeat center;
+}
+.mat-slider-horizontal {
+    height: 48px;
+    min-width: 128px;
 }
 .sound-slider .mat-slider-track-wrapper,.sound-slider .mat-slider-ticks,.sound-slider .mat-slider-track-background{height:0;opacity: 0;}
 .sound-slider .mat-slider-thumb{
@@ -925,7 +931,7 @@ input[type=number]:focus,
 .info-group h4{text-align: center;}
 
 .info .sound-group h4, .info-group h4{
-    letter-spacing: 5px;
+    letter-spacing: 10px;
     font-family: serif;
 }
 .info .sound-group, .info-group{
@@ -969,6 +975,8 @@ input[type=number]:focus,
     font-size: 16px;
     color: #fff;
     letter-spacing: 3px;
+    margin-bottom: 0 !important;
+    margin-top:5px;
 }
 .btn.rounded-white{background-color:#fff;color:#ea0408!important;}
 .bottom-botton-holder {
