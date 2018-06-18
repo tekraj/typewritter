@@ -1517,6 +1517,99 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     font-weight: normal;
     letter-spacing: 3px;
 }
+
+.main-wrapper{height: 100%;}
+.information-text {
+    font-size: 3.5vh;
+    letter-spacing: 2px;
+    text-align: left;
+}
+.information-text ul{list-style: disc;}
+
+.mat-slider-horizontal .mat-slider-wrapper{left:0!important;right:0!important;height:100%!important;top:0!important;margin-top:-2px;}
+.mat-slider-horizontal .mat-slider-ticks-container{height:100%!important;}
+.mat-slider-horizontal .mat-slider-thumb-container{top:0!important;height:100%!important;}
+.zoom-div .btn{
+    position: relative;
+    transition:all 1s ease-out;
+}
+.zoom-div .btn.animation{
+    transform: translateY(-200px);
+    width: 30%;
+    height: 50px;
+    font-size: 24px;
+    line-height: 51px;
+}
+.container-fluid.container5{
+    margin-top: 2%;
+    height: 56%;
+}
+.signle-blank-white{
+    margin-top:20%;
+}
+
+.bottom-blank-white.signle-blank-white {
+    height: 18vh;
+    border-width: 10px;
+    margin-top: 15%;
+	border-radius: 35px;
+}
+.ex-two-two .top-blank-white{
+    height:50vh;
+    border:12px solid #3c3b3b;
+}
+.ex-two-two .bottom-blank-white{
+    height: 15vh;
+    border: 12px solid #3c3b3b;
+    font-size: 80px;
+    font-weight: bold;
+    line-height: 8vh;
+}
+.signle-blank-white{
+    margin-top:20%;
+}
+.zoom-div .btn.animation{
+    line-height: 21px;
+}
+
+.ballon-holder{
+    position: relative;
+    min-height: 6vh;
+    left:0;
+    right:0;
+}
+.maria-holder img{
+    top:6vh;
+}
+.ballon-holder span{
+    display: inline-block;
+    width: 90px;
+    height:56px;
+    border-radius: 50%;
+    color: #fff;
+    text-align: center;
+    line-height: 50px;
+    font-size: 40px;
+    font-weight: bold;
+    position: absolute;
+    z-index: 99;
+}
+
+.ballon-holder span.danger{
+    background: radial-gradient(white ,#cc0303,#770202,white);
+}
+.ballon-holder span.primary{
+    background: radial-gradient(white ,#2554ce,#04216b,white);
+}
+
+.ballon-holder span.success{
+    background: radial-gradient(white ,#4a9a1d,#795c04,white);
+}
+
+.ballon-holder span.warning{
+    background: radial-gradient(white ,#d6a10b,#795c04,white);
+}
+
 @media screen and (min-width: 1024px) and (max-width: 1200px){
     .sound-group .btn.kein-btn{
         width:96px;
@@ -1551,33 +1644,4 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     .info-group table tbody tr td{
         line-height: normal;
     }
-}
-.main-wrapper{height: 100%;}
-.information-text {
-    font-size: 3.5vh;
-    letter-spacing: 2px;
-    text-align: left;
-}
-.information-text ul{list-style: disc;}
-
-.mat-slider-horizontal .mat-slider-wrapper{left:0!important;right:0!important;height:100%!important;top:0!important;margin-top:-2px;}
-.mat-slider-horizontal .mat-slider-ticks-container{height:100%!important;}
-.mat-slider-horizontal .mat-slider-thumb-container{top:0!important;height:100%!important;}
-.zoom-div .btn{
-    position: relative;
-    transition:all 1s ease-out;
-}
-.zoom-div .btn.animation{
-    transform: translateY(-200px);
-    width: 30%;
-    height: 50px;
-    font-size: 24px;
-    line-height: 51px;
-}
-.container-fluid.container5{
-    margin-top: 2%;
-    height: 56%;
-}
-.signle-blank-white{
-    margin-top:20%;
 }
