@@ -1026,16 +1026,17 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     /*min-height: 55px;
     max-height: 55px;*/
     height: 20%;
+    line-height: 0;
 }
 .info .main-info-text{
     border: 2px solid #ea0408;
     /*padding: 3px 10px;*/
     padding-top: 15px;
-    line-height: 20px;
+    line-height: 0.8em;
     font-size: 20px;
     text-align: center;
     font-weight: bold;
-    letter-spacing: 5px;
+    letter-spacing: 3px;
     border-radius: 8px;
     background:#ccc;
     display: inline-block;
@@ -1082,7 +1083,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     height: 20vh;
     width: 50%;
     margin: 4px auto;
-    margin-top:1.5vh;
+    margin-top:0.5vh;
 }
 .bottom-blank-white{
     background: #fff;

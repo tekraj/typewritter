@@ -39,7 +39,7 @@ export class ApiService {
   }
 
   getExercise(lessionId:number){
-    
+    console.log(lessionId);
     return this.http.get(baseUrl+'flag=uebg&lekt_nr='+lessionId+'&st_lfdnr='+this.stLnfdnr+'&api=1').toPromise();
   }
 

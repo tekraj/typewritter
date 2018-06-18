@@ -1,7 +1,7 @@
 <h1 class="page-header">{{currentExercise.name}}</h1>
 <!-- Keyboard Type 1 -->
 
-<div *ngIf="currentExercise.mode==0" class="main-wrapper">
+<div *ngIf="currentExercise.mode==0 || currentExercise.mode==1" class="main-wrapper">
   <header class="home info keyboard-header">
     <div class="main-info-text-hoder">
       <h2 class="main-info-text" [ngClass]="{'active': headerHide ==false,'hide':collapseHeader==true}">
@@ -85,7 +85,7 @@
 </div>
 
 
-<div style="display:none">
+<div *ngIf="currentExercise.mode==2">
   <header class="home info keyboard-header">
     <div class="main-info-text-hoder">
       <h2 class="main-info-text" [ngClass]="{'active': headerHide ==false,'hide':collapseHeader==true}">
@@ -319,7 +319,7 @@
       </a>
     </div>
     <div class="col-sm-4 text-center">
-      <a class="btn rounded-button middle-btn" (click)="nextExercise()">
+      <a class="btn rounded-button middle-btn" (click)="nextExercise()" *ngIf="currentExercise.mode==0 || currentExercise.mode==1">
         Arbeit fortsetzen
       </a>
     </div>

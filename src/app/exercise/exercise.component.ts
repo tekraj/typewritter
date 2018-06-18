@@ -50,14 +50,8 @@ export class ExerciseComponent implements OnInit {
 
   constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute) {
 
-
-    let settingData = localStorageService.select('typeSettings');
-    if (settingData == false) {
-      this.typeSettings = { stringLength: 1, value: "asdfghjklö", typewriterMode: '', presentation: 0, sound: 'kein_sound', soundVolume: 1, muteSound: false };
-    } else {
-      this.typeSettings = settingData;
-
-    }
+    this.typeSettings = { stringLength: 1, value: "asdfghjklö", typewriterMode:1 , presentation: 0, sound: 'kein_sound', soundVolume: 1, muteSound: false };
+    
     for (let i = 1; i <= this.typeSettings.stringLength; i++) {
       this.typingValue += this.typeSettings.value + ' ';
     }
@@ -71,9 +65,7 @@ export class ExerciseComponent implements OnInit {
 
     this.setSound(this.typeSettings.sound);
 
-    this.clickWrongSound = new Howl({
-      src: ['../assets/sounds/wrong-click.mp3']
-    });
+   
     Howler.volume(this.typeSettings.soundVolume / 100);
     this.exercises = [];
     this.currentSoundLevel = this.typeSettings.soundVolume;
@@ -82,7 +74,7 @@ export class ExerciseComponent implements OnInit {
   ngOnInit() {
     this.exerciseParams = this.route.params['value'];
     this.currentLessionIndex = parseInt(this.exerciseParams.lessionIndex);
-    this.getExercise(this.exerciseParams);
+    this.getExercise(this.exerciseParams.lessionIndex);
     setTimeout(() => {
       this.headerHide = false;
     }, 500);
@@ -97,7 +89,6 @@ export class ExerciseComponent implements OnInit {
       Howler.volume(value / 100);
       this.localStorageService.insert('typeSettings', this.typeSettings);
     }
-
   };
 
 
@@ -178,13 +169,14 @@ export class ExerciseComponent implements OnInit {
 
   }
 
-  private getExercise = (exerciseParams) => {
+  private getExercise = (lessionIndex) => {
     this.exercises = this.localStorageService.select('exerciseTitles');
     if (!this.exercises) {
       return false;
     }
-    this.currentExercise = this.exercises[exerciseParams.lessionIndex];
-    this.currentLessionIndex = exerciseParams.lessionIndex;
+    this.currentExercise = this.exercises[lessionIndex];
+    this.currentLessionIndex = lessionIndex;
+    let mode = this.currentExercise
   }
 
   nextExercise() {
