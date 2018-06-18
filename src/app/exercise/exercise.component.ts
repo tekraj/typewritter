@@ -115,7 +115,7 @@ export class ExerciseComponent implements OnInit {
     this.keyValue = key;
     let typedString = this.typedString + this.keyValue;
     if (this.typingValue.indexOf(typedString) == 0) {
-
+        
       let keyCode = event.keyCode == 32 ? 32 : (event.keyCode + 32);
       this.currentLetterImage = '../assets/images/typer/db_' + keyCode + '.jpg';
       this.currentTypedLetter = key;

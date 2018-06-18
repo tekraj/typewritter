@@ -1563,3 +1563,21 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 .mat-slider-horizontal .mat-slider-wrapper{left:0!important;right:0!important;height:100%!important;top:0!important;margin-top:-2px;}
 .mat-slider-horizontal .mat-slider-ticks-container{height:100%!important;}
 .mat-slider-horizontal .mat-slider-thumb-container{top:0!important;height:100%!important;}
+.zoom-div .btn{
+    position: relative;
+    transition:all 1s ease-out;
+}
+.zoom-div .btn.animation{
+    transform: translateY(-200px);
+    width: 30%;
+    height: 50px;
+    font-size: 24px;
+    line-height: 51px;
+}
+.container-fluid.container5{
+    margin-top: 2%;
+    height: 56%;
+}
+.signle-blank-white{
+    margin-top:20%;
+}
