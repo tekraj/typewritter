@@ -693,7 +693,7 @@ span.red {
 .maria-text p{
     line-height: normal;
     color:#ea0408;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     margin:0;
 }
@@ -703,6 +703,7 @@ span.red {
     position: relative;
     top:-1.5vh;
     z-index: 100;
+    height: 34vh;
 }
 .col-sm-4.nach-holder{
     padding-top: 1.5%;
@@ -957,9 +958,6 @@ input[type=number]:focus,
     line-height: 31px;
 }
 
-
-
-
 .sound-group .btn.kein-btn{
     width:66%;
 }
@@ -1009,6 +1007,7 @@ input[type=number]:focus,
     padding: 1vh 2%;
     color: #0000ec;
     border-radius: 8px;
+    margin-top: 0.9vh;
 }
 .info .sound-group .btn {
     height: 4.5vh;
@@ -1656,25 +1655,29 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 
 @media screen and (min-width: 1024px) and (max-width: 1200px){
     .sound-group .btn.kein-btn{
-        width:96px;
+        /*width:95px;*/
     }
     .info-group{
         margin-left: 4px;
+        width: 36%;
     }
     .info .sound-group{
         width: 160px;
     }
     .sound-group .btn{
-        width: 48px;
+        /*width: 47px;*/
     }
     .info .sound-group .btn{
-        height: 5.5vh;
+        /*height: 5.5vh;*/
     }
     .mute-open-btns .btn{
         height: 5vh;
     }
     .info-group table tbody tr td{
-        height: 3vh;
+        /*height: 3vh;*/
+    }
+    #keyboard li.return:before{
+        width: 201%;
     }
 }
 @media screen and (max-width: 1024px){
@@ -1687,5 +1690,8 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 @media(min-width:1800px){
     .info-group table tbody tr td{
         line-height: normal;
+    }
+    .btn.btn-default{
+        border-width: 7px 10px;
     }
 }

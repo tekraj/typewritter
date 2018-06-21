@@ -1,2 +1,7 @@
-
+.ex-two-two .top-blank-white, .ex-two-two .bottom-blank-white {
+    width: 100%;   
+}
+.ex-two-two .top-blank-white{
+	margin-top: 10px;
+}
 
