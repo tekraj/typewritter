@@ -38,8 +38,7 @@ export class ApiService {
     return this.http.get(baseUrl+'flag=uebg_t&lekt_nr='+lessionId+'&st_lfdnr='+this.stLnfdnr+'&api=1').toPromise();
   }
 
-  getExercise(lessionId:number){
-    console.log(lessionId);
+  getExercise(lessionId:number){   
     return this.http.get(baseUrl+'flag=uebg&lekt_nr='+lessionId+'&st_lfdnr='+this.stLnfdnr+'&api=1').toPromise();
   }
 
