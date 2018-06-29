@@ -101,10 +101,11 @@ export class HomeComponent implements OnInit {
       let allPercents = titles[5].replace('uebg_proz=','').split('|');
       let allGrayPercents = titles[6].replace('uebg_anschlag=','').split('|');
       let allYellowPercents = titles[7].replace('uebg_takt=','').split('|');
-      let mods = titles[3].replace('uebg_modus=','').split('|');
+      let mods = titles[4];
       allTItles.forEach((element, i) => {
         if (element != '0' && element != 0) {
-          this.titles.push({ id: ids[i], name: element,percent:allPercents[i],grayPercent:allGrayPercents[i],yellowPercent:allYellowPercents[i],mode:0,type:[],content:'',topBarTitle:'',flagTitle:'' });
+          let mode = (mods.match(new RegExp(ids[i], "g")) || []).length
+          this.titles.push({ id: ids[i], name: element,percent:allPercents[i],grayPercent:allGrayPercents[i],yellowPercent:allYellowPercents[i],mode:mode,type:[],content:'',topBarTitle:'',flagTitle:'' });
         }
       });
       this._apiService.getExercise(lessionId).then((lessions)=>{
@@ -117,7 +118,6 @@ export class HomeComponent implements OnInit {
         
           if(index<this.titles.length){
             this.titles[index].type = element.split(',');
-            this.titles[index].mode = this.titles[index].type[0];
             if(index<allTopTitles.length){
               this.titles[index].topBarTitle = allTopTitles[index];
             }

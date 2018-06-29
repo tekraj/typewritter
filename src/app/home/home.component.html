@@ -84,9 +84,9 @@
         <ul class="main-page-list title-list">
           <ng-container *ngFor="let t of createArrayRange(titles,i);let a=index">
             <li *ngIf="(a+1)<=((p+1)*12)" [routerLink]="['/exercise', ((p*12)+a)]">
-              <span class="red">{{t.type[0]}}</span>
+              <span class="red">{{t.mode}}</span>
               <span class="text-span">{{'Ü'+((p*12)+a+1)+': '+t.name}}</span>
-              <span class="percent-indicator" [ngStyle]="{'width':t.percent+'%'}"></span>
+              <span class="percent-indicator" [ngClass]="{'blue-zone':t.grayPercent<30,'yellow-zone':(grayPercent>=30 && grayPercent<60),'red-zone':(grayPercent>=60)}" [ngStyle]="{'width':t.percent+'%'}"></span>
               <span class="gray-percent" [ngStyle]="{'width':t.grayPercent+'%'}"></span>
               <span class="yellow-percent" [ngStyle]="{'width':t.yellowPercent+'%'}"></span>
               <span class="three-params">
@@ -171,7 +171,7 @@
         <b>Wertungsfarben und -stufe:</b>1.Leistungesstufef</p>
       <ul class="color-indicator-info">
         <li>
-          <span class="color-box" [style.background]="'#0000ff'"></span> Farbe blau: 0 bis 30 Anschläge/Minute </li>
+          <span class="color-box" [style.background]="'#0000FF'"></span> Farbe blau: 0 bis 30 Anschläge/Minute </li>
         <li>
           <span class="color-box" [style.background]="'#ffff00'"></span> Farbe gelb : 30 bis 60 Anschlage/Minute</li>
         <li>
