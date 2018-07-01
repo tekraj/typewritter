@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {LocalStorageService} from './local-storage.service';
+import { callbackify } from 'util';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
@@ -48,6 +49,12 @@ export class ApiService {
 
   setRahm(){
     return this.http.get(baseUrl+'flag=set_rahm&startbild=1008&st_lfdnr=68812&api=1').toPromise();
+  }
+
+  getSetting(type:string,callback:any){
+    this.http.get('assets/settings/tasten_bez'+type+'.txt',{ responseType: 'text' }).subscribe(data=>{
+      return callback(data);
+    });
   }
 
 }

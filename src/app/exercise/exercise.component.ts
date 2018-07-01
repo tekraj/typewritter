@@ -47,11 +47,18 @@ export class ExerciseComponent implements OnInit {
   public metroSound = 'Metro aus';
   public backgroundSound: any;
   public iconSound = { 'a': 'w_artist', 'b': 'w_bonbons', 'c': 'w_ctief', 'd': 'w_diamant', 'e': 'w_elfenfluegel', 'f': 'w_feuerschlucker', 'g': 'w_geigenspieler', 'h': 'w_hund', 'i': 'w_Insel', 'j': 'w_jaguar', 'k': 'w_krokodil', 'l': 'w_Loewe', 'm': 'w_motorrad', 'n': 'w_nuesse', 'o': 'w_nuesse', 'p': 'w_peitsche', 'q': 'w_quasten', 'r': 'w_rauch', 's': 'w_seiltaenzerin', 't': 'w_trommel', 'u': 'w_umhang', 'v': 'w_umhang', 'w': 'w_wuerfel', 'x': 'w_Xylophon', 'y': 'w_ystand', 'z': 'w_zylinder', 'ä': 'w_aeffchen', 'ö': 'w_aeffchen', 'ü': 'w_ueberschlag', 'ß': 'w_scharfes' };
-
+  public settingMode = 'a';
   constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute) {
-
+    let settingMode = this.localStorageService.select('settingMode');
+    if(settingMode){
+      this.settingMode = settingMode;
+    }
     this.typeSettings = { stringLength: 1, value: "asdfghjklö", typewriterMode:1 , presentation: 0, sound: 'kein_sound', soundVolume: 1, muteSound: false };
-    
+    let globalSettings = this.localStorageService.select('setting');
+    if(globalSettings && globalSettings.iconSound){
+      this.iconSound = globalSettings.iconSound;
+    }
+
     for (let i = 1; i <= this.typeSettings.stringLength; i++) {
       this.typingValue += this.typeSettings.value + ' ';
     }
@@ -137,7 +144,7 @@ export class ExerciseComponent implements OnInit {
           clickSound.play();
         } else if (this.clickRightSound == 'play-letter') {
           let clickSound = new Howl({
-            src: ['../assets/sounds/cs_' + keyCode + '.mp3']
+            src: ['../assets/sounds/'+this.settingMode+'s_' + keyCode + '.mp3']
           });
           clickSound.play();
         } else if (this.clickRightSound == 'icon-sound') {

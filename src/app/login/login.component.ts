@@ -13,8 +13,8 @@ export class LoginComponent implements OnInit {
   returnUrl: string;
   public loginProgress: boolean = false;
   public message: string = '';
-
-  constructor(private route: ActivatedRoute, private router: Router, private _apiService: ApiService, private localStoreageService: LocalStorageService) {
+  public settingMode = 'a';
+  constructor(private route: ActivatedRoute, private router: Router, private _apiService: ApiService, private localStorage: LocalStorageService) {
     this.model.password = 'ms';
   }
 
@@ -25,19 +25,21 @@ export class LoginComponent implements OnInit {
       let gegenstand = data[5].replace('gegenstand=', '');
       let st_lfdnr = data[1].replace('st_lfdnr=', '');
       let studentName = data[3].replace('stname=', '');
-      this.localStoreageService.insert('gegenstand', gegenstand)
-      this.localStoreageService.insert('st_lfdnr', st_lfdnr)
-      this.localStoreageService.insert('std_name', studentName);
+      this.localStorage.insert('gegenstand', gegenstand)
+      this.localStorage.insert('st_lfdnr', st_lfdnr)
+      this.localStorage.insert('std_name', studentName);
       if (studentName) {
         let stdNameArray = studentName.split(' ');
         if (stdNameArray.length > 1) {
-          this.localStoreageService.insert('std_first_name', stdNameArray[0]);
-          this.localStoreageService.insert('std_last_name', stdNameArray[1]);
+          this.localStorage.insert('std_first_name', stdNameArray[0]);
+          this.localStorage.insert('std_last_name', stdNameArray[1]);
         } else {
-          this.localStoreageService.insert('std_first_name', stdNameArray[0]);
-          this.localStoreageService.insert('std_last_name', stdNameArray[0]);
+          this.localStorage.insert('std_first_name', stdNameArray[0]);
+          this.localStorage.insert('std_last_name', stdNameArray[0]);
         }
       }
+      this.localStorage.insert('settingMode',this.settingMode);
+      this.importSettings();
       this.router.navigate([this.returnUrl]);
     });
 
@@ -64,4 +66,25 @@ export class LoginComponent implements OnInit {
     this.returnUrl = 'home';
   }
 
+  private importSettings(){
+    this._apiService.getSetting(this.settingMode, (data)=>{
+     let  setting: {[k: string]: any} = {};
+     let textSetting = data.split('&');
+      textSetting.forEach(element => {
+        if(element && element.trim().length>2){
+          let singleSetting = element.split('=');
+          setting[singleSetting[0]]= singleSetting[1];
+        }
+      });
+      let iconSound = {};
+      let iSound = setting.tast_wort.split(',');
+      iSound.forEach(element => {
+        if(element && element.trim().length>2){
+          iconSound[element[0].toLowerCase()] = 'w_'+element;
+        }
+      });
+      setting.iconSound = iconSound;
+      this.localStorage.insert('setting',setting);
+    });
+  } 
 }
