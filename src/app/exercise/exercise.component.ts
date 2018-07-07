@@ -18,14 +18,14 @@ export class ExerciseComponent implements OnInit {
   public typeSettings: any = {};
   public nextInfo: number = 1;
   public headerHide: boolean = true;
-  public exercises:Array<{ id: number, name: string, percent:number,grayPercent:number,yellowPercent:number,mode:number,type:Array<number>,content:string,topBarTitle:string,flagTitle:string }>;
+  public exercises: Array<{ id: number, name: string, percent: number, grayPercent: number, yellowPercent: number, mode: number, type: Array<number>, content: string, topBarTitle: string, flagTitle: string }>;
   public collapseHeader: boolean;
   public words: string[];
   public wordIndex: any;
   public totalWords: number;
   public totalRight: number = 0;
   public totalWrong: number = 0;
-  public currentExercise : { id: number, name: string, percent:number,grayPercent:number,yellowPercent:number,mode:number,type:Array<number>,content:string,topBarTitle:string,flagTitle:string }
+  public currentExercise: { id: number, name: string, percent: number, grayPercent: number, yellowPercent: number, mode: number, type: Array<number>, content: string, topBarTitle: string, flagTitle: string }
   public keyValue: any;
   public keyboard: any = {};
   public typedString: string = '';
@@ -46,19 +46,13 @@ export class ExerciseComponent implements OnInit {
   public currentSoundLevel = 0;
   public metroSound = 'Metro aus';
   public backgroundSound: any;
-  public iconSound = { 'a': 'w_artist', 'b': 'w_bonbons', 'c': 'w_ctief', 'd': 'w_diamant', 'e': 'w_elfenfluegel', 'f': 'w_feuerschlucker', 'g': 'w_geigenspieler', 'h': 'w_hund', 'i': 'w_Insel', 'j': 'w_jaguar', 'k': 'w_krokodil', 'l': 'w_Loewe', 'm': 'w_motorrad', 'n': 'w_nuesse', 'o': 'w_nuesse', 'p': 'w_peitsche', 'q': 'w_quasten', 'r': 'w_rauch', 's': 'w_seiltaenzerin', 't': 'w_trommel', 'u': 'w_umhang', 'v': 'w_umhang', 'w': 'w_wuerfel', 'x': 'w_Xylophon', 'y': 'w_ystand', 'z': 'w_zylinder', 'ä': 'w_aeffchen', 'ö': 'w_aeffchen', 'ü': 'w_ueberschlag', 'ß': 'w_scharfes' };
-  public settingMode = 'a';
+  public settingMode :string;
+  public globalSettings: any;
   constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute) {
-    let settingMode = this.localStorageService.select('settingMode');
-    if(settingMode){
-      this.settingMode = settingMode;
-    }
-    this.typeSettings = { stringLength: 1, value: "asdfghjklö", typewriterMode:1 , presentation: 0, sound: 'kein_sound', soundVolume: 1, muteSound: false };
-    let globalSettings = this.localStorageService.select('setting');
-    if(globalSettings && globalSettings.iconSound){
-      this.iconSound = globalSettings.iconSound;
-    }
-
+    this.settingMode = this.localStorageService.select('settingMode');
+    this.globalSettings = this.localStorageService.select('globalSettings');
+    
+    this.typeSettings = { stringLength: 1, value: "asdfghjklö", typewriterMode: 1, presentation: 0, sound: 'kein_sound', soundVolume: 1, muteSound: false };
     for (let i = 1; i <= this.typeSettings.stringLength; i++) {
       this.typingValue += this.typeSettings.value + ' ';
     }
@@ -67,12 +61,12 @@ export class ExerciseComponent implements OnInit {
 
     this.letterClasses = [{ class: 'primary', letters: ['a', 'q', 'z', '1', , '!', '2', '"', 'ß', '?', '´', '`', 'p', 'ü', '-', '_', 'ö', 'ä'] },
     { class: 'warning', letters: ['3', '§', 'w', 's', 'x', '0', '=', 'o', 'l', ':', '.'] },
-    { class: 'success', letters: ['4', '$', '9', ')', 'i', 'k', ';', ',', 'd','e'] },
+    { class: 'success', letters: ['4', '$', '9', ')', 'i', 'k', ';', ',', 'd', 'e'] },
     { class: 'danger', letters: ['5', '%', '5', '&', '7', '/', '8', '(', 'r', 't', 'y', 'u', 'f', 'g', 'h', 'j', 'v', 'b', 'n', 'm'] }];
 
     this.setSound(this.typeSettings.sound);
 
-   
+
     Howler.volume(this.typeSettings.soundVolume / 100);
     this.exercises = [];
     this.currentSoundLevel = this.typeSettings.soundVolume;
@@ -122,7 +116,7 @@ export class ExerciseComponent implements OnInit {
     this.keyValue = key;
     let typedString = this.typedString + this.keyValue;
     if (this.typingValue.indexOf(typedString) == 0) {
-        
+
       let keyCode = event.keyCode == 32 ? 32 : (event.keyCode + 32);
       this.currentLetterImage = '../assets/images/typer/db_' + keyCode + '.jpg';
       this.currentTypedLetter = key;
@@ -144,18 +138,17 @@ export class ExerciseComponent implements OnInit {
           clickSound.play();
         } else if (this.clickRightSound == 'play-letter') {
           let clickSound = new Howl({
-            src: ['../assets/sounds/'+this.settingMode+'s_' + keyCode + '.mp3']
+            src: ['../assets/sounds/' + this.settingMode + 's_' + keyCode + '.mp3']
           });
           clickSound.play();
         } else if (this.clickRightSound == 'icon-sound') {
-          if (this.iconSound.hasOwnProperty(key)) {
-            let iSound = this.iconSound[key];
-            let clickSound = new Howl({
-              src: ['../assets/sounds/icon-sound/' + iSound + '.mp3']
-            });
-            clickSound.play();
-          }
+          let iSound = this.globalSettings[key].tast_wort;
+          let clickSound = new Howl({
+            src: ['../assets/sounds/icon-sound/w_' + iSound + '.mp3']
+          });
+          clickSound.play();
         }
+
 
       }
     } else {
@@ -188,7 +181,7 @@ export class ExerciseComponent implements OnInit {
 
   nextExercise() {
     this.currentLessionIndex = this.currentLessionIndex + 1;
-    if(this.currentLessionIndex>=this.exercises.length){
+    if (this.currentLessionIndex >= this.exercises.length) {
       this.currentLessionIndex = 0;
     }
     this.currentExercise = this.exercises[this.currentLessionIndex];
@@ -196,8 +189,8 @@ export class ExerciseComponent implements OnInit {
 
   prevExercise() {
     this.currentLessionIndex = this.currentLessionIndex - 1;
-    if(this.currentLessionIndex<=0){
-      this.currentLessionIndex = this.exercises.length-1;
+    if (this.currentLessionIndex <= 0) {
+      this.currentLessionIndex = this.exercises.length - 1;
     }
     this.currentExercise = this.exercises[this.currentLessionIndex];
   }
@@ -271,9 +264,13 @@ export class ExerciseComponent implements OnInit {
 
   }
 
-  checkLetterExists(letter: string, extLetter: string = '') {
-    if (this.typingValue.indexOf(letter) >= 0)
-      return true;
+  checkLetterExists(asci) {
+    // if(this.globalSettings.hasOwnProperty(asci)){
+    //   let word = this.globalSettings[asci];
+    //   if(word.t_reihe>0){
+
+    //   }
+    // }
     return false;
   }
 }

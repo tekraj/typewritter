@@ -1263,7 +1263,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
         background: #fff;
         border: 1px solid #f9f9f9;
         font-weight: bold;
-        color: transparent;
+        /* color: transparent; */
         border-radius: 10px;
         font-size: 2em;
         text-transform: uppercase;
@@ -1318,14 +1318,19 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     #keyboard li:hover::after{
         display: block;
     }
-    .on,.off{
+    .small.on, .small.off {
         display: block;
-        height: 20px;
         margin: 0;
         padding: 0;
         text-align: center;
         float: none;
-        line-height: normal;
+        line-height: 2vh;
+        font-size: 3vh;
+        font-weight: bold;
+        padding-top: 1vh;
+    }
+    .on sub {
+        bottom: -0.2em;
     }
     #keyboard li.default{
         background-color:#ccc!important;

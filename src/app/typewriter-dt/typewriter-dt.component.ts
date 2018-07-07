@@ -53,10 +53,11 @@ export class TypewriterDtComponent implements OnInit {
   public currentSoundLevel = 0;
   public metroSound = 'Metro aus';
   public backgroundSound: any;
-  public iconSound = { 'a': 'w_artist', 'b': 'w_bonbons', 'c': 'w_ctief', 'd': 'w_diamant', 'e': 'w_elfenfluegel', 'f': 'w_feuerschlucker', 'g': 'w_geigenspieler', 'h': 'w_hund', 'i': 'w_Insel', 'j': 'w_jaguar', 'k': 'w_krokodil', 'l': 'w_Loewe', 'm': 'w_motorrad', 'n': 'w_nuesse', 'o': 'w_nuesse', 'p': 'w_peitsche', 'q': 'w_quasten', 'r': 'w_rauch', 's': 'w_seiltaenzerin', 't': 'w_trommel', 'u': 'w_umhang', 'v': 'w_umhang', 'w': 'w_wuerfel', 'x': 'w_Xylophon', 'y': 'w_ystand', 'z': 'w_zylinder', 'ä': 'w_aeffchen', 'ö': 'w_aeffchen', 'ü': 'w_ueberschlag', 'ß': 'w_scharfes' };
-
+  public settingMode:string;
+  public globalSettings:any;
   constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute) {
-
+    this.settingMode = this.localStorageService.select('settingMode');
+    this.globalSettings = this.localStorageService.select('globalSettings');
     this.exercise = this.route.params['value'].exercise;
     let settingData = localStorageService.select('typeSettings');
     if (settingData == false) {
@@ -70,11 +71,7 @@ export class TypewriterDtComponent implements OnInit {
     this.currentSoundLevel = this.typeSettings.soundVolume;
     this.keyboard.typingValue = this.typingValue.trim().split('');
     this.totalWords = this.typingValue.length;
-    this.letterClasses = [{ class: 'primary', letters: ['a', 'q', 'z', '1', , '!', '2', '"', 'ß', '?', '´', '`', 'p', 'ü', '-', '_', 'ö', 'ä'] },
-    { class: 'warning', letters: ['3', '§', 'w', 's', 'x', '0', '=', 'o', 'l', ':', '.'] },
-    { class: 'success', letters: ['4', '$', '9', ')', 'i', 'k', ';', ',', 'd','e'] },
-    { class: 'danger', letters: ['5', '%', '5', '&', '7', '/', '8', '(', 'r', 't', 'y', 'u', 'f', 'g', 'h', 'j', 'v', 'b', 'n', 'm'] }];
-
+  
 
     this.clickWrongSound = new Howl({
       src: ['../assets/sounds/wrong-click.mp3']
@@ -128,7 +125,7 @@ export class TypewriterDtComponent implements OnInit {
     if (this.typingValue.indexOf(typedString) == 0) {
 
       let keyCode = event.keyCode == 32 ? 32 : (event.keyCode + 32);
-      this.currentLetterImage = '../assets/images/typer/db_' + keyCode + '.jpg';
+      this.currentLetterImage = '../assets/images/typer/'+this.settingMode+'b_'+ + keyCode + '.jpg';
       this.currentTypedLetter = key;
       this.letterClasses.forEach((element) => {
         if (element.letters.indexOf(key) >= 0) {
@@ -152,13 +149,10 @@ export class TypewriterDtComponent implements OnInit {
           });
           clickSound.play();
         } else if (this.clickRightSound == 'icon-sound') {
-          if (this.iconSound.hasOwnProperty(key)) {
-            let iSound = this.iconSound[key];
-            let clickSound = new Howl({
-              src: ['../assets/sounds/icon-sound/' + iSound + '.mp3']
-            });
-            clickSound.play();
-          }
+          let clickSound = new Howl({
+            src: ['../assets/sounds/' + this.settingMode + 's_' + keyCode + '.mp3']
+          });
+        clickSound.play();
         }
 
       }

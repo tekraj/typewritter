@@ -62,8 +62,11 @@ export class TypewriterSpComponent implements OnInit {
     public metroSound = 'Metro aus';
     public deleteTimer: any;
     public showTooltipInfo: boolean = false;
-    public iconSound = {'a': 'w_artist','b': 'w_bonbons','c': 'w_ctief','d': 'w_diamant','e': 'w_elfenfluegel','f': 'w_feuerschlucker','g': 'w_geigenspieler','h': 'w_hund','i': 'w_Insel','j': 'w_jaguar','k': 'w_krokodil','l': 'w_Loewe','m': 'w_motorrad','n': 'w_nuesse','o': 'w_nuesse','p': 'w_peitsche','q': 'w_quasten','r': 'w_rauch','s': 'w_seiltaenzerin','t': 'w_trommel','u': 'w_umhang','v': 'w_umhang','w': 'w_wuerfel','x': 'w_Xylophon','y': 'w_ystand','z': 'w_zylinder','ä': 'w_aeffchen','ö': 'w_aeffchen','ü': 'w_ueberschlag','ß': 'w_scharfes'};
+    public settingMode:string;
+    public globalSettings:any;
     constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute) {
+        this.settingMode = this.localStorageService.select('settingMode');
+        this.globalSettings = this.localStorageService.select('globalSettings');
         let exercise = this.route.params['value'].exercise;
         let exerciseArray = ['one', 'two', 'three', 'four', 'five'];
         this.exercise = exerciseArray.indexOf(exercise) + 1;
@@ -112,10 +115,6 @@ export class TypewriterSpComponent implements OnInit {
 
 
         Howler.volume(this.typeSettings.soundVolume / 100);
-        this.letterClasses = [{ class: 'primary', letters: ['a', 'q', 'z', '1', , '!', '2', '"', 'ß', '?', '´', '`', 'p', 'ü', '-', '_', 'ö', 'ä'] },
-        { class: 'warning', letters: ['3', '§', 'w', 's', 'x', '0', '=', 'o', 'l', ':', '.'] },
-        { class: 'success', letters: ['4', '$', '9', ')', 'i', 'k', ';', ',', 'd','e'] },
-        { class: 'danger', letters: ['5', '%', '5', '&', '7', '/', '8', '(', 'r', 't', 'y', 'u', 'f', 'g', 'h', 'j', 'v', 'b', 'n', 'm'] }];
         this.setSound(this.typeSettings.sound);
     }
 
@@ -211,14 +210,10 @@ export class TypewriterSpComponent implements OnInit {
                     });
                     clickSound.play();
                 } else if (this.clickRightSound == 'icon-sound') {
-                  
-                    if(this.iconSound.hasOwnProperty(key)){
-                        let iSound = this.iconSound[key];
-                        let clickSound = new Howl({
-                            src: ['../assets/sounds/icon-sound/' + iSound + '.mp3']
-                        });
-                        clickSound.play();
-                    }
+                    let clickSound = new Howl({
+                        src: ['../assets/sounds/' + this.settingMode + 's_' + keyCode + '.mp3']
+                      });
+                    clickSound.play();
                   
                 }
 

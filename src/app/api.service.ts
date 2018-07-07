@@ -51,9 +51,9 @@ export class ApiService {
     return this.http.get(baseUrl+'flag=set_rahm&startbild=1008&st_lfdnr=68812&api=1').toPromise();
   }
 
-  getSetting(type:string,callback:any){
-    this.http.get('assets/settings/tasten_bez'+type+'.txt',{ responseType: 'text' }).subscribe(data=>{
-      return callback(data);
+  getSetting(callback:any){
+    this.http.get('http://localhost/typewritter/apiservices.php?action=getSettings',{ responseType: 'text' }).subscribe(data=>{
+      return callback(JSON.parse(data));
     });
   }
 
