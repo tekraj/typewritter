@@ -21,6 +21,7 @@ import { TypewriterSmComponent } from './typewriter-sm/typewriter-sm.component';
 import { TypewriterDzComponent } from './typewriter-dz/typewriter-dz.component';
 import { TypewriterDtComponent } from './typewriter-dt/typewriter-dt.component';
 import { TypewriterBsComponent } from './typewriter-bs/typewriter-bs.component';
+import { AlbumForLessionComponent } from './album-for-lession/album-for-lession.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { TypewriterBsComponent } from './typewriter-bs/typewriter-bs.component';
     TypewriterSpComponent,
     TypewriterDtComponent,
     TypewriterBsComponent,
-    GalleryComponent
+    GalleryComponent,
+    AlbumForLessionComponent
   ],
   imports: [
     BrowserModule,

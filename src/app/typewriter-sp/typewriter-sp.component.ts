@@ -64,6 +64,11 @@ export class TypewriterSpComponent implements OnInit {
     public showTooltipInfo: boolean = false;
     public settingMode:string;
     public globalSettings:any;
+    private internalTypingTime:number=1;
+    public typingTime:number=0;
+    private typingCounter:any;
+    public typingSpeed :number=0;
+    public totalAccuracy :number =0;
     constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute) {
         this.settingMode = this.localStorageService.select('settingMode');
         this.globalSettings = this.localStorageService.select('globalSettings');
@@ -194,6 +199,11 @@ export class TypewriterSpComponent implements OnInit {
     }
 
     handleKeyDownEvent(event: KeyboardEvent) {
+        if(!this.typingCounter){
+            this.typingCounter = setInterval(()=>{
+              this.internalTypingTime++;
+            },1000);
+          }
         let key = event.key;
         var typedIndex = this.cLetters.indexOf(key)
         if (typedIndex >= 0) {
@@ -206,16 +216,16 @@ export class TypewriterSpComponent implements OnInit {
                     clickSound.play();
                 } else if (this.clickRightSound == 'play-letter') {
                     let clickSound = new Howl({
-                        src: ['../assets/sounds/cs_' + keyCode + '.mp3']
+                      src: ['../assets/sounds/' + this.settingMode + 's_' + keyCode + '.mp3']
                     });
                     clickSound.play();
-                } else if (this.clickRightSound == 'icon-sound') {
+                  } else if (this.clickRightSound == 'icon-sound') {
+                    let iSound = this.globalSettings[event.keyCode].tast_wort;
                     let clickSound = new Howl({
-                        src: ['../assets/sounds/' + this.settingMode + 's_' + keyCode + '.mp3']
-                      });
+                      src: ['../assets/sounds/icon-sound/w_' + iSound + '.mp3']
+                    });
                     clickSound.play();
-                  
-                }
+                  }
 
             }
 
@@ -234,8 +244,13 @@ export class TypewriterSpComponent implements OnInit {
             this.clickWrongSound.play();
             this.totalWrong++;
         }
+        this.typingTime = this.internalTypingTime;      
+        this.typingSpeed = Math.ceil(((this.totalRight+this.totalWrong)/this.typingTime)*60);
+        this.totalAccuracy = Math.floor((this.totalRight/(this.totalRight+this.totalWrong))*100);
+
         if (this.totalRight == this.typingValue.length - 1) {
             this.showCompleteBox = true;
+            clearInterval(this.typingCounter);
             clearInterval(this.deleteTimer);
             clearInterval(this.intervalTimer);
         }

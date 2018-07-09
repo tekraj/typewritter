@@ -886,7 +886,7 @@ input[type=number]:focus,
     border: 1px solid #ea0408;
     padding: 0px 5px;
     font-size: 14px;
-    letter-spacing: 4px;
+    letter-spacing: 2px;
     line-height: 2.5vh;
     font-weight: bold;
 }
@@ -1082,7 +1082,8 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     height: 20vh;
     width: 50%;
     margin: 4px auto;
-    margin-top:0.5vh;
+    margin-top:1.3vh;
+    overflow: hidden;
 }
 .bottom-blank-white{
     background: #fff;
@@ -1092,7 +1093,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     height: 7vh;
     width: 50%;
     margin: 4px auto;
-    font-size: 30px;
+    font-size: 2em;
     font-weight: bold;
     line-height: 4vh;
     text-align: center;
@@ -1172,11 +1173,11 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 #keyboard li.return {
     position: relative;
     background: url(../images/enter.png) no-repeat center!important;
-    height: 9vh!important;
-    margin-top: -10px!important;
+    height: 9.5vh!important;
+    margin-top: -9px!important;
     border-radius: 0px 0px 4px 4px!important;
     top: 8px!important;
-    width:5.4%;
+    width: 5.4%;
 }
 #keyboard li.return.active{
     width:4.8%;
@@ -1318,16 +1319,21 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     #keyboard li:hover::after{
         display: block;
     }
-    .small.on, .small.off {
+    .small.on  {
         display: block;
         margin: 0;
         padding: 0;
         text-align: center;
         float: none;
-        line-height: 2vh;
+        line-height: 6vh;
         font-size: 3vh;
         font-weight: bold;
         padding-top: 1vh;
+    }
+    .small.off {
+        position: absolute;
+        top: -3vh;
+        font-size: 2vh;
     }
     .on sub {
         bottom: -0.2em;
@@ -1346,10 +1352,10 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
         right: initial;
         border-radius: 4px 4px 0px 5px;
         top: -9vh;
-        left: -69%;
+        left: -54%;
         border-width: 4px 12px;
         border-top-width: 8px;
-        width: 192%;
+        width: 171%;
         height: 9vh;
         border-bottom: none;
     }
@@ -1440,8 +1446,8 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 }
 .top-info-bar .info-tooltip {
     position: absolute;
-    width: inherit;
-    right: -100%;
+    width: 60%;
+    right: -60%;
     background: #666666;
     border: 2px solid #ea0408;
     padding: 10px;
@@ -1449,7 +1455,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     color: #fff;
     top: 0;
     height: 100%;
-    font-size: 20px;
+    font-size: 2.6vh;
 }
 .info-tooltip p{margin-bottom:10px;}
 
@@ -1657,7 +1663,32 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     font-size:1em;
     padding:1px 7px;
 }
-
+.finger-position span {
+    display: block;
+    font-size: 2vh;
+    width: 25%;
+    float: left;
+    line-height: 2vh;
+    padding: 0.8vh 5%;
+}
+.finger-position p {
+    font-size: 2vh;
+    margin: -5px 0 0;
+    line-height: normal;
+    position: relative;
+}
+.finger-position .text-right p{padding-right:8%;}
+.finger-position .text-left p{padding-left:8%;}
+.animation-9{position: absolute;top:0;bottom:0;left:0;right:0;height:100%;width:100%;}
+.animation-9 span{
+    display:block;
+    float:left;
+    width:33.33%;
+    background:#d21212;
+    height:33%;
+    border:2px solid;
+}
+.animation-9 span.active{background:transparent;border-color:transparent;}
 @media screen and (min-width: 1024px) and (max-width: 1200px){
     .sound-group .btn.kein-btn{
         /*width:95px;*/

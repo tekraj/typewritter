@@ -95,7 +95,7 @@ export class LoginComponent implements OnInit {
               globalSettings[element].letters.alt = setting.letters[index];
             }
           } else {
-            globalSettings[element] = { tast_finger: setting.tast_finger[index], tast_bname: setting.tast_bname[index], tast_wort: setting.tast_wort[index], tast_lekt: setting.tast_lekt[index], t_reihe: setting.t_reihe[index], zeichen: setting.zeichen[index], tnr_asc: setting.tnr_asc[index], letters: { normal: setting.letters[index], shift: false, ctrl: false, alt: false } };
+            globalSettings[element] = { tast_finger: setting.tast_finger[index], tast_bname: setting.tast_bname[index], tast_wort: setting.tast_wort[index], tast_lekt: setting.tast_lekt[index], t_reihe: setting.t_reihe[index], zeichen: setting.zeichen[index], tnr_asc: setting.tnr_asc[index], letters: { normal: setting.letters[index], shift: '', ctrl: '', alt: '' } };
           }
         });
       }
@@ -106,15 +106,19 @@ export class LoginComponent implements OnInit {
           if (set.t_reihe == 1) {
             let cssClass = this.findLetterCssClass(1, globalSettings.row1.length + 1);
             globalSettings.row1.push({ letters: set.letters, asci_cod: i, cssClass: cssClass });
+            globalSettings[i].cssClass = cssClass;
           } else if (set.t_reihe == 2) {
             let cssClass = this.findLetterCssClass(2, globalSettings.row2.length + 1);
             globalSettings.row2.push({ letters: set.letters, asci_cod: i, cssClass: cssClass });
+            globalSettings[i].cssClass = cssClass;
           } else if (set.t_reihe == 3) {
             let cssClass = this.findLetterCssClass(3, globalSettings.row3.length + 1);
             globalSettings.row3.push({ letters: set.letters, asci_cod: i, cssClass: cssClass });
+            globalSettings[i].cssClass = cssClass;
           } else if (set.t_reihe == 4) {
             let cssClass = this.findLetterCssClass(4, globalSettings.row4.length + 1);
             globalSettings.row4.push({ letters: set.letters, asci_cod: i, cssClass: cssClass });
+            globalSettings[i].cssClass = cssClass;
           }
         }
       }

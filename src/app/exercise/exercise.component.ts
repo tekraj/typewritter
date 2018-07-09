@@ -58,15 +58,7 @@ export class ExerciseComponent implements OnInit {
     }
     this.keyboard.typingValue = this.typingValue.trim().split('');
     this.totalWords = this.typingValue.length;
-
-    this.letterClasses = [{ class: 'primary', letters: ['a', 'q', 'z', '1', , '!', '2', '"', 'ß', '?', '´', '`', 'p', 'ü', '-', '_', 'ö', 'ä'] },
-    { class: 'warning', letters: ['3', '§', 'w', 's', 'x', '0', '=', 'o', 'l', ':', '.'] },
-    { class: 'success', letters: ['4', '$', '9', ')', 'i', 'k', ';', ',', 'd', 'e'] },
-    { class: 'danger', letters: ['5', '%', '5', '&', '7', '/', '8', '(', 'r', 't', 'y', 'u', 'f', 'g', 'h', 'j', 'v', 'b', 'n', 'm'] }];
-
     this.setSound(this.typeSettings.sound);
-
-
     Howler.volume(this.typeSettings.soundVolume / 100);
     this.exercises = [];
     this.currentSoundLevel = this.typeSettings.soundVolume;
@@ -118,7 +110,7 @@ export class ExerciseComponent implements OnInit {
     if (this.typingValue.indexOf(typedString) == 0) {
 
       let keyCode = event.keyCode == 32 ? 32 : (event.keyCode + 32);
-      this.currentLetterImage = '../assets/images/typer/db_' + keyCode + '.jpg';
+      this.currentLetterImage = '../assets/images/typer/'+this.settingMode+'b_'+ + keyCode + '.jpg';
       this.currentTypedLetter = key;
       this.letterClasses.forEach((element) => {
         if (element.letters.indexOf(key) >= 0) {
@@ -142,7 +134,7 @@ export class ExerciseComponent implements OnInit {
           });
           clickSound.play();
         } else if (this.clickRightSound == 'icon-sound') {
-          let iSound = this.globalSettings[key].tast_wort;
+          let iSound = this.globalSettings[event.keyCode].tast_wort;
           let clickSound = new Howl({
             src: ['../assets/sounds/icon-sound/w_' + iSound + '.mp3']
           });
@@ -158,6 +150,7 @@ export class ExerciseComponent implements OnInit {
       this.clickWrongSound.play();
       this.totalWrong++;
     }
+    
   }
 
   handleKeyUpEvent(event: KeyboardEvent) {

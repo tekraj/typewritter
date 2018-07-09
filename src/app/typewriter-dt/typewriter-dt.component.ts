@@ -3,7 +3,7 @@ import { LocalStorageService } from '../local-storage.service';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { Howl, Howler } from 'howler';
 import { ApiService } from '../api.service';
-import { ActivatedRoute } from '@angular/router';
+import {Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-typewriter-dt',
@@ -53,9 +53,21 @@ export class TypewriterDtComponent implements OnInit {
   public currentSoundLevel = 0;
   public metroSound = 'Metro aus';
   public backgroundSound: any;
-  public settingMode:string;
-  public globalSettings:any;
-  constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute) {
+  public settingMode: string;
+  public globalSettings: any;
+  private internalTypingTime: number = 1;
+  public typingTime: number = 0;
+  private typingCounter: any;
+  public typingSpeed: number = 0;
+  public totalAccuracy: number = 0;
+  public exerciseCompleted:number=0;
+  public letterIndexes:Array<string>;
+  public typeThisImage: string = '';
+  public typeThisLetterClass: string;
+  public typeThisLetter: string;
+  public typedStringArray:Array<string>;
+  constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute,private router:Router) {
+    this.typedStringArray = [];
     this.settingMode = this.localStorageService.select('settingMode');
     this.globalSettings = this.localStorageService.select('globalSettings');
     this.exercise = this.route.params['value'].exercise;
@@ -79,10 +91,20 @@ export class TypewriterDtComponent implements OnInit {
     Howler.volume(this.typeSettings.soundVolume / 100);
     this.exercises = [];
     this.setSound(this.typeSettings.sound);
+    this.letterIndexes = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "ä", "ö", "ü", "ß"
+  ];
   }
 
   ngOnInit() {
-
+    this.typeThisLetter = this.keyboard.typingValue[0];
+    let letterIndex = this.letterIndexes.indexOf(this.typeThisLetter);
+    let nextKeCode = letterIndex + 96 + 1;
+    if (this.typeThisLetter == ' ') {
+      nextKeCode = 32;
+    }
+    this.typeThisImage =  '../assets/images/typer/'+this.settingMode+'b_'+ + nextKeCode + '.jpg';
+   
+    this.typeThisLetterClass = this.globalSettings[65+letterIndex+1].cssClass;
     setTimeout(() => {
       this.zoomButtonAnimation = true;
       this.headerHide = false;
@@ -118,20 +140,31 @@ export class TypewriterDtComponent implements OnInit {
   }
 
   handleKeyDownEvent(event: KeyboardEvent) {
+    if (!this.typingCounter) {
+      this.typingCounter = setInterval(() => {
+        this.internalTypingTime++;
+      }, 1000);
+    }
 
-    let key = event.key;
-    this.keyValue = key;
+
+    this.keyValue = event.key;
+    
+    let keySettings = this.globalSettings[event.keyCode];
+    if (event.altKey && this.keyValue!='Alt') {
+      this.keyValue = keySettings.letters.alt;
+    } else if (event.ctrlKey && this.keyValue!='Control') {
+      this.keyValue = keySettings.letters.ctrl;
+    } else if (event.shiftKey && this.keyValue!='Shift') {
+      this.keyValue = keySettings.letters.shift;
+    }
     let typedString = this.typedString + this.keyValue;
     if (this.typingValue.indexOf(typedString) == 0) {
 
       let keyCode = event.keyCode == 32 ? 32 : (event.keyCode + 32);
       this.currentLetterImage = '../assets/images/typer/'+this.settingMode+'b_'+ + keyCode + '.jpg';
-      this.currentTypedLetter = key;
-      this.letterClasses.forEach((element) => {
-        if (element.letters.indexOf(key) >= 0) {
-          this.currentTypedLetterClass = element.class;
-        }
-      });
+      this.currentTypedLetter = this.keyValue;
+     this.typedStringArray.push(this.keyValue);
+      this.currentTypedLetterClass = keySettings.cssClass;
       this.typedString = typedString;
       this.letterTypedIndex = this.typedString.length - 1;
       this.letterNextTyped = this.typedString.length;
@@ -145,17 +178,28 @@ export class TypewriterDtComponent implements OnInit {
           clickSound.play();
         } else if (this.clickRightSound == 'play-letter') {
           let clickSound = new Howl({
-            src: ['../assets/sounds/cs_' + keyCode + '.mp3']
+            src: ['../assets/sounds/' + this.settingMode + 's_' + keyCode + '.mp3']
           });
           clickSound.play();
         } else if (this.clickRightSound == 'icon-sound') {
+          
           let clickSound = new Howl({
-            src: ['../assets/sounds/' + this.settingMode + 's_' + keyCode + '.mp3']
+            src: ['../assets/sounds/icon-sound/w_' + keySettings.tast_wort + '.mp3']
           });
-        clickSound.play();
+          clickSound.play();
         }
 
       }
+      this.typeThisLetter = this.keyboard.typingValue[this.letterNextTyped];
+      let nextLetterIndex = this.letterIndexes.indexOf(this.typeThisLetter);
+      let nextKeCode = nextLetterIndex + 96 + 1;
+      if (this.typeThisLetter == ' ') {
+        nextKeCode = 32;
+      }
+
+      this.typeThisImage =  '../assets/images/typer/'+this.settingMode+'b_'+ + nextKeCode + '.jpg';
+      this.currentTypedLetterClass = keySettings.cssClass;
+      this.typeThisLetterClass = this.globalSettings[65+nextLetterIndex+1].cssClass;
 
     } else {
       this.clickWrongSound = new Howl({
@@ -164,16 +208,20 @@ export class TypewriterDtComponent implements OnInit {
       this.clickWrongSound.play();
       this.totalWrong++;
     }
+    this.typingTime = this.internalTypingTime;      
+    this.typingSpeed = Math.ceil(((this.totalRight+this.totalWrong)/this.typingTime)*60);
+    this.totalAccuracy = Math.floor((this.totalRight/(this.totalRight+this.totalWrong))*100);
     if (this.totalRight == this.typingValue.length - 1) {
+      clearInterval(this.typingCounter);
       this.showCompleteBox = true;
     }
   }
 
   handleKeyUpEvent(event: KeyboardEvent) {
-    this.keyValue = '';
+    this.keyValue = 'test';
   }
   handleMouseUpEvent(event: MouseEvent) {
-    this.keyValue = '';
+    this.keyValue = 'test';
 
 
   }
@@ -192,6 +240,20 @@ export class TypewriterDtComponent implements OnInit {
     this.totalRight = 0;
     this.totalWrong = 0;
     this.showCompleteBox = false;
+    this.typeThisLetter = this.keyboard.typingValue[0];
+    let letterIndex = this.letterIndexes.indexOf(this.typeThisLetter);
+    let nextKeCode = letterIndex + 96 + 1;
+    this.typedStringArray = [];
+    if (this.typeThisLetter == ' ') {
+      nextKeCode = 32;
+    }
+    this.typeThisImage =  '../assets/images/typer/'+this.settingMode+'b_'+ + nextKeCode + '.jpg';
+   
+    this.typeThisLetterClass = this.globalSettings[65+letterIndex+1].cssClass;
+    setTimeout(() => {
+      this.zoomButtonAnimation = true;
+      this.headerHide = false;
+    }, 500);
   }
 
   setNextPractice() {
@@ -279,4 +341,14 @@ export class TypewriterDtComponent implements OnInit {
     Howler.unload();
 
   }
+  checkLetterExists(letter: string, extLetter: string = '') {
+    if (this.typingValue.indexOf(letter) >= 0)
+      return true;
+    return false;
+  }
+  nagivateFunction(link) {
+    Howler.unload();
+    this.router.navigate([link]);
+  }
+
 }

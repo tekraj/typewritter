@@ -3,7 +3,7 @@ import { LocalStorageService } from '../local-storage.service';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { Howl, Howler } from 'howler';
 import { ApiService } from '../api.service';
-import { ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-typewriter-sm',
   templateUrl: './typewriter-sm.component.html',
@@ -13,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
     '(document:keyup)': 'handleKeyUpEvent($event)',
     '(document:mouseup)': 'handleMouseUpEvent($event)',
   },
- providers: [{ provide: 'Window', useValue: window }]
+  providers: [{ provide: 'Window', useValue: window }]
 })
 
 
@@ -51,16 +51,21 @@ export class TypewriterSmComponent implements OnInit {
   public currentSoundLevel = 0;
   public metroSound = 'Metro aus';
   public backgroundSound: any;
-  public totalWidth:number;
-  public totalWordWidth:number;
+  public totalWidth: number;
+  public totalWordWidth: number;
   public textLeftMove = 0;
   public showHeaderText = false;
-  public settingMode :string;
+  public settingMode: string;
   public globalSettings: any;
-  constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute) {
+  private internalTypingTime: number = 1;
+  public typingTime: number = 0;
+  private typingCounter: any;
+  public typingSpeed: number = 0;
+  public totalAccuracy: number = 0;
+  public exerciseCompleted:number=0;
+  constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute, private router: Router) {
     this.settingMode = this.localStorageService.select('settingMode');
     this.globalSettings = this.localStorageService.select('globalSettings');
-    console.log(this.globalSettings);
     this.exercise = this.route.params['value'].exercise;
 
     let settingData = localStorageService.select('typeSettings');
@@ -68,7 +73,6 @@ export class TypewriterSmComponent implements OnInit {
       this.typeSettings = { stringLength: 1, value: "asdfghjklö", typewriterMode: '', presentation: 0, sound: 'kein_sound', soundVolume: 1, muteSound: false };
     } else {
       this.typeSettings = settingData;
-
     }
     this.currentSoundLevel = this.typeSettings.soundVolume;
     for (let i = 1; i <= this.typeSettings.stringLength; i++) {
@@ -85,16 +89,16 @@ export class TypewriterSmComponent implements OnInit {
     Howler.volume(this.typeSettings.soundVolume / 100);
     this.exercises = [];
     this.setSound(this.typeSettings.sound);
-   this.totalWordWidth = 15*this.keyboard.typingValue.length;
+    this.totalWordWidth = 15 * this.keyboard.typingValue.length;
   }
 
   ngOnInit() {
     setTimeout(() => {
       this.headerHide = false;
     }, 500);
-    setTimeout(()=>{
+    setTimeout(() => {
       this.showHeaderText = true;
-    },1500);
+    }, 1500);
     this.totalWidth = window.innerWidth - 80;
   }
 
@@ -122,33 +126,46 @@ export class TypewriterSmComponent implements OnInit {
     this.localStorageService.insert('typeSettings', this.typeSettings);
   };
 
-  writeText(key: string, altKey: string = '') {
-    this.keyValue = key;
-
+  writeText(normal: string, shiftKey: any, ctrlKey: any, altKey: any) {
+    if (normal) {
+      this.keyValue = normal;
+    } else {
+      this.keyValue = 'test';
+    }
   }
 
   handleKeyDownEvent(event: KeyboardEvent) {
+    if (!this.typingCounter) {
+      this.typingCounter = setInterval(() => {
+        this.internalTypingTime++;
+      }, 1000);
+    }
 
-    let key = event.key;
-    this.keyValue = key;
+
+    this.keyValue = event.key;
+    
+    let keySettings = this.globalSettings[event.keyCode];
+    if (event.altKey && this.keyValue!='Alt') {
+      this.keyValue = keySettings.letters.alt;
+    } else if (event.ctrlKey && this.keyValue!='Control') {
+      this.keyValue = keySettings.letters.ctrl;
+    } else if (event.shiftKey && this.keyValue!='Shift') {
+      this.keyValue = keySettings.letters.shift;
+    }
+
     let typedString = this.typedString + this.keyValue;
     if (this.typingValue.indexOf(typedString) == 0) {
-
       let keyCode = event.keyCode == 32 ? 32 : (event.keyCode + 32);
-      this.currentLetterImage = '../assets/images/typer/db_' + keyCode + '.jpg';
-      this.currentTypedLetter = key;
-      this.letterClasses.forEach((element) => {
-        if (element.letters.indexOf(key) >= 0) {
-          this.currentTypedLetterClass = element.class;
-        }
-      });
+      this.currentLetterImage = '../assets/images/typer/' + this.settingMode + 'b_' + + keyCode + '.jpg';
+      this.currentTypedLetter = this.keyValue;
+      this.currentTypedLetterClass = keySettings.cssClass;
       this.typedString = typedString;
       this.letterTypedIndex = this.typedString.length - 1;
       this.letterNextTyped = this.typedString.length;
 
       this.totalRight++;
-      if(this.totalRight*15>this.totalWidth){
-        this.textLeftMove = this.totalWidth-(this.totalRight*15);
+      if (this.totalRight * 15 > this.totalWidth) {
+        this.textLeftMove = this.totalWidth - (this.totalRight * 15);
       }
 
       if (this.clickRightSound) {
@@ -159,17 +176,14 @@ export class TypewriterSmComponent implements OnInit {
           clickSound.play();
         } else if (this.clickRightSound == 'play-letter') {
           let clickSound = new Howl({
-            src: ['../assets/sounds/cs_' + keyCode + '.mp3']
+            src: ['../assets/sounds/' + 'cs_' + keyCode + '.mp3']
           });
           clickSound.play();
         } else if (this.clickRightSound == 'icon-sound') {
-          // if (this.iconSound.hasOwnProperty(key)) {
-          //   let iSound = this.iconSound[key];
-          //   let clickSound = new Howl({
-          //     src: ['../assets/sounds/icon-sound/' + iSound + '.mp3']
-          //   });
-          //   clickSound.play();
-          // }
+          let clickSound = new Howl({
+            src: ['../assets/sounds/icon-sound/w_' + keySettings.tast_wort + '.mp3']
+          });
+          clickSound.play();
         }
 
       }
@@ -181,16 +195,32 @@ export class TypewriterSmComponent implements OnInit {
       this.clickWrongSound.play();
       this.totalWrong++;
     }
+
+    this.typingTime = this.internalTypingTime;
+    this.typingSpeed = Math.ceil(((this.totalRight + this.totalWrong) / this.typingTime) * 60);
+    this.totalAccuracy = Math.floor((this.totalRight / (this.totalRight + this.totalWrong)) * 100);
+
     if (this.totalRight == this.typingValue.length - 1) {
+      clearInterval(this.typingCounter);
+      let boxAnimation = setInterval(()=>{
+          this.exerciseCompleted++;
+          let animationSound = new Howl({
+            src: ['../assets/sounds/wrong-click.mp3']
+          });
+          animationSound.play();
+          if(this.exerciseCompleted>=9){
+            clearInterval(boxAnimation);
+          }
+      },300);
       this.showCompleteBox = true;
     }
   }
 
   handleKeyUpEvent(event: KeyboardEvent) {
-    this.keyValue = '';
+    this.keyValue = 'test';
   }
   handleMouseUpEvent(event: MouseEvent) {
-    this.keyValue = '';
+    this.keyValue = 'test';
   }
 
 
@@ -281,6 +311,10 @@ export class TypewriterSmComponent implements OnInit {
     this.totalWrong = 0;
     this.showCompleteBox = false;
     this.textLeftMove = 0;
+    this.typingTime = 0;
+    this.typingSpeed = 0;
+    this.totalAccuracy = 0;
+    this.currentLetterImage = '';
   }
 
   setNextPractice() {
@@ -295,4 +329,10 @@ export class TypewriterSmComponent implements OnInit {
   showTooltipBox() {
     this.showTooltipInfo = this.showTooltipInfo === true ? false : true;
   }
+
+  nagivateFunction(link) {
+    Howler.unload();
+    this.router.navigate([link]);
+  }
+
 }

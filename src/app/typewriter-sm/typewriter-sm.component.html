@@ -29,22 +29,22 @@
             <h4 class="text-center">INFO</h4>
             <table>
               <tr>
-                <td class="text-center" colspan="2">1/25</td>
+                <td class="text-center" colspan="2">1/1</td>
               </tr>
               <tr>
                 <td colspan="2" class="text-center">{{totalRight+'/'+totalWords}}</td>
               </tr>
               <tr>
                 <td>r {{totalRight}}</td>
-                <td>a 0</td>
+                <td>a {{totalRight+totalWrong}}</td>
               </tr>
               <tr>
                 <td>f {{totalWrong}}</td>
-                <td>z 0</td>
+                <td>z {{typingTime}}</td>
               </tr>
               <tr>
-                <td></td>
-                <td style="color:#fff;">0A</td>
+                <td>{{totalAccuracy}}%</td>
+                <td style="color:#fff;">{{typingSpeed}}A</td>
               </tr>
             </table>
             <div class="sound-slider" [ngClass]="{'mute':typeSettings.muteSound}">
@@ -92,7 +92,7 @@
     <div class="keyboard-container">
       <ul id="keyboard">
         <!-- ROW 4 START -->
-        <li *ngFor="let letter of globalSettings.row4" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':checkLetterExists(letter.asci_cod)}" class="letter  {{letter.cssClass}}" (mousedown)="writeText(keyValue==letter.letters.normal , keyValue==letter.letters.shift, keyValue==letter.letters.ctrl, keyValue==letter.letters.alt)">
+        <li *ngFor="let letter of globalSettings.row4" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':checkLetterExists(letter.asci_cod)}" class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
             <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
             <span class="on small">{{letter.letters.normal}} <sub *ngIf="letter.letters.ctrl">{{letter.letters.ctrl}}</sub><sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub></span>
         </li>
@@ -103,7 +103,7 @@
 
         <!-- ROW 3 START -->
         <li class="tab default" (mousedown)="writeText('Tab')" [ngClass]="{'active':keyValue=='Tab'}"></li>
-        <li *ngFor="let letter of globalSettings.row3" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':checkLetterExists(letter.asci_cod)}" class="letter  {{letter.cssClass}}" (mousedown)="writeText(keyValue==letter.letters.normal , keyValue==letter.letters.shift, keyValue==letter.letters.ctrl, keyValue==letter.letters.alt)">
+        <li *ngFor="let letter of globalSettings.row3" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':checkLetterExists(letter.asci_cod)}" class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
             <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
             <span class="on small">{{letter.letters.normal}} <sub *ngIf="letter.letters.ctrl">{{letter.letters.ctrl}}</sub><sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub></span>
         </li>
@@ -112,7 +112,7 @@
 
        <!-- ROW 2 START -->
         <li class="capslock default" (mousedown)="writeText('CapsLock')" [ngClass]="{'active':keyValue=='CapsLock'}"></li>
-        <li *ngFor="let letter of globalSettings.row2" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':checkLetterExists(letter.asci_cod)}" class="letter  {{letter.cssClass}}" (mousedown)="writeText(keyValue==letter.letters.normal , keyValue==letter.letters.shift, keyValue==letter.letters.ctrl, keyValue==letter.letters.alt)">
+        <li *ngFor="let letter of globalSettings.row2" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':checkLetterExists(letter.asci_cod)}" class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
             <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
             <span class="on small">{{letter.letters.normal}} <sub *ngIf="letter.letters.ctrl">{{letter.letters.ctrl}}</sub><sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub></span>
         </li>
@@ -122,7 +122,7 @@
        
         <!-- ROW 1 -->
         <li class="left-shift default" (mousedown)="writeText('Shift')" [ngClass]="{'active':keyValue=='Shift'}"></li>
-        <li *ngFor="let letter of globalSettings.row1" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':checkLetterExists(letter.asci_cod)}" class="letter  {{letter.cssClass}}" (mousedown)="writeText(keyValue==letter.letters.normal , keyValue==letter.letters.shift, keyValue==letter.letters.ctrl, keyValue==letter.letters.alt)">
+        <li *ngFor="let letter of globalSettings.row1" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':checkLetterExists(letter.asci_cod)}" class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
             <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
             <span class="on small">{{letter.letters.normal}} <sub *ngIf="letter.letters.ctrl">{{letter.letters.ctrl}}</sub><sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub></span>
         </li>
@@ -130,7 +130,38 @@
         <!-- ROW 1 END -->
       
         <li class="left-shift blank default"></li>
-        <li class="space lastitem default" [ngClass]="{'active':keyValue==' '}" (mousedown)="writeText(' ')">&nbsp;</li>
+        <li class="space lastitem default" [ngClass]="{'active':(keyValue=='space'|| keyValue==' ')}" (mousedown)="writeText('space',' ',' ',' ')">
+          <div class="row finger-position">
+            <div class="col-sm-6">
+                <div class="row">
+                  <div class="col-sm-12">
+                      <span class="text-primary">kleinger Finger</span>
+                      <span class="text-warning">Ring Finger</span>
+                      <span class="text-success">Mittel Finger</span>
+                      <span class="text-danger">Zeige Finger</span>
+                  </div>
+                  <div class="col-sm-12 text-right">
+                    <p>Linke Hand</p>
+                  </div>
+                </div>
+               
+            </div>
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col-sm-12">
+                    <span class="text-danger">Zeige Finger</span>
+                    <span class="text-primary">Mittel Finger</span>
+                    <span class="text-warning">Ring Finger</span>
+                    <span class="text-primary">kleinger Finger</span>
+                </div>
+                <div class="col-sm-12 text-left">
+                    <p>Rechte Hand</p>
+                  </div>
+              </div>
+                
+            </div>
+          </div>
+        </li>
         <li class="right-shift lastitem blank default"></li>
       </ul>
       <div class="clearfix"></div>
@@ -170,25 +201,25 @@
           <div class="info-group pull-right">
             <h4 class="text-center">INFO</h4>
             <table>
-              <tr>
-                <td class="text-center" colspan="2">1/25</td>
-              </tr>
-              <tr>
-                <td colspan="2" class="text-center">{{totalRight+'/'+totalWords}}</td>
-              </tr>
-              <tr>
-                <td>r {{totalRight}}</td>
-                <td>a 0</td>
-              </tr>
-              <tr>
-                <td>f {{totalWrong}}</td>
-                <td>z 0</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td style="color:#fff;">0A</td>
-              </tr>
-            </table>
+                <tr>
+                  <td class="text-center" colspan="2">1/1</td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="text-center">{{totalRight+'/'+totalWords}}</td>
+                </tr>
+                <tr>
+                  <td>r {{totalRight}}</td>
+                  <td>a {{totalRight+totalWrong}}</td>
+                </tr>
+                <tr>
+                  <td>f {{totalWrong}}</td>
+                  <td>z {{typingTime}}</td>
+                </tr>
+                <tr>
+                  <td>{{totalAccuracy}}%</td>
+                  <td style="color:#fff;">{{typingSpeed}}A</td>
+                </tr>
+              </table>
             <div class="sound-slider" [ngClass]="{'mute':typeSettings.muteSound}">
               <mat-slider class="mat-slider" min="1" max="100" step="5" value="{{typeSettings.soundVolume}}" (input)="setSoundVolume($event)"></mat-slider>
             </div>
@@ -260,25 +291,25 @@
           <div class="info-group pull-right">
             <h4 class="text-center">INFO</h4>
             <table>
-              <tr>
-                <td class="text-center" colspan="2">1/25</td>
-              </tr>
-              <tr>
-                <td colspan="2" class="text-center">{{totalRight+'/'+totalWords}}</td>
-              </tr>
-              <tr>
-                <td>r {{totalRight}}</td>
-                <td>a 0</td>
-              </tr>
-              <tr>
-                <td>f {{totalWrong}}</td>
-                <td>z 0</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td style="color:#fff;">0A</td>
-              </tr>
-            </table>
+                <tr>
+                  <td class="text-center" colspan="2">1/25</td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="text-center">{{totalRight+'/'+totalWords}}</td>
+                </tr>
+                <tr>
+                  <td>r {{totalRight}}</td>
+                  <td>a {{totalRight+totalWrong}}</td>
+                </tr>
+                <tr>
+                  <td>f {{totalWrong}}</td>
+                  <td>z {{typingTime}}</td>
+                </tr>
+                <tr>
+                  <td>{{totalAccuracy}}%</td>
+                  <td style="color:#fff;">{{typingSpeed}}A</td>
+                </tr>
+              </table>
             <div class="sound-slider" [ngClass]="{'mute':typeSettings.muteSound}">
               <mat-slider class="mat-slider" min="1" max="100" step="5" value="{{typeSettings.soundVolume}}" (input)="setSoundVolume($event)"></mat-slider>
             </div>
@@ -351,25 +382,25 @@
           <div class="info-group pull-right">
             <h4 class="text-center">INFO</h4>
             <table>
-              <tr>
-                <td class="text-center" colspan="2">1/25</td>
-              </tr>
-              <tr>
-                <td colspan="2" class="text-center">{{totalRight+'/'+totalWords}}</td>
-              </tr>
-              <tr>
-                <td>r {{totalRight}}</td>
-                <td>a 0</td>
-              </tr>
-              <tr>
-                <td>f {{totalWrong}}</td>
-                <td>z 0</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td style="color:#fff;">0A</td>
-              </tr>
-            </table>
+                <tr>
+                  <td class="text-center" colspan="2">1/1</td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="text-center">{{totalRight+'/'+totalWords}}</td>
+                </tr>
+                <tr>
+                  <td>r {{totalRight}}</td>
+                  <td>a {{totalRight+totalWrong}}</td>
+                </tr>
+                <tr>
+                  <td>f {{totalWrong}}</td>
+                  <td>z {{typingTime}}</td>
+                </tr>
+                <tr>
+                  <td>{{totalAccuracy}}%</td>
+                  <td style="color:#fff;">{{typingSpeed}}A</td>
+                </tr>
+              </table>
             <div class="sound-slider" [ngClass]="{'mute':typeSettings.muteSound}">
               <mat-slider class="mat-slider" min="1" max="100" step="5" value="{{typeSettings.soundVolume}}" (input)="setSoundVolume($event)"></mat-slider>
             </div>
@@ -445,25 +476,25 @@
           <div class="info-group pull-right">
             <h4 class="text-center">INFO</h4>
             <table>
-              <tr>
-                <td class="text-center" colspan="2">1/25</td>
-              </tr>
-              <tr>
-                <td colspan="2" class="text-center">{{totalRight+'/'+totalWords}}</td>
-              </tr>
-              <tr>
-                <td>r {{totalRight}}</td>
-                <td>a 0</td>
-              </tr>
-              <tr>
-                <td>f {{totalWrong}}</td>
-                <td>z 0</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <td style="color:#fff;">0A</td>
-              </tr>
-            </table>
+                <tr>
+                  <td class="text-center" colspan="2">1/1</td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="text-center">{{totalRight+'/'+totalWords}}</td>
+                </tr>
+                <tr>
+                  <td>r {{totalRight}}</td>
+                  <td>a {{totalRight+totalWrong}}</td>
+                </tr>
+                <tr>
+                  <td>f {{totalWrong}}</td>
+                  <td>z {{typingTime}}</td>
+                </tr>
+                <tr>
+                  <td>{{totalAccuracy}}%</td>
+                  <td style="color:#fff;">{{typingSpeed}}A</td>
+                </tr>
+              </table>
             <div class="sound-slider" [ngClass]="{'mute':typeSettings.muteSound}">
               <mat-slider class="mat-slider" min="1" max="100" step="5" value="{{typeSettings.soundVolume}}" (input)="setSoundVolume($event)"></mat-slider>
             </div>
@@ -512,12 +543,12 @@
 <div class="bottom-botton-holder">
   <div class="row">
     <div class="col-sm-6 text-left">
-      <a class="btn rounded-button" routerLink="/module">
+      <a class="btn rounded-button" (click)="nagivateFunction('module')">
         Ubung abbrechen
       </a>
     </div>
     <div class="col-sm-6 text-right">
-      <a class="btn rounded-button" routerLink="/home">
+      <a class="btn rounded-button"  (click)="nagivateFunction('home')">>
         Lektion beenden
       </a>
     </div>
@@ -533,18 +564,33 @@
           <p class="super-alle">Bonsusfelder aufgedeckt!</p>
         </div>
         <div class="col-sm-5">
+          <div class="animation-9">
+            <span [ngClass]="{'active':exerciseCompleted>=1}"></span>
+            <span [ngClass]="{'active':exerciseCompleted>=2}"></span>
+            <span [ngClass]="{'active':exerciseCompleted>=3}"></span>
+            <span [ngClass]="{'active':exerciseCompleted>=9}"></span>
+            <span [ngClass]="{'active':exerciseCompleted>=8}"></span>
+            <span [ngClass]="{'active':exerciseCompleted>=7}"></span>
+            <span [ngClass]="{'active':exerciseCompleted>=6}"></span>
+            <span [ngClass]="{'active':exerciseCompleted>=5}"></span>
+            <span [ngClass]="{'active':exerciseCompleted>=4}"></span>
+          </div>
           <img src="../assets/images/pendilum.png" class="img-responsive" alt="">
         </div>
       </div>
       <div class="row">
         <div class="col-sm-6">
-          <button class="btn rounded-button rounded-white" (click)="continueExercise()">Ubung wiederholen</button>
+          <!-- REPEAT Exercise -->
+          <button class="btn rounded-button rounded-white btn-block" (click)="continueExercise()">Ubung wiederholen</button>
         </div>
-        <div class="col-sm-6 text-center status-group">
-            
-                <span>R: 98%</span>
-                <span>A: 20</span>
-                <span>T: 100</span>
+        <div class="col-sm-6 ">
+          <!-- Stick to Image -->
+            <button class="btn rounded-button rounded-white btn-block" (click)="nagivateFunction('album-for-lession')" *ngIf="exerciseCompleted>=9">Bild einkleben</button>
+            <div class="text-center status-group" *ngIf="exerciseCompleted<9">
+                <span>R: {{totalAccuracy}}%</span>
+                <span>A: {{typingSpeed}}</span>
+                <span>T: {{typingTime}}</span>
+            </div> 
         </div>
         <div class="col-sm-12 underline-div"></div>
         <div class="col-sm-6">
