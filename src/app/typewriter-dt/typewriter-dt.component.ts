@@ -163,7 +163,7 @@ export class TypewriterDtComponent implements OnInit {
       let keyCode = event.keyCode == 32 ? 32 : (event.keyCode + 32);
       this.currentLetterImage = '../assets/images/typer/'+this.settingMode+'b_'+ + keyCode + '.jpg';
       this.currentTypedLetter = this.keyValue;
-     this.typedStringArray.push(this.keyValue);
+      this.typedStringArray.push(this.keyValue);
       this.currentTypedLetterClass = keySettings.cssClass;
       this.typedString = typedString;
       this.letterTypedIndex = this.typedString.length - 1;

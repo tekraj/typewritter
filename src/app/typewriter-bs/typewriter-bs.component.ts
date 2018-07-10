@@ -3,7 +3,7 @@ import { LocalStorageService } from '../local-storage.service';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { Howl, Howler } from 'howler';
 import { ApiService } from '../api.service';
-import { ActivatedRoute } from '@angular/router';
+import {Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-typewriter-bs',
   templateUrl: './typewriter-bs.component.html',
@@ -56,14 +56,15 @@ export class TypewriterBsComponent implements OnInit {
   public currentSoundLevel = 0;
   public metroSound = 'Metro aus';
   public backgroundSound: any;
-  public settingMode:string;
-  public globalSettings:any;
-  private internalTypingTime:number=1;
-  public typingTime:number=0;
-  private typingCounter:any;
-  public typingSpeed :number=0;
-  public totalAccuracy :number =0;
-  constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute) {
+  public settingMode: string;
+  public globalSettings: any;
+  private internalTypingTime: number = 1;
+  public typingTime: number = 0;
+  private typingCounter: any;
+  public typingSpeed: number = 0;
+  public totalAccuracy: number = 0;
+  public exerciseCompleted: number = 0;
+  constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute,private router:Router) {
     this.settingMode = this.localStorageService.select('settingMode');
     this.globalSettings = this.localStorageService.select('globalSettings');
     this.exercise = this.route.params['value'].exercise;
@@ -83,10 +84,6 @@ export class TypewriterBsComponent implements OnInit {
 
     this.totalWords = this.typingValue.length;
 
-    this.letterClasses = [{ class: 'primary', letters: ['a', 'q', 'z', '1', , '!', '2', '"', 'ß', '?', '´', '`', 'p', 'ü', '-', '_', 'ö', 'ä'] },
-    { class: 'warning', letters: ['3', '§', 'w', 's', 'x', '0', '=', 'o', 'l', ':', '.'] },
-    { class: 'success', letters: ['4', '$', '9', ')', 'i', 'k', ';', ',', 'd','e'] },
-    { class: 'danger', letters: ['5', '%', '5', '&', '7', '/', '8', '(', 'r', 't', 'y', 'u', 'f', 'g', 'h', 'j', 'v', 'b', 'n', 'm'] }];
     this.setSound(this.typeSettings.sound);
     this.clickWrongSound = new Howl({
       src: ['../assets/sounds/wrong-click.mp3']
@@ -103,19 +100,18 @@ export class TypewriterBsComponent implements OnInit {
   }
 
   ngOnInit() {
-    let nextKeCode = this.letterIndexes.indexOf(this.typeThisLetter) + 96 + 1;
+    this.typeThisLetter = this.keyboard.typingValue[0];
+    let letterIndex = this.letterIndexes.indexOf(this.typeThisLetter);
+    let nextKeCode = letterIndex + 96 + 1;
     if (this.typeThisLetter == ' ') {
       nextKeCode = 32;
     }
-    this.typeThisImage = '../assets/images/typer/db_' + nextKeCode + '.jpg';
-    this.letterClasses.forEach((element) => {
-      if (element.letters.indexOf(this.typeThisLetter) >= 0) {
-        this.typeThisLetterClass = element.class;
-      }
-    });
+    this.typeThisImage = '../assets/images/typer/' + this.settingMode + 'b_' + + nextKeCode + '.jpg';
+
+    this.typeThisLetterClass = this.globalSettings[65 + letterIndex + 1].cssClass;
     setTimeout(() => {
-      this.headerHide = false;
       this.zoomButtonAnimation = true;
+      this.headerHide = false;
     }, 500);
   }
 
@@ -143,32 +139,44 @@ export class TypewriterBsComponent implements OnInit {
     this.localStorageService.insert('typeSettings', this.typeSettings);
   };
 
-  writeText(key: string, altKey: string = '') {
-this.keyValue = key;
-
+  writeText(normal: string, shiftKey: any, ctrlKey: any, altKey: any) {
+    if (normal) {
+      this.keyValue = normal;
+    } else {
+      this.keyValue = 'test';
+    }
   }
 
 
-
   handleKeyDownEvent(event: KeyboardEvent) {
-    if(!this.typingCounter){
-      this.typingCounter = setInterval(()=>{
+    if (!this.typingCounter) {
+      this.typingCounter = setInterval(() => {
         this.internalTypingTime++;
-      },1000);
+      }, 1000);
     }
-    let key = event.key;
-    this.keyValue = key;
+
+
+    this.keyValue = event.key;
+
+    let keySettings = this.globalSettings[event.keyCode];
+    if (event.altKey && this.keyValue != 'Alt') {
+      this.keyValue = keySettings.letters.alt;
+    } else if (event.ctrlKey && this.keyValue != 'Control') {
+      this.keyValue = keySettings.letters.ctrl;
+    } else if (event.shiftKey && this.keyValue != 'Shift') {
+      this.keyValue = keySettings.letters.shift;
+    }
+
     let typedString = this.typedString + this.keyValue;
     if (this.typingValue.indexOf(typedString) == 0) {
-      this.clickRightSound.play();
       let keyCode = event.keyCode == 32 ? 32 : (event.keyCode + 32);
-      this.currentLetterImage = '../assets/images/typer/'+this.settingMode+'b_'+ + keyCode + '.jpg';
-
-      this.currentTypedLetter = key;
-
+      this.currentLetterImage = '../assets/images/typer/' + this.settingMode + 'b_' + + keyCode + '.jpg';
+      this.currentTypedLetter = this.keyValue;
+      this.currentTypedLetterClass = keySettings.cssClass;
       this.typedString = typedString;
       this.letterTypedIndex = this.typedString.length - 1;
       this.letterNextTyped = this.typedString.length;
+
       this.totalRight++;
       if (this.clickRightSound) {
         if (this.clickRightSound == 'click') {
@@ -182,30 +190,24 @@ this.keyValue = key;
           });
           clickSound.play();
         } else if (this.clickRightSound == 'icon-sound') {
-          let iSound = this.globalSettings[event.keyCode].tast_wort;
+
           let clickSound = new Howl({
-            src: ['../assets/sounds/icon-sound/w_' + iSound + '.mp3']
+            src: ['../assets/sounds/icon-sound/w_' + keySettings.tast_wort + '.mp3']
           });
           clickSound.play();
         }
 
       }
-
-
       this.typeThisLetter = this.keyboard.typingValue[this.letterNextTyped];
       let nextLetterIndex = this.letterIndexes.indexOf(this.typeThisLetter);
       let nextKeCode = nextLetterIndex + 96 + 1;
       if (this.typeThisLetter == ' ') {
         nextKeCode = 32;
       }
-      this.typeThisImage = '../assets/images/typer/db_' + nextKeCode + '.jpg';
-      this.letterClasses.forEach((element) => {
-        if (element.letters.indexOf(key) >= 0) {
-          this.currentTypedLetterClass = element.class;
-        } else if (element.letters.indexOf(this.typeThisLetter) >= 0) {
-          this.typeThisLetterClass = element.class;
-        }
-      });
+
+      this.typeThisImage = '../assets/images/typer/' + this.settingMode + 'b_' + + nextKeCode + '.jpg';
+      this.currentTypedLetterClass = keySettings.cssClass;
+      this.typeThisLetterClass = this.globalSettings[65 + nextLetterIndex + 1].cssClass;
     } else {
       this.clickWrongSound = new Howl({
         src: ['../assets/sounds/wrong-click.mp3']
@@ -213,22 +215,31 @@ this.keyValue = key;
       this.clickWrongSound.play();
       this.totalWrong++;
     }
-    this.typingTime = this.internalTypingTime;      
-    this.typingSpeed = Math.ceil(((this.totalRight+this.totalWrong)/this.typingTime)*60);
-    this.totalAccuracy = Math.floor((this.totalRight/(this.totalRight+this.totalWrong))*100);
+    this.typingTime = this.internalTypingTime;
+    this.typingSpeed = Math.ceil(((this.totalRight + this.totalWrong) / this.typingTime) * 60);
+    this.totalAccuracy = Math.floor((this.totalRight / (this.totalRight + this.totalWrong)) * 100);
+
     if (this.totalRight == this.typingValue.length - 1) {
       clearInterval(this.typingCounter);
+      let boxAnimation = setInterval(() => {
+        this.exerciseCompleted++;
+        let animationSound = new Howl({
+          src: ['../assets/sounds/wrong-click.mp3']
+        });
+        animationSound.play();
+        if (this.exerciseCompleted >= 9) {
+          clearInterval(boxAnimation);
+        }
+      }, 300);
       this.showCompleteBox = true;
     }
   }
 
   handleKeyUpEvent(event: KeyboardEvent) {
-    this.keyValue = '';
+    this.keyValue = 'test';
   }
   handleMouseUpEvent(event: MouseEvent) {
-this.keyValue = '';
-
-
+    this.keyValue = 'test';
   }
 
 
@@ -334,5 +345,9 @@ this.keyValue = '';
   }
   hideZoomAnimation() {
     this.showZoomAnimation = false;
+  }
+  nagivateFunction(link) {
+    Howler.unload();
+    this.router.navigate([link]);
   }
 }

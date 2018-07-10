@@ -46,12 +46,18 @@ export class ExerciseComponent implements OnInit {
   public currentSoundLevel = 0;
   public metroSound = 'Metro aus';
   public backgroundSound: any;
-  public settingMode :string;
+  public settingMode: string;
   public globalSettings: any;
+  private internalTypingTime: number = 1;
+  public typingTime: number = 0;
+  private typingCounter: any;
+  public typingSpeed: number = 0;
+  public totalAccuracy: number = 0;
+  public exerciseCompleted: number = 0;
   constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute) {
     this.settingMode = this.localStorageService.select('settingMode');
     this.globalSettings = this.localStorageService.select('globalSettings');
-    
+
     this.typeSettings = { stringLength: 1, value: "asdfghjklö", typewriterMode: 1, presentation: 0, sound: 'kein_sound', soundVolume: 1, muteSound: false };
     for (let i = 1; i <= this.typeSettings.stringLength; i++) {
       this.typingValue += this.typeSettings.value + ' ';
@@ -97,26 +103,39 @@ export class ExerciseComponent implements OnInit {
     this.localStorageService.insert('typeSettings', this.typeSettings);
   };
 
-  writeText(key: string, altKey: string = '') {
-    this.keyValue = key;
-    this.keyValue = key
+  writeText(normal: string, shiftKey: any, ctrlKey: any, altKey: any) {
+    if (normal) {
+      this.keyValue = normal;
+    } else {
+      this.keyValue = 'test';
+    }
   }
 
   handleKeyDownEvent(event: KeyboardEvent) {
+    if (!this.typingCounter) {
+      this.typingCounter = setInterval(() => {
+        this.internalTypingTime++;
+      }, 1000);
+    }
 
-    let key = event.key;
-    this.keyValue = key;
+
+    this.keyValue = event.key;
+
+    let keySettings = this.globalSettings[event.keyCode];
+    if (event.altKey && this.keyValue != 'Alt') {
+      this.keyValue = keySettings.letters.alt;
+    } else if (event.ctrlKey && this.keyValue != 'Control') {
+      this.keyValue = keySettings.letters.ctrl;
+    } else if (event.shiftKey && this.keyValue != 'Shift') {
+      this.keyValue = keySettings.letters.shift;
+    }
     let typedString = this.typedString + this.keyValue;
     if (this.typingValue.indexOf(typedString) == 0) {
-
       let keyCode = event.keyCode == 32 ? 32 : (event.keyCode + 32);
-      this.currentLetterImage = '../assets/images/typer/'+this.settingMode+'b_'+ + keyCode + '.jpg';
-      this.currentTypedLetter = key;
-      this.letterClasses.forEach((element) => {
-        if (element.letters.indexOf(key) >= 0) {
-          this.currentTypedLetterClass = element.class;
-        }
-      });
+      this.currentLetterImage = '../assets/images/typer/' + this.settingMode + 'b_' + + keyCode + '.jpg';
+      this.currentTypedLetter = this.keyValue;
+
+      this.currentTypedLetterClass = keySettings.cssClass;
 
       this.typedString = typedString;
       this.letterTypedIndex = this.typedString.length - 1;
@@ -134,14 +153,13 @@ export class ExerciseComponent implements OnInit {
           });
           clickSound.play();
         } else if (this.clickRightSound == 'icon-sound') {
-          let iSound = this.globalSettings[event.keyCode].tast_wort;
+
           let clickSound = new Howl({
-            src: ['../assets/sounds/icon-sound/w_' + iSound + '.mp3']
+            src: ['../assets/sounds/icon-sound/w_' + keySettings.tast_wort + '.mp3']
           });
+
           clickSound.play();
         }
-
-
       }
     } else {
       this.clickWrongSound = new Howl({
@@ -150,16 +168,13 @@ export class ExerciseComponent implements OnInit {
       this.clickWrongSound.play();
       this.totalWrong++;
     }
-    
   }
 
   handleKeyUpEvent(event: KeyboardEvent) {
-    this.keyValue = '';
+    this.keyValue = 'test';
   }
   handleMouseUpEvent(event: MouseEvent) {
-    this.keyValue = '';
-
-
+    this.keyValue = 'test';
   }
 
   private getExercise = (lessionIndex) => {
