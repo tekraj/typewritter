@@ -59,9 +59,9 @@ export class ExerciseComponent implements OnInit {
     this.globalSettings = this.localStorageService.select('globalSettings');
 
     this.typeSettings = { stringLength: 1, value: "asdfghjklö", typewriterMode: 1, presentation: 0, sound: 'kein_sound', soundVolume: 1, muteSound: false };
-    for (let i = 1; i <= this.typeSettings.stringLength; i++) {
-      this.typingValue += this.typeSettings.value + ' ';
-    }
+    
+    this.typingValue= this.typeSettings.value.replace('/\s+/','');
+  
     this.keyboard.typingValue = this.typingValue.trim().split('');
     this.totalWords = this.typingValue.length;
     this.setSound(this.typeSettings.sound);

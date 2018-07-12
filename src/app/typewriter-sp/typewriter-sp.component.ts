@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from '../local-storage.service';
-import { trigger, style, animate, transition } from '@angular/animations';
+import { trigger, style, animate, transition,state } from '@angular/animations';
 import { Howl, Howler } from 'howler';
 import { ApiService } from '../api.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -13,7 +13,21 @@ import { Router, ActivatedRoute } from '@angular/router';
         '(document:keyup)': 'handleKeyUpEvent($event)',
         '(document:mouseup)': 'handleMouseUpEvent($event)',
     },
-    providers: [{ provide: 'Window', useValue: window }]
+    providers: [{ provide: 'Window', useValue: window }],
+    animations: [
+        trigger('ballonState', [
+            state('inactive', style({
+                bottom: '20px'
+            })),
+            state('preactive', style({
+                bottom: '-70px'
+            })),
+            state('active', style({
+                transform: 'translateY(-30vh)'
+            })),
+            transition('inactive => active', animate('10000ms linear')),
+        ])
+    ]
 })
 
 
@@ -65,8 +79,8 @@ export class TypewriterSpComponent implements OnInit {
     public exerciseCompleted: number = 0;
 
     //variables for animation ballons
-    public currentLettersArray :Array<{letter:string,del:boolean,animation:boolean,left:number}>;
-    public currentLetters : string;
+    public currentLettersArray :Array<{letter:string,del:boolean,animation:boolean,left:number,initial:boolean}>;
+    public currentLetters ='';
     public remainingText = '';
     public exerciseNo :number = 0;
     private ballonInterval:any;
@@ -102,15 +116,16 @@ export class TypewriterSpComponent implements OnInit {
         { class: 'success', letters: ['4', '$', '9', ')', 'i', 'k', ';', ',', 'd', 'e'] },
         { class: 'danger', letters: ['5', '%', '5', '&', '7', '/', '8', '(', 'r', 't', 'y', 'u', 'f', 'g', 'h', 'j', 'v', 'b', 'n', 'm'] }];
         this.currentLettersArray =[];
+        
     }
 
     ngOnInit() {
 
         //script for ballon animations
-        for(var i=1;i<=this.exerciseNo;i++){
-            this.createElement(false);
+        
+        for(let i=1;i<=this.exerciseNo;i++){
+            this.createElement(true);
         }
-
 
         setTimeout(() => {
             this.headerHide = false;
@@ -172,21 +187,20 @@ export class TypewriterSpComponent implements OnInit {
             this.keyValue = keySettings.letters.shift;
         }
 
-        let typedString = this.typedString + this.keyValue;
-        if (this.currentLetters.indexOf(typedString) >= 0) {
+        
+        if (this.currentLetters.indexOf(this.keyValue) >= 0) {
+            this.remainingText.replace(this.keyValue,'');
             let keyCode = event.keyCode == 32 ? 32 : (event.keyCode + 32);
             this.currentLetterImage = '../assets/images/typer/' + this.settingMode + 'b_' + + keyCode + '.jpg';
             this.currentTypedLetter = this.keyValue;
-            this.currentTypedLetterClass = keySettings.cssClass;
-            this.typedString = typedString;
-            this.letterTypedIndex = this.typedString.length - 1;
-            this.letterNextTyped = this.typedString.length;
-
             this.totalRight++;
-            if (this.totalRight * 15 > this.totalWidth) {
-                this.textLeftMove = this.totalWidth - (this.totalRight * 15);
-            }
 
+            this.removeElement(this.keyValue,false);
+            this.createElement(false);
+            if(!this.ballonInterval){
+                this.startBallonInterval();
+            }
+            this.startBallonInterval();
             if (this.clickRightSound) {
                 if (this.clickRightSound == 'click') {
                     let clickSound = new Howl({
@@ -364,22 +378,46 @@ export class TypewriterSpComponent implements OnInit {
     }
 
 
-    private createElement(animation:boolean){
+    private createElement(initial:boolean){
+        
         let randomNo = Math.floor(Math.random() * this.remainingText.length) + 0;
-        var letter = this.remainingText[randomNo];
-        if(this.currentLetters.indexOf(letter)<0){
+        let letter = this.remainingText[randomNo];
+       
+        if(this.currentLetters.indexOf(letter)<0 ){
             this.currentLetters+=letter;
-            let left = Math.floor(Math.random()*90)+10;
-            this.currentLettersArray.push({letter:letter,animation:animation,left:left,del:false});
-        }else{
-            this.createElement(animation);
+            let left = Math.floor(Math.random()*80)+20;
+            this.currentLettersArray.push({letter:letter,animation:false,left:left,del:false,initial:initial}); 
+            let lastIndex = this.currentLettersArray.length-1;
+            if(!initial && lastIndex>=0){
+                setTimeout(()=>{
+                    this.currentLettersArray[lastIndex].animation = true;
+                },50)
+            }          
+        }else if(randomNo<this.remainingText.length && this.currentLetters.length<this.exerciseNo){
+            this.createElement(initial);
         }
     }
 
     private startBallonInterval(){
-        setInterval(()=>{
+        this.ballonInterval = setInterval(()=>{
+            if(this.currentLettersArray.length<this.exerciseNo){
+                this.createElement(false);
+            }
+        },3000   );
+    }
 
-        },3000);
+    public removeElement(letter,initial:boolean){
+        if(!initial){
+            console.log(letter,initial);
+            this.currentLetters.replace(letter,'');
+            this.currentLettersArray.forEach((element,index)=>{
+                if(element.letter==letter){
+                    this.currentLettersArray =this.currentLettersArray.splice(index);
+                    console.log(this.currentLettersArray);
+                }
+            });
+        }
+        
     }
 
 }
