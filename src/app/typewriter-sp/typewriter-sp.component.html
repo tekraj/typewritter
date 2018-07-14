@@ -76,7 +76,7 @@
   <div class="ballon-holder">
     <ng-container *ngFor="let l of currentLettersArray,let a=index">
       <span *ngIf="!l.del" class="{{getLetterClass(l.letter)}}" [ngStyle]="{left:l.left+'%'}" [@ballonState]="l.animation==true ? 'active' :(l.initial ==false ?  'preactive' : 'inactive')"
-        (@ballonState.done)="removeElement(l.letter,l.initial)">{{l.letter}}</span>
+        (@ballonState.done)="removeElementByAnimation($event,a,l.letter,l.initial)">{{l.letter}}</span>
     </ng-container>
   </div>
 

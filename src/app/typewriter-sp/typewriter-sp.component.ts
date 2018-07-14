@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from '../local-storage.service';
-import { trigger, style, animate, transition,state } from '@angular/animations';
+import { trigger, style, animate, transition, state } from '@angular/animations';
 import { Howl, Howler } from 'howler';
 import { ApiService } from '../api.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -23,9 +23,11 @@ import { Router, ActivatedRoute } from '@angular/router';
                 bottom: '-70px'
             })),
             state('active', style({
-                transform: 'translateY(-30vh)'
+                transform: 'translateY(-34vh)'
             })),
-            transition('inactive => active', animate('10000ms linear')),
+            transition('preactive => active', animate('10000ms linear'))
+          
+           
         ])
     ]
 })
@@ -79,25 +81,27 @@ export class TypewriterSpComponent implements OnInit {
     public exerciseCompleted: number = 0;
 
     //variables for animation ballons
-    public currentLettersArray :Array<{letter:string,del:boolean,animation:boolean,left:number,initial:boolean}>;
-    public currentLetters ='';
+    public currentLettersArray: Array<{ letter: string, del: boolean, animation: boolean, left: number, initial: boolean }>;
+    public currentLetters = '';
     public remainingText = '';
-    public exerciseNo :number = 0;
-    private ballonInterval:any;
+    public exerciseNo: number = 0;
+
+
     constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute, private router: Router) {
         this.settingMode = this.localStorageService.select('settingMode');
         this.globalSettings = this.localStorageService.select('globalSettings');
         this.exercise = this.route.params['value'].exercise;
-        this.exerciseNo = (['one','two','three','four','five'].indexOf(this.exercise))+1;
+        this.exerciseNo = (['one', 'two', 'three', 'four', 'five'].indexOf(this.exercise)) + 1;
         let settingData = localStorageService.select('typeSettings');
         if (settingData == false) {
             this.typeSettings = { stringLength: 1, value: "asdfghjklö", typewriterMode: '', presentation: 0, sound: 'kein_sound', soundVolume: 1, muteSound: false };
         } else {
             this.typeSettings = settingData;
         }
+        this.typeSettings.value = this.typeSettings.value.replace('/\s+/', '');
         this.currentSoundLevel = this.typeSettings.soundVolume;
         for (let i = 1; i <= this.typeSettings.stringLength; i++) {
-            this.typingValue += this.typeSettings.value + ' ';
+            this.typingValue += this.typeSettings.value;
         }
         this.remainingText = this.typingValue;
         this.keyboard.typingValue = this.typingValue.trim().split('');
@@ -115,16 +119,16 @@ export class TypewriterSpComponent implements OnInit {
         { class: 'warning', letters: ['3', '§', 'w', 's', 'x', '0', '=', 'o', 'l', ':', '.'] },
         { class: 'success', letters: ['4', '$', '9', ')', 'i', 'k', ';', ',', 'd', 'e'] },
         { class: 'danger', letters: ['5', '%', '5', '&', '7', '/', '8', '(', 'r', 't', 'y', 'u', 'f', 'g', 'h', 'j', 'v', 'b', 'n', 'm'] }];
-        this.currentLettersArray =[];
-        
+        this.currentLettersArray = [];
+
     }
 
     ngOnInit() {
 
         //script for ballon animations
-        
-        for(let i=1;i<=this.exerciseNo;i++){
-            this.createElement(true);
+
+        for (let i = 1; i <= this.exerciseNo; i++) {
+            this.currentLettersArray.push(this.createElement(i,true));
         }
 
         setTimeout(() => {
@@ -187,20 +191,15 @@ export class TypewriterSpComponent implements OnInit {
             this.keyValue = keySettings.letters.shift;
         }
 
-        
+
         if (this.currentLetters.indexOf(this.keyValue) >= 0) {
-            this.remainingText.replace(this.keyValue,'');
+            this.remainingText.replace(this.keyValue, '');
             let keyCode = event.keyCode == 32 ? 32 : (event.keyCode + 32);
             this.currentLetterImage = '../assets/images/typer/' + this.settingMode + 'b_' + + keyCode + '.jpg';
             this.currentTypedLetter = this.keyValue;
             this.totalRight++;
 
-            this.removeElement(this.keyValue,false);
-            this.createElement(false);
-            if(!this.ballonInterval){
-                this.startBallonInterval();
-            }
-            this.startBallonInterval();
+            this.removeElement(this.keyValue);
             if (this.clickRightSound) {
                 if (this.clickRightSound == 'click') {
                     let clickSound = new Howl({
@@ -347,6 +346,22 @@ export class TypewriterSpComponent implements OnInit {
         this.typingSpeed = 0;
         this.totalAccuracy = 0;
         this.currentLetterImage = '';
+        this.remainingText = this.typingValue;
+        this.currentLetters = '';
+        this.currentLettersArray = [];
+        this.currentLetters  = '';
+        for (let i = 1; i <= this.exerciseNo; i++) {
+            this.currentLettersArray.push(this.createElement(i,true));
+        }
+        this.headerHide = true;
+        this.showHeaderText = false;
+        setTimeout(() => {
+            this.headerHide = false;
+        }, 500);
+        setTimeout(() => {
+            this.showHeaderText = true;
+        }, 1500);
+        this.totalWidth = window.innerWidth - 80;
     }
 
     setNextPractice() {
@@ -378,46 +393,47 @@ export class TypewriterSpComponent implements OnInit {
     }
 
 
-    private createElement(initial:boolean){
-        
+    private createElement(index,initial: boolean) {
         let randomNo = Math.floor(Math.random() * this.remainingText.length) + 0;
         let letter = this.remainingText[randomNo];
-       
-        if(this.currentLetters.indexOf(letter)<0 ){
-            this.currentLetters+=letter;
-            let left = Math.floor(Math.random()*80)+20;
-            this.currentLettersArray.push({letter:letter,animation:false,left:left,del:false,initial:initial}); 
-            let lastIndex = this.currentLettersArray.length-1;
-            if(!initial && lastIndex>=0){
-                setTimeout(()=>{
-                    this.currentLettersArray[lastIndex].animation = true;
-                },50)
-            }          
-        }else if(randomNo<this.remainingText.length && this.currentLetters.length<this.exerciseNo){
-            this.createElement(initial);
-        }
-    }
-
-    private startBallonInterval(){
-        this.ballonInterval = setInterval(()=>{
-            if(this.currentLettersArray.length<this.exerciseNo){
-                this.createElement(false);
-            }
-        },3000   );
-    }
-
-    public removeElement(letter,initial:boolean){
+        let totalArrayLength =  this.exerciseNo + (initial ? 0:1);
+        this.currentLetters += letter;
+        let left = Math.floor(Math.random() * (80 - 20 + 1)) + 20;
+        let lastIndex = this.currentLettersArray.length - 1;
         if(!initial){
-            console.log(letter,initial);
-            this.currentLetters.replace(letter,'');
-            this.currentLettersArray.forEach((element,index)=>{
-                if(element.letter==letter){
-                    this.currentLettersArray =this.currentLettersArray.splice(index);
-                    console.log(this.currentLettersArray);
-                }
-            });
+            setTimeout(() => {
+                this.currentLettersArray[index].animation = true;
+            }, 100);
         }
+        return { letter: letter, animation: false, left: left, del: false, initial: initial };
         
+    }
+
+
+
+    public removeElement(letter) {
+        for (let i = 0; i < this.currentLettersArray.length; i++) {
+            if (this.currentLettersArray[i].letter === letter) {
+                this.currentLetters = this.replaceAt(i, letter, this.currentLetters);
+                this.currentLettersArray.splice(i, 1, this.createElement(i,false));
+                break;
+            }
+        }
+    }
+
+    public removeElementByAnimation(event,index: number, letter:string, initial: boolean) {
+        if (!initial && event.toState == 'active') {
+            this.currentLetters = this.replaceAt(index, letter, this.currentLetters);
+            this.currentLettersArray.splice(index, 1, this.createElement(index,false));
+           
+        }
+    }
+
+    private replaceAt(index, char, str) {
+        var a = str.split("");
+        a[index] = char;
+        return a.join("");
     }
 
 }
+
