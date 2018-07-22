@@ -1,31 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from '../local-storage.service';
 import { trigger, style, animate, transition } from '@angular/animations';
-import { ActivatedRoute } from '@angular/router';
 import { Howl, Howler } from 'howler';
 import { ApiService } from '../api.service';
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
-  selector: 'app-exercise',
+  selector: 'app-typewriter-sm',
   templateUrl: './exercise.component.html',
   styleUrls: ['./exercise.component.css'],
   host: {
     '(document:keydown)': 'handleKeyDownEvent($event)',
     '(document:keyup)': 'handleKeyUpEvent($event)',
     '(document:mouseup)': 'handleMouseUpEvent($event)',
-  }
+  },
+  providers: [{ provide: 'Window', useValue: window }]
 })
+
+
 export class ExerciseComponent implements OnInit {
   public typeSettings: any = {};
   public nextInfo: number = 1;
   public headerHide: boolean = true;
-  public exercises: Array<{ id: number, name: string, percent: number, grayPercent: number, yellowPercent: number, mode: number, type: Array<number>, content: string, topBarTitle: string, flagTitle: string }>;
+  public exercises: Array<{ name: string, header: string, flagText: string, content: string }>;
   public collapseHeader: boolean;
   public words: string[];
   public wordIndex: any;
   public totalWords: number;
   public totalRight: number = 0;
   public totalWrong: number = 0;
-  public currentExercise: { id: number, name: string, percent: number, grayPercent: number, yellowPercent: number, mode: number, type: Array<number>, content: string, topBarTitle: string, flagTitle: string }
+  public currentExercise = { name: 'U1 Demoubung', header: 'Schreibe Sie die gelernten Buchstaben noch einmal!', flagText: 'Ich gebe dir oft Tipps - mein Name ist Fred!', content: '' };
   public keyValue: any;
   public keyboard: any = {};
   public typedString: string = '';
@@ -40,12 +43,18 @@ export class ExerciseComponent implements OnInit {
   public currentTypedLetterClass: string;
   public clickRightSound: any;
   public clickWrongSound: any;
-  public exerciseParams: any;
+  public exercise: any;
   public typingValue: string = '';
   public currentLessionIndex: number;
+  public showTooltipInfo: boolean = false;
+  public showCompleteBox: boolean = false;
   public currentSoundLevel = 0;
   public metroSound = 'Metro aus';
   public backgroundSound: any;
+  public totalWidth: number;
+  public totalWordWidth: number;
+  public textLeftMove = 0;
+  public showHeaderText = false;
   public settingMode: string;
   public globalSettings: any;
   private internalTypingTime: number = 1;
@@ -53,32 +62,47 @@ export class ExerciseComponent implements OnInit {
   private typingCounter: any;
   public typingSpeed: number = 0;
   public totalAccuracy: number = 0;
-  public exerciseCompleted: number = 0;
-  constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute) {
+  public exerciseCompleted:number=0;
+  constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute, private router: Router) {
     this.settingMode = this.localStorageService.select('settingMode');
     this.globalSettings = this.localStorageService.select('globalSettings');
+    this.exercise = this.route.params['value'].lessionIndex;
+    console.log(this.exercise);
+    let settingData = localStorageService.select('typeSettings');
+    if (settingData == false) {
+      this.typeSettings = { stringLength: 1, value: "asdfghjklö", typewriterMode: '', presentation: 0, sound: 'kein_sound', soundVolume: 1, muteSound: false };
+    } else {
+      this.typeSettings = settingData;
+    }
+    this.currentSoundLevel = this.typeSettings.soundVolume;
 
-    this.typeSettings = { stringLength: 1, value: "asdfghjklö", typewriterMode: 1, presentation: 0, sound: 'kein_sound', soundVolume: 1, muteSound: false };
-    
-    this.typingValue= this.typeSettings.value.replace('/\s+/','');
-  
+
+    for (let i = 1; i <= this.typeSettings.stringLength; i++) {
+      this.typingValue += this.typeSettings.value + ' ';
+    }
+
     this.keyboard.typingValue = this.typingValue.trim().split('');
     this.totalWords = this.typingValue.length;
-    this.setSound(this.typeSettings.sound);
+
+
+    this.clickWrongSound = new Howl({
+      src: ['../assets/sounds/wrong-click.mp3']
+    });
     Howler.volume(this.typeSettings.soundVolume / 100);
     this.exercises = [];
-    this.currentSoundLevel = this.typeSettings.soundVolume;
+    this.setSound(this.typeSettings.sound);
+    this.totalWordWidth = 15 * this.keyboard.typingValue.length;
   }
 
   ngOnInit() {
-    this.exerciseParams = this.route.params['value'];
-    this.currentLessionIndex = parseInt(this.exerciseParams.lessionIndex);
-    this.getExercise(this.exerciseParams.lessionIndex);
     setTimeout(() => {
       this.headerHide = false;
     }, 500);
+    setTimeout(() => {
+      this.showHeaderText = true;
+    }, 1500);
+    this.totalWidth = window.innerWidth - 80;
   }
-
 
   setSoundVolume = (event: any) => {
     this.currentSoundLevel = event.value;
@@ -88,18 +112,19 @@ export class ExerciseComponent implements OnInit {
       Howler.volume(value / 100);
       this.localStorageService.insert('typeSettings', this.typeSettings);
     }
+
   };
 
 
   soundSetting = (value: boolean) => {
     this.typeSettings.muteSound = value;
     if (value) {
-
+      Howler.volume(0);
       this.typeSettings.soundVolume = 0;
     } else {
       this.typeSettings.soundVolume = this.currentSoundLevel;
+      Howler.volume(this.typeSettings.soundVolume / 100);
     }
-    Howler.volume(this.typeSettings.soundVolume / 100);
     this.localStorageService.insert('typeSettings', this.typeSettings);
   };
 
@@ -120,27 +145,31 @@ export class ExerciseComponent implements OnInit {
 
 
     this.keyValue = event.key;
-
+    
     let keySettings = this.globalSettings[event.keyCode];
-    if (event.altKey && this.keyValue != 'Alt') {
+    if (event.altKey && this.keyValue!='Alt') {
       this.keyValue = keySettings.letters.alt;
-    } else if (event.ctrlKey && this.keyValue != 'Control') {
+    } else if (event.ctrlKey && this.keyValue!='Control') {
       this.keyValue = keySettings.letters.ctrl;
-    } else if (event.shiftKey && this.keyValue != 'Shift') {
+    } else if (event.shiftKey && this.keyValue!='Shift') {
       this.keyValue = keySettings.letters.shift;
     }
+
     let typedString = this.typedString + this.keyValue;
     if (this.typingValue.indexOf(typedString) == 0) {
       let keyCode = event.keyCode == 32 ? 32 : (event.keyCode + 32);
       this.currentLetterImage = '../assets/images/typer/' + this.settingMode + 'b_' + + keyCode + '.jpg';
       this.currentTypedLetter = this.keyValue;
-
       this.currentTypedLetterClass = keySettings.cssClass;
-
       this.typedString = typedString;
       this.letterTypedIndex = this.typedString.length - 1;
       this.letterNextTyped = this.typedString.length;
+
       this.totalRight++;
+      if (this.totalRight * 15 > this.totalWidth) {
+        this.textLeftMove = this.totalWidth - (this.totalRight * 15);
+      }
+
       if (this.clickRightSound) {
         if (this.clickRightSound == 'click') {
           let clickSound = new Howl({
@@ -149,24 +178,43 @@ export class ExerciseComponent implements OnInit {
           clickSound.play();
         } else if (this.clickRightSound == 'play-letter') {
           let clickSound = new Howl({
-            src: ['../assets/sounds/' + this.settingMode + 's_' + keyCode + '.mp3']
+            src: ['../assets/sounds/' + 'cs_' + keyCode + '.mp3']
           });
           clickSound.play();
         } else if (this.clickRightSound == 'icon-sound') {
-
           let clickSound = new Howl({
             src: ['../assets/sounds/icon-sound/w_' + keySettings.tast_wort + '.mp3']
           });
-
           clickSound.play();
         }
+
       }
+
     } else {
       this.clickWrongSound = new Howl({
         src: ['../assets/sounds/wrong-click.mp3']
       });
       this.clickWrongSound.play();
       this.totalWrong++;
+    }
+
+    this.typingTime = this.internalTypingTime;
+    this.typingSpeed = Math.ceil(((this.totalRight + this.totalWrong) / this.typingTime) * 60);
+    this.totalAccuracy = Math.floor((this.totalRight / (this.totalRight + this.totalWrong)) * 100);
+
+    if (this.totalRight == this.typingValue.length - 1) {
+      clearInterval(this.typingCounter);
+      let boxAnimation = setInterval(()=>{
+          this.exerciseCompleted++;
+          let animationSound = new Howl({
+            src: ['../assets/sounds/wrong-click.mp3']
+          });
+          animationSound.play();
+          if(this.exerciseCompleted>=9){
+            clearInterval(boxAnimation);
+          }
+      },300);
+      this.showCompleteBox = true;
     }
   }
 
@@ -177,32 +225,12 @@ export class ExerciseComponent implements OnInit {
     this.keyValue = 'test';
   }
 
-  private getExercise = (lessionIndex) => {
-    this.exercises = this.localStorageService.select('exerciseTitles');
-    if (!this.exercises) {
-      return false;
-    }
-    this.currentExercise = this.exercises[lessionIndex];
-    this.currentLessionIndex = lessionIndex;
-    let mode = this.currentExercise
-  }
+
 
   nextExercise() {
     this.currentLessionIndex = this.currentLessionIndex + 1;
-    if (this.currentLessionIndex >= this.exercises.length) {
-      this.currentLessionIndex = 0;
-    }
     this.currentExercise = this.exercises[this.currentLessionIndex];
   }
-
-  prevExercise() {
-    this.currentLessionIndex = this.currentLessionIndex - 1;
-    if (this.currentLessionIndex <= 0) {
-      this.currentLessionIndex = this.exercises.length - 1;
-    }
-    this.currentExercise = this.exercises[this.currentLessionIndex];
-  }
-
   setSound(value: string) {
     this.typeSettings.sound = value;
     this.localStorageService.insert('typeSettings', this.typeSettings);
@@ -272,13 +300,41 @@ export class ExerciseComponent implements OnInit {
 
   }
 
-  checkLetterExists(asci) {
-    // if(this.globalSettings.hasOwnProperty(asci)){
-    //   let word = this.globalSettings[asci];
-    //   if(word.t_reihe>0){
-
-    //   }
-    // }
+  checkLetterExists(letter: string, extLetter: string = '') {
+    if (this.typingValue.indexOf(letter) >= 0)
+      return true;
     return false;
   }
+  continueExercise() {
+    this.typedString = '';
+    this.letterTypedIndex = 0;
+    this.letterNextTyped = 0;
+    this.totalRight = 0;
+    this.totalWrong = 0;
+    this.showCompleteBox = false;
+    this.textLeftMove = 0;
+    this.typingTime = 0;
+    this.typingSpeed = 0;
+    this.totalAccuracy = 0;
+    this.currentLetterImage = '';
+  }
+
+  setNextPractice() {
+    for (let i = 1; i <= this.typeSettings.stringLength; i++) {
+      this.typingValue += this.typeSettings.value + ' ';
+    }
+    this.keyboard.typingValue = this.typingValue.trim().split('');
+    this.totalWords = this.typingValue.length;
+    this.showCompleteBox = false;
+  }
+
+  showTooltipBox() {
+    this.showTooltipInfo = this.showTooltipInfo === true ? false : true;
+  }
+
+  nagivateFunction(link) {
+    Howler.unload();
+    this.router.navigate([link]);
+  }
+
 }

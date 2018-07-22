@@ -44,7 +44,6 @@ export class LoginComponent implements OnInit {
       this.importSettings();
       this.router.navigate([this.returnUrl]);
     });
-
   }
 
   resetPassword() {
@@ -99,28 +98,76 @@ export class LoginComponent implements OnInit {
           }
         });
       }
-      for (let i in globalSettings) {
-        let set = globalSettings[i];
+      globalSettings.row4 = [
+        {asci_cod:"220",letters:{normal:"°",ctrl:"",shift:"",alt:""},cssClass:''},
+        {asci_cod:"48",letters:{normal:"0",ctrl:"",shift:"=",alt:""},cssClass:''},
+        {asci_cod:"49",letters:{normal:"1",ctrl:"",shift:"!",alt:""},cssClass:''},
+        {asci_cod:"50",letters:{normal:"2",ctrl:"",shift:"\"",alt:""},cssClass:''},
+        {asci_cod:"51",letters:{normal:"3",ctrl:"",shift:"§",alt:""},cssClass:''},
+        {asci_cod:"52",letters:{normal:"4",ctrl:"",shift:"$",alt:""},cssClass:''},
+        {asci_cod:"53",letters:{normal:"5",ctrl:"",shift:"%",alt:""},cssClass:''},
+       {asci_cod:"54",letters:{normal:"6",ctrl:"",shift:"&",alt:""},cssClass:''},
+        {asci_cod:"55",letters:{normal:"7",ctrl:"",shift:"/",alt:""},cssClass:''},
+        {asci_cod:"56",letters:{normal:"8",ctrl:"",shift:"(",alt:""},cssClass:''},
+        {asci_cod:"57",letters:{normal:"9",ctrl:"",shift:")",alt:""},cssClass:''},
+        {asci_cod:"219",letters:{normal:"ß",ctrl:"",shift:"?",alt:""},cssClass:''},
+        {asci_cod:"191",letters:{normal:"`",ctrl:"",shift:"",alt:""},cssClass:''}
+      ];
+      globalSettings.row3 = [
+         {asci_cod:"81",letters:{normal:"q",ctrl:"",shift:"Q",alt:""},cssClass:''},
+         {asci_cod:"87",letters:{normal:"w",ctrl:"",shift:"",alt:""},cssClass:''},
+         {asci_cod:"69",letters:{normal:"e",ctrl:"",shift:"",alt:""},cssClass:''},
+         {asci_cod:"82",letters:{normal:"r",ctrl:"",shift:"",alt:""},cssClass:''},
+         {asci_cod:"84",letters:{normal:"t",ctrl:"",shift:"",alt:""},cssClass:''},
+         {asci_cod:"90",letters:{normal:"z",ctrl:"",shift:"",alt:""},cssClass:''},
+         {asci_cod:"85",letters:{normal:"u",ctrl:"",shift:"",alt:""},cssClass:''},
+         {asci_cod:"73",letters:{normal:"i",ctrl:"",shift:"",alt:""},cssClass:''},
+         {asci_cod:"79",letters:{normal:"o",ctrl:"",shift:"",alt:""},cssClass:''},
+         {asci_cod:"80",letters:{normal:"p",ctrl:"",shift:"",alt:""},cssClass:''},
+         {asci_cod:"186",letters:{normal:"ü",ctrl:"",shift:"",alt:""},cssClass:''},
+         {asci_cod:"187",letters:{normal:"*",ctrl:"",shift:"",alt:""},cssClass:''}
+      ];
+      globalSettings.row2 = [
+       {asci_cod:"65",letters:{normal:"a",ctrl:"",shift:"",alt:""},cssClass:''},
+       {asci_cod:"83",letters:{normal:"s",ctrl:"",shift:"",alt:""},cssClass:''},
+       {asci_cod:"68",letters:{normal:"d",ctrl:"",shift:"",alt:""},cssClass:''},
+       {asci_cod:"70",letters:{normal:"f",ctrl:"",shift:"",alt:""},cssClass:''},
+      {asci_cod: "71",letters:{normal:"g",ctrl:"",shift:"",alt:""},cssClass:''},
+       {asci_cod:"72",letters:{normal:"h",ctrl:"",shift:"",alt:""},cssClass:''},
+       {asci_cod:"74",letters:{normal:"j",ctrl:"",shift:"",alt:""},cssClass:''},
+       {asci_cod:"75",letters:{normal:"k",ctrl:"",shift:"",alt:""},cssClass:''},
+       {asci_cod:"76",letters:{normal:"l",ctrl:"",shift:"",alt:""},cssClass:''},
+       {asci_cod:"192",letters:{normal:"ö",ctrl:"",shift:"",alt:""},cssClass:''},
+       {asci_cod:"222",letters:{normal:"ä",ctrl:"",shift:"",alt:""},cssClass:''},
+       {asci_cod:"191",letters:{normal:"'",ctrl:"",shift:"",alt:""},cssClass:''},
+      ];
+      
+      globalSettings.row1 = [
+         {asci_cod:"226",letters:{normal:">",ctrl:"",shift:"",alt:""},cssClass:''},
+         {asci_cod: "89",letters:{normal:"y",ctrl:"",shift:"",alt:""},cssClass:''},
+         {asci_cod:"88",letters:{normal:"x",ctrl:"",shift:"",alt:""},cssClass:''},
+         {asci_cod: "67",letters:{normal:"c",ctrl:"",shift:"",alt:""},cssClass:''},
+         {asci_cod:"86",letters:{normal:"v",ctrl:"",shift:"",alt:""},cssClass:''},
+         {asci_cod:"66",letters:{normal:"b",ctrl:"",shift:"",alt:""},cssClass:''},
+         {asci_cod:"78",letters:{normal:"n",ctrl:"",shift:"",alt:""},cssClass:''},
+         {asci_cod:"77",letters:{normal:"m",ctrl:"",shift:"",alt:""},cssClass:''},
+         {asci_cod:"188",letters:{normal:";",ctrl:"",shift:";",alt:""},cssClass:''},
+         {asci_cod:"190",letters:{normal:":",ctrl:"",shift:"",alt:""},cssClass:''},
+         {asci_cod:"189",letters:{normal:"_",ctrl:"",shift:"_",alt:""},cssClass:''},
+      ];
 
-        if (set && typeof set == 'object' && set.hasOwnProperty('letters') && set.letters.normal && set.letters.normal.trim().length > 0) {
-          if (set.t_reihe == 1) {
-            let cssClass = this.findLetterCssClass(1, globalSettings.row1.length + 1);
-            globalSettings.row1.push({ letters: set.letters, asci_cod: i, cssClass: cssClass });
-            globalSettings[i].cssClass = cssClass;
-          } else if (set.t_reihe == 2) {
-            let cssClass = this.findLetterCssClass(2, globalSettings.row2.length + 1);
-            globalSettings.row2.push({ letters: set.letters, asci_cod: i, cssClass: cssClass });
-            globalSettings[i].cssClass = cssClass;
-          } else if (set.t_reihe == 3) {
-            let cssClass = this.findLetterCssClass(3, globalSettings.row3.length + 1);
-            globalSettings.row3.push({ letters: set.letters, asci_cod: i, cssClass: cssClass });
-            globalSettings[i].cssClass = cssClass;
-          } else if (set.t_reihe == 4) {
-            let cssClass = this.findLetterCssClass(4, globalSettings.row4.length + 1);
-            globalSettings.row4.push({ letters: set.letters, asci_cod: i, cssClass: cssClass });
-            globalSettings[i].cssClass = cssClass;
-          }
-        }
+
+      for (let i in globalSettings.row1) {
+        globalSettings.row1[i].cssClass = this.findLetterCssClass(1, parseInt(i) + 2);
+      }
+      for (let i in globalSettings.row2) {
+        globalSettings.row2[i].cssClass = this.findLetterCssClass(2, parseInt(i) + 2);
+      }
+      for (let i in globalSettings.row3) {
+        globalSettings.row3[i].cssClass = this.findLetterCssClass(3, parseInt(i) + 2);
+      }
+      for (let i in globalSettings.row4) {
+        globalSettings.row4[i].cssClass = this.findLetterCssClass(4, parseInt(i) + 2);
       }
 
       this.localStorage.insert('globalSettings', globalSettings);
@@ -168,3 +215,9 @@ export class LoginComponent implements OnInit {
 
   }
 }
+
+
+/*
+keyboard JSON.
+{"16":{"normal":"Shift","ctrl":"","shift":"","alt":""},"17":{"normal":"Control","ctrl":"","shift":"","alt":""},"18":{"normal":"AltGraph","ctrl":"","shift":"","alt":""},"48":{"normal":"0","ctrl":"","shift":"=","alt":""},"49":{"normal":"1","ctrl":"","shift":"!","alt":""},"50":{"normal":"2","ctrl":"","shift":"\"","alt":""},"51":{"normal":"3","ctrl":"","shift":"§","alt":""},"52":{"normal":"4","ctrl":"","shift":"$","alt":""},"53":{"normal":"5","ctrl":"","shift":"%","alt":""},"54":{"normal":"6","ctrl":"","shift":"&","alt":""},"55":{"normal":"7","ctrl":"","shift":"/","alt":""},"56":{"normal":"8","ctrl":"","shift":"(","alt":""},"57":{"normal":"9","ctrl":"","shift":")","alt":""},"65":{"normal":"a","ctrl":"","shift":"","alt":""},"66":{"normal":"b","ctrl":"","shift":"","alt":""},"67":{"normal":"c","ctrl":"","shift":"","alt":""},"68":{"normal":"d","ctrl":"","shift":"","alt":""},"69":{"normal":"e","ctrl":"","shift":"","alt":""},"70":{"normal":"f","ctrl":"","shift":"","alt":""},"71":{"normal":"g","ctrl":"","shift":"","alt":""},"72":{"normal":"h","ctrl":"","shift":"","alt":""},"73":{"normal":"i","ctrl":"","shift":"","alt":""},"74":{"normal":"j","ctrl":"","shift":"","alt":""},"75":{"normal":"k","ctrl":"","shift":"","alt":""},"76":{"normal":"l","ctrl":"","shift":"","alt":""},"77":{"normal":"m","ctrl":"","shift":"","alt":""},"78":{"normal":"n","ctrl":"","shift":"","alt":""},"79":{"normal":"o","ctrl":"","shift":"","alt":""},"80":{"normal":"p","ctrl":"","shift":"","alt":""},"81":{"normal":"q","ctrl":"","shift":"Q","alt":""},"82":{"normal":"r","ctrl":"","shift":"","alt":""},"83":{"normal":"s","ctrl":"","shift":"","alt":""},"84":{"normal":"t","ctrl":"","shift":"","alt":""},"85":{"normal":"u","ctrl":"","shift":"","alt":""},"86":{"normal":"v","ctrl":"","shift":"","alt":""},"87":{"normal":"w","ctrl":"","shift":"","alt":""},"88":{"normal":"x","ctrl":"","shift":"","alt":""},"89":{"normal":"y","ctrl":"","shift":"","alt":""},"90":{"normal":"z","ctrl":"","shift":"","alt":""},"186":{"normal":"ü","ctrl":"","shift":"","alt":""},"187":{"normal":"*","ctrl":"","shift":"","alt":""},"188":{"normal":";","ctrl":"","shift":";","alt":""},"189":{"normal":"_","ctrl":"","shift":"_","alt":""},"190":{"normal":":","ctrl":"","shift":"","alt":""},"191":{"normal":"'","ctrl":"","shift":"","alt":""},"192":{"normal":"ö","ctrl":"","shift":"","alt":""},"219":{"normal":"ß","ctrl":"","shift":"?","alt":""},"220":{"normal":"°","ctrl":"","shift":"","alt":""},"221":{"normal":"Dead","ctrl":"","shift":"Dead","alt":""},"222":{"normal":"ä","ctrl":"","shift":"","alt":""},"226":{"normal":">","ctrl":"","shift":"","alt":""}}
+*/
