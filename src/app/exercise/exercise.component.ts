@@ -55,25 +55,68 @@ export class ExerciseComponent implements OnInit {
     public totalAccuracy: number = 0;
     public exerciseCompleted: number = 0;
     public soundArray: Array<string> = ['kein_sound', 'click', 'bst', 'icon', 'metro_aus', 'hg1', 'hg2', 'hg3', 'hg4', 'hg5', 'hg6', 'hg7', 'hg8', 'hg9', 'hg9'];
-    public keyboardArea: Array<{ letters: Array<string> }>;
     public practiceMode: number;
     public grid: number;
     public visibleKeyboardLetters: Array<string>;
-    public showZoomAnimation:boolean = false;
+    public showZoomAnimation:boolean = true;
+    public totalWidth =0;
+    public textLeftMove = 0;
+    public showCompleteBox = false;
+    public zoomButtonAnimation = true;
+    public showHeaderText = false;
+    public  keyboardArea = [
+        //No Indication
+        {letters: []},
+        //basic row left
+        {letters: ['a', 's', 'd', 'f', 'g']},
+        //basic row right
+        {letters: ['h', 'j', 'k', 'l', 'ö',]},
+        //Top Row left
+        {letters: ['q', 'w', 'e', 'r', 't', 'z']},
+        // top row right
+        {letters: ['z', 'u', 'i', 'o', 'p']},
+        // sub row left
+        {letters: []},
+        // number series left
+        {letters: []},
+        // number series right
+        {letters: []}
+        //Signs and Symbols left
+        {letters: []},
+        //Signs and Symbols right
+        {letters: []},
+        // Alt Gear left
+        {letters: []},
+        //alt gear right
+        {letters: []},
+        // alt entire keyboard
+        {
+            letters: ['°', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'ss', '`', 'q', 'q', 'w', 'e', 'r', 't', 'z', 'u', 'i', 'o', 'p', 'ü', '*', 'a',
+                's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ö', 'ä', '\'', '>', 'y', 'x', 'c', 'v', 'b', 'n', 'm', ';', ',', ':']
+        }
 
+    ];
     constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute) {
+        this.exerciseParams = this.route.params['value'];
+        this.currentLessionIndex = parseInt(this.exerciseParams.lessionIndex);
+        this.exercises = this.localStorageService.select('exerciseTitles');
+        this.currentExercise = this.exercises[this.currentLessionIndex];
+        this.visibleKeyboardLetters = this.keyboardArea[this.currentExercise.type[0]].letters;
+        this.practiceMode = this.currentExercise.type[1];
+        this.grid = this.currentExercise.type[2];
+
         this.settingMode = this.localStorageService.select('settingMode');
         this.globalSettings = this.localStorageService.select('globalSettings');
         this.typeSettings = {
             stringLength: 1,
-            value: 'asdfghjklö',
+            value: this.currentExercise.content,
             typewriterMode: 1,
             presentation: 0,
-            sound: 'kein_sound',
+            sound: this.soundArray[this.currentExercise.type[3]],
             soundVolume: 1,
             muteSound: false
         };
-
+        this.setSound(this.typeSettings.sound);
         for (let i = 1; i <= this.typeSettings.stringLength; i++) {
             this.typingValue += this.typeSettings.value + ' ';
         }
@@ -91,55 +134,22 @@ export class ExerciseComponent implements OnInit {
                 letters: ['5', '%', '5', '&', '7', '/', '8', '(', 'r', 't', 'y', 'u', 'f', 'g', 'h', 'j', 'v', 'b', 'n', 'm']
             }];
 
-        this.setSound(this.typeSettings.sound);
+      
 
 
         Howler.volume(this.typeSettings.soundVolume / 100);
         this.exercises = [];
         this.currentSoundLevel = this.typeSettings.soundVolume;
 
-        this.keyboardArea = [
-            //No Indication
-            {letters: []},
-            //basic row left
-            {letters: ['a', 's', 'd', 'f', 'g']},
-            //basic row right
-            {letters: ['h', 'j', 'k', 'l', 'ö',]},
-            //Top Row left
-            {letters: ['q', 'w', 'e', 'r', 't', 'z']},
-            // top row right
-            {letters: ['z', 'u', 'i', 'o', 'p']},
-            // sub row left
-            {letters: []},
-            // number series left
-            {letters: []},
-            // number series right
-            {letters: []}
-            //Signs and Symbols left
-            {letters: []},
-            //Signs and Symbols right
-            {letters: []},
-            // Alt Gear left
-            {letters: []},
-            //alt gear right
-            {letters: []},
-            // alt entire keyboard
-            {
-                letters: ['°', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'ss', '`', 'q', 'q', 'w', 'e', 'r', 't', 'z', 'u', 'i', 'o', 'p', 'ü', '*', 'a',
-                    's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ö', 'ä', '\'', '>', 'y', 'x', 'c', 'v', 'b', 'n', 'm', ';', ',', ':']
-            }
-
-        ];
+     
     }
 
     ngOnInit() {
-        this.exerciseParams = this.route.params['value'];
-        this.currentLessionIndex = parseInt(this.exerciseParams.lessionIndex);
-        this.getExercise(this.exerciseParams.lessionIndex);
-        this.showZoomAnimation = false;
+        this.zoomButtonAnimation = false;
         setTimeout(() => {
             this.headerHide = false;
-            this.showZoomAnimation = true;
+            this.zoomButtonAnimation = true;
+            this.showHeaderText = true;
         }, 500);
     }
 
@@ -265,16 +275,16 @@ export class ExerciseComponent implements OnInit {
     }
 
     private getExercise = (lessionIndex) => {
+        
         this.exercises = this.localStorageService.select('exerciseTitles');
-        if (!this.exercises) {
-            return false;
-        }
         this.currentExercise = this.exercises[lessionIndex];
         this.visibleKeyboardLetters = this.keyboardArea[this.currentExercise.type[0]].letters;
         this.typeSettings.sound = this.soundArray[this.currentExercise.type[3]];
         this.practiceMode = this.currentExercise.type[1];
         this.grid = this.currentExercise.type[2];
         this.currentLessionIndex = lessionIndex;
+        this.setSound(this.typeSettings.sound);
+        this.typeSettings.value = this.currentExercise.content;
     };
 
     nextExercise() {
@@ -362,12 +372,15 @@ export class ExerciseComponent implements OnInit {
     }
 
     checkLetterExists(letter: string, extLetter: string = '') {
-        if (this.typingValue.indexOf(letter) >= 0){
-            return true;
-        }
-        return false;
+    //    if(this.visibleKeyboardLetters.indexOf(letter)>=0){
+    //        return true;
+    //    }else if(this.visibleKeyboardLetters.indexOf(extLetter)>=0){
+    //        return true;
+    //    }
+    //    return false;
+        return true;
     }
-    hideZoomAnimation() {
+    hideZoomAnimation(){
         this.showZoomAnimation = false;
     }
 }

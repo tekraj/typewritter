@@ -1267,7 +1267,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
         background: #fff;
         border: 1px solid #f9f9f9;
         font-weight: bold;
-        /* color: transparent; */
+        color: transparent;
         border-radius: 10px;
         font-size: 2em;
         text-transform: uppercase;
