@@ -164,7 +164,7 @@ export class TypewriterSpComponent implements OnInit {
         this.localStorageService.insert('typeSettings', this.typeSettings);
     };
 
-    writeText(normal: string, shiftKey: any, ctrlKey: any, altKey: any) {
+    writeText(normal: string, shiftKey='', ctrlKey='', altKey='') {
         if (normal) {
             this.keyValue = normal;
         } else {

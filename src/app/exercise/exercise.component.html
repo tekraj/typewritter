@@ -184,13 +184,13 @@
             <sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub>
           </span>
         </li>
-
-        <li class="backspace lastitem default" (mousedown)="writeText('Backspace')" [ngClass]="{'active':keyValue=='Backspace'}">&nbsp;</li>
-
+  
+        <li class="backspace lastitem default" (mousedown)="writeText('Backspace','','','')" [ngClass]="{'active':keyValue=='Backspace'}">&nbsp;</li>
+  
         <!-- ROW 4 END -->
-
+  
         <!-- ROW 3 START -->
-        <li class="tab default" (mousedown)="writeText('Tab')" [ngClass]="{'active':keyValue=='Tab'}"></li>
+        <li class="tab default" (mousedown)="writeText('Tab','','','')" [ngClass]="{'active':keyValue=='Tab'}"></li>
         <li *ngFor="let letter of globalSettings.row3" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':checkLetterExists(letter.asci_cod)}"
           class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
           <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
@@ -199,11 +199,11 @@
             <sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub>
           </span>
         </li>
-
+  
         <!-- ROW 3 END -->
-
+  
         <!-- ROW 2 START -->
-        <li class="capslock default" (mousedown)="writeText('CapsLock')" [ngClass]="{'active':keyValue=='CapsLock'}"></li>
+        <li class="capslock default" (mousedown)="writeText('CapsLock','','','')" [ngClass]="{'active':keyValue=='CapsLock'}"></li>
         <li *ngFor="let letter of globalSettings.row2" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':checkLetterExists(letter.asci_cod)}"
           class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
           <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
@@ -212,12 +212,12 @@
             <sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub>
           </span>
         </li>
-        <li class="return lastitem default" (mousedown)="writeText('Enter')" [ngClass]="{'active':keyValue=='Enter'}"></li>
+        <li class="return lastitem default" (mousedown)="writeText('Enter','','','')" [ngClass]="{'active':keyValue=='Enter'}"></li>
         <!-- ROW 2 END -->
-
-
+  
+  
         <!-- ROW 1 -->
-        <li class="left-shift default" (mousedown)="writeText('Shift')" [ngClass]="{'active':keyValue=='Shift'}"></li>
+        <li class="left-shift default" (mousedown)="writeText('Shift','','','')" [ngClass]="{'active':keyValue=='Shift'}"></li>
         <li *ngFor="let letter of globalSettings.row1" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':checkLetterExists(letter.asci_cod)}"
           class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
           <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
@@ -228,7 +228,7 @@
         </li>
         <li class="right-shift lastitem default"></li>
         <!-- ROW 1 END -->
-
+  
         <li class="left-shift blank default"></li>
         <li class="space lastitem default" [ngClass]="{'active':(keyValue=='space'|| keyValue==' ')}" (mousedown)="writeText('space',' ',' ',' ')">
           <div class="row finger-position">
@@ -244,7 +244,7 @@
                   <p>Linke Hand</p>
                 </div>
               </div>
-
+  
             </div>
             <div class="col-sm-6">
               <div class="row">
@@ -258,7 +258,7 @@
                   <p>Rechte Hand</p>
                 </div>
               </div>
-
+  
             </div>
           </div>
         </li>

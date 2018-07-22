@@ -139,13 +139,13 @@ export class TypewriterBsComponent implements OnInit {
     this.localStorageService.insert('typeSettings', this.typeSettings);
   };
 
-  writeText(normal: string, shiftKey: any, ctrlKey: any, altKey: any) {
+  writeText(normal: string, shiftKey='', ctrlKey='', altKey='') {
     if (normal) {
-      this.keyValue = normal;
+        this.keyValue = normal;
     } else {
-      this.keyValue = 'test';
+        this.keyValue = 'test';
     }
-  }
+}
 
 
   handleKeyDownEvent(event: KeyboardEvent) {

@@ -134,11 +134,13 @@ export class TypewriterDtComponent implements OnInit {
     this.localStorageService.insert('typeSettings', this.typeSettings);
   };
 
-  writeText(key: string, altKey: string = '') {
-    this.keyValue = key;
-
-  }
-
+  writeText(normal: string, shiftKey='', ctrlKey='', altKey='') {
+    if (normal) {
+        this.keyValue = normal;
+    } else {
+        this.keyValue = 'test';
+    }
+}
   handleKeyDownEvent(event: KeyboardEvent) {
     if (!this.typingCounter) {
       this.typingCounter = setInterval(() => {

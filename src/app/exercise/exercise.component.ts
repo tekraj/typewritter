@@ -80,7 +80,7 @@ export class ExerciseComponent implements OnInit {
         // number series left
         {letters: []},
         // number series right
-        {letters: []}
+        {letters: []},
         //Signs and Symbols left
         {letters: []},
         //Signs and Symbols right
@@ -177,9 +177,12 @@ export class ExerciseComponent implements OnInit {
         this.localStorageService.insert('typeSettings', this.typeSettings);
     };
 
-    writeText(key: string, altKey: string = '') {
-        this.keyValue = key;
-        this.keyValue = key;
+    writeText(normal: string, shiftKey='', ctrlKey='', altKey='') {
+        if (normal) {
+            this.keyValue = normal;
+        } else {
+            this.keyValue = 'test';
+        }
     }
 
     handleKeyDownEvent(event: KeyboardEvent) {
