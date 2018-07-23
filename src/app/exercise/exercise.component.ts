@@ -109,7 +109,7 @@ export class ExerciseComponent implements OnInit {
         this.globalSettings = this.localStorageService.select('globalSettings');
         this.typeSettings = {
             stringLength: 1,
-            value: this.currentExercise.content,
+            value: this.trimHtml(this.currentExercise.content),
             typewriterMode: 1,
             presentation: 0,
             sound: this.soundArray[this.currentExercise.type[3]],
@@ -292,18 +292,23 @@ export class ExerciseComponent implements OnInit {
 
     nextExercise() {
         this.currentLessionIndex = this.currentLessionIndex + 1;
+      
         if (this.currentLessionIndex >= this.exercises.length) {
             this.currentLessionIndex = 0;
         }
-        this.currentExercise = this.exercises[this.currentLessionIndex];
+        console.log(this.currentLessionIndex);
+       this.getExercise(this.currentLessionIndex);
     }
 
     prevExercise() {
         this.currentLessionIndex = this.currentLessionIndex - 1;
+       console.log(this.exercises.length);
         if (this.currentLessionIndex <= 0) {
+            console.log(this.exercises.length);
             this.currentLessionIndex = this.exercises.length - 1;
         }
-        this.currentExercise = this.exercises[this.currentLessionIndex];
+        console.log(this.currentLessionIndex);
+        this.getExercise(this.currentLessionIndex);
     }
 
     setSound(value: string) {
@@ -385,5 +390,9 @@ export class ExerciseComponent implements OnInit {
     }
     hideZoomAnimation(){
         this.showZoomAnimation = false;
+    }
+
+    private trimHtml(htmlString){
+       return htmlString.replace(/<\/?("[^"]*"|'[^']*'|[^>])*(>|$)/g, "");
     }
 }

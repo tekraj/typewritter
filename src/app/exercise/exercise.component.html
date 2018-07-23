@@ -280,7 +280,7 @@
       </a>
     </div>
     <div class="col-sm-4 text-center">
-      <a class="btn rounded-button middle-btn" (click)="nextExercise()" *ngIf="currentExercise.mode==0 || currentExercise.mode==1">
+      <a class="btn rounded-button middle-btn" (click)="nextExercise()">
         Arbeit fortsetzen
       </a>
     </div>
@@ -292,6 +292,6 @@
   </div>
 </div>
 
-<div class="zoom-div text-center" *ngIf="showZoomAnimation">
+<!-- <div class="zoom-div text-center" *ngIf="showZoomAnimation">
   <button class="btn rounded-button rounded-white" [ngClass]="{'animation':zoomButtonAnimation==true}" (click)="hideZoomAnimation()">Zum Start Bitte hier klicken</button>
-</div>
+</div> -->

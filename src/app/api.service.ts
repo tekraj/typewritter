@@ -52,7 +52,7 @@ export class ApiService {
   }
 
   getSetting(callback:any){
-    this.http.get('http://localhost/typewritter/apiservices.php?action=getSettings',{ responseType: 'text' }).subscribe(data=>{
+    this.http.get('http://keyboard.fadsan.com/apiservices.php?action=getSettings',{ responseType: 'text' }).subscribe(data=>{
       return callback(JSON.parse(data));
     });
   }
