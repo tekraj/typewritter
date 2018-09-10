@@ -4,10 +4,11 @@
     <div class="row">
       <div class="col-sm-4 text-left typing maria-holder">
         <div  class="maria-text">
-            <p>Hallo {{studentLastName}}!</p>
-            <p> Wahle nun die Lektion aus!</p>
+            <p>
+              <span *ngIf="!showAllBooks">Wahle nun die Lektion!</span>
+              <span *ngIf="showAllBooks">Wahle nun das Ubungsbuch aus!</span>
+            </p>
         </div>
-        
         <img src="../assets/images/maria.png">
       </div>
       <div class="col-sm-4 text-center">
@@ -98,7 +99,6 @@
           </ng-container>
         </ul>
       </div>
-      
     </div>
     <div class="last-buttons-wrapper">
       <div class="row last-buttons">
@@ -106,7 +106,7 @@
           <a class="btn rounded-button" href="http://mms.pphlinz.at/lektionen/default.php" target="_blank" style="position: relative;top:1px;">Lehrer</a>
         </div>
         <div class="col-sm-6 text-right">
-          <button class="btn rounded-button" style="margin-right:20px;">Album</button>
+          <button class="btn rounded-button" *ngIf="totalTitlesPage" style="margin-right:20px;">Album</button>
           <button class="btn rounded-button" (click)="showColorInfo()">Balkeninfo</button>
           <a class="btn btn-default m-l-10 margin-left-10" routerLink="/module" style="position:relative;top:-4px;">I</a>
         </div>
