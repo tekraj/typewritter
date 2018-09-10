@@ -9,3 +9,8 @@
 .title-list  li .percent-indicator.blue-zone{
     background: linear-gradient(rgb(160, 173, 247),rgb(160, 173, 247), white,rgb(160, 173, 247), rgb(160, 173, 247));
 }
+
+.maria-text p {
+    font-size: 2.5vh;
+    padding-top:1vh;
+}

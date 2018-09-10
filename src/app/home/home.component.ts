@@ -37,10 +37,22 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.findBooks();
         this.studentName = this.localStorageService.select('std_name');
         this.studentFirstName = this.localStorageService.select('std_first_name');
         this.studentLastName = this.localStorageService.select('std_last_name');
+
+        let _currentBookIndex = this.localStorageService.select('currentBookIndex');
+        let _lessions = this.localStorageService.select('homeLessions');
+        let _homeBooks = this.localStorageService.select('homeBooks');
+        if(_currentBookIndex && _lessions && _homeBooks){
+            this.books = _homeBooks;
+            this.currentBookIndex = _currentBookIndex;
+            this.lessions = _lessions;
+            this.copyBooks = this.books;
+            this.totalBooksPage = Array(Math.ceil(this.books.length / 12)).fill(0).map((x, i) => i);
+        }else{
+            this.findBooks();
+        }
 
     }
 
@@ -56,6 +68,7 @@ export class HomeComponent implements OnInit {
             });
             this.copyBooks = this.books;
             this.totalBooksPage = Array(Math.ceil(this.books.length / 12)).fill(0).map((x, i) => i);
+            this.localStorageService.insert('homeBooks',this.books);
             this.findLession(this.books[0].id, 0);
         });
     };
@@ -67,7 +80,7 @@ export class HomeComponent implements OnInit {
         }
         this.currentBookIndex = currentBook;
         this.showAllBooks = false;
-
+        this.localStorageService.insert('currentBookIndex',this.currentBookIndex);
         this.loadingLession = true;
         this.titles = [];
         this.lessions = [];
@@ -81,6 +94,7 @@ export class HomeComponent implements OnInit {
                     this.lessions.push({id: ids[i], name: element, percent: percentIndicators[i]});
                 }
             });
+            this.localStorageService.insert('homeLessions',this.lessions);
             this.totalLessionPage = Array(Math.ceil(this.lessions.length / 12)).fill(0).map((x, i) => i);
             this.loadingLession = false;
         });
