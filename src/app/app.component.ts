@@ -19,7 +19,7 @@ export class AppComponent {
 	constructor(private localStorageService:LocalStorageService){
 			this.backgroundNo = this.localStorageService.select('backgroundNo');
 			this.backgroundNo = this.backgroundNo ? this.backgroundNo : 0;
-			this.background = '../assets/images/typewriter'+this.backgroundNo+'.png';
+			this.background = '../assets/images/background/Symbol'+this.backgroundNo+'.png';
 			
 	}
 	changeBackground() {
@@ -28,7 +28,7 @@ export class AppComponent {
 		if(this.backgroundNo>26){
 			this.backgroundNo =0;
 		}
-		this.background = '../assets/images/typewriter'+this.backgroundNo+'.png';
+		this.background = '../assets/images/background/Symbol'+this.backgroundNo+'.png';
 		this.localStorageService.insert('backgroundNo',this.backgroundNo);
 	} 
 
