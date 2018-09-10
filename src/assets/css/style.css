@@ -1173,59 +1173,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     opacity:1;
     top:0;
 }
-#keyboard li.return {
-    position: relative;
-    background: url(../images/enter.png) no-repeat center!important;
-    height: 9.5vh!important;
-    margin-top: -9px!important;
-    border-radius: 0px 0px 4px 4px!important;
-    top: 8px!important;
-    width: 5.4%;
-}
-#keyboard li.return.active{
-    width:4.8%;
-    margin-left:0.3%;
-    margin-right:0.3%;
-}
 
-#keyboard li.tab {
-    width: 9.5%;
-    background: url(../images/tab.png) no-repeat center!important;
-}
-#keyboard li.tab.active{
-    width:8.9%;
-    margin-left: 0.3%;
-    margin-right:0.3%;
-}
-#keyboard li.capslock {
-    width: 11.3%;
-    background: url(../images/caps-lock.png) no-repeat center!important;
-}
-
-#keyboard li.capslock.active{
-    width:10.7%;
-    margin-left: 0.3%;
-    margin-right:0.3%;
-}
-#keyboard li.left-shift {
-    width: 8.8%;
-    background: url(../images/shift.png) no-repeat center!important;
-}
-#keyboard li.left-shift.active{
-    width:8%;
-    margin-left: 0.3%;
-    margin-right:0.3%;
-}
-#keyboard li.right-shift {
-    background: url(../images/shift.png) no-repeat center!important;
-    width:14.9%;
-}
-#keyboard li.right-shift.active{
-    width:16.3%;
-    margin-left: 0.3%;
-    margin-right:0.3%;
-}
-#keyboard li.blank{background-image:none!important;}
 .keyboard-input-field .typing-text span.active{font-weight:bold;}
 .keyboard-input-field .typing-text span.underline{text-decoration: underline;}
 .keyboard-display-image{
@@ -1308,12 +1256,12 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
         content: '';
         position: absolute;
         display: none;
-        top: -6px;
-        left: -11px;
-        right: -9px;
+        top: 0px;
+        left: 0px;
+        right: 0px;
         background: rgba(238, 238, 238, 0.2);
         z-index: 999;
-        bottom: -6px;
+        bottom: 0px;
         border-radius: 10px;
     }
     #keyboard li:hover{
@@ -1342,52 +1290,109 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
         bottom: -0.2em;
     }
     #keyboard li.default{
-        background-color:#ccc!important;
-        border: outset #ddd;
-        border-width: 6px 12px;
+        background:url(../images/button-default.png) no-repeat center!important;
+        background-size:cover!important;
+        border:none!important;
+    }
+    #keyboard li.space{
+        background:url(../images/spacebar.png) no-repeat center!important;
+        background-size:cover!important;
     }
     #keyboard li.return:before {
         content: '';
-        display: inline-block;
+        width: 300%;
+        left: -165%;
+        background: url(../images/return-before.png) no-repeat center;
         position: absolute;
-        background: #ccc;
-        border: outset #ddd;
-        right: initial;
-        border-radius: 4px 4px 0px 5px;
-        top: -9vh;
-        left: -54%;
-        border-width: 4px 12px;
-        border-top-width: 8px;
-        width: 171%;
-        height: 9vh;
-        border-bottom: none;
+        display: block;
+        height: 10vh;
+        top: 0.9vh;
     }
 
     #keyboard li.primary{
-        background-color:#0000cd!important;
-        border: outset #1717e2;
-        border-width: 3px 8px;
+        background:url(../images/button-blue.png) no-repeat center!important;
+        background-size:cover!important;
     }
     #keyboard li.warning{
-        background-color:#f2c100!important;
-        border: outset #ffcc00;
-        border-width: 3px 8px;
+        background:url(../images/button-yellow.png) no-repeat center!important;
+        background-size:cover!important;
     }
     #keyboard li.success{
-        background-color:#009900!important;
-        border: outset #01af01;
-        border-width: 3px 8px;
+        background:url(../images/button-green.png) no-repeat center!important;
+        background-size:cover!important;
     }
     #keyboard li.danger{
-        background-color:#ea0000!important;
-        border: outset #ff0000;
-        border-width: 3px 8px;
+        background:url(../images/button-red.png) no-repeat center!important;
+        background-size:cover!important;
     }
     #keyboard li.success, #keyboard li.primary, #keyboard li.warning, #keyboard li.danger{
-        border-width: 6px 10px;
+       border:none!important;
+    }
+    #keyboard li.default.tab {
+        width: 9.5%;
+        background:url(../images/tab.png) no-repeat center!important;
+        background-size:cover!important;
+    }
+    #keyboard li.return {
+        position: relative;
+        background: url(../images/enter.png) no-repeat center!important;
+        height: 21vh!important;
+        border-radius: 0;
+        margin-top: -10.9vh;
+        width: 5.4%;
+        left: 2px;
+    }
+    #keyboard li.return.active{
+        width:4.8%;
+        margin-left:0.3%;
+        margin-right:0.3%;
     }
     
-
+    
+    #keyboard li.tab.active{
+        width:8.9%;
+        margin-left: 0.3%;
+        margin-right:0.3%;
+    }
+    #keyboard li.capslock {
+        width: 11.3%;
+        background: url(../images/caps-lock.png) no-repeat center!important;
+        background-size:cover!important;
+    }
+    
+    #keyboard li.capslock.active{
+        width:10.7%;
+        margin-left: 0.3%;
+        margin-right:0.3%;
+    }
+    #keyboard li.left-shift {
+        width: 8.8%;
+        background: url(../images/shift.png) no-repeat center!important;
+        background-size:cover!important;
+    }
+#keyboard li.left-shift.active{
+    width:8%;
+    margin-left: 0.3%;
+    margin-right:0.3%;
+}
+#keyboard li.right-shift {
+    background: url(../images/shift-right.png) no-repeat center!important;
+    width:14.9%;
+    background-size:cover!important;
+}
+#keyboard li.right-shift.active{
+    width:16.3%;
+    margin-left: 0.3%;
+    margin-right:0.3%;
+}
+#keyboard li.left-shift.blank{
+    background: url(../images/empty-blank.png) no-repeat center!important;
+    background-size:cover!important;
+}
+#keyboard li.right-shift.blank{
+    background: url(../images/empty-blank-right.png) no-repeat center!important;
+    background-size:cover!important;
+}
 .keyboard-holder{
     background:transparent;
     border:none;border-radius: 0;
@@ -1672,7 +1677,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     width: 25%;
     float: left;
     line-height: 2vh;
-    padding: 0.8vh 5%;
+   padding: 3vh 5% 0 5%;
 }
 .finger-position p {
     font-size: 2vh;
@@ -1720,22 +1725,16 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     }
 }
 @media screen and (max-width: 1024px){
-    #keyboard li.return:before {
+    /* #keyboard li.return:before {
         left: -105%;
         width: 248%;
-    }
+    } */
    
        
     
 }
 @media(min-width:1200px){
-    #keyboard li.return:before {
-        content: '';
-        top: -9.25vh;
-        width: 195%;
-        height: 9.25vh;
-        left:-69%;
-    }
+   
 }
 
 @media(min-width:1800px){
