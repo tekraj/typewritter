@@ -106,7 +106,7 @@
           <a class="btn rounded-button" href="http://mms.pphlinz.at/lektionen/default.php" target="_blank" style="position: relative;top:1px;">Lehrer</a>
         </div>
         <div class="col-sm-6 text-right">
-          <button class="btn rounded-button" *ngIf="totalTitlesPage" style="margin-right:20px;">Album</button>
+          <a class="btn rounded-button" *ngIf="totalTitlesPage" style="margin-right:20px;"  routerLink="/gallery">Album</a>
           <button class="btn rounded-button" (click)="showColorInfo()">Balkeninfo</button>
           <a class="btn btn-default m-l-10 margin-left-10" routerLink="/module" style="position:relative;top:-4px;">I</a>
         </div>

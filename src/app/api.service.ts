@@ -5,7 +5,8 @@ import { callbackify } from 'util';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
-const baseUrl = '/get-data?';
+const baseUrl = 'http://mms.pphlinz.at/mms_flash_get_v15.php?';//'/get-data?';
+const settingUrl = 'http://keyboard.fadsan.com/apiservices.php?action=getSettings';//'/get-settings';
 @Injectable({
   providedIn: 'root'
 })
@@ -52,7 +53,7 @@ export class ApiService {
   }
 
   getSetting(callback:any){
-    this.http.get('/get-settings',{ responseType: 'text' }).subscribe(data=>{
+    this.http.get(settingUrl,{ responseType: 'text' }).subscribe(data=>{
       return callback(JSON.parse(data));
     });
   }
