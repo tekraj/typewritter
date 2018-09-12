@@ -5,8 +5,8 @@ import { callbackify } from 'util';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
-const baseUrl = 'http://mms.pphlinz.at/mms_flash_get_v15.php?';//'/get-data?';
-const settingUrl = 'http://keyboard.fadsan.com/apiservices.php?action=getSettings';//'/get-settings';
+const baseUrl = '/get-data?';
+const settingUrl = '/get-settings';
 @Injectable({
   providedIn: 'root'
 })

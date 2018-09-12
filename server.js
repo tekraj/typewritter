@@ -34,7 +34,6 @@ app.get('/get-data', (req,res)=>{
 
 });
 app.get('/*', function(req,res) {
-    console.log('test');
     res.sendFile(path.join(__dirname+'/dist/typewriter/index.html'));
 });
 
