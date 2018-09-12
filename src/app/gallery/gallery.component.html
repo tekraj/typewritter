@@ -1,3 +1,38 @@
-<p>
-  gallery works!
-</p>
+<div class="gallery-wrapper" [ngStyle]="{'background': 'url('+background+') 0% 0%/ 100% '+innerHeight+'px','height':innerHeight+'px'}">
+  <div class="gallery-content">
+    <div class="gallery-header">
+      <p class="pull-right">{{dateTime}} - (706)</p>
+      <p class="title">Album zur Lektion L1</p>
+      <p class="title">Schrebprofi: Maria</p>
+      <p class="content">In diesem Album sind nur jene Ubungen mit einem Bildchen dargestellt, die fehlerfrei geschrieben wurden.
+        Ein eingeklebtes blaues Bild erhalt man fur langsames und genaues Schreiben. Mit mehr Ubung kann man vielleicht auch ein gelbes (mittelschnell) oder gar ein rotes Bild(schnell) erarbeiten - aber wichtig: es durfen nur ganz, ganz wenige Fehler vorkommen!
+      </p>
+    </div>
+    <div class="gallery-images">
+      <div class="row">
+        <div class="col-sm-2" *ngFor="let i of getArrayFromNumber(21)">
+          <div class="image-holder">
+            <img src="../assets/images/alb/i_0{{i<10 ? '0'+i:i}}_0.jpg" alt="">
+             
+          </div>
+          <p class="lession-title">U{{i}}</p>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  <div class="container-fluid gallery-footer">
+      <div class="row">
+        <div class="col-sm-2">
+            <button class="btn rounded-button">Drucken</button>
+        </div>
+        <div class="col-sm-2">
+            <button class="btn rounded-button">Rahmen</button>
+        </div>
+        <div class="col-sm-6"></div>
+        <div class="col-sm-2">
+            <a class="btn rounded-button" routerLink="/home">Zuruck</a>
+        </div>
+      </div>
+  </div>
+</div>
