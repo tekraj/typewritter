@@ -86,7 +86,7 @@
             <li *ngIf="(a+1)<=((p+1)*12)" [routerLink]="['/exercise', ((p*12)+a)]" [ngClass]="{'no-exercise':t.mode==0}">
               <span class="red">{{t.mode}}</span>
               <span class="text-span">{{'Ü'+((p*12)+a+1)+': '+t.name}}</span>
-              <span class="percent-indicator" [ngClass]="{'blue-zone':t.grayPercent<30,'yellow-zone':(t.grayPercent>=30 && t.grayPercent<60),'red-zone':(t.grayPercent>=60)}" [ngStyle]="{'width':t.percent+'%'}"></span>
+              <span class="percent-indicator" [ngClass]="{'blue-zone':t.grayPercent<60,'yellow-zone':(t.grayPercent>=60 && t.grayPercent<100),'red-zone':(t.grayPercent>=60)}" [ngStyle]="{'width':t.percent+'%'}"></span>
               <span class="gray-percent" [ngStyle]="{'width':t.grayPercent+'%'}"></span>
               <span class="yellow-percent" [ngStyle]="{'width':t.yellowPercent+'%'}"></span>
               <span class="three-params" *ngIf="t.mode>0">
