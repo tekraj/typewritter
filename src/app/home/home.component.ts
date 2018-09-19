@@ -156,7 +156,7 @@ export class HomeComponent implements OnInit {
                 let lessionTypes = lessions[2].replace('uebg_opt=', '').split('|');
                 let allTopTitles = lessions[4].replace('uebg_anw=', '').split('|');
                 let allFlagTitles = lessions[5].replace('anw_mann=', '').split('|');
-                let allContents = lessions[6].replace('uebg_text=', '').split('|');
+                let allContents = lessions[6].replace('uebg_text=', '').split('|1|');
                 lessionTypes.forEach((element, index) => {
 
                     if (index < this.titles.length) {
