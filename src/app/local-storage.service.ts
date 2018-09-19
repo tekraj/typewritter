@@ -28,5 +28,9 @@ export class LocalStorageService {
     }
     return data;
   };
+
+  public clear = ()=>{
+    localStorage.clear();
+  }
 }
 

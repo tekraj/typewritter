@@ -93,26 +93,19 @@ export class TypewriterBsComponent implements OnInit {
 
     this.letterIndexes = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "ä", "ö", "ü", "ß"
     ];
-    this.typeThisLetter = this.keyboard.typingValue[0];
-
-
 
   }
 
   ngOnInit() {
-    this.typeThisLetter = this.keyboard.typingValue[0];
-    let letterIndex = this.letterIndexes.indexOf(this.typeThisLetter);
-    let nextKeCode = letterIndex + 96 + 1;
-    if (this.typeThisLetter == ' ') {
-      nextKeCode = 32;
-    }
-    this.typeThisImage = '../assets/images/typer/' + this.settingMode + 'b_' + + nextKeCode + '.jpg';
-
-    this.typeThisLetterClass = this.globalSettings[65 + letterIndex + 1].cssClass;
+    
     setTimeout(() => {
+      
       this.zoomButtonAnimation = true;
       this.headerHide = false;
+  
     }, 500);
+    this.checkLetterExists();
+    
   }
 
   setSoundVolume = (event: any) => {
@@ -178,36 +171,21 @@ export class TypewriterBsComponent implements OnInit {
       this.letterNextTyped = this.typedString.length;
 
       this.totalRight++;
-      if (this.clickRightSound) {
-        if (this.clickRightSound == 'click') {
-          let clickSound = new Howl({
-            src: ['../assets/sounds/right-click.mp3']
-          });
-          clickSound.play();
-        } else if (this.clickRightSound == 'play-letter') {
-          let clickSound = new Howl({
-            src: ['../assets/sounds/' + this.settingMode + 's_' + keyCode + '.mp3']
-          });
-          clickSound.play();
-        } else if (this.clickRightSound == 'icon-sound') {
-
-          let clickSound = new Howl({
-            src: ['../assets/sounds/icon-sound/w_' + keySettings.tast_wort + '.mp3']
-          });
-          clickSound.play();
-        }
-
-      }
+      
       this.typeThisLetter = this.keyboard.typingValue[this.letterNextTyped];
       let nextLetterIndex = this.letterIndexes.indexOf(this.typeThisLetter);
       let nextKeCode = nextLetterIndex + 96 + 1;
       if (this.typeThisLetter == ' ') {
         nextKeCode = 32;
       }
-
+      let nextSetting = this.globalSettings[65 + nextLetterIndex + 1];
+      let clickSound = new Howl({
+        src: ['../assets/sounds/icon-sound/w_' + nextSetting.tast_wort + '.mp3']
+      });
+      clickSound.play();
       this.typeThisImage = '../assets/images/typer/' + this.settingMode + 'b_' + + nextKeCode + '.jpg';
       this.currentTypedLetterClass = keySettings.cssClass;
-      this.typeThisLetterClass = this.globalSettings[65 + nextLetterIndex + 1].cssClass;
+      this.typeThisLetterClass = nextSetting.cssClass;
     } else {
       this.clickWrongSound = new Howl({
         src: ['../assets/sounds/wrong-click.mp3']
@@ -317,10 +295,98 @@ export class TypewriterBsComponent implements OnInit {
 
   }
 
-  checkLetterExists(letter: string, extLetter: string = '') {
-    if (this.typingValue.indexOf(letter) >= 0)
-      return true;
-    return false;
+  private checkLetterExists() {
+    let mainLeft = 'asdfg';
+    let mainRight = 'hjklö';
+    let main = mainLeft+mainRight;
+    let topLeft = 'qwert';
+    let topRight = 'zuiop';
+    let top = topLeft+topRight;
+    let bottomLeft = 'yxcvb';
+    let bottomRight = 'nm,.-';
+    let bottom = bottomLeft+bottomRight;
+    let numberLetf = '123456';
+    let numberRight = '7890ß';
+    let symbols = '!"§$%&+`´#*\'^°'
+    let numberRow = numberLetf+numberRight;
+    let showTopLeft,showTop,showMainLeft,showMain,showBottomLeft,showBottom,showNumberLeft,showNumber;
+    
+    for(let i=0;i<this.typingValue.length;i++){
+      let char = this.typingValue[i];
+      if(symbols.indexOf(char)>0){
+        showMain = true;
+        showTop = true;
+        showBottom = true;
+        showNumber = true;
+        break;
+      }
+      if(mainRight.indexOf(char)>=0){
+        showMain = true;
+      }else if(mainLeft.indexOf(char)>=0){
+        showMainLeft = true;
+      }else if(topRight.indexOf(char)>=0){
+        showMain = true;
+        showTop = true;
+      }else if(topLeft.indexOf(char)>=0){
+        showMain = true;
+        showTopLeft = true;
+      }else if(bottomRight.indexOf(char)>=0){
+        showMain = true;
+        showTop = true;
+        showBottom = true;
+      }else if(bottomLeft.indexOf(char)>=0){
+        showMain = true;
+        showTop = true;
+        showBottomLeft = true;
+      }else if(numberRight.indexOf(char)>=0){
+        showMain = true;
+        showTop = true;
+        showBottom = true;
+        showNumber = true;
+      }else if(numberLetf.indexOf(char)>=0){
+        showMain = true;
+        showTop = true;
+        showBottom = true;
+        showNumberLeft = true;
+      }
+    }
+    if(showMain){
+      for(let i in this.globalSettings.row2){
+        this.globalSettings.row2[i].visible = true;
+      }
+    }else{
+      for(let i=0;i<5;i++){
+        this.globalSettings.row2[i].visible = true;
+      }
+    }  
+    if(showTop){
+      for(let i in this.globalSettings.row3){
+        this.globalSettings.row3[i].visible = true;
+      }
+    }else if(showTopLeft){
+      for(let i=0;i<5;i++){
+        this.globalSettings.row3[i].visible = true;
+      }
+    }
+  
+    if(showBottom){
+      for(let i in this.globalSettings.row1){
+        this.globalSettings.row1[i].visible = true;
+      }
+    }else if(showBottomLeft){
+      for(let i=0;i<5;i++){
+        this.globalSettings.row1[i].visible = true;
+      }
+    }
+    if(showNumber){
+      for(let i in this.globalSettings.row4){
+        this.globalSettings.row4[i].visible = true;
+      }
+    }else if(showNumberLeft){
+      for(let i=0;i<5;i++){
+        this.globalSettings.row4[i].visible = true;
+      }
+    }
   }
   continueExercise() {
     this.typedString = '';
@@ -344,7 +410,21 @@ export class TypewriterBsComponent implements OnInit {
     this.showTooltipInfo = this.showTooltipInfo === true ? false : true;
   }
   hideZoomAnimation() {
+    
+    this.typeThisLetter = this.keyboard.typingValue[0];
+    let letterIndex = this.letterIndexes.indexOf(this.typeThisLetter);
+    let nextKeCode = letterIndex + 96 + 1;
+    if (this.typeThisLetter == ' ') {
+      nextKeCode = 32;
+    }
+    this.typeThisImage = '../assets/images/typer/' + this.settingMode + 'b_' + + nextKeCode + '.jpg';
+    let nextSetting = this.globalSettings[65 + letterIndex + 1];
+    this.typeThisLetterClass = nextSetting.cssClass;
     this.showZoomAnimation = false;
+    let clickSound = new Howl({
+      src: ['../assets/sounds/icon-sound/w_' + nextSetting.tast_wort + '.mp3']
+    });
+    clickSound.play();
   }
   nagivateFunction(link) {
     Howler.unload();

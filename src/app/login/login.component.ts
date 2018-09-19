@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
 
 
   constructor(private route: ActivatedRoute, private router: Router, private _apiService: ApiService, private localStorage: LocalStorageService) {
+    this.localStorage.clear();
     this.model.password = 'ms';
   }
 

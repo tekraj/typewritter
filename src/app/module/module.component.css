@@ -196,6 +196,11 @@
 .sound-group, .sound-group-heading{
     float: right;
 }
+.keybord-tast span .btn,.mult-ul-div ul li .btn{
+    background: url(../../assets/images/i-buton.png) no-repeat center;
+    border:none;
+    background-size:cover;
+}
 @media screen and (max-width: 1310px){
     .keybord-tast span .btn {
         width: 36px;

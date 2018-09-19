@@ -19,7 +19,7 @@ export class ModuleComponent implements OnInit {
         let settingData = localStorageService.select('typeSettings');
         if (settingData === false) {
             this.typeSettings = {
-                stringLength: 1,
+                stringLength: 10,
                 value: 'asdfghjklö',
                 typewriterMode: 'sm',
                 presentation: 0,
@@ -43,11 +43,17 @@ export class ModuleComponent implements OnInit {
             return false;
         }
         this.typeButtonNo = tBNo;
+
         if (this.currentType == type) {
-            if (this.typeClicked < 2) {
+            if (this.typeButtonNo%2==0) {
                 this.typeClicked++;
                 this.typeSettings.value += value;
+            }else{
+                this.typeClicked = 1;
+                this.currentType = type;
+                this.typeSettings.value = value;
             }
+
         } else {
             this.typeClicked = 1;
             this.currentType = type;
@@ -73,8 +79,9 @@ export class ModuleComponent implements OnInit {
 
     saveSettings() {
         let indexArray = ['one', 'two', 'three', 'four', 'five'];
-        let redirectUrl = 'typewriter-' + this.typeSettings.typewriterMode + '/' + indexArray[this.typeSettings.presentation - 1];
-
+        let type = indexArray[this.typeSettings.presentation - 1];
+        type = (type && type.length>2) ? type : 'one';
+        let redirectUrl = 'typewriter-' + this.typeSettings.typewriterMode + '/' + type;
         this.localStorageService.insert('typeSettings', this.typeSettings);
         this.router.navigate([redirectUrl]);
     }

@@ -1,14 +1,3 @@
-.title-list  li .percent-indicator.red-zone{
-    background: linear-gradient(#ff9292, white, #ff4f4f);
-}
-
-.title-list  li .percent-indicator.yellow-zone{
-    background: linear-gradient(rgb(255, 230, 11),rgb(255, 230, 11), white, rgb(255, 230, 11),rgb(255, 230, 11))
-}
-
-.title-list  li .percent-indicator.blue-zone{
-    background: linear-gradient(rgb(160, 173, 247),rgb(160, 173, 247), white,rgb(160, 173, 247), rgb(160, 173, 247));
-}
 
 .maria-text p {
     font-size: 2.5vh;

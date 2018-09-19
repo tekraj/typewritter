@@ -9,8 +9,8 @@
       </p>
     </div>
     <div class="gallery-images">
-      <div class="row">
-        <div class="col-sm-2" *ngFor="let i of getArrayFromNumber(21)">
+      <div class="row"  [sortablejs]="galleryElements">
+        <div class="col-sm-2" *ngFor="let i of galleryElements">
           <div class="image-holder">
             <img src="../assets/images/alb/i_0{{i<10 ? '0'+i:i}}_0.jpg" alt="">
              

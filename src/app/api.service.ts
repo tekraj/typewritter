@@ -13,6 +13,7 @@ const settingUrl = '/get-settings';
 export class ApiService {
   public stGet : number;
   public  stLnfdnr : number;
+  
   constructor(private http:HttpClient,private localStorageService:LocalStorageService) { 
     this.stGet = this.localStorageService.select('gegenstand');
     this.stLnfdnr = this.localStorageService.select('st_lfdnr');
@@ -27,7 +28,6 @@ export class ApiService {
   }
 
   getBooks(){
-    
     return this.http.get(baseUrl+'flag=a&st_geg='+this.stGet+'&gnr=ms&api=1').toPromise();
   }
 

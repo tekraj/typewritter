@@ -5,8 +5,7 @@
       <div class="col-sm-4 text-left typing maria-holder">
         <div  class="maria-text">
             <p>
-              <span *ngIf="!showAllBooks">Wahle nun die Lektion!</span>
-              <span *ngIf="showAllBooks">Wahle nun das Ubungsbuch aus!</span>
+              <span>{{mariaText}}</span>
             </p>
         </div>
         <img src="../assets/images/maria.png">
@@ -84,13 +83,13 @@
       <div class="col-md-3" *ngFor="let i of totalTitlesPage;let p=index">
         <ul class="main-page-list title-list">
           <ng-container *ngFor="let t of createArrayRange(titles,i);let a=index">
-            <li *ngIf="(a+1)<=((p+1)*12)" [routerLink]="['/exercise', ((p*12)+a)]">
+            <li *ngIf="(a+1)<=((p+1)*12)" [routerLink]="['/exercise', ((p*12)+a)]" [ngClass]="{'no-exercise':t.mode==0}">
               <span class="red">{{t.mode}}</span>
               <span class="text-span">{{'Ü'+((p*12)+a+1)+': '+t.name}}</span>
-              <span class="percent-indicator" [ngClass]="{'blue-zone':t.grayPercent<30,'yellow-zone':(grayPercent>=30 && grayPercent<60),'red-zone':(grayPercent>=60)}" [ngStyle]="{'width':t.percent+'%'}"></span>
+              <span class="percent-indicator" [ngClass]="{'blue-zone':t.grayPercent<30,'yellow-zone':(t.grayPercent>=30 && t.grayPercent<60),'red-zone':(t.grayPercent>=60)}" [ngStyle]="{'width':t.percent+'%'}"></span>
               <span class="gray-percent" [ngStyle]="{'width':t.grayPercent+'%'}"></span>
               <span class="yellow-percent" [ngStyle]="{'width':t.yellowPercent+'%'}"></span>
-              <span class="three-params">
+              <span class="three-params" *ngIf="t.mode>0">
                 <span>{{t.percent}}% R</span>
                 <span>{{t.grayPercent}} A</span>
                 <span>{{t.yellowPercent}} T</span>

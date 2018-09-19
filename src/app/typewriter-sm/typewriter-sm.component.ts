@@ -64,10 +64,11 @@ export class TypewriterSmComponent implements OnInit {
   public totalAccuracy: number = 0;
   public exerciseCompleted:number=0;
   constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute, private router: Router) {
+    
     this.settingMode = this.localStorageService.select('settingMode');
     this.globalSettings = this.localStorageService.select('globalSettings');
     this.exercise = this.route.params['value'].exercise;
-
+   
     let settingData = localStorageService.select('typeSettings');
     if (settingData == false) {
       this.typeSettings = { stringLength: 1, value: "asdfghjklö", typewriterMode: '', presentation: 0, sound: 'kein_sound', soundVolume: 1, muteSound: false };
@@ -100,6 +101,7 @@ export class TypewriterSmComponent implements OnInit {
       this.showHeaderText = true;
     }, 1500);
     this.totalWidth = window.innerWidth - 80;
+    this.checkLetterExists();
   }
 
   setSoundVolume = (event: any) => {
@@ -298,11 +300,101 @@ export class TypewriterSmComponent implements OnInit {
 
   }
 
-  checkLetterExists(letter: string, extLetter: string = '') {
-    if (this.typingValue.indexOf(letter) >= 0)
-      return true;
-    return false;
+  private checkLetterExists() {
+    let mainLeft = 'asdfg';
+    let mainRight = 'hjklö';
+    let main = mainLeft+mainRight;
+    let topLeft = 'qwert';
+    let topRight = 'zuiop';
+    let top = topLeft+topRight;
+    let bottomLeft = 'yxcvb';
+    let bottomRight = 'nm,.-';
+    let bottom = bottomLeft+bottomRight;
+    let numberLetf = '123456';
+    let numberRight = '7890ß';
+    let symbols = '!"§$%&+`´#*\'^°'
+    let numberRow = numberLetf+numberRight;
+    let showTopLeft,showTop,showMainLeft,showMain,showBottomLeft,showBottom,showNumberLeft,showNumber;
+    
+    for(let i=0;i<this.typingValue.length;i++){
+      let char = this.typingValue[i];
+      if(symbols.indexOf(char)>0){
+        showMain = true;
+        showTop = true;
+        showBottom = true;
+        showNumber = true;
+        break;
+      }
+      if(mainRight.indexOf(char)>=0){
+        showMain = true;
+      }else if(mainLeft.indexOf(char)>=0){
+        showMainLeft = true;
+      }else if(topRight.indexOf(char)>=0){
+        showMain = true;
+        showTop = true;
+      }else if(topLeft.indexOf(char)>=0){
+        showMain = true;
+        showTopLeft = true;
+      }else if(bottomRight.indexOf(char)>=0){
+        showMain = true;
+        showTop = true;
+        showBottom = true;
+      }else if(bottomLeft.indexOf(char)>=0){
+        showMain = true;
+        showTop = true;
+        showBottomLeft = true;
+      }else if(numberRight.indexOf(char)>=0){
+        showMain = true;
+        showTop = true;
+        showBottom = true;
+        showNumber = true;
+      }else if(numberLetf.indexOf(char)>=0){
+        showMain = true;
+        showTop = true;
+        showBottom = true;
+        showNumberLeft = true;
+      }
+    }
+    if(showMain){
+      for(let i in this.globalSettings.row2){
+        this.globalSettings.row2[i].visible = true;
+      }
+    }else{
+      for(let i=0;i<5;i++){
+        this.globalSettings.row2[i].visible = true;
+      }
+    }  
+    if(showTop){
+      for(let i in this.globalSettings.row3){
+        this.globalSettings.row3[i].visible = true;
+      }
+    }else if(showTopLeft){
+      for(let i=0;i<5;i++){
+        this.globalSettings.row3[i].visible = true;
+      }
+    }
+
+    if(showBottom){
+      for(let i in this.globalSettings.row1){
+        this.globalSettings.row1[i].visible = true;
+      }
+    }else if(showBottomLeft){
+      for(let i=0;i<5;i++){
+        this.globalSettings.row1[i].visible = true;
+      }
+    }
+    console.log(showNumber);
+    if(showNumber){
+      for(let i in this.globalSettings.row4){
+        this.globalSettings.row4[i].visible = true;
+      }
+    }else if(showNumberLeft){
+      for(let i=0;i<5;i++){
+        this.globalSettings.row4[i].visible = true;
+      }
+    }
   }
+
   continueExercise() {
     this.typedString = '';
     this.letterTypedIndex = 0;
@@ -315,6 +407,7 @@ export class TypewriterSmComponent implements OnInit {
     this.typingSpeed = 0;
     this.totalAccuracy = 0;
     this.currentLetterImage = '';
+   
   }
 
   setNextPractice() {

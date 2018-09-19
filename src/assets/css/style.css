@@ -926,7 +926,7 @@ input[type=number]:focus,
         transform: none!important;
         bottom: 0;
 }
-.btn.btn-default.active {
+.btn.btn-default.active,.btn.btn-default.active:hover {
     border-style: inset;
     background: #999999;
     border-color: #ccc;
@@ -1085,15 +1085,18 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     margin-top:1.3vh;
     overflow: hidden;
 }
+
+.extra-large.top-blank-white{
+    width:70%;
+    height:28vh;
+}
+
 .bottom-blank-white{
     background: #fff;
     border-radius: 14px;
     margin-bottom: 3px;
     border: 5px solid #333;
     height: 7vh;
-
-
-    
     width: 50%;
     margin: 4px auto;
     font-size: 2em;
@@ -1276,15 +1279,26 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
         padding: 0;
         text-align: center;
         float: none;
-        line-height: 6vh;
+        line-height: 0;
         font-size: 3vh;
         font-weight: bold;
-        padding-top: 1vh;
+        line-height: 0;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 50%;
+    }
+    .keybord-tast span .btn.active, .mult-ul-div ul li .btn.active {
+        border-style: inset!important;
+        background: #999999!important;
+        border-color: #ccc!important;
     }
     .small.off {
         position: absolute;
-        top: -3vh;
         font-size: 2vh;
+        top: -20%;
+        left: 0;
+        right: 0;
     }
     .on sub {
         bottom: -0.2em;
@@ -1334,18 +1348,25 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
         background-size:cover!important;
     }
     #keyboard li.return {
-        position: relative;
         background: url(../images/enter.png) no-repeat center!important;
-        height: 21vh!important;
+        height: 18.5vh!important;
         border-radius: 0;
-        margin-top: -10.9vh;
         width: 5.4%;
-        left: 2px;
+        background-size: cover!important;
+        position: absolute;
+        right: 4px;
+        top: 9.9vh;
     }
-    #keyboard li.return.active{
-        width:4.8%;
-        margin-left:0.3%;
-        margin-right:0.3%;
+    #keyboard li.return:before {
+        content: '';
+        width: 300%;
+        left: -159%;
+        background: url(../images/return-before.png) no-repeat center;
+        position: absolute;
+        display: block;
+        height: 9vh;
+        top: 0vh;
+        background-size: contain;
     }
     
     
@@ -1524,9 +1545,10 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 }
 
 
-#keyboard li.backspace{
-     background: url(../images/backspace.png) no-repeat center #ccc!important;
+#keyboard li.backspace {
+    background: url(../images/backspace.png) no-repeat center!important;
     width: 10%;
+    background-size: cover!important;
 }
 #keyboard li.backspace.active{
     width:9.4%;
@@ -1697,10 +1719,32 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     border:2px solid;
 }
 .animation-9 span.active{background:transparent;border-color:transparent;}
+.sound-group .btn,.sound-group .btn:hover  {
+    background: url(../images/i-buton.png) no-repeat center;
+    border: none;
+    background-size: cover;
+}
+.sound-group .btn.kein-btn{
+    background: url(../images/i-buton-kein.png) no-repeat center;
+    background-size:cover;
+}
+.title-list li{
+    border-color:#292929;
+}
+.title-list li:hover,.title-list li:focus{
+    outline:none!important;
+}
+.title-list li.no-exercise:hover{
+    background: #66ccff;
+}
+.title-list li  .percent-indicator.blue-zone{
+    background: linear-gradient(#7590ff, white, #7590ff);
+}
+.title-list li  .percent-indicator.yellow-zone{
+    background: linear-gradient(#ffc76b, white, #ffc76b);
+}
+
 @media screen and (min-width: 1024px) and (max-width: 1200px){
-    .sound-group .btn.kein-btn{
-        /*width:95px;*/
-    }
     .info-group{
         margin-left: 4px;
         width: 36%;
@@ -1733,10 +1777,14 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
        
     
 }
+
 @media(min-width:1200px){
    
 }
-
+@media(min-width:1600px){
+    
+    
+}
 @media(min-width:1800px){
     .info-group table tbody tr td{
         line-height: normal;

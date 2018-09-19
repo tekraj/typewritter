@@ -91,7 +91,7 @@
     <div class="keyboard-container">
       <ul id="keyboard">
         <!-- ROW 4 START -->
-        <li *ngFor="let letter of globalSettings.row4" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':checkLetterExists(letter.asci_cod)}"
+        <li *ngFor="let letter of globalSettings.row4" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':letter.visible}"
           class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
           <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
           <span class="on small">{{letter.letters.normal}}
@@ -106,7 +106,7 @@
   
         <!-- ROW 3 START -->
         <li class="tab default" (mousedown)="writeText('Tab','','','')" [ngClass]="{'active':keyValue=='Tab'}"></li>
-        <li *ngFor="let letter of globalSettings.row3" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':checkLetterExists(letter.asci_cod)}"
+        <li *ngFor="let letter of globalSettings.row3" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':letter.visible}"
           class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
           <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
           <span class="on small">{{letter.letters.normal}}
@@ -119,7 +119,7 @@
   
         <!-- ROW 2 START -->
         <li class="capslock default" (mousedown)="writeText('CapsLock','','','')" [ngClass]="{'active':keyValue=='CapsLock'}"></li>
-        <li *ngFor="let letter of globalSettings.row2" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':checkLetterExists(letter.asci_cod)}"
+        <li *ngFor="let letter of globalSettings.row2" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':letter.visible}"
           class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
           <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
           <span class="on small">{{letter.letters.normal}}
@@ -133,7 +133,7 @@
   
         <!-- ROW 1 -->
         <li class="left-shift default" (mousedown)="writeText('Shift','','','')" [ngClass]="{'active':keyValue=='Shift'}"></li>
-        <li *ngFor="let letter of globalSettings.row1" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':checkLetterExists(letter.asci_cod)}"
+        <li *ngFor="let letter of globalSettings.row1" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':letter.visible}"
           class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
           <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
           <span class="on small">{{letter.letters.normal}}
@@ -187,7 +187,7 @@
 
 </div>
 <!-- exercise two -->
-<div class="main-wrapper ex-one-five" *ngIf="exercise=='two'">
+<div class="main-wrapper ex-one-five" *ngIf="exercise=='two'">  
   <h1 class="page-header margin-bottom-0 margin-top-5">{{currentExercise.name}}</h1>
   <header class="home info keyboard-header">
     <div class="main-info-text-hoder">
@@ -206,10 +206,9 @@
         </div>
         <div class="col-sm-4">
           <div class="top-blank-white">
-             <img src="{{typeThisImage}}" *ngIf="typeThisImage" class="keyboard-display-image" alt="">
+            <img src="{{currentLetterImage}}" *ngIf="currentLetterImage" class="keyboard-display-image" alt="">
           </div>
-         <div class="bottom-blank-white {{typeThisLetter}}">{{typeThisLetter}}</div>
-        </div>
+          <div class="bottom-blank-white {{currentTypedLetterClass}}">{{currentTypedLetter}}</div>        </div>
         <div class="col-sm-4 text-right  padding-right-0">
           
           <div class="info-group pull-right">
@@ -387,10 +386,10 @@
           <img src="../assets/images/maria.png">
         </div>
         <div class="col-sm-4">
-          <div class="top-blank-white">
-             <img src="{{typeThisImage}}" *ngIf="typeThisImage" class="keyboard-display-image" alt="">
+          <div class="top-blank-white extra-large">
+             <img src="{{currentLetterImage}}" *ngIf="currentLetterImage" class="keyboard-display-image" alt="">
           </div>
-         <div class="bottom-blank-white {{typeThisLetter}}">{{typeThisLetter}}</div>
+
         </div>
         <div class="col-sm-4 text-right padding-right-0">
           

@@ -29,18 +29,19 @@ export class HomeComponent implements OnInit {
     public studentName: string;
     public studentFirstName: string;
     public studentLastName: string;
-
+    public mariaText:string;
     constructor(private _apiService: ApiService, private localStorageService: LocalStorageService) {
         this.books = [];
         this.lessions = [];
         this.titles = [];
+        
     }
 
     ngOnInit() {
         this.studentName = this.localStorageService.select('std_name');
         this.studentFirstName = this.localStorageService.select('std_first_name');
         this.studentLastName = this.localStorageService.select('std_last_name');
-
+        this.mariaText = 'Hello '+this.studentLastName+'! Wahle nun die Lektion aus!';
         let _currentBookIndex = this.localStorageService.select('currentBookIndex');
         let _lessions = this.localStorageService.select('homeLessions');
         let _homeBooks = this.localStorageService.select('homeBooks');
@@ -114,16 +115,34 @@ export class HomeComponent implements OnInit {
             let allPercents = titles[5].replace('uebg_proz=', '').split('|');
             let allGrayPercents = titles[6].replace('uebg_anschlag=', '').split('|');
             let allYellowPercents = titles[7].replace('uebg_takt=', '').split('|');
+            let allNumbers = titles[4].replace('uebg_nr=','').split('|');
             let mods = titles[4];
+           
             allTItles.forEach((element, i) => {
                 if (element != '0' && element != 0) {
                     let mode = (mods.match(new RegExp(ids[i], 'g')) || []).length;
+                    let percent,grayPercent,yellowPercent=0;
+                    let id = ids[i];
+                    if(mode>0){
+                        let j = -1;
+                        let percentArray=[];
+                        let grayPercentArray=[];
+                        let yellowPercentArray =[];
+                        while ((j = allNumbers.indexOf(id, j+1)) != -1){
+                            percentArray.push(allPercents[j]);
+                            grayPercentArray.push(allGrayPercents[j]);
+                            yellowPercentArray.push(allYellowPercents[j]);
+                        }
+                        percent=  Math.max(...percentArray);
+                        grayPercent = Math.max(...grayPercentArray);
+                        yellowPercent = Math.max(...yellowPercentArray);
+                    }
                     this.titles.push({
-                        id: ids[i],
+                        id: id,
                         name: element,
-                        percent: allPercents[i],
-                        grayPercent: allGrayPercents[i],
-                        yellowPercent: allYellowPercents[i],
+                        percent: percent,
+                        grayPercent: grayPercent,
+                        yellowPercent: yellowPercent,
                         mode: mode,
                         type: [],
                         content: '',
@@ -137,7 +156,6 @@ export class HomeComponent implements OnInit {
                 let allTopTitles = lessions[4].replace('uebg_anw=', '').split('|');
                 let allFlagTitles = lessions[5].replace('anw_mann=', '').split('|');
                 let allContents = lessions[6].replace('uebg_text=', '').split('|');
-
                 lessionTypes.forEach((element, index) => {
 
                     if (index < this.titles.length) {
@@ -163,7 +181,13 @@ export class HomeComponent implements OnInit {
     }
 
     showBookDropDown() {
+        
         this.showAllBooks = this.showAllBooks === true ? false : true;
+        if(this.showAllBooks){
+            this.mariaText = 'Wahle nun das Ubungsbuch aus!'
+        }else{
+            this.mariaText = 'Wahle nun die Lektion!';
+        }
     }
 
 
@@ -182,8 +206,6 @@ export class HomeComponent implements OnInit {
 
         return arrayPart;
     }
-
-
     showColorInfo() {
         this.colorInfo = this.colorInfo ? false : true;
     }
