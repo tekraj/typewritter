@@ -110,7 +110,7 @@ export class HomeComponent implements OnInit {
         this.titles = [];
         this.loadingEx = true;
         this._apiService.getTitles(lessionId).then((titles) => {
-            console.log(titles);
+    
             let ids = titles[2].replace('uebg_lfdnr=', '').split('|');
             let allTItles = titles[1].replace('uebg_titel=', '').split('|');
             let allPercents = titles[5].replace('uebg_proz=', '').split('|');
