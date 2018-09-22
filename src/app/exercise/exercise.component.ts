@@ -134,9 +134,6 @@ export class ExerciseComponent implements OnInit {
                 letters: ['5', '%', '5', '&', '7', '/', '8', '(', 'r', 't', 'y', 'u', 'f', 'g', 'h', 'j', 'v', 'b', 'n', 'm']
             }];
 
-      
-
-
         Howler.volume(this.typeSettings.soundVolume / 100);
         this.exercises = [];
         this.currentSoundLevel = this.typeSettings.soundVolume;
