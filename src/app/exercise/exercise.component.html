@@ -165,6 +165,7 @@
       </div>
     </div>
   </header>
+ 
   <div class="container5 keyboard-holder">
     <div class="keyboard-input-field">
       <div class="typing-text" [ngClass]="{'more':totalWordWidth>totalWidth}">
@@ -280,7 +281,7 @@
       </a>
     </div>
     <div class="col-sm-4 text-center">
-      <a class="btn rounded-button middle-btn" (click)="nextExercise()">
+      <a style="display:none;" class="btn rounded-button middle-btn" (click)="nextExercise()">
         Arbeit fortsetzen
       </a>
     </div>

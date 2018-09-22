@@ -64,6 +64,7 @@ export class ExerciseComponent implements OnInit {
     public showCompleteBox = false;
     public zoomButtonAnimation = true;
     public showHeaderText = false;
+    public totalWordWidth:number;
     public  keyboardArea = [
         //No Indication
         {letters: []},
@@ -137,7 +138,7 @@ export class ExerciseComponent implements OnInit {
         Howler.volume(this.typeSettings.soundVolume / 100);
         this.exercises = [];
         this.currentSoundLevel = this.typeSettings.soundVolume;
-
+        this.totalWordWidth = 15 * this.keyboard.typingValue.length;
      
     }
 
