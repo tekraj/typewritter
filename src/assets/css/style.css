@@ -1029,10 +1029,9 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 }
 .info .main-info-text{
     border: 2px solid #ea0408;
-    /*padding: 3px 10px;*/
-    padding-top: 15px;
-    line-height: 0.8em;
-    font-size: 20px;
+    padding-top: 6px!important;
+    line-height: 1em;
+    font-size: 1.4em;
     text-align: center;
     font-weight: bold;
     letter-spacing: 3px;
@@ -1044,7 +1043,6 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     transition: all  1s ease-out;
     opacity: 0;
     margin:0;
-    max-height: 8vh;
     overflow: hidden;
     position: relative;
     z-index: 100;
@@ -1054,7 +1052,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     width:100%;
     opacity: 1;;
     color:#000;
-    height:8vh;
+    min-height:8vh;
 }
 .info .main-info-text.hide{display: none;}
 .info .maria-holder{
@@ -1717,6 +1715,15 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     background:#d21212;
     height:33%;
     border:2px solid;
+}
+.animation-9.red-zone span{
+    background:#d21212;
+}
+.animation-9.yello-zone span{
+    background:#ffc76b;
+}
+.animation-9.blue-zone span{
+    background:#7590ff;
 }
 .animation-9 span.active{background:transparent;border-color:transparent;}
 .sound-group .btn,.sound-group .btn:hover  {

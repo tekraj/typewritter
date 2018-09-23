@@ -94,7 +94,7 @@ export class TypewriterSpComponent implements OnInit {
         this.exerciseNo = (['one', 'two', 'three', 'four', 'five'].indexOf(this.exercise)) + 1;
         let settingData = localStorageService.select('typeSettings');
         if (settingData == false) {
-            this.typeSettings = { stringLength: 1, value: "asdfghjklö", typewriterMode: '', presentation: 0, sound: 'kein_sound', soundVolume: 1, muteSound: false };
+            this.typeSettings = { stringLength: 10, value: "asdfghjklö", typewriterMode: '', presentation: 0, sound: 'kein_sound', soundVolume: 1, muteSound: false };
         } else {
             this.typeSettings = settingData;
         }

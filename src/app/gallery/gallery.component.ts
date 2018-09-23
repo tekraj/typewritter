@@ -10,14 +10,19 @@ export class GalleryComponent implements OnInit {
 
   public exerciseTitles = [];
   public allExercise = [];
+  public background:string;
+  public innerHeight:number;
+  public dateTime:string;
   constructor(private _localStorageService: LocalStorageService) {
     this.exerciseTitles = this._localStorageService.select('exerciseTitles');
-    console.log(this.exerciseTitles);
+    this.background = 'assets/images/gallery-background.png';
     this.allExercise = this.numberToArray(this.exerciseTitles.length);
+    let date = new Date();
+    this.dateTime = date.getDate()+'.'+date.getMonth()+'.'+date.getFullYear();
   }
 
   ngOnInit() {
-
+    this.innerHeight = window.innerHeight;
   }
 
   private numberToArray = (number) => {

@@ -110,7 +110,7 @@ export class HomeComponent implements OnInit {
         this.titles = [];
         this.loadingEx = true;
         this._apiService.getTitles(lessionId).then((titles) => {
-    
+           
             let ids = titles[2].replace('uebg_lfdnr=', '').split('|');
             let allTItles = titles[1].replace('uebg_titel=', '').split('|');
             let allPercents = titles[5].replace('uebg_proz=', '').split('|');
@@ -138,6 +138,34 @@ export class HomeComponent implements OnInit {
                         grayPercent = Math.max(...grayPercentArray);
                         yellowPercent = Math.max(...yellowPercentArray);
                     }
+                    /**
+                     * type described
+                     * 0. tastaturebereich (keyboard area)
+                     * 1. Mode 
+                     * 2. sgrad
+                     * 3. rating
+                     * 4. sound
+                     * 5. Makeup
+                     */
+
+                    /**
+                     * Mode Described
+                     * 9 Information
+                     * 0 Überschreiben (override) Example B1L1->U3
+                     * 1 BST-dictation Random String Example B1 L1-U5
+                     * 2 Dictation texts  Example  B2 L1-U14
+                     * 3 search buttons Example B2 L1-U16
+                     * 4 balloon B1 L1-U7
+                     */
+
+                    /**
+                     * Sqrad Explained
+                     * 1 Tastatur-Bst.-Icon
+                     * 2 Buchstabe und Icon
+                     * 3 Buchstaben 
+                     * 4 Icon
+                     */
+
                     this.titles.push({
                         id: id,
                         name: element,
@@ -158,9 +186,12 @@ export class HomeComponent implements OnInit {
                 let allFlagTitles = lessions[5].replace('anw_mann=', '').split('|');
                 let allContents = lessions[6].replace('uebg_text=', '').split('|1|');
                 lessionTypes.forEach((element, index) => {
-
                     if (index < this.titles.length) {
                         this.titles[index].type = element.split(',');
+                        // if(this.titles[index].type[1]==4){
+                        //     alert('test');
+                        //     console.log(this.titles[index]);
+                        // }
                         if (index < allTopTitles.length) {
                             this.titles[index].topBarTitle = allTopTitles[index];
                         }
@@ -174,6 +205,7 @@ export class HomeComponent implements OnInit {
 
                 });
                 this.localStorageService.insert('exerciseTitles', this.titles);
+               
                 this.totalTitlesPage = Array(Math.ceil((this.titles.length > 24 ? 24 : this.titles.length) / 12)).fill(0).map((x, i) => i);
                 this.loadingEx = false;
             });

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {LocalStorageService} from '../local-storage.service';
-import {trigger, style, animate, transition} from '@angular/animations';
+import { trigger, style, animate, transition, state } from '@angular/animations';
 import {ActivatedRoute} from '@angular/router';
 import {Howl, Howler} from 'howler';
 import {ApiService} from '../api.service';
@@ -13,7 +13,24 @@ import {ApiService} from '../api.service';
         '(document:keydown)': 'handleKeyDownEvent($event)',
         '(document:keyup)': 'handleKeyUpEvent($event)',
         '(document:mouseup)': 'handleMouseUpEvent($event)',
-    }
+    },
+    providers: [{ provide: 'Window', useValue: window }],
+    animations: [
+        trigger('ballonState', [
+            state('inactive', style({
+                bottom: '20px'
+            })),
+            state('preactive', style({
+                bottom: '-70px'
+            })),
+            state('active', style({
+                transform: 'translateY(-34vh)'
+            })),
+            transition('preactive => active', animate('10000ms linear'))
+          
+           
+        ])
+    ]
 })
 export class ExerciseComponent implements OnInit {
     public typeSettings: any = {};
@@ -54,7 +71,7 @@ export class ExerciseComponent implements OnInit {
     public typingSpeed: number = 0;
     public totalAccuracy: number = 0;
     public exerciseCompleted: number = 0;
-    public soundArray: Array<string> = ['kein_sound', 'click', 'bst', 'icon', 'metro_aus', 'hg1', 'hg2', 'hg3', 'hg4', 'hg5', 'hg6', 'hg7', 'hg8', 'hg9', 'hg9'];
+    public soundArray: Array<string> = ['kein_sound', 'click', 'bst', 'icon', 'hg1', 'hg2', 'hg3', 'hg4', 'hg5', 'hg6', 'hg7', 'hg8', 'hg9', 'hg9'];
     public practiceMode: number;
     public grid: number;
     public visibleKeyboardLetters: Array<string>;
@@ -97,6 +114,7 @@ export class ExerciseComponent implements OnInit {
         }
 
     ];
+    //this.sounds = ['']
     constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute) {
         this.exerciseParams = this.route.params['value'];
         this.currentLessionIndex = parseInt(this.exerciseParams.lessionIndex);
@@ -139,7 +157,7 @@ export class ExerciseComponent implements OnInit {
         this.exercises = [];
         this.currentSoundLevel = this.typeSettings.soundVolume;
         this.totalWordWidth = 15 * this.keyboard.typingValue.length;
-     
+        
     }
 
     ngOnInit() {
@@ -149,6 +167,7 @@ export class ExerciseComponent implements OnInit {
             this.zoomButtonAnimation = true;
             this.showHeaderText = true;
         }, 500);
+        this.checkLetterExists();
     }
 
 
@@ -377,15 +396,100 @@ export class ExerciseComponent implements OnInit {
 
     }
 
-    checkLetterExists(letter: string, extLetter: string = '') {
-    //    if(this.visibleKeyboardLetters.indexOf(letter)>=0){
-    //        return true;
-    //    }else if(this.visibleKeyboardLetters.indexOf(extLetter)>=0){
-    //        return true;
-    //    }
-    //    return false;
-        return true;
+    private checkLetterExists() {
+    let mainLeft = 'asdfg';
+    let mainRight = 'hjklö';
+    let main = mainLeft+mainRight;
+    let topLeft = 'qwert';
+    let topRight = 'zuiop';
+    let top = topLeft+topRight;
+    let bottomLeft = 'yxcvb';
+    let bottomRight = 'nm,.-';
+    let bottom = bottomLeft+bottomRight;
+    let numberLetf = '123456';
+    let numberRight = '7890ß';
+    let symbols = '!"§$%&+`´#*\'^°'
+    let numberRow = numberLetf+numberRight;
+    let showTopLeft,showTop,showMainLeft,showMain,showBottomLeft,showBottom,showNumberLeft,showNumber;
+    
+    for(let i=0;i<this.typingValue.length;i++){
+      let char = this.typingValue[i];
+      if(symbols.indexOf(char)>0){
+        showMain = true;
+        showTop = true;
+        showBottom = true;
+        showNumber = true;
+        break;
+      }
+      if(mainRight.indexOf(char)>=0){
+        showMain = true;
+      }else if(mainLeft.indexOf(char)>=0){
+        showMainLeft = true;
+      }else if(topRight.indexOf(char)>=0){
+        showMain = true;
+        showTop = true;
+      }else if(topLeft.indexOf(char)>=0){
+        showMain = true;
+        showTopLeft = true;
+      }else if(bottomRight.indexOf(char)>=0){
+        showMain = true;
+        showTop = true;
+        showBottom = true;
+      }else if(bottomLeft.indexOf(char)>=0){
+        showMain = true;
+        showTop = true;
+        showBottomLeft = true;
+      }else if(numberRight.indexOf(char)>=0){
+        showMain = true;
+        showTop = true;
+        showBottom = true;
+        showNumber = true;
+      }else if(numberLetf.indexOf(char)>=0){
+        showMain = true;
+        showTop = true;
+        showBottom = true;
+        showNumberLeft = true;
+      }
     }
+    if(showMain){
+      for(let i in this.globalSettings.row2){
+        this.globalSettings.row2[i].visible = true;
+      }
+    }else{
+      for(let i=0;i<5;i++){
+        this.globalSettings.row2[i].visible = true;
+      }
+    }  
+    if(showTop){
+      for(let i in this.globalSettings.row3){
+        this.globalSettings.row3[i].visible = true;
+      }
+    }else if(showTopLeft){
+      for(let i=0;i<5;i++){
+        this.globalSettings.row3[i].visible = true;
+      }
+    }
+
+    if(showBottom){
+      for(let i in this.globalSettings.row1){
+        this.globalSettings.row1[i].visible = true;
+      }
+    }else if(showBottomLeft){
+      for(let i=0;i<5;i++){
+        this.globalSettings.row1[i].visible = true;
+      }
+    }
+    console.log(showNumber);
+    if(showNumber){
+      for(let i in this.globalSettings.row4){
+        this.globalSettings.row4[i].visible = true;
+      }
+    }else if(showNumberLeft){
+      for(let i=0;i<5;i++){
+        this.globalSettings.row4[i].visible = true;
+      }
+    }
+  }
     hideZoomAnimation(){
         this.showZoomAnimation = false;
     }
