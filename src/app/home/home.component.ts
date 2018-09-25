@@ -160,10 +160,33 @@ export class HomeComponent implements OnInit {
 
                     /**
                      * Sqrad Explained
-                     * 1 Tastatur-Bst.-Icon
-                     * 2 Buchstabe und Icon
-                     * 3 Buchstaben 
-                     * 4 Icon
+                     * 1 Keyboard fittings Order & Icon Example B1 L1 U3
+                     * 2 Letter and Icon Example B1 L2 U3
+                     * 3 Letters Example  B1 L1 U 20
+                     * 4 Icon 
+                     */
+
+                    /**
+                     * Mode 0 1 B1 L1 U3 DONE
+                     * Mode 0 2 B1 L1 U6 DONE
+                     * Mode 0 3 B1 L13 U2 DONE
+                     * Mode 0 4 B1 L2 U21 DONE
+                     * Mode 1 1 B1 L1 U5 
+                     * Mode 1 2 B1 L2 U5
+                     * Mode 1 3 B4 L14 U2
+                     * Mode 1 4 
+                     * Mode 2 1
+                     * Mode 2 2
+                     * Mode 2 3
+                     * Mode 2 4
+                     * Mode 3 1
+                     * Mode 3 2
+                     * Mode 3 3
+                     * Mode 3 4
+                     * Mode 4 1
+                     * Mode 4 2
+                     * Mode 4 3
+                     * Mode 4 4
                      */
 
                     this.titles.push({
@@ -188,10 +211,10 @@ export class HomeComponent implements OnInit {
                 lessionTypes.forEach((element, index) => {
                     if (index < this.titles.length) {
                         this.titles[index].type = element.split(',');
-                        // if(this.titles[index].type[1]==4){
-                        //     alert('test');
-                        //     console.log(this.titles[index]);
-                        // }
+                        if(this.titles[index].type[1]==1 && this.titles[index].type[2]==4){
+                            alert('test');
+                            console.log(this.titles[index]);
+                        }
                         if (index < allTopTitles.length) {
                             this.titles[index].topBarTitle = allTopTitles[index];
                         }
