@@ -171,10 +171,10 @@ export class HomeComponent implements OnInit {
                      * Mode 0 2 B1 L1 U6 DONE
                      * Mode 0 3 B1 L13 U2 DONE
                      * Mode 0 4 B1 L2 U21 DONE
-                     * Mode 1 1 B1 L1 U5 
-                     * Mode 1 2 B1 L2 U5
-                     * Mode 1 3 B4 L14 U2
-                     * Mode 1 4 
+                     * Mode 1 1 B1 L1 U5 DONE
+                     * Mode 1 2 B1 L2 U3 DONE
+                     * Mode 1 3 B4 L14 U2 DONE
+                     * Mode 1 4 B1 L2 U5 DONE
                      * Mode 2 1
                      * Mode 2 2
                      * Mode 2 3
@@ -211,7 +211,7 @@ export class HomeComponent implements OnInit {
                 lessionTypes.forEach((element, index) => {
                     if (index < this.titles.length) {
                         this.titles[index].type = element.split(',');
-                        if(this.titles[index].type[1]==1 && this.titles[index].type[2]==4){
+                        if(this.titles[index].type[1]==2 && this.titles[index].type[2]==1){
                             alert('test');
                             console.log(this.titles[index]);
                         }

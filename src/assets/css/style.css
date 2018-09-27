@@ -1769,7 +1769,10 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     height:18vh;
 }
 header.info{
-    height:46%;
+    height:40%;
+}
+header.header-more{
+    height: 46% ;
 }
 .container5.keyboard-holder{
     height:53%;
