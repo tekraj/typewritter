@@ -8,7 +8,7 @@ const httpOptions = {
 // const baseUrl = '/get-data?';
 // const settingUrl = '/get-settings';
 const baseUrl = 'http://mms.pphlinz.at/mms_flash_get_v15.php?';
-const settingUrl =  'http://keyboard.fadsan.com/apiservices.php?action=getSettings';
+const settingUrl =  'http://localhost/typewritter/apiservices.php?action=getSettings';//'http://keyboard.fadsan.com/apiservices.php?action=getSettings';
 @Injectable({
   providedIn: 'root'
 })
