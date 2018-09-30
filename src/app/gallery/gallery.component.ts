@@ -38,7 +38,10 @@ export class GalleryComponent implements OnInit {
 
   public getImageType = (index) => {
     let title = this.exerciseTitles[index];
-    return (title.grayPercent < 60 ? 0 : ((title.grayPercent >= 60 && title.grayPercent < 100) ? 1 : 2));
+  
+    let mod = title.id%71;
+    let type = (title.grayPercent < 60 ? 0 : ((title.grayPercent >= 60 && title.grayPercent < 100) ? 1 : 2));
+    return '../assets/images/alb/i_0'+( mod<10 ? '0'+mod:mod)+'_'+type+'.jpg'
   }
 
   public showImage = (index) => {
@@ -49,3 +52,4 @@ export class GalleryComponent implements OnInit {
     return true;
   }
 }
+

@@ -134,7 +134,7 @@
           <sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub>
         </span>
       </li>
-      <li class="right-shift lastitem default"></li>
+      <li class="right-shift lastitem default" (mousedown)="writeText('Shift','','','')" [ngClass]="{'active':keyValue=='RightShift'}"></li>
       <!-- ROW 1 END -->
 
       <li class="left-shift blank default"></li>

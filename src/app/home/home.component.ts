@@ -11,7 +11,7 @@ import {LocalStorageService} from '../local-storage.service';
 export class HomeComponent implements OnInit {
     public books: Array<{ id: number, name: string, desc: string }>;
     public lessions: Array<{ id: number, name: string, percent: number }>;
-    public titles: Array<{ id: number, name: string, percent: number, grayPercent: number, yellowPercent: number, mode: number, type: Array<number>, content: string, topBarTitle: string, flagTitle: string }>;
+    public titles: Array<{ id: number, name: string, percent: number, grayPercent: number, yellowPercent: number, mode: number, type: Array<number>, content: string, topBarTitle: string, flagTitle: string,repeat:number }>;
     private bookId: number;
     public totalBooksPage: Array<number>;
     public copyBooks: Array<{ id: number, name: string, desc: string }>;
@@ -54,7 +54,6 @@ export class HomeComponent implements OnInit {
         }else{
             this.findBooks();
         }
-
     }
 
     public findBooks = () => {
@@ -89,7 +88,6 @@ export class HomeComponent implements OnInit {
             let ids = lessions[3].replace('lekt_nr=', '').split('|');
             let allLessions = lessions[4].replace('lekt_name=', '').split('|');
             let percentIndicators = lessions[5].replace('lekt_proz=', '').split('|');
-
             allLessions.forEach((element, i) => {
                 if (element != '0' && element != 0) {
                     this.lessions.push({id: ids[i], name: element, percent: percentIndicators[i]});
@@ -110,7 +108,6 @@ export class HomeComponent implements OnInit {
         this.titles = [];
         this.loadingEx = true;
         this._apiService.getTitles(lessionId).then((titles) => {
-           
             let ids = titles[2].replace('uebg_lfdnr=', '').split('|');
             let allTItles = titles[1].replace('uebg_titel=', '').split('|');
             let allPercents = titles[5].replace('uebg_proz=', '').split('|');
@@ -171,11 +168,13 @@ export class HomeComponent implements OnInit {
                      * Mode 0 2 B1 L1 U6 DONE
                      * Mode 0 3 B1 L13 U2 DONE
                      * Mode 0 4 B1 L2 U21 DONE
+                     * ======================
                      * Mode 1 1 B1 L1 U5 DONE
-                     * Mode 1 2 B1 L2 U3 DONE
+                     * Mode 1 2 B1 L2 U5 DONE
                      * Mode 1 3 B4 L14 U2 DONE
-                     * Mode 1 4 B1 L2 U5 DONE
-                     * Mode 2 1
+                     * Mode 1 4 B4 L3 U3 DONE
+                     * ======================
+                     * Mode 2 1 
                      * Mode 2 2
                      * Mode 2 3
                      * Mode 2 4
@@ -199,7 +198,8 @@ export class HomeComponent implements OnInit {
                         type: [],
                         content: '',
                         topBarTitle: '',
-                        flagTitle: ''
+                        flagTitle: '',
+                        repeat : 1
                     });
                 }
             });
@@ -207,14 +207,23 @@ export class HomeComponent implements OnInit {
                 let lessionTypes = lessions[2].replace('uebg_opt=', '').split('|');
                 let allTopTitles = lessions[4].replace('uebg_anw=', '').split('|');
                 let allFlagTitles = lessions[5].replace('anw_mann=', '').split('|');
-                let allContents = lessions[6].replace('uebg_text=', '').split('|1|');
+                let allContents = lessions[6].replace('uebg_text=', '').split('|');
+                let contents = [];
+                let repeat = [];
+                for(let i in allContents){
+                    let ct = allContents[i];
+                    let repeatNo = parseInt(ct);
+                    if(!isNaN(repeatNo) && ct.length<3){
+                        repeat.push(repeatNo);
+                    }else{
+                        contents.push(ct);
+                    }
+                }
+              
                 lessionTypes.forEach((element, index) => {
                     if (index < this.titles.length) {
                         this.titles[index].type = element.split(',');
-                        if(this.titles[index].type[1]==2 && this.titles[index].type[2]==1){
-                            alert('test');
-                            console.log(this.titles[index]);
-                        }
+                       
                         if (index < allTopTitles.length) {
                             this.titles[index].topBarTitle = allTopTitles[index];
                         }
@@ -222,7 +231,8 @@ export class HomeComponent implements OnInit {
                             this.titles[index].flagTitle = allFlagTitles[index];
                         }
                         if (index < allContents.length) {
-                            this.titles[index].content = allContents[index];
+                            this.titles[index].content = contents[index];
+                            this.titles[index].repeat = repeat[index];
                         }
                     }
 
@@ -266,3 +276,34 @@ export class HomeComponent implements OnInit {
         this.colorInfo = this.colorInfo ? false : true;
     }
 }
+/*
+uebg_text=Du befindest dich jetzt in einer ersten Lektion und der ersten Computerübung (Ü1).
+
+<ul><li>Mit jeder folgenden Übung kannst du Dir in diesem Computerprogramm ein Bildchen verdienen und dieses in das Bilderalbum des Computerprogramms einkleben.
+
+Achtung: nur wenn du ganz wenige, manchmal sogar keinen Fehler machst, dann bekommst du auch das Bild zum Einkleben im Computerprogramm.
+
+Immer erst wenn 12 Übungen des Computerprogramms erfolgreich geschrieben sind, darfst du aus deinem Übungsbuch (aus Papier) die goldenen Medaille herausnehmen und in dein <b>Papiernotebuch</b> einkleben (siehe Erklärung im Übungsbuch Seite 7).
+
+Natürlich darfst du als Fleißaufgabe die besonders schwierigen Übungen Ü13 bis zum Ende der Lektion auch noch schreiben.
+</li></ul>
+
+<p align="center">Nun klicke auf <b>Arbeit fortsetzen</b></p>
+|1|<p align="center">Höre nun einmal auf die obigen Buchstaben</p>
+<ul><li>
+Man kann sich oft Dinge besser merken, wenn man Verbindungen zu Bekanntem oder Ähnlichem schafft - dies nennt man <b>Merkbrücken</b> oder <b>Eselsbrücken</b>.
+Dies wird hier in diesem Programm mit Hilfe von Bildern und Sounds durchgeführt.
+Du wirst für jede Buchstabentaste ein Bild erhalten - versuche dir bei jedem Bild die Lage der Taste auf der Tastatur vorzustellen.
+Die ersten Übungen zum Tastaturschreiben sind mit diesen Bildern sehr stark verbunden.
+Betrachte die obigen Bilder, sie gelten schon einmal für die Grundreihe. In der folgenden Übungen wirst du sie intensiv trainieren.
+Bedenke den Anfangsbuchstaben und das entsprechende Bild.</li></ul>
+
+
+gbild:griff_bilder2.swf|1|aaa sss ddd fff ggg fff ggg aaa ddd sss|1|aaa ddd ggg sss fff|2|asdfg|30|da da da das das das da das da das da|2|asdf|15|asdf|15|faa faa faa fas fas fas fada fada fada|1|a sdfg|15|gaa gaa gaa gas gas gas|2|gasa gada|5|sad sad sad sada saga|3|safa sasa|5|asdfg|25|asdfg|20|sad saga safa sasa sada fas fada das da gas gada saga fada safa sada gasa|3|asdfg|20|gaa gas fasa fada gasa gada da das gaa gas fasa fada gasa gada da das gas|5|asdfg|20|gaa gas fasa fada gasa gada da das gaa gas fasa fada gasa gada da das gas|50|gaa gas fasa fada gasa gada da das gaa gas fasa fada gasa gada da das gas|1|asdfg|20|<br><br><p align='center' >Mach es dir bequem auf deinem Sessel -<br> stelle deine Füße nebeneinander <br>und mit vollem Kontakt auf den Boden.<br>Zum Anhören der Geschichte, klicke den oberen roten Startbutton!</p><br>
+
+gbild:zir_gr_li.swf|1|<br><br><p align='center' >Mach es dir bequem auf deinem Sessel -<br> stelle deine Füße nebeneinander <br>und mit vollem Kontakt auf den Boden.<br>Zum Anhören der Geschichte, klicke den oberen roten Startbutton!</p><br>
+
+gbild:zir_gr_li.swf
+<!-- kommentar: mann muss für jede mp3-datei eine swf-datei im bilderhordner haben!-->|1|0
+
+*/ 

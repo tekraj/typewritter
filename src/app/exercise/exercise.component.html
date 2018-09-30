@@ -293,10 +293,10 @@
   *ngIf="practiceMode==1">
 
   <h1 class="page-header">{{currentExercise.name}}</h1>
-  <header class="home info  keyboard-header" [ngClass]="{'header-mode':grid==1}">
+  <header class="home info  keyboard-header" [ngClass]="{'header-more':grid==1}">
     <div class="main-info-text-hoder">
       <h2 class="main-info-text padding-top-15" [ngClass]="{'active': headerHide ==false,'hide':collapseHeader==true}">
-        {{currentExercise.header}}
+        {{currentExercise.topBarTitle}}
       </h2>
     </div>
     <div class="clearfix"></div>
@@ -304,21 +304,22 @@
       <div class="row">
         <div class="col-sm-4 text-left typing maria-holder">
           <div class="maria-text large">
-            <p>{{currentExercise.flagText}}</p>
+            <p>{{currentExercise.flagTitle}}</p>
           </div>
           <img src="../assets/images/maria.png">
         </div>
         <div class="col-sm-4">
-          <div *ngIf="grid==1 || grid==3">
+          <div *ngIf="grid==1">
             <div class="top-blank-white">
               <img src="{{typeThisImage}}" *ngIf="typeThisImage" class="keyboard-display-image" alt="">
             </div>
-            <div class="bottom-blank-white {{typeThisLetter}}">{{typeThisLetter}}</div>
+            <div class="bottom-blank-white {{typeThisLetterClass}}">{{typeThisLetter}}</div>
           </div>
+          <div class="bottom-blank-white {{typeThisLetterClass}}" *ngIf="grid==3">{{typeThisLetter}}</div>
           <div class="top-blank-white" *ngIf="grid==4">
             <img src="{{typeThisImage}}" *ngIf="typeThisImage" class="keyboard-display-image" alt="">
           </div>
-          <div class="bottom-blank-white {{typeThisLetter}}" *ngIf="grid==2">{{typeThisLetter}}</div>
+          <div class="bottom-blank-white {{typeThisLetterClass}}" *ngIf="grid==2">{{typeThisLetter}}</div>
         </div>
         <div class="col-sm-4 text-right padding-right-0">
           <div class="info-group  pull-right">
@@ -483,7 +484,7 @@
   <header class="home info keyboard-header" >
     <div class="main-info-text-hoder">
       <h2 class="main-info-text" [ngClass]="{'active': headerHide ==false,'hide':collapseHeader==true}">
-        {{currentExercise.header}}
+        {{currentExercise.topBarTitle}}
       </h2>
     </div>
     <div class="clearfix"></div>
@@ -491,7 +492,7 @@
       <div class="row">
         <div class="col-sm-4 text-left typing maria-holder">
           <div class="maria-text large">
-            <p>{{currentExercise.flagText}}</p>
+            <p>{{currentExercise.flagTitle}}</p>
           </div>
           <img src="../assets/images/maria.png">
         </div>
@@ -694,7 +695,7 @@
   <header class="home info keyboard-header">
     <div class="main-info-text-hoder">
       <h2 class="main-info-text" [ngClass]="{'active': headerHide ==false,'hide':collapseHeader==true}">
-        {{currentExercise.header}}
+        {{currentExercise.topBarTitle}}
       </h2>
     </div>
     <div class="clearfix"></div>
@@ -702,7 +703,7 @@
       <div class="row">
         <div class="col-sm-4 text-left typing maria-holder">
           <div class="maria-text large">
-            <p>{{currentExercise.flagText}}</p>
+            <p>{{currentExercise.flagTitle}}</p>
           </div>
           <img src="../assets/images/maria.png">
         </div>
@@ -899,25 +900,26 @@
 </div>
 
 <div class="main-wrapper" *ngIf="practiceMode==4">
+   
   <header class="home info  keyboard-header">
     <div class="main-info-text-hoder">
       <h2 class="main-info-text" [ngClass]="{'active': headerHide ==false,'hide':collapseHeader==true}">
-        {{currentExercise.header}}
+        {{currentExercise.topBarTitle}}
       </h2>
     </div>
     <div class="clearfix"></div>
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-4 text-left typing maria-holder">
-          <div class="maria-text large">
-            <p>{{currentExercise.flagText}}</p>
+          <!-- <div class="maria-text large">
+            <p>{{currentExercise.flagTitle}}</p>
           </div>
-          <img src="../assets/images/maria.png">
+          <img src="../assets/images/maria.png"> -->
         </div>
         <div class="col-sm-4"></div>
         <div class="col-sm-4 text-right">
 
-          <div class="info-group">
+          <div class="info-group" style="margin-top:20px;">
             <h4 class="text-center">INFO</h4>
             <table>
               <tr>
@@ -958,8 +960,11 @@
   <div class="container5 keyboard-holder">
     <div class="ballon-holder" style="min-height:6vh;">
       <ng-container *ngFor="let l of currentLettersArray,let a=index">
-        <span *ngIf="!l.del" class="{{getLetterClass(l.letter)}}" [ngStyle]="{left:l.left+'%'}" [@ballonState]="l.animation==true ? 'active' :(l.initial ==false ?  'preactive' : 'inactive')"
-          (@ballonState.done)="removeElementByAnimation($event,a,l.letter,l.initial)">{{l.letter}}</span>
+        <span *ngIf="!l.del" [ngClass]="{'letter':animationMode=='letter','icon':animationMode=='icon'}" class="{{getLetterClass(l.letter)}}" [ngStyle]="{left:l.left+'%'}" [@ballonState]="l.animation==true ? 'active' :(l.initial ==false ?  'preactive' : 'inactive')"
+          (@ballonState.done)="removeElementByAnimation($event,a,l.letter,l.initial)">
+          <span *ngIf="animationMode=='letter'">{{l.letter}}</span>
+          <img  *ngIf="animationMode=='icon'" src="{{getIcon(l.letter)}}">
+        </span>
       </ng-container>
     </div>
     <div class="keyboard-container">
@@ -1080,3 +1085,97 @@
   <div class="zoom-div text-center" *ngIf="showZoomAnimation && practiceMode==1">
     <button class="btn rounded-button rounded-white" [ngClass]="{'animation':zoomButtonAnimation==true}" (click)="hideZoomAnimation()">Zum Start Bitte hier klicken</button>
   </div>
+
+  <div class="complete-modal" *ngIf="showCompleteBox">
+      <div class="wrapper">
+        <div class="top-info-bar container-fluid">
+          <div class="row">
+            <div class="col-sm-7">
+              <h2>Ubungsergebnis:</h2>
+              <p class="super-alle">Super - alle 9</p>
+              <p class="super-alle">Bonsusfelder aufgedeckt!</p>
+            </div>
+            <div class="col-sm-5">
+              <div class="animation-9">
+                <span [ngClass]="{'active':exerciseCompleted>=1}"></span>
+                <span [ngClass]="{'active':exerciseCompleted>=2}"></span>
+                <span [ngClass]="{'active':exerciseCompleted>=3}"></span>
+                <span [ngClass]="{'active':exerciseCompleted>=9}"></span>
+                <span [ngClass]="{'active':exerciseCompleted>=8}"></span>
+                <span [ngClass]="{'active':exerciseCompleted>=7}"></span>
+                <span [ngClass]="{'active':exerciseCompleted>=6}"></span>
+                <span [ngClass]="{'active':exerciseCompleted>=5}"></span>
+                <span [ngClass]="{'active':exerciseCompleted>=4}"></span>
+              </div>
+              <img src="../assets/images/pendilum.png" class="img-responsive" alt="">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <!-- REPEAT Exercise -->
+              <button class="btn rounded-button rounded-white btn-block" (click)="continueExercise()">Ubung wiederholen</button>
+            </div>
+            <div class="col-sm-6 ">
+              <!-- Stick to Image -->
+              <button class="btn rounded-button rounded-white btn-block" (click)="nagivateFunction('album-for-lession')" *ngIf="exerciseCompleted>=9">Bild einkleben</button>
+              <div class="text-center status-group" *ngIf="exerciseCompleted<9">
+                <span>R: {{totalAccuracy}}%</span>
+                <span>A: {{typingSpeed}}</span>
+                <span>T: {{typingTime}}</span>
+              </div>
+            </div>
+            <div class="col-sm-12 underline-div"></div>
+            <div class="col-sm-6">
+              <p class="text-red">
+                Die nachste Ubung heibt: Information
+              </p>
+            </div>
+            <div class="col-sm-6"></div>
+            <div class="col-sm-12"></div>
+            <div class="col-sm-6">
+              <button class="btn rounded-button rounded-white btn-block" (click)="setNextPractice()">Nachste Ubung</button>
+            </div>
+            <div class="col-sm-6">
+              <button class="btn rounded-button rounded-white btn-block" routerLink="/module">Lektion beenden</button>
+            </div>
+            <div class="col-sm-12">
+              <button class="btn rounded-button btn-block sm-btn" (click)="showTooltipBox()">Erklarung zu diesem Zwischenergebnis</button>
+    
+            </div>
+          </div>
+          <div class="info-tooltip" *ngIf="showTooltipInfo">
+            <p class="text-white">
+              <b>Abdeckfelder (1:9)</b>
+            </p>
+            <p>je
+              <b>weniger</b> Fehler beim Schreiben gemacht werden, umso mehr Felder werden frei gegeben.</p>
+            <p>Wenn alle 9 Felder frei sind, darfst du das dargestellte bild in dein Album einkleben.</p>
+            <p>Die Abdeckfelder sind
+              <b class="text-blue">blau</b>: wenn du langsam und mit wenigen Fehlern Schreibst, sie and
+              <b class="text-yellow">gelb</b>, wenn du bereits etwas schneller schreiben kannst oder songar rot, wenn deine Schreib-geschwindigkeit
+              bereits hoch ist. Aber viel wichtiger als Geschwindigkeit ist</p>
+            <p>
+              <b>Fehlerfreiheit</b>.
+              <b class="text-yellow">Die Geschwindigkeit kommt automatisch mit der Ubung.</b>
+            </p>
+          </div>
+        </div>
+        <div class="bottom-info-bar container-fluid">
+          <h2>Ergebnis in Prozenten:</h2>
+          <ul class="main-page-list">
+            <li>
+              <span class="red">1</span>
+              <span class="text-span">Demoubung</span>
+              <span class="percent-indicator" style="width: 100%;"></span>
+              <span class="gray-percent" style="width: 60%;"></span>
+              <span class="yellow-percent" style="width: 0%;"></span>
+              <span class="three-params">
+                <span>100% R</span>
+                <span>60 A</span>
+                <span>0 T</span>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>

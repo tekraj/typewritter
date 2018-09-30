@@ -86,6 +86,7 @@ export class LoginComponent implements OnInit {
       globalSettings.row4 = [];
       if (setting.hasOwnProperty('tast_name')) {
         setting.tast_name.forEach((element, index) => {
+          console.log(index);
           if (globalSettings.hasOwnProperty(element)) {
             if (setting.tast_umschalt[index] == 1) {
               globalSettings[element].letters.shift = setting.letters[index];
@@ -100,24 +101,24 @@ export class LoginComponent implements OnInit {
         });
       }
       globalSettings.row4 = [
-        {asci_cod:"220",letters:{normal:"°",ctrl:"",shift:"",alt:""},cssClass:''},
-        {asci_cod:"48",letters:{normal:"0",ctrl:"",shift:"=",alt:""},cssClass:''},
+        {asci_cod:"220",letters:{normal:"^",ctrl:"",shift:"°",alt:""},cssClass:''},
         {asci_cod:"49",letters:{normal:"1",ctrl:"",shift:"!",alt:""},cssClass:''},
         {asci_cod:"50",letters:{normal:"2",ctrl:"",shift:"\"",alt:""},cssClass:''},
         {asci_cod:"51",letters:{normal:"3",ctrl:"",shift:"§",alt:""},cssClass:''},
         {asci_cod:"52",letters:{normal:"4",ctrl:"",shift:"$",alt:""},cssClass:''},
         {asci_cod:"53",letters:{normal:"5",ctrl:"",shift:"%",alt:""},cssClass:''},
-       {asci_cod:"54",letters:{normal:"6",ctrl:"",shift:"&",alt:""},cssClass:''},
+        {asci_cod:"54",letters:{normal:"6",ctrl:"",shift:"&",alt:""},cssClass:''},
         {asci_cod:"55",letters:{normal:"7",ctrl:"",shift:"/",alt:""},cssClass:''},
         {asci_cod:"56",letters:{normal:"8",ctrl:"",shift:"(",alt:""},cssClass:''},
-        {asci_cod:"57",letters:{normal:"9",ctrl:"",shift:")",alt:""},cssClass:''},
-        {asci_cod:"219",letters:{normal:"ß",ctrl:"",shift:"?",alt:""},cssClass:''},
+        {asci_cod:"57",letters:{normal:"9",ctrl:"",shift:")",alt:"]"},cssClass:''},
+        {asci_cod:"48",letters:{normal:"0",ctrl:"",shift:"=",alt:"}"},cssClass:''},
+        {asci_cod:"219",letters:{normal:"β",ctrl:"",shift:"\\",alt:"?"},cssClass:''},
         {asci_cod:"191",letters:{normal:"`",ctrl:"",shift:"",alt:""},cssClass:''}
       ];
       globalSettings.row3 = [
-         {asci_cod:"81",letters:{normal:"q",ctrl:"",shift:"Q",alt:""},cssClass:''},
+         {asci_cod:"81",letters:{normal:"q",ctrl:"",shift:"",alt:"@"},cssClass:''},
          {asci_cod:"87",letters:{normal:"w",ctrl:"",shift:"",alt:""},cssClass:''},
-         {asci_cod:"69",letters:{normal:"e",ctrl:"",shift:"",alt:""},cssClass:''},
+         {asci_cod:"69",letters:{normal:"e",ctrl:"",shift:"",alt:"€"},cssClass:''},
          {asci_cod:"82",letters:{normal:"r",ctrl:"",shift:"",alt:""},cssClass:''},
          {asci_cod:"84",letters:{normal:"t",ctrl:"",shift:"",alt:""},cssClass:''},
          {asci_cod:"90",letters:{normal:"z",ctrl:"",shift:"",alt:""},cssClass:''},
@@ -126,7 +127,7 @@ export class LoginComponent implements OnInit {
          {asci_cod:"79",letters:{normal:"o",ctrl:"",shift:"",alt:""},cssClass:''},
          {asci_cod:"80",letters:{normal:"p",ctrl:"",shift:"",alt:""},cssClass:''},
          {asci_cod:"186",letters:{normal:"ü",ctrl:"",shift:"",alt:""},cssClass:''},
-         {asci_cod:"187",letters:{normal:"*",ctrl:"",shift:"",alt:""},cssClass:''}
+         {asci_cod:"187",letters:{normal:"+",ctrl:"",shift:"*",alt:"~"},cssClass:''}
       ];
       globalSettings.row2 = [
        {asci_cod:"65",letters:{normal:"a",ctrl:"",shift:"",alt:""},cssClass:''},
@@ -140,11 +141,11 @@ export class LoginComponent implements OnInit {
        {asci_cod:"76",letters:{normal:"l",ctrl:"",shift:"",alt:""},cssClass:''},
        {asci_cod:"192",letters:{normal:"ö",ctrl:"",shift:"",alt:""},cssClass:''},
        {asci_cod:"222",letters:{normal:"ä",ctrl:"",shift:"",alt:""},cssClass:''},
-       {asci_cod:"191",letters:{normal:"'",ctrl:"",shift:"",alt:""},cssClass:''},
+       {asci_cod:"191",letters:{normal:"#",ctrl:"",shift:"'",alt:""},cssClass:''},
       ];
       
       globalSettings.row1 = [
-         {asci_cod:"226",letters:{normal:">",ctrl:"",shift:"",alt:""},cssClass:''},
+         {asci_cod:"226",letters:{normal:"<",ctrl:"",shift:">",alt:""},cssClass:''},
          {asci_cod: "89",letters:{normal:"y",ctrl:"",shift:"",alt:""},cssClass:''},
          {asci_cod:"88",letters:{normal:"x",ctrl:"",shift:"",alt:""},cssClass:''},
          {asci_cod: "67",letters:{normal:"c",ctrl:"",shift:"",alt:""},cssClass:''},
@@ -152,28 +153,43 @@ export class LoginComponent implements OnInit {
          {asci_cod:"66",letters:{normal:"b",ctrl:"",shift:"",alt:""},cssClass:''},
          {asci_cod:"78",letters:{normal:"n",ctrl:"",shift:"",alt:""},cssClass:''},
          {asci_cod:"77",letters:{normal:"m",ctrl:"",shift:"",alt:""},cssClass:''},
-         {asci_cod:"188",letters:{normal:";",ctrl:"",shift:";",alt:""},cssClass:''},
-         {asci_cod:"190",letters:{normal:":",ctrl:"",shift:"",alt:""},cssClass:''},
-         {asci_cod:"189",letters:{normal:"_",ctrl:"",shift:"_",alt:""},cssClass:''},
+         {asci_cod:"188",letters:{normal:",",ctrl:"",shift:";",alt:""},cssClass:''},
+         {asci_cod:"190",letters:{normal:".",ctrl:"",shift:":",alt:""},cssClass:''},
+         {asci_cod:"189",letters:{normal:"-",ctrl:"",shift:"_",alt:""},cssClass:''},
       ];
 
-
+     
       for (let i in globalSettings.row1) {
-        globalSettings.row1[i].cssClass = this.findLetterCssClass(1, parseInt(i) + 2);
+        let cssClass = this.findLetterCssClass(1, parseInt(i) + 1);
+        globalSettings.row1[i].cssClass = cssClass;
+        if(globalSettings.hasOwnProperty(globalSettings.row1[i].asci_cod)){
+          globalSettings[globalSettings.row1[i].asci_cod].cssClass = cssClass;
+        }
       }
       for (let i in globalSettings.row2) {
-        globalSettings.row2[i].cssClass = this.findLetterCssClass(2, parseInt(i) + 2);
+        let cssClass = this.findLetterCssClass(2, parseInt(i) + 1);
+        globalSettings.row2[i].cssClass = cssClass;
+        if(globalSettings.hasOwnProperty(globalSettings.row2[i].asci_cod)){
+          globalSettings[globalSettings.row2[i].asci_cod].cssClass = cssClass;
+        }
       }
       for (let i in globalSettings.row3) {
-        globalSettings.row3[i].cssClass = this.findLetterCssClass(3, parseInt(i) + 2);
+        let cssClass =this.findLetterCssClass(3, parseInt(i) + 1);
+        globalSettings.row3[i].cssClass = cssClass;
+        if(globalSettings.hasOwnProperty(globalSettings.row3[i].asci_cod)){
+          globalSettings[globalSettings.row3[i].asci_cod].cssClass = cssClass;
+        }
       }
       for (let i in globalSettings.row4) {
-        globalSettings.row4[i].cssClass = this.findLetterCssClass(4, parseInt(i) + 2);
+        let cssClass =this.findLetterCssClass(4, parseInt(i) + 1);
+        globalSettings.row4[i].cssClass = cssClass;
+        if(globalSettings.hasOwnProperty(globalSettings.row4[i].asci_cod)){
+          globalSettings[globalSettings.row4[i].asci_cod].cssClass = cssClass;
+        }
       }
-
+     
       this.localStorage.insert('globalSettings', globalSettings);
     });
-
 
   }
   private findLetterCssClass(row, col: number) {
@@ -215,6 +231,7 @@ export class LoginComponent implements OnInit {
     }
 
   }
+
 }
 
 

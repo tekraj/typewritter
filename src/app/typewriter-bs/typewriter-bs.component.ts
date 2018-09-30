@@ -64,6 +64,8 @@ export class TypewriterBsComponent implements OnInit {
   public typingSpeed: number = 0;
   public totalAccuracy: number = 0;
   public exerciseCompleted: number = 0;
+  public totalWidth=0;
+  public textLeftMove = 0;
   constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute,private router:Router) {
     this.settingMode = this.localStorageService.select('settingMode');
     this.globalSettings = this.localStorageService.select('globalSettings');
@@ -97,14 +99,13 @@ export class TypewriterBsComponent implements OnInit {
   }
 
   ngOnInit() {
-    
     setTimeout(() => {
-      
       this.zoomButtonAnimation = true;
       this.headerHide = false;
   
     }, 500);
     this.checkLetterExists();
+    this.totalWidth = window.innerWidth - 80;
     
   }
 
@@ -147,19 +148,13 @@ export class TypewriterBsComponent implements OnInit {
         this.internalTypingTime++;
       }, 1000);
     }
-
-
     this.keyValue = event.key;
+    if(event.key=='Shift' || event.key=='Control' || event.key=='AltLeft' || event.key=='ShiftRight' || event.key=='ControlRight' || event.key=='AltRight'){
+      return true;
+    }
+   
 
     let keySettings = this.globalSettings[event.keyCode];
-    if (event.altKey && this.keyValue != 'Alt') {
-      this.keyValue = keySettings.letters.alt;
-    } else if (event.ctrlKey && this.keyValue != 'Control') {
-      this.keyValue = keySettings.letters.ctrl;
-    } else if (event.shiftKey && this.keyValue != 'Shift') {
-      this.keyValue = keySettings.letters.shift;
-    }
-
     let typedString = this.typedString + this.keyValue;
     if (this.typingValue.indexOf(typedString) == 0) {
       let keyCode = event.keyCode == 32 ? 32 : (event.keyCode + 32);
@@ -174,18 +169,38 @@ export class TypewriterBsComponent implements OnInit {
       
       this.typeThisLetter = this.keyboard.typingValue[this.letterNextTyped];
       let nextLetterIndex = this.letterIndexes.indexOf(this.typeThisLetter);
-      let nextKeCode = nextLetterIndex + 96 + 1;
+      let nextKeyCode = nextLetterIndex + 96 + 1;
       if (this.typeThisLetter == ' ') {
-        nextKeCode = 32;
+        nextKeyCode = 32;
       }
-      let nextSetting = this.globalSettings[65 + nextLetterIndex + 1];
-      let clickSound = new Howl({
-        src: ['../assets/sounds/icon-sound/w_' + nextSetting.tast_wort + '.mp3']
-      });
-      clickSound.play();
-      this.typeThisImage = '../assets/images/typer/' + this.settingMode + 'b_' + + nextKeCode + '.jpg';
-      this.currentTypedLetterClass = keySettings.cssClass;
-      this.typeThisLetterClass = nextSetting.cssClass;
+      if (this.totalRight * 15 > this.totalWidth) {
+        this.textLeftMove = this.totalWidth - (this.totalRight * 15);
+      }
+      if(nextKeyCode!=96 && nextKeyCode!=32){
+        let nextSetting = this.globalSettings[65 + nextLetterIndex ];
+        this.typeThisImage = '../assets/images/typer/' + this.settingMode + 'b_' + + nextKeyCode + '.jpg';
+        this.currentTypedLetterClass = keySettings.cssClass;
+        this.typeThisLetterClass = nextSetting.cssClass;
+        if (this.clickRightSound) {
+          if (this.clickRightSound == 'click') {
+            let clickSound = new Howl({
+              src: ['../assets/sounds/right-click.mp3']
+            });
+            clickSound.play();
+          } else if (this.clickRightSound == 'play-letter') {
+            let clickSound = new Howl({
+              src: ['../assets/sounds/' + this.settingMode + 's_' + nextKeyCode + '.mp3']
+            });
+            clickSound.play();
+          } else if (this.clickRightSound == 'icon-sound') {
+  
+            let clickSound = new Howl({
+              src: ['../assets/sounds/icon-sound/w_' + nextSetting.tast_wort + '.mp3']
+            });
+            clickSound.play();
+          }
+        }
+      }
     } else {
       this.clickWrongSound = new Howl({
         src: ['../assets/sounds/wrong-click.mp3']
@@ -418,7 +433,7 @@ export class TypewriterBsComponent implements OnInit {
       nextKeCode = 32;
     }
     this.typeThisImage = '../assets/images/typer/' + this.settingMode + 'b_' + + nextKeCode + '.jpg';
-    let nextSetting = this.globalSettings[65 + letterIndex + 1];
+    let nextSetting = this.globalSettings[65 + letterIndex];
     this.typeThisLetterClass = nextSetting.cssClass;
     this.showZoomAnimation = false;
     let clickSound = new Howl({

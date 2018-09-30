@@ -141,7 +141,7 @@
             <sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub>
           </span>
         </li>
-        <li class="right-shift lastitem default"></li>
+        <li class="right-shift lastitem default" (mousedown)="writeText('Shift','','','')" [ngClass]="{'active':keyValue=='RightShift'}"></li>
         <!-- ROW 1 END -->
   
         <li class="left-shift blank default"></li>
@@ -576,7 +576,7 @@
             <p class="super-alle">Bonsusfelder aufgedeckt!</p>
           </div>
           <div class="col-sm-5">
-            <div class="animation-9">
+            <div class="animation-9" [ngClass]="{'blue-zone':totalAccuracy<60,'yellow-zone':(totalAccuracy>=60 && totalAccuracy<100),'red-zone':(totalAccuracy>=100)}">
               <span [ngClass]="{'active':exerciseCompleted>=1}"></span>
               <span [ngClass]="{'active':exerciseCompleted>=2}"></span>
               <span [ngClass]="{'active':exerciseCompleted>=3}"></span>

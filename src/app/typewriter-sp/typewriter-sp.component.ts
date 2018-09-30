@@ -20,7 +20,7 @@ import { Router, ActivatedRoute } from '@angular/router';
                 bottom: '20px'
             })),
             state('preactive', style({
-                bottom: '-70px'
+                bottom: '-20px'
             })),
             state('active', style({
                 transform: 'translateY(-34vh)'
@@ -179,20 +179,12 @@ export class TypewriterSpComponent implements OnInit {
                 this.internalTypingTime++;
             }, 1000);
         }
-
-
         this.keyValue = event.key;
-
-        let keySettings = this.globalSettings[event.keyCode];
-        if (event.altKey && this.keyValue != 'Alt') {
-            this.keyValue = keySettings.letters.alt;
-        } else if (event.ctrlKey && this.keyValue != 'Control') {
-            this.keyValue = keySettings.letters.ctrl;
-        } else if (event.shiftKey && this.keyValue != 'Shift') {
-            this.keyValue = keySettings.letters.shift;
+        if(event.key=='Shift' || event.key=='Control' || event.key=='AltLeft' || event.key=='ShiftRight' || event.key=='ControlRight' || event.key=='AltRight'){
+            return true;
         }
-
-
+        
+        let keySettings = this.globalSettings[event.keyCode];
         if (this.currentLetters.indexOf(this.keyValue) >= 0) {
             this.remainingText.replace(this.keyValue, '');
             let keyCode = event.keyCode == 32 ? 32 : (event.keyCode + 32);

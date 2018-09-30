@@ -686,7 +686,7 @@ span.red {
     position: absolute;
     width: 42%;
     right: 8% !important;
-    top: 6vh;
+    top: 7vh;
     text-align: center;
     z-index: 999;
 }
@@ -1011,12 +1011,13 @@ input[type=number]:focus,
 }
 .info .sound-group .btn {
     height: 4.5vh;
-    line-height: 3.5vh;
+    line-height: 4.5vh;
     font-size: 12px;
     font-weight: normal;
 }
 .info .sound-group .btn.metro_aus{
-    line-height: 1.5vh;
+    padding-top:2px;
+    line-height: 2vh;
 }
 
 header.info{border:none;border-radius:0;background:none;padding:0;}
@@ -1089,7 +1090,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     height:28vh;
 }
 
-.bottom-blank-white{
+.bottom-blank-white {
     background: #fff;
     border-radius: 14px;
     margin-bottom: 3px;
@@ -1099,7 +1100,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     margin: 4px auto;
     font-size: 2em;
     font-weight: bold;
-    line-height: 4vh;
+    line-height: 6vh;
     text-align: center;
 }
 .bottom-blank-white.primary{color:#0000CC;}
@@ -1391,8 +1392,8 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     }
 #keyboard li.left-shift.active{
     width:8%;
-    margin-left: 0.3%;
-    margin-right:0.3%;
+    margin-left: 0.4%;
+    margin-right:0.4%;
 }
 #keyboard li.right-shift {
     background: url(../images/shift-right.png) no-repeat center!important;
@@ -1400,7 +1401,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     background-size:cover!important;
 }
 #keyboard li.right-shift.active{
-    width:16.3%;
+    width:14.3%;
     margin-left: 0.3%;
     margin-right:0.3%;
 }
@@ -1529,6 +1530,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     padding:10px 0;
     height:50%;
     font-weight:bold;
+    font-size: 3.9vh;
 }
 
 .keyboard-container{
@@ -1546,7 +1548,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 #keyboard li.backspace {
     background: url(../images/backspace.png) no-repeat center!important;
     width: 10%;
-    background-size: cover!important;
+    background-size: 100% 100%!important;
 }
 #keyboard li.backspace.active{
     width:9.4%;
@@ -1622,7 +1624,8 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     height: 18vh;
     border-width: 10px;
     margin-top: 15%;
-	border-radius: 35px;
+    border-radius: 35px;
+    line-height: 15vh;
 }
 .ex-two-two .top-blank-white{
     height:50vh;
@@ -1649,7 +1652,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     right:0;
 }
 
-.ballon-holder span{
+.ballon-holder>span{
     display: inline-block;
     width: 90px;
     height:56px;
@@ -1661,6 +1664,12 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     font-weight: bold;
     position: absolute;
     z-index: 99;
+    overflow: hidden;
+}
+.ballon-holder>span img {
+    width: 80%;
+    height: 80%;
+    border-radius: 100%;
 }
 
 .ballon-holder span.danger{
@@ -1671,7 +1680,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 }
 
 .ballon-holder span.success{
-    background: radial-gradient(white ,#4a9a1d,#795c04,white);
+    background: radial-gradient(white ,#437526,#795c04,white);
 }
 
 .ballon-holder span.warning{
@@ -1679,11 +1688,14 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 }
 
 .keyboard-input-field .typing-text span {
-    width: 2vh;
+    width: 2.2vh;
     display: inline-block;
     letter-spacing: 0;
     text-align: center;
-    max-width: 2vh;
+    max-width: 2.2vh;
+}
+.keyboard-input-field.simple-typing .typing-text span{
+    margin-bottom:10px;
 }
 .status-group span{
     display: inline-block;
@@ -1697,13 +1709,29 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     width: 25%;
     float: left;
     line-height: 2vh;
-   padding: 3vh 5% 0 5%;
+    padding: 2vh 5% 0 5%;
+    text-transform: capitalize;
+}
+span.text-primary,p.text-primary {
+    color: #0000CC!important;
+}
+span.text-success,p.text-success {
+    color: #009900!important;
+}
+span.text-danger,p.text-danger {
+    color: #CC0000!important;
+}
+span.text-warning,p.text-warning {
+    color: #FFCC00!important;
 }
 .finger-position p {
     font-size: 2vh;
-    margin: -5px 0 0;
+    margin: -3px 0 0;
     line-height: normal;
     position: relative;
+    color: #000;
+    letter-spacing: 15px;
+    text-transform: capitalize;
 }
 .finger-position .text-right p{padding-right:8%;}
 .finger-position .text-left p{padding-left:8%;}
@@ -1733,7 +1761,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 }
 .sound-group .btn.kein-btn{
     background: url(../images/i-buton-kein.png) no-repeat center;
-    background-size:cover;
+    background-size:100% 100%;
 }
 .title-list li{
     border-color:#292929;
@@ -1767,6 +1795,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
 }
 .ex-two-two .bottom-blank-white{
     height:18vh;
+    line-height: 13vh;
 }
 header.info{
     height:40%;
