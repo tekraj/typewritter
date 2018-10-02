@@ -1107,7 +1107,7 @@
                 <span [ngClass]="{'active':exerciseCompleted>=5}"></span>
                 <span [ngClass]="{'active':exerciseCompleted>=4}"></span>
               </div>
-              <img src="../assets/images/pendilum.png" class="img-responsive" alt="">
+              <img src="{{currentExerciseImage}}" class="img-responsive" alt="">
             </div>
           </div>
           <div class="row">
@@ -1164,15 +1164,15 @@
           <h2>Ergebnis in Prozenten:</h2>
           <ul class="main-page-list">
             <li>
-              <span class="red">1</span>
-              <span class="text-span">Demoubung</span>
-              <span class="percent-indicator" style="width: 100%;"></span>
-              <span class="gray-percent" style="width: 60%;"></span>
-              <span class="yellow-percent" style="width: 0%;"></span>
-              <span class="three-params">
-                <span>100% R</span>
-                <span>60 A</span>
-                <span>0 T</span>
+              <span class="red">{{currentExercise.mode}}</span>
+              <span class="text-span">{{'Ü'+((p*12)+a+1)+': '+currentExercise.name}}</span>
+              <span class="percent-indicator" [ngClass]="{'blue-zone':typingSpeed<60,'yellow-zone':(typingSpeed>=60 && typingSpeed<100),'red-zone':(typingSpeed>=100)}" [ngStyle]="{'width':currentExercise.percent+'%'}"></span>
+              <span class="gray-percent" [ngStyle]="{'width':typingSpeed+'%'}"></span>
+              <span class="yellow-percent" [ngStyle]="{'width':currentExercise.yellowPercent+'%'}"></span>
+              <span class="three-params" *ngIf="currentExercise.mode>0">
+                <span>{{totalAccuracy}}% R</span>
+                <span>{{typingSpeed}} A</span>
+                <span>{{currentExercise.yellowPercent}} T</span>
               </span>
             </li>
           </ul>

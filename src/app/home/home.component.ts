@@ -30,6 +30,8 @@ export class HomeComponent implements OnInit {
     public studentFirstName: string;
     public studentLastName: string;
     public mariaText:string;
+    public showSaveExerciseButton = false;
+    public showSaveExercisePopup = false;
     constructor(private _apiService: ApiService, private localStorageService: LocalStorageService) {
         this.books = [];
         this.lessions = [];
@@ -54,6 +56,7 @@ export class HomeComponent implements OnInit {
         }else{
             this.findBooks();
         }
+        this.showSaveExerciseButton = this.localStorageService.select('betterExercise');
     }
 
     public findBooks = () => {

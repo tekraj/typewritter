@@ -93,6 +93,7 @@ export class ExerciseComponent implements OnInit {
     public showZoomAnimation: boolean = true;
     public letterClasses: Array<{ class: string, letters: Array<string> }>;
     public animationMode = 'letter';
+    public currentExerciseImage = '';
     constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute, private router: Router) {
         this.exerciseParams = this.route.params['value'];
         this.currentLessionIndex = parseInt(this.exerciseParams.lessionIndex);
@@ -383,6 +384,9 @@ export class ExerciseComponent implements OnInit {
                     clearInterval(boxAnimation);
                 }
             }, 300);
+            let mod = this.currentExercise.id%71;
+            let type = (this.totalAccuracy < 60 ? 0 : ((this.totalAccuracy >= 60 && this.totalAccuracy < 100) ? 1 : 2));
+            this.currentExerciseImage =  '../assets/images/alb/i_0'+( mod<10 ? '0'+mod:mod)+'_'+type+'.jpg'
             this.showCompleteBox = true;
         }
     }
@@ -396,10 +400,7 @@ export class ExerciseComponent implements OnInit {
 
 
 
-    nextExercise() {
-        this.currentLessionIndex = this.currentLessionIndex + 1;
-        this.currentExercise = this.exercises[this.currentLessionIndex];
-    }
+   
     setSound(value: string) {
         console.log(value);
         this.typeSettings.sound = value;
@@ -695,5 +696,20 @@ export class ExerciseComponent implements OnInit {
         let nextKeCode = letterIndex + 96 + 1;
         return '../assets/images/typer/' + this.settingMode + 'b_' + + nextKeCode + '.jpg';
     }
+    nextExercise() {
+        this.currentLessionIndex = this.currentLessionIndex + 1;
+        if(this.currentLessionIndex>=this.exercises.length){
+          this.currentLessionIndex = 0;
+        }
+        this.currentExercise = this.exercises[this.currentLessionIndex];
+      }
+    
+      prevExercise() {
+        this.currentLessionIndex = this.currentLessionIndex - 1;
+        if(this.currentLessionIndex<=0){
+          this.currentLessionIndex = this.exercises.length-1;
+        }
+        this.currentExercise = this.exercises[this.currentLessionIndex];
+      }
 }
 
