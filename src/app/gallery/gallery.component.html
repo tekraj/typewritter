@@ -10,8 +10,8 @@
     </div>
     <div class="gallery-images">
       <div class="row"  [sortablejs]="allExercise">
-        <div class="col-sm-2" *ngFor="let i  of allExercise;">
-          <div class="image-holder">
+        <div class="col-sm-2" *ngFor="let i  of allExercise;" [ngClass]="{'active':isCurrentExercise(i)}">
+          <div class="image-holder"  [ngClass]="{'active':isCurrentExercise(i)}">
             <img src="{{getImageType(i)}}" alt="">
           </div>
           <p class="lession-title">U{{i+1}}</p>

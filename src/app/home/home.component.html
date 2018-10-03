@@ -1,17 +1,17 @@
 <header class="home">
   <div class="container-fluid">
-      <h1 class="text-center">MM-Schreibtrainer</h1>
+    <h1 class="text-center">MM-Schreibtrainer</h1>
     <div class="row">
       <div class="col-sm-4 text-left typing maria-holder">
-        <div  class="maria-text">
-            <p>
-              <span>{{mariaText}}</span>
-            </p>
+        <div class="maria-text">
+          <p>
+            <span>{{mariaText}}</span>
+          </p>
         </div>
         <img src="../assets/images/maria.png">
       </div>
       <div class="col-sm-4 text-center">
-       
+
         <div class="book-dropdown">
           <button class="btn btn-top-bright" (click)="showBookDropDown()">
             <span *ngIf="!showAllBooks">Alle Bucher zeigen</span>
@@ -61,8 +61,8 @@
       <div class="col-md-3">
         <ul class="main-page-list">
           <ng-container *ngFor="let t of createArrayRange(lessions,0);let a=index">
-            <li  (click)="findTitle(t.id,a)" [ngClass]="{'active':currentLession==a}">
-              <span class="red"></span> 
+            <li (click)="findTitle(t.id,a)" [ngClass]="{'active':currentLession==a}">
+              <span class="red"></span>
               <span class="text-span">{{'L'+(a+1)+': '+t.name}}</span>
               <span class="percent-indicator" [ngStyle]="{'width':t.percent+'%'}"></span>
             </li>
@@ -72,8 +72,8 @@
       <div class="col-md-3">
         <ul class="main-page-list">
           <ng-container *ngFor="let t of createArrayRange(lessions,1);let a=index">
-            <li  (click)="findTitle(t.id,(12+a))" [ngClass]="{'active':currentLession==(12+a)}">
-              <span class="red"></span> 
+            <li (click)="findTitle(t.id,(12+a))" [ngClass]="{'active':currentLession==(12+a)}">
+              <span class="red"></span>
               <span class="text-span">{{'L'+(12+a+1)+': '+t.name}}</span>
               <span class="percent-indicator" [ngStyle]="{'width':t.percent+'%'}"></span>
             </li>
@@ -86,7 +86,8 @@
             <li *ngIf="(a+1)<=((p+1)*12)" [routerLink]="['/exercise', ((p*12)+a)]" [ngClass]="{'no-exercise':t.mode==0}">
               <span class="red">{{t.mode}}</span>
               <span class="text-span">{{'Ü'+((p*12)+a+1)+': '+t.name}}</span>
-              <span class="percent-indicator" [ngClass]="{'blue-zone':t.grayPercent<60,'yellow-zone':(t.grayPercent>=60 && t.grayPercent<100),'red-zone':(t.grayPercent>=100)}" [ngStyle]="{'width':t.percent+'%'}"></span>
+              <span class="percent-indicator" [ngClass]="{'blue-zone':t.grayPercent<60,'yellow-zone':(t.grayPercent>=60 && t.grayPercent<100),'red-zone':(t.grayPercent>=100)}"
+                [ngStyle]="{'width':t.percent+'%'}"></span>
               <span class="gray-percent" [ngStyle]="{'width':t.grayPercent+'%'}"></span>
               <span class="yellow-percent" [ngStyle]="{'width':t.yellowPercent+'%'}"></span>
               <span class="three-params" *ngIf="t.mode>0">
@@ -105,8 +106,8 @@
           <a class="btn rounded-button" href="http://mms.pphlinz.at/lektionen/default.php" target="_blank" style="position: relative;top:1px;">Lehrer</a>
         </div>
         <div class="col-sm-6 text-right">
-            <button class="btn rounded-button" *ngIf="betterExercises" (click)="showSaveExercise()">Speichern</button>
-           <a class="btn rounded-button" *ngIf="totalTitlesPage" style="margin-right:20px;"  routerLink="/gallery">Album</a>
+          <button class="btn rounded-button" *ngIf="betterExercises" (click)="showSaveExercise(true)">Speichern</button>
+          <a class="btn rounded-button" *ngIf="totalTitlesPage" style="margin-right:20px;" routerLink="/gallery">Album</a>
           <button class="btn rounded-button" (click)="showColorInfo()">Balkeninfo</button>
           <a class="btn btn-default m-l-10 margin-left-10" routerLink="/module" style="position:relative;top:-4px;">I</a>
         </div>
@@ -116,71 +117,135 @@
   <div *ngIf="pageContent" class="page-content" [innerHTML]="pageContent">
 
   </div>
- 
+
 </div>
 <div class="sign-color-info" *ngIf="colorInfo">
-    <h3>Zeichen-und farbenerklarung</h3>
-    <div class="row">
-      <div class="col-sm-6">
-        <p>
-          <b>Fehlerfreiheit</b>
-        </p>
-        <p>
-          <b>(grober Balken)</b>
-        </p>
-        <p>dies ist die wichtigset</p>
-        <p>Zahl: bester</p>
-        <p>Wert=100%</p>
-      </div>
-      <div class="col-sm-6">
-        <p>
-          <b>Geschwindigkeit:</b>
-        </p>
-        <p>optimaler Wert=200 A.</p>
-        <p>(Anschlage/Min)</p>
-      </div>
-    </div>
-    <div class="direction-button">
-      <span class="top-left-dir"></span>
-      <span class="top-right-dir"></span>
-      <button class="btn-direction">
-          <span>4</span>
-          <span> Diktat 2 Grundreihe</span>
-        </button>
-      <span class="bottom-left-dir"></span>
-      <span class="bottom-right-dir"></span>
-    </div>
-    <div class="row">
-      <div class="col-sm-6">
-        <p>
-          <b>Anzahl der Wiederholungen:</b>
-        </p>
-        <p> wie oft wurde diese Übung</p>
-        <p>bereits durchgefuhrt!</p>
-      </div>
-      <div class="col-sm-6">
-        <p>
-          <b>Taktschreiben:</b>
-        </p>
-        <p>zweitwichtigster Wert</p>
-        <p>bester Wert=100 Pkt</p>
-      </div>
-    </div>
-    <div class="wertz-wrapper text-left" >
+  <h3>Zeichen-und farbenerklarung</h3>
+  <div class="row">
+    <div class="col-sm-6">
       <p>
-        <b>Wertungsfarben und -stufe:</b>1.Leistungesstufef</p>
-      <ul class="color-indicator-info">
-        <li>
-          <span class="color-box" [style.background]="'#0000FF'"></span> Farbe blau: 0 bis 30 Anschläge/Minute </li>
-        <li>
-          <span class="color-box" [style.background]="'#ffff00'"></span> Farbe gelb : 30 bis 60 Anschlage/Minute</li>
-        <li>
-          <span class="color-box" [style.background]="'#ff0000'"></span> Farbe rot: mehr als 60 Anschlage/Minute</li>
-      </ul>
-      <button class="btn rounded-button pull-right" (click)="showColorInfo()">Schlieben</button>
+        <b>Fehlerfreiheit</b>
+      </p>
+      <p>
+        <b>(grober Balken)</b>
+      </p>
+      <p>dies ist die wichtigset</p>
+      <p>Zahl: bester</p>
+      <p>Wert=100%</p>
+    </div>
+    <div class="col-sm-6">
+      <p>
+        <b>Geschwindigkeit:</b>
+      </p>
+      <p>optimaler Wert=200 A.</p>
+      <p>(Anschlage/Min)</p>
     </div>
   </div>
-
-  <div class="save-exeercises" *ngIf="showSaveExercisePopup">
-    
+  <div class="direction-button">
+    <span class="top-left-dir"></span>
+    <span class="top-right-dir"></span>
+    <button class="btn-direction">
+      <span>4</span>
+      <span> Diktat 2 Grundreihe</span>
+    </button>
+    <span class="bottom-left-dir"></span>
+    <span class="bottom-right-dir"></span>
   </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <p>
+        <b>Anzahl der Wiederholungen:</b>
+      </p>
+      <p> wie oft wurde diese Übung</p>
+      <p>bereits durchgefuhrt!</p>
+    </div>
+    <div class="col-sm-6">
+      <p>
+        <b>Taktschreiben:</b>
+      </p>
+      <p>zweitwichtigster Wert</p>
+      <p>bester Wert=100 Pkt</p>
+    </div>
+  </div>
+  <div class="wertz-wrapper text-left">
+    <p>
+      <b>Wertungsfarben und -stufe:</b>1.Leistungesstufef</p>
+    <ul class="color-indicator-info">
+      <li>
+        <span class="color-box" [style.background]="'#0000FF'"></span> Farbe blau: 0 bis 30 Anschläge/Minute </li>
+      <li>
+        <span class="color-box" [style.background]="'#ffff00'"></span> Farbe gelb : 30 bis 60 Anschlage/Minute</li>
+      <li>
+        <span class="color-box" [style.background]="'#ff0000'"></span> Farbe rot: mehr als 60 Anschlage/Minute</li>
+    </ul>
+    <button class="btn rounded-button pull-right" (click)="showColorInfo()">Schlieben</button>
+  </div>
+</div>
+
+<div class="save-exercises" id="print-section" *ngIf="showSaveExercisePopup">
+  <h3>Bericht - Lektion: L1: Grundreihe linke Hand (S 7)</h3>
+  <div class="row">
+    <div class="col-sm-4 text-left">
+      <h3>{{currentDate}}</h3>
+    </div>
+    <div class="col-sm-4 text-center">
+      <h3>Anschlage</h3>
+    </div>
+    <div class="col-sm-4">
+      <h3>Anschlage</h3>
+    </div>
+  </div>
+  <div class="table-wrapper">
+    <table class="table save-exercise-table">
+      <thead>
+        <tr>
+          <th style="width:25%;">Ubung</th>
+          <th>ges.</th>
+          <th>richtig</th>
+          <th>falsch</th>
+          <th>Proz.</th>
+          <th>Sek.</th>
+          <th>Takt</th>
+          <th>Pro</th>
+          <th>Min</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ngFor="let ex of betterExercises">
+          <td>{{ex.name}}</td>
+          <td>39</td>
+          <td>39</td>
+          <td>0</td>
+          <td>{{ex.percent}}%</td>
+          <td>7</td>
+          <td>42</td>
+          <td>{{ex.grayPercent}}</td>
+          <td>
+            <input type="checkbox" checked>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="save-exercise-image text-left">
+    <img src="../assets/images/save-exercise-cartoon.png" alt="">
+  </div>
+  <div class="last-paragraph">
+    <h4 class="text-center">Du solltest  deine GUTEN Ergebnisse immer  mit "Speichern" absenden!</h4>
+    <h4 class="text-center" style="margin-bottom:10px;">Alle Ubungen, die ein rotes Hakerl  besitzen, werden gespeichert.</h4>
+  </div>
+  <div class="row save-exercise-btns">
+    <div class="col-sm-3">
+      <button class="btn rounded-button" (click)="showSaveExercise(false)">Abberechen</button>
+    </div>
+    <div class="col-sm-3">
+        <button class="btn rounded-button" (click)="discardResult()">Ergebnis verwerfen</button>
+    </div>
+    <div class="col-sm-3">
+        <button class="btn rounded-button" (click)="printResult()">Drucken</button>
+    </div>
+    <div class="col-sm-3">
+        <button class="btn rounded-button" (click)="saveResult()">Speichern</button>
+    </div>
+  </div>
+</div>

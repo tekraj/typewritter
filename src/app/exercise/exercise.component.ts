@@ -94,6 +94,7 @@ export class ExerciseComponent implements OnInit {
     public letterClasses: Array<{ class: string, letters: Array<string> }>;
     public animationMode = 'letter';
     public currentExerciseImage = '';
+    public betterPerformance = false;
     constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute, private router: Router) {
         this.exerciseParams = this.route.params['value'];
         this.currentLessionIndex = parseInt(this.exerciseParams.lessionIndex);
@@ -101,20 +102,20 @@ export class ExerciseComponent implements OnInit {
         this.currentExercise = this.exercises[this.currentLessionIndex];
         this.practiceMode = this.currentExercise.type[1];
         this.grid = this.currentExercise.type[2];
-        if(this.grid>5){
+        if (this.grid > 5) {
             this.animationMode = 'icon';
         }
-        this.grid = this.grid>5 ? 1 : this.grid;
+        this.grid = this.grid > 5 ? 1 : this.grid;
         this.settingMode = this.localStorageService.select('settingMode');
         this.globalSettings = this.localStorageService.select('globalSettings');
-       
-       
+
+
         this.typeSettings = { stringLength: this.currentExercise.repeat, value: this.currentExercise.content, typewriterMode: '', presentation: 0, sound: 'kein_sound', soundVolume: 0.5, muteSound: false };
-        
+
         this.typeSettings.value = this.typeSettings.value.replace('/\s+/', '');
         this.currentSoundLevel = this.typeSettings.soundVolume;
         for (let i = 1; i <= this.typeSettings.stringLength; i++) {
-            this.typingValue += this.typeSettings.value;
+            this.typingValue += this.typeSettings.value + ' ';
         }
         this.remainingText = this.typingValue;
         this.keyboard.typingValue = this.typingValue.trim().split('');
@@ -125,7 +126,7 @@ export class ExerciseComponent implements OnInit {
             src: ['../assets/sounds/wrong-click.mp3']
         });
         Howler.volume(this.typeSettings.soundVolume / 100);
-        let sounds = ['kein_sound','click','bst','icon','hg1','hg2','hg3','hg4','hg5','hg6','hg7','hg8','hg9'];
+        let sounds = ['kein_sound', 'click', 'bst', 'icon', 'hg1', 'hg2', 'hg3', 'hg4', 'hg5', 'hg6', 'hg7', 'hg8', 'hg9'];
         this.typeSettings.sound = sounds[this.currentExercise.type[4]];
         this.setSound(this.typeSettings.sound);
         this.totalWordWidth = 15 * this.keyboard.typingValue.length;
@@ -384,10 +385,13 @@ export class ExerciseComponent implements OnInit {
                     clearInterval(boxAnimation);
                 }
             }, 300);
-            let mod = this.currentExercise.id%71;
+            let mod = this.currentExercise.id % 71;
             let type = (this.totalAccuracy < 60 ? 0 : ((this.totalAccuracy >= 60 && this.totalAccuracy < 100) ? 1 : 2));
-            this.currentExerciseImage =  '../assets/images/alb/i_0'+( mod<10 ? '0'+mod:mod)+'_'+type+'.jpg'
+            this.currentExerciseImage = '../assets/images/alb/i_0' + (mod < 10 ? '0' + mod : mod) + '_' + type + '.jpg'
             this.showCompleteBox = true;
+            if (this.totalAccuracy == 100) {
+                this.betterPerformance = true;
+            }
         }
     }
 
@@ -400,7 +404,7 @@ export class ExerciseComponent implements OnInit {
 
 
 
-   
+
     setSound(value: string) {
         console.log(value);
         this.typeSettings.sound = value;
@@ -471,36 +475,9 @@ export class ExerciseComponent implements OnInit {
     }
 
 
-    continueExercise() {
-        this.typedString = '';
-        this.letterTypedIndex = 0;
-        this.letterNextTyped = 0;
-        this.totalRight = 0;
-        this.totalWrong = 0;
-        this.showCompleteBox = false;
-        this.textLeftMove = 0;
-        this.typingTime = 0;
-        this.typingSpeed = 0;
-        this.totalAccuracy = 0;
-        this.currentLetterImage = '';
-        this.remainingText = this.typingValue;
-        this.currentLetters = '';
-        this.currentLettersArray = [];
-        this.currentLetters = '';
-        if (this.practiceMode == 4) {
-            for (let i = 1; i <= this.grid; i++) {
-                this.currentLettersArray.push(this.createElement(i, true));
-            }
-        }
-        this.headerHide = true;
-        this.showHeaderText = false;
-        setTimeout(() => {
-            this.headerHide = false;
-        }, 500);
-        setTimeout(() => {
-            this.showHeaderText = true;
-        }, 1500);
-        this.totalWidth = window.innerWidth - 80;
+    repeatExercise() {
+        this.router.navigate(['exercise', this.currentLessionIndex]);
+        window.location.reload();
     }
 
     setNextPractice() {
@@ -691,25 +668,44 @@ export class ExerciseComponent implements OnInit {
         });
         return activeClass;
     }
-    getIcon(letter){
+    getIcon(letter) {
         let letterIndex = this.letterIndexes.indexOf(letter);
         let nextKeCode = letterIndex + 96 + 1;
         return '../assets/images/typer/' + this.settingMode + 'b_' + + nextKeCode + '.jpg';
     }
+
     nextExercise() {
         this.currentLessionIndex = this.currentLessionIndex + 1;
-        if(this.currentLessionIndex>=this.exercises.length){
-          this.currentLessionIndex = 0;
+        if (this.currentLessionIndex >= this.exercises.length) {
+            this.currentLessionIndex = 0;
         }
-        this.currentExercise = this.exercises[this.currentLessionIndex];
-      }
-    
-      prevExercise() {
+        this.router.navigate(['exercise', this.currentLessionIndex]);
+        window.location.reload();
+    }
+
+    prevExercise() {
         this.currentLessionIndex = this.currentLessionIndex - 1;
-        if(this.currentLessionIndex<=0){
-          this.currentLessionIndex = this.exercises.length-1;
+        if (this.currentLessionIndex <= 0) {
+            this.currentLessionIndex = this.exercises.length - 1;
         }
         this.currentExercise = this.exercises[this.currentLessionIndex];
-      }
+    }
+
+    saveExercisePerformance() {
+        if (this.totalAccuracy > this.currentExercise.percent && this.totalAccuracy > this.currentExercise.grayPercent) {
+            let betterExercises = this.localStorageService.select('betterExercises');
+            if (!betterExercises) {
+                betterExercises = [];
+            }
+            betterExercises.push(this.currentExercise);
+            this.localStorageService.insert('betterExercises', betterExercises);
+        }
+        this.router.navigate(['home']);
+    }
+
+    saveImageToGallery() {
+        this.localStorageService.insert('currentExercise', this.currentExercise);
+        this.router.navigate(['gallery']);
+    }
 }
 

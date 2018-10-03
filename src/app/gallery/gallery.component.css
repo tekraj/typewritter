@@ -50,3 +50,13 @@
     padding-left:25px;
     padding-right:25px;
 }
+
+.image-holder.active{
+    border:5px solid transparent;
+}
+ @keyframes blink { 
+    50% { border-color:red; } 
+ }
+ .image-holder.active{ 
+     animation: blink .5s step-end infinite alternate;
+ }

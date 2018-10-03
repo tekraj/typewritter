@@ -1484,6 +1484,7 @@ header.info{border:none;border-radius:0;background:none;padding:0;}
     top: 0;
     height: 100%;
     font-size: 2.6vh;
+    z-index: 99;
 }
 .info-tooltip p{margin-bottom:10px;}
 
@@ -1820,6 +1821,42 @@ header.header-more{
     height: 46vh;
     border-width:12px;
 }
+.cartoon-image{
+    position: absolute;
+    right: -44%;
+    top: 5vh;
+}
+.save-exercises {
+    position: absolute;
+    left: 15%;
+    right: 15%;
+    bottom: 12%;
+    height: 75%;
+    border: 5px solid #ea0408;
+    border-radius: 10px;
+    padding: 20px;
+    background: #ddd;
+    z-index: 9999;
+}
+.save-exercises .table-wrapper{
+    height:50%;
+    overflow-y: auto;
+}
+.save-exercises h3{
+    font-size: 1.3rem;
+    margin-bottom: 2px;
+    margin-top: 0;
+}
+.save-exercises h4{
+    font-size: 1.2rem;
+    margin-bottom: 2px;
+    margin-top: 0;
+}
+.save-exercise-image{
+    padding-left: 13%;
+    margin-bottom: 10px;
+}
+.save-exercise-btns .btn.rounded-button{width: 100%;background:#fff;color:#ea0408!important;border-color: #ea0408;}
 @media screen and (min-width: 1024px) and (max-width: 1200px){
     .info-group{
         margin-left: 4px;

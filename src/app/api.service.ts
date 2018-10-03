@@ -5,10 +5,10 @@ import { callbackify } from 'util';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
-// const baseUrl = '/get-data?';
-// const settingUrl = '/get-settings';
-const baseUrl = 'http://mms.pphlinz.at/mms_flash_get_v15.php?';
-const settingUrl =  'http://localhost:9090/typewriter/apiservices.php?action=getSettings';//'http://keyboard.fadsan.com/apiservices.php?action=getSettings';
+const baseUrl = '/get-data?';
+const settingUrl = '/get-settings';
+// const baseUrl = 'http://mms.pphlinz.at/mms_flash_get_v15.php?';
+// const settingUrl =  'http://localhost:9090/typewriter/apiservices.php?action=getSettings';//'http://keyboard.fadsan.com/apiservices.php?action=getSettings';
 @Injectable({
   providedIn: 'root'
 })
@@ -60,4 +60,9 @@ export class ApiService {
     });
   }
 
+  saveExercise(id:number,callback){
+    this.http.get(baseUrl+'flag=set_prot&startbild=1008&st_lfdnr='+id+'&api=1',{ responseType: 'text' }).subscribe(data=>{
+      return callback(JSON.parse(data));
+    });
+  }
 }
