@@ -1,0 +1,1187 @@
+<h1 class="page-header">Ü{{currentLessionIndex}}: {{currentExercise.name}}</h1>
+<!-- Keyboard Type 1 -->
+
+<div *ngIf="practiceMode==9" class="main-wrapper">
+  <header class="home info keyboard-header">
+    <div class="main-info-text-hoder">
+      <h2 class="main-info-text" [ngClass]="{'active': headerHide ==false,'hide':collapseHeader==true}">
+        <span [ngClass]="{'opacity':showHeaderText==true}">{{currentExercise.topBarTitle}}</span>
+      </h2>
+    </div>
+    <div class="clearfix"></div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-4 text-left typing maria-holder">
+          <div class="maria-text large">
+            <p>{{currentExercise.flagTitle}}</p>
+          </div>
+          <img src="../assets/images/maria.png">
+        </div>
+        <div class="col-sm-4">
+          <!-- <div class="top-blank-white">
+            <img src="{{currentLetterImage}}" *ngIf="currentLetterImage" class="keyboard-display-image" alt="">
+          </div>
+          <div class="bottom-blank-white {{currentTypedLetterClass}}">{{currentTypedLetter}}</div> -->
+        </div>
+        <div class="col-sm-4 text-right">
+          <div class="sound-group">
+            <h4 class="text-center">SOUND</h4>
+            <a class="btn btn-default kein-btn sound-btn" (click)="setSound('kein_sound')" [ngClass]="{'active':typeSettings.sound=='kein_sound'}">Kein Sound</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('click')" [ngClass]="{'active':typeSettings.sound=='click'}">Klick</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('bst')" [ngClass]="{'active':typeSettings.sound=='bst'}">Bst</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('icon')" [ngClass]="{'active':typeSettings.sound=='icon'}">Icon</a>
+            <a class="btn btn-default sound-btn metro_aus" (click)="setSound('metro_aus')">{{metroSound}}</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg1')" [ngClass]="{'active':typeSettings.sound=='hg1'}">HG1</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg2')" [ngClass]="{'active':typeSettings.sound=='hg2'}">HG2</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg3')" [ngClass]="{'active':typeSettings.sound=='hg3'}">HG3</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg4')" [ngClass]="{'active':typeSettings.sound=='hg4'}">HG4</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg5')" [ngClass]="{'active':typeSettings.sound=='hg5'}">HG5</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg6')" [ngClass]="{'active':typeSettings.sound=='hg6'}">HG6</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg7')" [ngClass]="{'active':typeSettings.sound=='hg7'}">HG7</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg8')" [ngClass]="{'active':typeSettings.sound=='hg8'}">HG8</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg9')" [ngClass]="{'active':typeSettings.sound=='hg9'}">HG9</a>
+          </div>
+          <div class="info-group">
+            <h4 class="text-center">INFO</h4>
+            <table>
+              <tr>
+                <td class="text-center" colspan="2">1/1</td>
+              </tr>
+              <tr>
+                <td colspan="2" class="text-center">{{totalRight+'/'+totalWords}}</td>
+              </tr>
+              <tr>
+                <td>r {{totalRight}}</td>
+                <td>a {{totalRight+totalWrong}}</td>
+              </tr>
+              <tr>
+                <td>f {{totalWrong}}</td>
+                <td>z {{typingTime}}</td>
+              </tr>
+              <tr>
+                <td>{{totalAccuracy}}%</td>
+                <td style="color:#fff;">{{typingSpeed}}A</td>
+              </tr>
+            </table>
+            <div class="sound-slider" [ngClass]="{'mute':typeSettings.muteSound}">
+              <mat-slider class="mat-slider" min="1" max="100" step="1" [(ngModel)]="currentSoundLevel" (input)="setSoundVolume($event)"></mat-slider>
+            </div>
+            <div class="mute-open-btns">
+              <a class="btn btn-default mute-button" (click)="soundSetting(true)" [ngClass]="{'active':typeSettings.muteSound==true}">
+                &nbsp;
+              </a>
+              <a class="btn btn-default unmute-button" (click)="soundSetting(false)" [ngClass]="{'active':typeSettings.muteSound==false}">
+                &nbsp;
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="container-fluid container5">
+    <div class="information-text" [innerHTML]="currentExercise.content"></div>
+  </div>
+</div>
+
+<!-- Exercise mode 0 -->
+<div class="main-wrapper ex-one-one" *ngIf="practiceMode==0">
+  <header class="home info  keyboard-header">
+    <div class="main-info-text-hoder">
+      <h2 class="main-info-text padding-top-15" [ngClass]="{'active': headerHide ==false,'hide':collapseHeader==true}">
+        <span [ngClass]="{'opacity':showHeaderText==true}">{{currentExercise.topBarTitle}}</span>
+      </h2>
+    </div>
+    <div class="clearfix"></div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-4 text-left typing maria-holder">
+          <div class="maria-text large">
+            <p>{{currentExercise.flagTitle}}</p>
+          </div>
+          <img src="../assets/images/maria.png">
+        </div>
+        <div class="col-sm-4">
+          <div *ngIf="grid==1 || grid==2">
+            <div class="top-blank-white">
+              <img src="{{currentLetterImage}}" *ngIf="currentLetterImage" class="keyboard-display-image" alt="">
+            </div>
+            <div class="bottom-blank-white {{currentTypedLetterClass}}">{{currentTypedLetter}}</div>
+          </div>
+          <div *ngIf="grid==3" class="bottom-blank-white {{currentTypedLetterClass}}">{{currentTypedLetter}}</div>
+          <div class="top-blank-white extra-large" *ngIf="grid==4">
+            <img src="{{currentLetterImage}}" *ngIf="currentLetterImage" class="keyboard-display-image" alt="">
+          </div>
+        </div>
+        <div class="col-sm-4 text-right padding-right-0">
+
+          <div class="info-group pull-right">
+            <h4 class="text-center">INFO</h4>
+            <table>
+              <tr>
+                <td class="text-center" colspan="2">1/1</td>
+              </tr>
+              <tr>
+                <td colspan="2" class="text-center">{{totalRight+'/'+totalWords}}</td>
+              </tr>
+              <tr>
+                <td>r {{totalRight}}</td>
+                <td>a {{totalRight+totalWrong}}</td>
+              </tr>
+              <tr>
+                <td>f {{totalWrong}}</td>
+                <td>z {{typingTime}}</td>
+              </tr>
+              <tr>
+                <td>{{totalAccuracy}}%</td>
+                <td style="color:#fff;">{{typingSpeed}}A</td>
+              </tr>
+            </table>
+            <div class="sound-slider" [ngClass]="{'mute':typeSettings.muteSound}">
+              <mat-slider class="mat-slider" min="1" max="100" step="1" [(ngModel)]="currentSoundLevel" (input)="setSoundVolume($event)"></mat-slider>
+            </div>
+            <div class="mute-open-btns">
+              <a class="btn btn-default mute-button" (click)="soundSetting(true)" [ngClass]="{'active':typeSettings.muteSound==true}">
+                &nbsp;
+              </a>
+              <a class="btn btn-default unmute-button" (click)="soundSetting(false)" [ngClass]="{'active':typeSettings.muteSound==false}">
+                &nbsp;
+              </a>
+            </div>
+          </div>
+          <div class="sound-group pull-right">
+            <h4 class="text-center">SOUND</h4>
+            <a class="btn btn-default kein-btn sound-btn" (click)="setSound('kein_sound')" [ngClass]="{'active':typeSettings.sound=='kein_sound'}">Kein Sound</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('click')" [ngClass]="{'active':typeSettings.sound=='click'}">Klick</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('bst')" [ngClass]="{'active':typeSettings.sound=='bst'}">Bst</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('icon')" [ngClass]="{'active':typeSettings.sound=='icon'}">Icon</a>
+            <a class="btn btn-default sound-btn metro_aus" (click)="setSound('metro_aus')">{{metroSound}}</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg1')" [ngClass]="{'active':typeSettings.sound=='hg1'}">HG1</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg2')" [ngClass]="{'active':typeSettings.sound=='hg2'}">HG2</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg3')" [ngClass]="{'active':typeSettings.sound=='hg3'}">HG3</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg4')" [ngClass]="{'active':typeSettings.sound=='hg4'}">HG4</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg5')" [ngClass]="{'active':typeSettings.sound=='hg5'}">HG5</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg6')" [ngClass]="{'active':typeSettings.sound=='hg6'}">HG6</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg7')" [ngClass]="{'active':typeSettings.sound=='hg7'}">HG7</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg8')" [ngClass]="{'active':typeSettings.sound=='hg8'}">HG8</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg9')" [ngClass]="{'active':typeSettings.sound=='hg9'}">HG9</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container5 keyboard-holder" *ngIf="grid==1 || grid==2">
+    <div class="keyboard-input-field">
+      <div class="typing-text" [ngClass]="{'more':totalWordWidth>totalWidth}">
+        <div [style.width.px]="totalWordWidth" [style.left.px]="textLeftMove">
+          <span *ngFor="let i of keyboard.typingValue,let a=index" [ngClass]="{'underline':a==letterNextTyped ,'active': a<=letterTypedIndex}">{{i==' '?'&nbsp;':i}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="keyboard-container">
+      <ul id="keyboard">
+        <!-- ROW 4 START -->
+        <li *ngFor="let letter of globalSettings.row4" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':letter.visible}"
+          class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
+          <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
+          <span class="on small">{{letter.letters.normal}}
+            <sub *ngIf="letter.letters.ctrl">{{letter.letters.ctrl}}</sub>
+            <sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub>
+          </span>
+        </li>
+
+        <li class="backspace lastitem default" (mousedown)="writeText('Backspace')" [ngClass]="{'active':keyValue=='Backspace'}">&nbsp;</li>
+
+        <!-- ROW 4 END -->
+
+        <!-- ROW 3 START -->
+        <li class="tab default" (mousedown)="writeText('Tab')" [ngClass]="{'active':keyValue=='Tab'}"></li>
+        <li *ngFor="let letter of globalSettings.row3" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':letter.visible}"
+          class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
+          <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
+          <span class="on small">{{letter.letters.normal}}
+            <sub *ngIf="letter.letters.ctrl">{{letter.letters.ctrl}}</sub>
+            <sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub>
+          </span>
+        </li>
+
+        <!-- ROW 3 END -->
+
+        <!-- ROW 2 START -->
+        <li class="capslock default" (mousedown)="writeText('CapsLock')" [ngClass]="{'active':keyValue=='CapsLock'}"></li>
+        <li *ngFor="let letter of globalSettings.row2" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':letter.visible}"
+          class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
+          <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
+          <span class="on small">{{letter.letters.normal}}
+            <sub *ngIf="letter.letters.ctrl">{{letter.letters.ctrl}}</sub>
+            <sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub>
+          </span>
+        </li>
+        <li class="return lastitem default" (mousedown)="writeText('Enter')" [ngClass]="{'active':keyValue=='Enter'}"></li>
+        <!-- ROW 2 END -->
+
+
+        <!-- ROW 1 -->
+        <li class="left-shift default" (mousedown)="writeText('Shift')" [ngClass]="{'active':keyValue=='Shift'}"></li>
+        <li *ngFor="let letter of globalSettings.row1" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':letter.visible}"
+          class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
+          <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
+          <span class="on small">{{letter.letters.normal}}
+            <sub *ngIf="letter.letters.ctrl">{{letter.letters.ctrl}}</sub>
+            <sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub>
+          </span>
+        </li>
+        <li class="right-shift lastitem default"></li>
+        <!-- ROW 1 END -->
+
+        <li class="left-shift blank default"></li>
+        <li class="space lastitem default" [ngClass]="{'active':(keyValue=='space'|| keyValue==' ')}" (mousedown)="writeText('space',' ',' ',' ')">
+          <div class="row finger-position">
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="text-primary">kleinger Finger</span>
+                  <span class="text-warning">Ring Finger</span>
+                  <span class="text-success">Mittel Finger</span>
+                  <span class="text-danger">Zeige Finger</span>
+                </div>
+                <div class="col-sm-12 text-right">
+                  <p>Linke Hand</p>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="text-danger">Zeige Finger</span>
+                  <span class="text-primary">Mittel Finger</span>
+                  <span class="text-warning">Ring Finger</span>
+                  <span class="text-primary">kleinger Finger</span>
+                </div>
+                <div class="col-sm-12 text-left">
+                  <p>Rechte Hand</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </li>
+        <li class="right-shift lastitem blank default"></li>
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+
+  <div class="container-fluid container5 " *ngIf="grid==3 || grid==4">
+    <div class="keyboard-input-field simple-typing">
+      <div class="typing-text">
+        <div [style.width.px]="14*keyboard.typingValue.length">
+          <span *ngFor="let i of keyboard.typingValue,let a=index" [ngClass]="{'underline':a==letterNextTyped ,'active': a<=letterTypedIndex}">{{i==' '?'&nbsp;':i}}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- exercie mode 1 -->
+<div class="main-wrapper" [ngClass]="{'ex-two-one':grid==1,'ex-two-two':grid==2,'ex-two-three':grid==3,'ex-two-four':grid==4}"
+  *ngIf="practiceMode==1">
+
+  
+  <header class="home info  keyboard-header" [ngClass]="{'header-more':grid==1}">
+    <div class="main-info-text-hoder">
+      <h2 class="main-info-text padding-top-15" [ngClass]="{'active': headerHide ==false,'hide':collapseHeader==true}">
+         <span [ngClass]="{'opacity':showHeaderText==true}">{{currentExercise.topBarTitle}}</span>
+      </h2>
+    </div>
+    <div class="clearfix"></div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-4 text-left typing maria-holder">
+          <div class="maria-text large">
+            <p>{{currentExercise.flagTitle}}</p>
+          </div>
+          <img src="../assets/images/maria.png">
+        </div>
+        <div class="col-sm-4">
+          <div *ngIf="grid==1">
+            <div class="top-blank-white">
+              <img src="{{typeThisImage}}" *ngIf="typeThisImage" class="keyboard-display-image" alt="">
+            </div>
+            <div class="bottom-blank-white {{typeThisLetterClass}}">{{typeThisLetter}}</div>
+          </div>
+          <div class="bottom-blank-white {{typeThisLetterClass}}" *ngIf="grid==3">{{typeThisLetter}}</div>
+          <div class="top-blank-white" *ngIf="grid==4">
+            <img src="{{typeThisImage}}" *ngIf="typeThisImage" class="keyboard-display-image" alt="">
+          </div>
+          <div class="bottom-blank-white {{typeThisLetterClass}}" *ngIf="grid==2">{{typeThisLetter}}</div>
+        </div>
+        <div class="col-sm-4 text-right padding-right-0">
+          <div class="info-group  pull-right">
+            <h4 class="text-center">INFO</h4>
+            <table>
+              <tr>
+                <td class="text-center" colspan="2">1/1</td>
+              </tr>
+              <tr>
+                <td colspan="2" class="text-center">{{totalRight+'/'+totalWords}}</td>
+              </tr>
+              <tr>
+                <td>r {{totalRight}}</td>
+                <td>a {{totalRight+totalWrong}}</td>
+              </tr>
+              <tr>
+                <td>f {{totalWrong}}</td>
+                <td>z {{typingTime}}</td>
+              </tr>
+              <tr>
+                <td>{{totalAccuracy}}%</td>
+                <td style="color:#fff;">{{typingSpeed}}A</td>
+              </tr>
+            </table>
+            <div class="sound-slider" [ngClass]="{'mute':typeSettings.muteSound}">
+              <mat-slider class="mat-slider" min="1" max="100" step="1" [(ngModel)]="currentSoundLevel" (input)="setSoundVolume($event)"></mat-slider>
+            </div>
+            <div class="mute-open-btns">
+              <a class="btn btn-default mute-button" (click)="soundSetting(true)" [ngClass]="{'active':typeSettings.muteSound==true}">
+                &nbsp;
+              </a>
+              <a class="btn btn-default unmute-button" (click)="soundSetting(false)" [ngClass]="{'active':typeSettings.muteSound==false}">
+                &nbsp;
+              </a>
+            </div>
+          </div>
+          <div class="sound-group  pull-right">
+            <h4 class="text-center">SOUND</h4>
+            <a class="btn btn-default kein-btn sound-btn" (click)="setSound('kein_sound')" [ngClass]="{'active':typeSettings.sound=='kein_sound'}">Kein Sound</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('click')" [ngClass]="{'active':typeSettings.sound=='click'}">Klick</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('bst')" [ngClass]="{'active':typeSettings.sound=='bst'}">Bst</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('icon')" [ngClass]="{'active':typeSettings.sound=='icon'}">Icon</a>
+            <a class="btn btn-default sound-btn metro_aus" (click)="setSound('metro_aus')">{{metroSound}}</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg1')" [ngClass]="{'active':typeSettings.sound=='hg1'}">HG1</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg2')" [ngClass]="{'active':typeSettings.sound=='hg2'}">HG2</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg3')" [ngClass]="{'active':typeSettings.sound=='hg3'}">HG3</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg4')" [ngClass]="{'active':typeSettings.sound=='hg4'}">HG4</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg5')" [ngClass]="{'active':typeSettings.sound=='hg5'}">HG5</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg6')" [ngClass]="{'active':typeSettings.sound=='hg6'}">HG6</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg7')" [ngClass]="{'active':typeSettings.sound=='hg7'}">HG7</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg8')" [ngClass]="{'active':typeSettings.sound=='hg8'}">HG8</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg9')" [ngClass]="{'active':typeSettings.sound=='hg9'}">HG9</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="container5 keyboard-holder" *ngIf="grid==1">
+    <div class="keyboard-container">
+      <ul id="keyboard">
+        <!-- ROW 4 START -->
+        <li *ngFor="let letter of globalSettings.row4" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':letter.visible}"
+          class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
+          <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
+          <span class="on small">{{letter.letters.normal}}
+            <sub *ngIf="letter.letters.ctrl">{{letter.letters.ctrl}}</sub>
+            <sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub>
+          </span>
+        </li>
+
+        <li class="backspace lastitem default" (mousedown)="writeText('Backspace','','','')" [ngClass]="{'active':keyValue=='Backspace'}">&nbsp;</li>
+
+        <!-- ROW 4 END -->
+
+        <!-- ROW 3 START -->
+        <li class="tab default" (mousedown)="writeText('Tab','','','')" [ngClass]="{'active':keyValue=='Tab'}"></li>
+        <li *ngFor="let letter of globalSettings.row3" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':letter.visible}"
+          class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
+          <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
+          <span class="on small">{{letter.letters.normal}}
+            <sub *ngIf="letter.letters.ctrl">{{letter.letters.ctrl}}</sub>
+            <sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub>
+          </span>
+        </li>
+
+        <!-- ROW 3 END -->
+
+        <!-- ROW 2 START -->
+        <li class="capslock default" (mousedown)="writeText('CapsLock','','','')" [ngClass]="{'active':keyValue=='CapsLock'}"></li>
+        <li *ngFor="let letter of globalSettings.row2" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':letter.visible}"
+          class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
+          <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
+          <span class="on small">{{letter.letters.normal}}
+            <sub *ngIf="letter.letters.ctrl">{{letter.letters.ctrl}}</sub>
+            <sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub>
+          </span>
+        </li>
+        <li class="return lastitem default" (mousedown)="writeText('Enter','','','')" [ngClass]="{'active':keyValue=='Enter'}"></li>
+        <!-- ROW 2 END -->
+
+
+        <!-- ROW 1 -->
+        <li class="left-shift default" (mousedown)="writeText('Shift','','','')" [ngClass]="{'active':keyValue=='Shift'}"></li>
+        <li *ngFor="let letter of globalSettings.row1" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':letter.visible}"
+          class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
+          <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
+          <span class="on small">{{letter.letters.normal}}
+            <sub *ngIf="letter.letters.ctrl">{{letter.letters.ctrl}}</sub>
+            <sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub>
+          </span>
+        </li>
+        <li class="right-shift lastitem default"></li>
+        <!-- ROW 1 END -->
+
+        <li class="left-shift blank default"></li>
+        <li class="space lastitem default" [ngClass]="{'active':(keyValue=='space'|| keyValue==' ')}" (mousedown)="writeText('space',' ',' ',' ')">
+          <div class="row finger-position">
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="text-primary">kleinger Finger</span>
+                  <span class="text-warning">Ring Finger</span>
+                  <span class="text-success">Mittel Finger</span>
+                  <span class="text-danger">Zeige Finger</span>
+                </div>
+                <div class="col-sm-12 text-right">
+                  <p>Linke Hand</p>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="text-danger">Zeige Finger</span>
+                  <span class="text-primary">Mittel Finger</span>
+                  <span class="text-warning">Ring Finger</span>
+                  <span class="text-primary">kleinger Finger</span>
+                </div>
+                <div class="col-sm-12 text-left">
+                  <p>Rechte Hand</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </li>
+        <li class="right-shift lastitem blank default"></li>
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- exercise mode 2 -->
+<div class="main-wrapper" [ngClass]="{'ex-two-one':grid==1,'ex-two-two':grid==2,'ex-two-three':grid==3,'ex-two-four':grid==4}"
+  *ngIf="practiceMode==2">
+
+
+  <header class="home info keyboard-header" >
+    <div class="main-info-text-hoder">
+      <h2 class="main-info-text" [ngClass]="{'active': headerHide ==false,'hide':collapseHeader==true}">
+         <span [ngClass]="{'opacity':showHeaderText==true}">{{currentExercise.topBarTitle}}</span>
+      </h2>
+    </div>
+    <div class="clearfix"></div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-4 text-left typing maria-holder">
+          <div class="maria-text large">
+            <p>{{currentExercise.flagTitle}}</p>
+          </div>
+          <img src="../assets/images/maria.png">
+        </div>
+        <div class="col-sm-4">
+          <div *ngIf="grid==1">
+            <div class="top-blank-white">
+              <img src="{{typeThisImage}}" *ngIf="typeThisImage" class="keyboard-display-image" alt="">
+            </div>
+            <div class="bottom-blank-white {{typeThisLetterClass}}">{{typeThisLetter}}</div>
+          </div>
+          <div *ngIf="grid==2">
+            <div class="top-blank-white">
+              <img src="{{currentLetterImage}}" *ngIf="currentLetterImage" class="keyboard-display-image" alt="">
+            </div>
+            <div class="bottom-blank-white {{currentTypedLetterClass}}">{{currentTypedLetter}}</div>
+          </div>
+          <div class="bottom-blank-white  signle-blank-white  {{currentTypedLetterClass}}" *ngIf="grid==3">
+
+            {{currentTypedLetter}}
+          </div>
+          <div class="top-blank-white extra-large" *ngIf="grid==4">
+            <img src="{{currentLetterImage}}" *ngIf="currentLetterImage" class="keyboard-display-image" alt="">
+          </div>
+        </div>
+        <div class="col-sm-4 text-right  padding-right-0">
+
+          <div class="info-group pull-right">
+            <h4 class="text-center">INFO</h4>
+            <table>
+              <tr>
+                <td class="text-center" colspan="2">1/1</td>
+              </tr>
+              <tr>
+                <td colspan="2" class="text-center">{{totalRight+'/'+totalWords}}</td>
+              </tr>
+              <tr>
+                <td>r {{totalRight}}</td>
+                <td>a {{totalRight+totalWrong}}</td>
+              </tr>
+              <tr>
+                <td>f {{totalWrong}}</td>
+                <td>z {{typingTime}}</td>
+              </tr>
+              <tr>
+                <td>{{totalAccuracy}}%</td>
+                <td style="color:#fff;">{{typingSpeed}}A</td>
+              </tr>
+            </table>
+            <div class="sound-slider" [ngClass]="{'mute':typeSettings.muteSound}">
+              <mat-slider class="mat-slider mat-slider-horizontal" min="1" max="100" step="1" [(ngModel)]="currentSoundLevel" (input)="setSoundVolume($event)"></mat-slider>
+            </div>
+            <div class="mute-open-btns">
+              <a class="btn btn-default mute-button" (click)="soundSetting(true)" [ngClass]="{'active':typeSettings.muteSound==true}">
+                &nbsp;
+              </a>
+              <a class="btn btn-default unmute-button" (click)="soundSetting(false)" [ngClass]="{'active':typeSettings.muteSound==false}">
+                &nbsp;
+              </a>
+            </div>
+          </div>
+          <div class="sound-group pull-right">
+            <h4 class="text-center">SOUND</h4>
+            <a class="btn btn-default kein-btn sound-btn" (click)="setSound('kein_sound')" [ngClass]="{'active':typeSettings.sound=='kein_sound'}">Kein Sound</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('click')" [ngClass]="{'active':typeSettings.sound=='click'}">Klick</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('bst')" [ngClass]="{'active':typeSettings.sound=='bst'}">Bst</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('icon')" [ngClass]="{'active':typeSettings.sound=='icon'}">Icon</a>
+            <a class="btn btn-default sound-btn metro_aus" (click)="setSound('metro_aus')">{{metroSound}}</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg1')" [ngClass]="{'active':typeSettings.sound=='hg1'}">HG1</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg2')" [ngClass]="{'active':typeSettings.sound=='hg2'}">HG2</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg3')" [ngClass]="{'active':typeSettings.sound=='hg3'}">HG3</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg4')" [ngClass]="{'active':typeSettings.sound=='hg4'}">HG4</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg5')" [ngClass]="{'active':typeSettings.sound=='hg5'}">HG5</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg6')" [ngClass]="{'active':typeSettings.sound=='hg6'}">HG6</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg7')" [ngClass]="{'active':typeSettings.sound=='hg7'}">HG7</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg8')" [ngClass]="{'active':typeSettings.sound=='hg8'}">HG8</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg9')" [ngClass]="{'active':typeSettings.sound=='hg9'}">HG9</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="container5 keyboard-holder" *ngIf="grid==1">
+    <div class="keyboard-input-field">
+      <div class="typing-text">
+        <div [style.width.px]="14*keyboard.typingValue.length">
+          <span *ngFor="let i of typedStringArray,let a=index" class="active">{{i}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="keyboard-container">
+      <ul id="keyboard">
+        <!-- ROW 4 START -->
+        <li *ngFor="let letter of globalSettings.row4" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':letter.visible}"
+          class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
+          <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
+          <span class="on small">{{letter.letters.normal}}
+            <sub *ngIf="letter.letters.ctrl">{{letter.letters.ctrl}}</sub>
+            <sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub>
+          </span>
+        </li>
+
+        <li class="backspace lastitem default" (mousedown)="writeText('Backspace','','','')" [ngClass]="{'active':keyValue=='Backspace'}">&nbsp;</li>
+
+        <!-- ROW 4 END -->
+
+        <!-- ROW 3 START -->
+        <li class="tab default" (mousedown)="writeText('Tab','','','')" [ngClass]="{'active':keyValue=='Tab'}"></li>
+        <li *ngFor="let letter of globalSettings.row3" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':letter.visible}"
+          class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
+          <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
+          <span class="on small">{{letter.letters.normal}}
+            <sub *ngIf="letter.letters.ctrl">{{letter.letters.ctrl}}</sub>
+            <sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub>
+          </span>
+        </li>
+
+        <!-- ROW 3 END -->
+
+        <!-- ROW 2 START -->
+        <li class="capslock default" (mousedown)="writeText('CapsLock','','','')" [ngClass]="{'active':keyValue=='CapsLock'}"></li>
+        <li *ngFor="let letter of globalSettings.row2" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':letter.visible}"
+          class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
+          <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
+          <span class="on small">{{letter.letters.normal}}
+            <sub *ngIf="letter.letters.ctrl">{{letter.letters.ctrl}}</sub>
+            <sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub>
+          </span>
+        </li>
+        <li class="return lastitem default" (mousedown)="writeText('Enter','','','')" [ngClass]="{'active':keyValue=='Enter'}"></li>
+        <!-- ROW 2 END -->
+
+
+        <!-- ROW 1 -->
+        <li class="left-shift default" (mousedown)="writeText('Shift','','','')" [ngClass]="{'active':keyValue=='Shift'}"></li>
+        <li *ngFor="let letter of globalSettings.row1" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':letter.visible}"
+          class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
+          <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
+          <span class="on small">{{letter.letters.normal}}
+            <sub *ngIf="letter.letters.ctrl">{{letter.letters.ctrl}}</sub>
+            <sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub>
+          </span>
+        </li>
+        <li class="right-shift lastitem default"></li>
+        <!-- ROW 1 END -->
+
+        <li class="left-shift blank default"></li>
+        <li class="space lastitem default" [ngClass]="{'active':(keyValue=='space'|| keyValue==' ')}" (mousedown)="writeText('space',' ',' ',' ')">
+          <div class="row finger-position">
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="text-primary">kleinger Finger</span>
+                  <span class="text-warning">Ring Finger</span>
+                  <span class="text-success">Mittel Finger</span>
+                  <span class="text-danger">Zeige Finger</span>
+                </div>
+                <div class="col-sm-12 text-right">
+                  <p>Linke Hand</p>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="text-danger">Zeige Finger</span>
+                  <span class="text-primary">Mittel Finger</span>
+                  <span class="text-warning">Ring Finger</span>
+                  <span class="text-primary">kleinger Finger</span>
+                </div>
+                <div class="col-sm-12 text-left">
+                  <p>Rechte Hand</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </li>
+        <li class="right-shift lastitem blank default"></li>
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+
+
+  </div>
+  <div class="container-fluid container5 two-split-input" *ngIf="grid>1">
+    <div class="keyboard-input-field simple-typing">
+      <div class="typing-text">
+        <span *ngFor="let i of keyboard.typingValue,let a=index">{{i}}</span>
+      </div>
+    </div>
+    <div class="input-field-five">{{typedString+'_'}}</div>
+  </div>
+</div>
+
+<div class="main-wrapper" [ngClass]="{'ex-two-one':grid==1,'ex-two-two':grid==2,'ex-two-three':grid==3,'ex-two-four':grid==4}"
+  *ngIf="practiceMode==3">
+
+
+  <header class="home info keyboard-header">
+    <div class="main-info-text-hoder">
+      <h2 class="main-info-text" [ngClass]="{'active': headerHide ==false,'hide':collapseHeader==true}">
+         <span [ngClass]="{'opacity':showHeaderText==true}">{{currentExercise.topBarTitle}}</span>
+      </h2>
+    </div>
+    <div class="clearfix"></div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-4 text-left typing maria-holder">
+          <div class="maria-text large">
+            <p>{{currentExercise.flagTitle}}</p>
+          </div>
+          <img src="../assets/images/maria.png">
+        </div>
+        <div class="col-sm-4">
+          <div *ngIf="grid==1">
+            <div class="top-blank-white">
+              <img src="{{typeThisImage}}" *ngIf="typeThisImage" class="keyboard-display-image" alt="">
+            </div>
+            <div class="bottom-blank-white {{typeThisLetterClass}}">{{typeThisLetter}}</div>
+          </div>
+          <div *ngIf="grid==2">
+            <div class="top-blank-white">
+              <img src="{{typeThisImage}}" *ngIf="typeThisImage" class="keyboard-display-image" alt="">
+            </div>
+            <div class="bottom-blank-white {{currentTypedLetterClass}}">{{currentTypedLetter}}</div>
+          </div>
+          <div class="bottom-blank-white  signle-blank-white  {{currentTypedLetterClass}}" *ngIf="grid==3">
+
+            {{currentTypedLetter}}
+          </div>
+          <div class="top-blank-white extra-large" *ngIf="grid==4">
+            <img src="{{currentLetterImage}}" *ngIf="currentLetterImage" class="keyboard-display-image" alt="">
+          </div>
+        </div>
+        <div class="col-sm-4 text-right  padding-right-0">
+
+          <div class="info-group pull-right">
+            <h4 class="text-center">INFO</h4>
+            <table>
+              <tr>
+                <td class="text-center" colspan="2">1/1</td>
+              </tr>
+              <tr>
+                <td colspan="2" class="text-center">{{totalRight+'/'+totalWords}}</td>
+              </tr>
+              <tr>
+                <td>r {{totalRight}}</td>
+                <td>a {{totalRight+totalWrong}}</td>
+              </tr>
+              <tr>
+                <td>f {{totalWrong}}</td>
+                <td>z {{typingTime}}</td>
+              </tr>
+              <tr>
+                <td>{{totalAccuracy}}%</td>
+                <td style="color:#fff;">{{typingSpeed}}A</td>
+              </tr>
+            </table>
+            <div class="sound-slider" [ngClass]="{'mute':typeSettings.muteSound}">
+              <mat-slider class="mat-slider mat-slider-horizontal" min="1" max="100" step="1" [(ngModel)]="currentSoundLevel" (input)="setSoundVolume($event)"></mat-slider>
+            </div>
+            <div class="mute-open-btns">
+              <a class="btn btn-default mute-button" (click)="soundSetting(true)" [ngClass]="{'active':typeSettings.muteSound==true}">
+                &nbsp;
+              </a>
+              <a class="btn btn-default unmute-button" (click)="soundSetting(false)" [ngClass]="{'active':typeSettings.muteSound==false}">
+                &nbsp;
+              </a>
+            </div>
+          </div>
+          <div class="sound-group pull-right">
+            <h4 class="text-center">SOUND</h4>
+            <a class="btn btn-default kein-btn sound-btn" (click)="setSound('kein_sound')" [ngClass]="{'active':typeSettings.sound=='kein_sound'}">Kein Sound</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('click')" [ngClass]="{'active':typeSettings.sound=='click'}">Klick</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('bst')" [ngClass]="{'active':typeSettings.sound=='bst'}">Bst</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('icon')" [ngClass]="{'active':typeSettings.sound=='icon'}">Icon</a>
+            <a class="btn btn-default sound-btn metro_aus" (click)="setSound('metro_aus')">{{metroSound}}</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg1')" [ngClass]="{'active':typeSettings.sound=='hg1'}">HG1</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg2')" [ngClass]="{'active':typeSettings.sound=='hg2'}">HG2</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg3')" [ngClass]="{'active':typeSettings.sound=='hg3'}">HG3</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg4')" [ngClass]="{'active':typeSettings.sound=='hg4'}">HG4</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg5')" [ngClass]="{'active':typeSettings.sound=='hg5'}">HG5</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg6')" [ngClass]="{'active':typeSettings.sound=='hg6'}">HG6</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg7')" [ngClass]="{'active':typeSettings.sound=='hg7'}">HG7</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg8')" [ngClass]="{'active':typeSettings.sound=='hg8'}">HG8</a>
+            <a class="btn btn-default sound-btn" (click)="setSound('hg9')" [ngClass]="{'active':typeSettings.sound=='hg9'}">HG9</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="container5 keyboard-holder" *ngIf="grid==1">
+    <div class="keyboard-input-field">
+      <div class="typing-text">
+        <div [style.width.px]="14*keyboard.typingValue.length">
+          <span *ngFor="let i of typedStringArray,let a=index" class="active">{{i}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="keyboard-container">
+      <ul id="keyboard">
+        <!-- ROW 4 START -->
+        <li *ngFor="let letter of globalSettings.row4" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':letter.visible}"
+          class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
+          <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
+          <span class="on small">{{letter.letters.normal}}
+            <sub *ngIf="letter.letters.ctrl">{{letter.letters.ctrl}}</sub>
+            <sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub>
+          </span>
+        </li>
+
+        <li class="backspace lastitem default" (mousedown)="writeText('Backspace','','','')" [ngClass]="{'active':keyValue=='Backspace'}">&nbsp;</li>
+
+        <!-- ROW 4 END -->
+
+        <!-- ROW 3 START -->
+        <li class="tab default" (mousedown)="writeText('Tab','','','')" [ngClass]="{'active':keyValue=='Tab'}"></li>
+        <li *ngFor="let letter of globalSettings.row3" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':letter.visible}"
+          class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
+          <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
+          <span class="on small">{{letter.letters.normal}}
+            <sub *ngIf="letter.letters.ctrl">{{letter.letters.ctrl}}</sub>
+            <sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub>
+          </span>
+        </li>
+
+        <!-- ROW 3 END -->
+
+        <!-- ROW 2 START -->
+        <li class="capslock default" (mousedown)="writeText('CapsLock','','','')" [ngClass]="{'active':keyValue=='CapsLock'}"></li>
+        <li *ngFor="let letter of globalSettings.row2" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':letter.visible}"
+          class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
+          <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
+          <span class="on small">{{letter.letters.normal}}
+            <sub *ngIf="letter.letters.ctrl">{{letter.letters.ctrl}}</sub>
+            <sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub>
+          </span>
+        </li>
+        <li class="return lastitem default" (mousedown)="writeText('Enter','','','')" [ngClass]="{'active':keyValue=='Enter'}"></li>
+        <!-- ROW 2 END -->
+
+
+        <!-- ROW 1 -->
+        <li class="left-shift default" (mousedown)="writeText('Shift','','','')" [ngClass]="{'active':keyValue=='Shift'}"></li>
+        <li *ngFor="let letter of globalSettings.row1" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':letter.visible}"
+          class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
+          <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
+          <span class="on small">{{letter.letters.normal}}
+            <sub *ngIf="letter.letters.ctrl">{{letter.letters.ctrl}}</sub>
+            <sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub>
+          </span>
+        </li>
+        <li class="right-shift lastitem default"></li>
+        <!-- ROW 1 END -->
+
+        <li class="left-shift blank default"></li>
+        <li class="space lastitem default" [ngClass]="{'active':(keyValue=='space'|| keyValue==' ')}" (mousedown)="writeText('space',' ',' ',' ')">
+          <div class="row finger-position">
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="text-primary">kleinger Finger</span>
+                  <span class="text-warning">Ring Finger</span>
+                  <span class="text-success">Mittel Finger</span>
+                  <span class="text-danger">Zeige Finger</span>
+                </div>
+                <div class="col-sm-12 text-right">
+                  <p>Linke Hand</p>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="text-danger">Zeige Finger</span>
+                  <span class="text-primary">Mittel Finger</span>
+                  <span class="text-warning">Ring Finger</span>
+                  <span class="text-primary">kleinger Finger</span>
+                </div>
+                <div class="col-sm-12 text-left">
+                  <p>Rechte Hand</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </li>
+        <li class="right-shift lastitem blank default"></li>
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+
+
+  </div>
+  <div class="container-fluid container5 two-split-input" *ngIf="grid>1">
+    <div class="keyboard-input-field simple-typing">
+      <div class="typing-text">
+        <span *ngFor="let i of keyboard.typingValue,let a=index">{{i}}</span>
+      </div>
+    </div>
+    <div class="input-field-five">{{typedString+'_'}}</div>
+  </div>
+</div>
+
+<div class="main-wrapper" *ngIf="practiceMode==4">
+   
+  <header class="home info  keyboard-header">
+    <div class="main-info-text-hoder">
+      <h2 class="main-info-text" [ngClass]="{'active': headerHide ==false,'hide':collapseHeader==true}">
+        <span [ngClass]="{'opacity':showHeaderText==true}">{{currentExercise.topBarTitle}}</span>
+      </h2>
+    </div>
+    <div class="clearfix"></div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-4 text-left typing maria-holder">
+          <!-- <div class="maria-text large">
+            <p>{{currentExercise.flagTitle}}</p>
+          </div>
+          <img src="../assets/images/maria.png"> -->
+        </div>
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4 text-right">
+
+          <div class="info-group" style="margin-top:20px;">
+            <h4 class="text-center">INFO</h4>
+            <table>
+              <tr>
+                <td class="text-center" colspan="2">1/1</td>
+              </tr>
+              <tr>
+                <td colspan="2" class="text-center">{{totalRight+'/'+totalWords}}</td>
+              </tr>
+              <tr>
+                <td>r {{totalRight}}</td>
+                <td>a {{totalRight+totalWrong}}</td>
+              </tr>
+              <tr>
+                <td>f {{totalWrong}}</td>
+                <td>z {{typingTime}}</td>
+              </tr>
+              <tr>
+                <td>{{totalAccuracy}}%</td>
+                <td style="color:#fff;">{{typingSpeed}}A</td>
+              </tr>
+            </table>
+            <div class="sound-slider" [ngClass]="{'mute':typeSettings.muteSound}">
+              <mat-slider class="mat-slider" min="1" max="100" step="1" [(ngModel)]="currentSoundLevel" (input)="setSoundVolume($event)"></mat-slider>
+            </div>
+            <div class="mute-open-btns">
+              <a class="btn btn-default mute-button" (click)="soundSetting(true)" [ngClass]="{'active':typeSettings.muteSound==true}">
+                &nbsp;
+              </a>
+              <a class="btn btn-default unmute-button" (click)="soundSetting(false)" [ngClass]="{'active':typeSettings.muteSound==false}">
+                &nbsp;
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="container5 keyboard-holder">
+    <div class="ballon-holder" style="min-height:6vh;">
+      <ng-container *ngFor="let l of currentLettersArray,let a=index">
+        <span *ngIf="!l.del" [ngClass]="{'letter':animationMode=='letter','icon':animationMode=='icon'}" class="{{getLetterClass(l.letter)}}" [ngStyle]="{left:l.left+'%'}" [@ballonState]="l.animation==true ? 'active' :(l.initial ==false ?  'preactive' : 'inactive')"
+          (@ballonState.done)="removeElementByAnimation($event,a,l.letter,l.initial)">
+          <span *ngIf="animationMode=='letter'">{{l.letter}}</span>
+          <img  *ngIf="animationMode=='icon'" src="{{getIcon(l.letter)}}">
+        </span>
+      </ng-container>
+    </div>
+    <div class="keyboard-container">
+      <ul id="keyboard">
+        <!-- ROW 4 START -->
+        <li *ngFor="let letter of globalSettings.row4" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':letter.visible}"
+          class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
+          <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
+          <span class="on small">{{letter.letters.normal}}
+            <sub *ngIf="letter.letters.ctrl">{{letter.letters.ctrl}}</sub>
+            <sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub>
+          </span>
+        </li>
+
+        <li class="backspace lastitem default" (mousedown)="writeText('Backspace','','','')" [ngClass]="{'active':keyValue=='Backspace'}">&nbsp;</li>
+
+        <!-- ROW 4 END -->
+
+        <!-- ROW 3 START -->
+        <li class="tab default" (mousedown)="writeText('Tab','','','')" [ngClass]="{'active':keyValue=='Tab'}"></li>
+        <li *ngFor="let letter of globalSettings.row3" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':letter.visible}"
+          class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
+          <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
+          <span class="on small">{{letter.letters.normal}}
+            <sub *ngIf="letter.letters.ctrl">{{letter.letters.ctrl}}</sub>
+            <sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub>
+          </span>
+        </li>
+
+        <!-- ROW 3 END -->
+
+        <!-- ROW 2 START -->
+        <li class="capslock default" (mousedown)="writeText('CapsLock','','','')" [ngClass]="{'active':keyValue=='CapsLock'}"></li>
+        <li *ngFor="let letter of globalSettings.row2" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':letter.visible}"
+          class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
+          <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
+          <span class="on small">{{letter.letters.normal}}
+            <sub *ngIf="letter.letters.ctrl">{{letter.letters.ctrl}}</sub>
+            <sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub>
+          </span>
+        </li>
+        <li class="return lastitem default" (mousedown)="writeText('Enter','','','')" [ngClass]="{'active':keyValue=='Enter'}"></li>
+        <!-- ROW 2 END -->
+
+
+        <!-- ROW 1 -->
+        <li class="left-shift default" (mousedown)="writeText('Shift','','','')" [ngClass]="{'active':keyValue=='Shift'}"></li>
+        <li *ngFor="let letter of globalSettings.row1" [ngClass]="{'active':(keyValue==letter.letters.normal || keyValue==letter.letters.shift|| keyValue==letter.letters.ctrl || keyValue==letter.letters.alt),'visible':letter.visible}"
+          class="letter  {{letter.cssClass}}" (mousedown)="writeText(letter.letters.normal , letter.letters.shift, letter.letters.ctrl, letter.letters.alt)">
+          <span class="off small" *ngIf="letter.letters.shift">{{letter.letters.shift}}</span>
+          <span class="on small">{{letter.letters.normal}}
+            <sub *ngIf="letter.letters.ctrl">{{letter.letters.ctrl}}</sub>
+            <sub *ngIf="letter.letters.alt">{{letter.letters.alt}}</sub>
+          </span>
+        </li>
+        <li class="right-shift lastitem default"></li>
+        <!-- ROW 1 END -->
+
+        <li class="left-shift blank default"></li>
+        <li class="space lastitem default" [ngClass]="{'active':(keyValue=='space'|| keyValue==' ')}" (mousedown)="writeText('space',' ',' ',' ')">
+          <div class="row finger-position">
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="text-primary">kleinger Finger</span>
+                  <span class="text-warning">Ring Finger</span>
+                  <span class="text-success">Mittel Finger</span>
+                  <span class="text-danger">Zeige Finger</span>
+                </div>
+                <div class="col-sm-12 text-right">
+                  <p>Linke Hand</p>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-sm-6">
+              <div class="row">
+                <div class="col-sm-12">
+                  <span class="text-danger">Zeige Finger</span>
+                  <span class="text-primary">Mittel Finger</span>
+                  <span class="text-warning">Ring Finger</span>
+                  <span class="text-primary">kleinger Finger</span>
+                </div>
+                <div class="col-sm-12 text-left">
+                  <p>Rechte Hand</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </li>
+        <li class="right-shift lastitem blank default"></li>
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  </div>
+  <div class="bottom-botton-holder">
+    <div class="row">
+      <div class="col-sm-4 text-left">
+        <a class="btn rounded-button" (click)="nextExercise()">
+          Ubung abbrechen
+        </a>
+      </div>
+      <div class="col-sm-4 text-center">
+        <a style="display:none;" class="btn rounded-button middle-btn" (click)="nextExercise()">
+          Arbeit fortsetzen
+        </a>
+      </div>
+      <div class="col-sm-4 text-right">
+        <a class="btn rounded-button" routerLink="/home">
+          Lektion beenden
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="zoom-div text-center" *ngIf="showZoomAnimation && practiceMode==1">
+    <button class="btn rounded-button rounded-white" [ngClass]="{'animation':zoomButtonAnimation==true}" (click)="hideZoomAnimation()">Zum Start Bitte hier klicken</button>
+  </div>
+
+  <div class="complete-modal" *ngIf="showCompleteBox">
+      <div class="complete-modal" >
+      <div class="wrapper">
+        <div class="top-info-bar container-fluid">
+          <div class="row" style="margin-bottom:10px;">
+            <div class="col-sm-7">
+              <h2>Ubungsergebnis:</h2>
+              <p class="super-alle">Super - alle 9</p>
+              <p class="super-alle">Bonsusfelder aufgedeckt!</p>
+            </div>
+            <div class="col-sm-5">
+              <div class="animation-9">
+                <span [ngClass]="{'active':exerciseCompleted>=1}"></span>
+                <span [ngClass]="{'active':exerciseCompleted>=2}"></span>
+                <span [ngClass]="{'active':exerciseCompleted>=3}"></span>
+                <span [ngClass]="{'active':exerciseCompleted>=9}"></span>
+                <span [ngClass]="{'active':exerciseCompleted>=8}"></span>
+                <span [ngClass]="{'active':exerciseCompleted>=7}"></span>
+                <span [ngClass]="{'active':exerciseCompleted>=6}"></span>
+                <span [ngClass]="{'active':exerciseCompleted>=5}"></span>
+                <span [ngClass]="{'active':exerciseCompleted>=4}"></span>
+              </div>
+              <div class="ex-img-holder">
+                <img src="{{currentExerciseImage}}" class="img-responsive" alt="">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <!-- REPEAT Exercise -->
+              <button class="btn rounded-button rounded-white btn-block" (click)="repeatExercise()">Ubung wiederholen</button>
+            </div>
+            <div class="col-sm-6 ">
+              <!-- Stick to Image -->
+              <button class="btn rounded-button rounded-white btn-block" (click)="saveImageToGallery()" *ngIf="betterPerformance">Bild einkleben</button>
+              <div class="text-center status-group" *ngIf="!betterPerformance">
+                <span>R: {{totalAccuracy}}%</span>
+                <span>A: {{typingSpeed}}</span>
+                <span>T: {{typingTime}}</span>
+              </div>
+            </div>
+            <div class="col-sm-12 underline-div"></div>
+            <div class="col-sm-6">
+              <p class="text-red">
+                Die nachste Ubung heibt: Information
+              </p>
+            </div>
+            <div class="col-sm-6"></div>
+            <div class="col-sm-12"></div>
+            <div class="col-sm-6">
+              <button class="btn rounded-button rounded-white btn-block" (click)="setNextPractice()">Nachste Ubung</button>
+            </div>
+            <div class="col-sm-6">
+              <button class="btn rounded-button rounded-white btn-block" (click)="saveExercisePerformance()">Lektion beenden</button>
+            </div>
+            <div class="col-sm-12">
+              <button class="btn rounded-button btn-block sm-btn" (click)="showTooltipBox()">Erklarung zu diesem Zwischenergebnis</button>
+    
+            </div>
+          </div>
+          <div class="info-tooltip" *ngIf="showTooltipInfo">
+            <p class="text-white">
+              <b>Abdeckfelder (1:9)</b>
+            </p>
+            <p>je
+              <b>weniger</b> Fehler beim Schreiben gemacht werden, umso mehr Felder werden frei gegeben.</p>
+            <p>Wenn alle 9 Felder frei sind, darfst du das dargestellte bild in dein Album einkleben.</p>
+            <p>Die Abdeckfelder sind
+              <b class="text-blue">blau</b>: wenn du langsam und mit wenigen Fehlern Schreibst, sie and
+              <b class="text-yellow">gelb</b>, wenn du bereits etwas schneller schreiben kannst oder songar rot, wenn deine Schreib-geschwindigkeit
+              bereits hoch ist. Aber viel wichtiger als Geschwindigkeit ist</p>
+            <p>
+              <b>Fehlerfreiheit</b>.
+              <b class="text-yellow">Die Geschwindigkeit kommt automatisch mit der Ubung.</b>
+            </p>
+          </div>
+          <div class="cartoon-image">
+            <img src="../assets/images/exercise-cartoon.png" alt="">
+          </div>
+        </div>
+        <div class="bottom-info-bar container-fluid">
+          <h2>Ergebnis in Prozenten:</h2>
+          <ul class="main-page-list">
+            <li>
+              <span class="red">{{currentExercise.mode}}</span>
+              <span class="text-span">{{'Ü'+currentLessionIndex+': '+currentExercise.name}}</span>
+              <span class="percent-indicator" [ngClass]="{'blue-zone':typingSpeed<60,'yellow-zone':(typingSpeed>=60 && typingSpeed<100),'red-zone':(typingSpeed>=100)}" [ngStyle]="{'width':currentExercise.percent+'%'}"></span>
+              <span class="gray-percent" [ngStyle]="{'width':typingSpeed+'%'}"></span>
+              <span class="yellow-percent" [ngStyle]="{'width':currentExercise.yellowPercent+'%'}"></span>
+              <span class="three-params" *ngIf="currentExercise.mode>0">
+                <span>{{totalAccuracy}}% R</span>
+                <span>{{typingSpeed}} A</span>
+                <span>{{currentExercise.yellowPercent}} T</span>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>

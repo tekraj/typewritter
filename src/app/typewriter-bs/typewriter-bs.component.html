@@ -47,7 +47,7 @@
               </tr>
             </table>
             <div class="sound-slider" [ngClass]="{'mute':typeSettings.muteSound}">
-              <mat-slider class="mat-slider" min="1" max="100" step="5" value="{{typeSettings.soundVolume}}" (input)="setSoundVolume($event)"></mat-slider>
+              <mat-slider class="mat-slider" min="1" max="100" step="5" value="{{currentSoundLevel}}" (input)="setSoundVolume($event)"></mat-slider>
             </div>
             <div class="mute-open-btns">
               <a class="btn btn-default mute-button" (click)="soundSetting(true)" [ngClass]="{'active':typeSettings.muteSound==true}">
@@ -233,7 +233,7 @@
               </tr>
             </table>
             <div class="sound-slider" [ngClass]="{'mute':typeSettings.muteSound}">
-              <mat-slider class="mat-slider" min="1" max="100" step="5" value="{{typeSettings.soundVolume}}" (input)="setSoundVolume($event)"></mat-slider>
+              <mat-slider class="mat-slider" min="1" max="100" step="5" value="{{currentSoundLevel}}" (input)="setSoundVolume($event)"></mat-slider>
             </div>
             <div class="mute-open-btns">
               <a class="btn btn-default mute-button" (click)="soundSetting(true)" [ngClass]="{'active':typeSettings.muteSound==true}">
@@ -326,7 +326,7 @@
               </tr>
             </table>
             <div class="sound-slider" [ngClass]="{'mute':typeSettings.muteSound}">
-              <mat-slider class="mat-slider" min="1" max="100" step="5" value="{{typeSettings.soundVolume}}" (input)="setSoundVolume($event)"></mat-slider>
+              <mat-slider class="mat-slider" min="1" max="100" step="5" value="{{currentSoundLevel}}" (input)="setSoundVolume($event)"></mat-slider>
             </div>
             <div class="mute-open-btns">
               <a class="btn btn-default mute-button" (click)="soundSetting(true)" [ngClass]="{'active':typeSettings.muteSound==true}">
@@ -416,7 +416,7 @@
               </tr>
             </table>
             <div class="sound-slider" [ngClass]="{'mute':typeSettings.muteSound}">
-              <mat-slider class="mat-slider" min="1" max="100" step="5" value="{{typeSettings.soundVolume}}" (input)="setSoundVolume($event)"></mat-slider>
+              <mat-slider class="mat-slider" min="1" max="100" step="5" value="{{currentSoundLevel}}" (input)="setSoundVolume($event)"></mat-slider>
             </div>
             <div class="mute-open-btns">
               <a class="btn btn-default mute-button" (click)="soundSetting(true)" [ngClass]="{'active':typeSettings.muteSound==true}">
@@ -508,7 +508,7 @@
               </tr>
             </table>
             <div class="sound-slider" [ngClass]="{'mute':typeSettings.muteSound}">
-              <mat-slider class="mat-slider" min="1" max="100" step="5" value="{{typeSettings.soundVolume}}" (input)="setSoundVolume($event)"></mat-slider>
+              <mat-slider class="mat-slider" min="1" max="100" step="5" value="{{currentSoundLevel}}" (input)="setSoundVolume($event)"></mat-slider>
             </div>
             <div class="mute-open-btns">
               <a class="btn btn-default mute-button" (click)="soundSetting(true)" [ngClass]="{'active':typeSettings.muteSound==true}">

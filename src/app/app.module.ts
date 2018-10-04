@@ -24,6 +24,7 @@ import { TypewriterBsComponent } from './typewriter-bs/typewriter-bs.component';
 import { AlbumForLessionComponent } from './album-for-lession/album-for-lession.component';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { SortablejsModule } from 'angular-sortablejs/dist';
+import { ModuleExerciseComponent } from './module-exercise/module-exercise.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { SortablejsModule } from 'angular-sortablejs/dist';
     TypewriterBsComponent,
     GalleryComponent,
     AlbumForLessionComponent,
-    MainLayoutComponent
+    MainLayoutComponent,
+    ModuleExerciseComponent
   ],
   imports: [
     BrowserModule,

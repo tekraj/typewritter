@@ -5,7 +5,7 @@
   <header class="home info keyboard-header">
     <div class="main-info-text-hoder">
       <h2 class="main-info-text" [ngClass]="{'active': headerHide ==false,'hide':collapseHeader==true}">
-        {{currentExercise.topBarTitle}}
+        <span [ngClass]="{'opacity':showHeaderText==true}">{{currentExercise.topBarTitle}}</span>
       </h2>
     </div>
     <div class="clearfix"></div>
@@ -64,7 +64,7 @@
               </tr>
             </table>
             <div class="sound-slider" [ngClass]="{'mute':typeSettings.muteSound}">
-              <mat-slider class="mat-slider" min="1" max="100" step="5" value="{{typeSettings.soundVolume}}" (input)="setSoundVolume($event)"></mat-slider>
+              <mat-slider class="mat-slider" min="1" max="100" step="1" [(ngModel)]="currentSoundLevel" (input)="setSoundVolume($event)"></mat-slider>
             </div>
             <div class="mute-open-btns">
               <a class="btn btn-default mute-button" (click)="soundSetting(true)" [ngClass]="{'active':typeSettings.muteSound==true}">
@@ -138,7 +138,7 @@
               </tr>
             </table>
             <div class="sound-slider" [ngClass]="{'mute':typeSettings.muteSound}">
-              <mat-slider class="mat-slider" min="1" max="100" step="5" value="{{typeSettings.soundVolume}}" (input)="setSoundVolume($event)"></mat-slider>
+              <mat-slider class="mat-slider" min="1" max="100" step="1" [(ngModel)]="currentSoundLevel" (input)="setSoundVolume($event)"></mat-slider>
             </div>
             <div class="mute-open-btns">
               <a class="btn btn-default mute-button" (click)="soundSetting(true)" [ngClass]="{'active':typeSettings.muteSound==true}">
@@ -292,11 +292,11 @@
 <div class="main-wrapper" [ngClass]="{'ex-two-one':grid==1,'ex-two-two':grid==2,'ex-two-three':grid==3,'ex-two-four':grid==4}"
   *ngIf="practiceMode==1">
 
-  <h1 class="page-header">{{currentExercise.name}}</h1>
+  
   <header class="home info  keyboard-header" [ngClass]="{'header-more':grid==1}">
     <div class="main-info-text-hoder">
       <h2 class="main-info-text padding-top-15" [ngClass]="{'active': headerHide ==false,'hide':collapseHeader==true}">
-        {{currentExercise.topBarTitle}}
+         <span [ngClass]="{'opacity':showHeaderText==true}">{{currentExercise.topBarTitle}}</span>
       </h2>
     </div>
     <div class="clearfix"></div>
@@ -345,7 +345,7 @@
               </tr>
             </table>
             <div class="sound-slider" [ngClass]="{'mute':typeSettings.muteSound}">
-              <mat-slider class="mat-slider" min="1" max="100" step="5" value="{{typeSettings.soundVolume}}" (input)="setSoundVolume($event)"></mat-slider>
+              <mat-slider class="mat-slider" min="1" max="100" step="1" [(ngModel)]="currentSoundLevel" (input)="setSoundVolume($event)"></mat-slider>
             </div>
             <div class="mute-open-btns">
               <a class="btn btn-default mute-button" (click)="soundSetting(true)" [ngClass]="{'active':typeSettings.muteSound==true}">
@@ -480,11 +480,11 @@
 <div class="main-wrapper" [ngClass]="{'ex-two-one':grid==1,'ex-two-two':grid==2,'ex-two-three':grid==3,'ex-two-four':grid==4}"
   *ngIf="practiceMode==2">
 
-  <h1 class="page-header margin-bottom-0 margin-top-5">{{currentExercise.name}}</h1>
+
   <header class="home info keyboard-header" >
     <div class="main-info-text-hoder">
       <h2 class="main-info-text" [ngClass]="{'active': headerHide ==false,'hide':collapseHeader==true}">
-        {{currentExercise.topBarTitle}}
+         <span [ngClass]="{'opacity':showHeaderText==true}">{{currentExercise.topBarTitle}}</span>
       </h2>
     </div>
     <div class="clearfix"></div>
@@ -542,7 +542,7 @@
               </tr>
             </table>
             <div class="sound-slider" [ngClass]="{'mute':typeSettings.muteSound}">
-              <mat-slider class="mat-slider mat-slider-horizontal" min="1" max="100" step="5" value="{{typeSettings.soundVolume}}" (input)="setSoundVolume($event)"></mat-slider>
+              <mat-slider class="mat-slider mat-slider-horizontal" min="1" max="100" step="1" [(ngModel)]="currentSoundLevel" (input)="setSoundVolume($event)"></mat-slider>
             </div>
             <div class="mute-open-btns">
               <a class="btn btn-default mute-button" (click)="soundSetting(true)" [ngClass]="{'active':typeSettings.muteSound==true}">
@@ -691,11 +691,11 @@
 <div class="main-wrapper" [ngClass]="{'ex-two-one':grid==1,'ex-two-two':grid==2,'ex-two-three':grid==3,'ex-two-four':grid==4}"
   *ngIf="practiceMode==3">
 
-  <h1 class="page-header margin-bottom-0 margin-top-5">{{currentExercise.name}}</h1>
+
   <header class="home info keyboard-header">
     <div class="main-info-text-hoder">
       <h2 class="main-info-text" [ngClass]="{'active': headerHide ==false,'hide':collapseHeader==true}">
-        {{currentExercise.topBarTitle}}
+         <span [ngClass]="{'opacity':showHeaderText==true}">{{currentExercise.topBarTitle}}</span>
       </h2>
     </div>
     <div class="clearfix"></div>
@@ -753,7 +753,7 @@
               </tr>
             </table>
             <div class="sound-slider" [ngClass]="{'mute':typeSettings.muteSound}">
-              <mat-slider class="mat-slider mat-slider-horizontal" min="1" max="100" step="5" value="{{typeSettings.soundVolume}}" (input)="setSoundVolume($event)"></mat-slider>
+              <mat-slider class="mat-slider mat-slider-horizontal" min="1" max="100" step="1" [(ngModel)]="currentSoundLevel" (input)="setSoundVolume($event)"></mat-slider>
             </div>
             <div class="mute-open-btns">
               <a class="btn btn-default mute-button" (click)="soundSetting(true)" [ngClass]="{'active':typeSettings.muteSound==true}">
@@ -904,7 +904,7 @@
   <header class="home info  keyboard-header">
     <div class="main-info-text-hoder">
       <h2 class="main-info-text" [ngClass]="{'active': headerHide ==false,'hide':collapseHeader==true}">
-        {{currentExercise.topBarTitle}}
+        <span [ngClass]="{'opacity':showHeaderText==true}">{{currentExercise.topBarTitle}}</span>
       </h2>
     </div>
     <div class="clearfix"></div>
@@ -942,7 +942,7 @@
               </tr>
             </table>
             <div class="sound-slider" [ngClass]="{'mute':typeSettings.muteSound}">
-              <mat-slider class="mat-slider" min="1" max="100" step="5" value="{{typeSettings.soundVolume}}" (input)="setSoundVolume($event)"></mat-slider>
+              <mat-slider class="mat-slider" min="1" max="100" step="1" [(ngModel)]="currentSoundLevel" (input)="setSoundVolume($event)"></mat-slider>
             </div>
             <div class="mute-open-btns">
               <a class="btn btn-default mute-button" (click)="soundSetting(true)" [ngClass]="{'active':typeSettings.muteSound==true}">
@@ -1108,7 +1108,9 @@
                 <span [ngClass]="{'active':exerciseCompleted>=5}"></span>
                 <span [ngClass]="{'active':exerciseCompleted>=4}"></span>
               </div>
-              <img src="{{currentExerciseImage}}" class="img-responsive" alt="">
+              <div class="ex-img-holder">
+                <img src="{{currentExerciseImage}}" class="img-responsive" alt="">
+              </div>
             </div>
           </div>
           <div class="row">

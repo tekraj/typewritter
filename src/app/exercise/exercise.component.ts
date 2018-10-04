@@ -87,7 +87,7 @@ export class ExerciseComponent implements OnInit {
     public zoomButtonAnimation = false;
     public typeThisLetter = '';
     public remainingValue = [];
-    public letterIndexes = [];
+    public letterIndexes = {};
     public typeThisImage = '';
     public typeThisLetterClass = '';
     public showZoomAnimation: boolean = true;
@@ -99,6 +99,23 @@ export class ExerciseComponent implements OnInit {
         this.exerciseParams = this.route.params['value'];
         this.currentLessionIndex = parseInt(this.exerciseParams.lessionIndex);
         this.exercises = this.localStorageService.select('exerciseTitles');
+        this.letterIndexes = { "0": 48, "1": 49, "2": 50, "3": 51, "4": 52, "5": 53, "6": 54, "7": 55, "8": 56, "9": 57, "a": 65, "b": 66, "c": 67, "d": 68, "e": 69, "f": 70, "g": 71, "h": 72, "i": 73, "j": 74, "k": 75, "l": 76, "m": 77, "n": 78, "o": 79, "p": 80, "q": 81, "r": 82, "s": 83, "t": 84, "u": 85, "v": 86, "w": 87, "x": 88, "y": 89, "z": 90, "Shift": 16, "~": 192, "`": 192, "!": 49, "@": 50, "#": 51, "$": 52, "%": 53, "^": 54, "&": 55, "*": 56, "(": 57, ")": 48, "_": 189, "+": 187, "|": 220, "}": 221, "{": 219, "]": 221, "[": 219, "'": 222, ";": 186, ":": 186, "\"": 222, ">": 190, "<": 188, ",": 188, ".": 190, "?": 191, "/": 191 };
+        this.letterClasses = [{ class: 'primary', letters: ['a', 'q', 'z', '1', , '!', '2', '"', 'ß', '?', '´', '`', 'p', 'ü', '-', '_', 'ö', 'ä'] },
+        { class: 'warning', letters: ['3', '§', 'w', 's', 'x', '0', '=', 'o', 'l', ':', '.'] },
+        { class: 'success', letters: ['4', '$', '9', ')', 'i', 'k', ';', ',', 'd', 'e'] },
+        { class: 'danger', letters: ['5', '%', '5', '&', '7', '/', '8', '(', 'r', 't', 'y', 'u', 'f', 'g', 'h', 'j', 'v', 'b', 'n', 'm'] }];
+        this.currentExercise = this.exercises[this.currentLessionIndex];
+        this.globalSettings = this.localStorageService.select('globalSettings');
+        this.settingMode = this.localStorageService.select('settingMode');
+    }
+
+    private setUpExercise() {
+        this.headerHide = true;
+        this.zoomButtonAnimation = false;
+        this.showHeaderText = false;
+        this.totalAccuracy = 0;
+        this.typingSpeed = 0;
+        this.typingTime = 0;
         this.currentExercise = this.exercises[this.currentLessionIndex];
         this.practiceMode = this.currentExercise.type[1];
         this.grid = this.currentExercise.type[2];
@@ -106,18 +123,26 @@ export class ExerciseComponent implements OnInit {
             this.animationMode = 'icon';
         }
         this.grid = this.grid > 5 ? 1 : this.grid;
-        this.settingMode = this.localStorageService.select('settingMode');
-        this.globalSettings = this.localStorageService.select('globalSettings');
 
-
-        this.typeSettings = { stringLength: this.currentExercise.repeat, value: this.currentExercise.content, typewriterMode: '', presentation: 0, sound: 'kein_sound', soundVolume: 0.5, muteSound: false };
-
-        this.typeSettings.value = this.typeSettings.value.replace('/\s+/', '');
+        this.typeSettings = { stringLength: this.currentExercise.repeat, value: this.currentExercise.content, typewriterMode: '', presentation: 0, sound: 'kein_sound', soundVolume: 50, muteSound: false };
+        let settings = this.localStorageService.select('typeSettings');
+        if (settings && settings.soundVolume) {
+            this.typeSettings.soundVolume = settings.soundVolume;
+        } else {
+            this.typeSettings.soundVolume = 50;
+        }
+        this.typeSettings.value = this.typeSettings.value.replace('/\s+/', ' ');
         this.currentSoundLevel = this.typeSettings.soundVolume;
         for (let i = 1; i <= this.typeSettings.stringLength; i++) {
             this.typingValue += this.typeSettings.value + ' ';
+
+        }
+        if (this.practiceMode !== 1) {
+            this.typeSettings.value = this.typeSettings.value.replace(/\s/g, '');
+            this.typingValue = this.typingValue.replace(/\s/g, '')
         }
         this.remainingText = this.typingValue;
+
         this.keyboard.typingValue = this.typingValue.trim().split('');
         this.totalWords = this.typingValue.length;
         this.remainingValue = this.keyboard.typingValue;
@@ -125,33 +150,34 @@ export class ExerciseComponent implements OnInit {
         this.clickWrongSound = new Howl({
             src: ['../assets/sounds/wrong-click.mp3']
         });
+
         Howler.volume(this.typeSettings.soundVolume / 100);
         let sounds = ['kein_sound', 'click', 'bst', 'icon', 'hg1', 'hg2', 'hg3', 'hg4', 'hg5', 'hg6', 'hg7', 'hg8', 'hg9'];
         this.typeSettings.sound = sounds[this.currentExercise.type[4]];
         this.setSound(this.typeSettings.sound);
         this.totalWordWidth = 15 * this.keyboard.typingValue.length;
-        this.letterIndexes = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "ä", "ö", "ü", "ß"];
-        this.letterClasses = [{ class: 'primary', letters: ['a', 'q', 'z', '1', , '!', '2', '"', 'ß', '?', '´', '`', 'p', 'ü', '-', '_', 'ö', 'ä'] },
-        { class: 'warning', letters: ['3', '§', 'w', 's', 'x', '0', '=', 'o', 'l', ':', '.'] },
-        { class: 'success', letters: ['4', '$', '9', ')', 'i', 'k', ';', ',', 'd', 'e'] },
-        { class: 'danger', letters: ['5', '%', '5', '&', '7', '/', '8', '(', 'r', 't', 'y', 'u', 'f', 'g', 'h', 'j', 'v', 'b', 'n', 'm'] }];
+
         this.currentLettersArray = [];
-    }
-
-    ngOnInit() {
-
-        setTimeout(() => {
-            this.headerHide = false;
-            this.zoomButtonAnimation = true;
-        }, 50);
         //script for ballon animations
         if (this.practiceMode == 4) {
             for (let i = 1; i <= this.grid; i++) {
                 this.currentLettersArray.push(this.createElement(i, true));
             }
         }
-        this.totalWidth = window.innerWidth - 80;
+
+        setTimeout(() => {
+            this.headerHide = false;
+            this.zoomButtonAnimation = true;
+        }, 50);
+        setTimeout(() => {
+            this.showHeaderText = true;
+        });
         this.checkLetterExists();
+    }
+
+    ngOnInit() {
+        this.totalWidth = window.innerWidth - 80;
+        this.setUpExercise();
     }
 
     setSoundVolume = (event: any) => {
@@ -161,6 +187,7 @@ export class ExerciseComponent implements OnInit {
             this.typeSettings.soundVolume = value;
             Howler.volume(value / 100);
             this.localStorageService.insert('typeSettings', this.typeSettings);
+
         }
 
     };
@@ -187,6 +214,7 @@ export class ExerciseComponent implements OnInit {
     }
 
     handleKeyDownEvent(event: KeyboardEvent) {
+       
         if (!this.typingCounter) {
             this.typingCounter = setInterval(() => {
                 this.internalTypingTime++;
@@ -212,7 +240,6 @@ export class ExerciseComponent implements OnInit {
                 this.letterNextTyped = this.typedString.length;
 
                 this.totalRight++;
-
                 if (this.totalRight * 15 > this.totalWidth) {
                     this.textLeftMove = this.totalWidth - (this.totalRight * 15);
                 }
@@ -239,45 +266,46 @@ export class ExerciseComponent implements OnInit {
                 } else {
                     this.letterNextTyped = this.typedString.length;
                     this.typeThisLetter = this.keyboard.typingValue[this.typedString.length];
-                    let letterIndex = this.letterIndexes.indexOf(this.typeThisLetter);
-                    let nextKeyCode = letterIndex + 96 + 1;
-                    if (this.typeThisLetter == ' ') {
-                        nextKeyCode = 32;
+                    let letterIndex = this.letterIndexes[this.typeThisLetter];
+                  
+                    let nextKeyCode;
+                    if (letterIndex < 64) {
+                        nextKeyCode = letterIndex;
+                    } else {
+                        nextKeyCode = letterIndex + 32;
                     }
                     this.totalRight++;
                     this.typeThisImage = '../assets/images/typer/' + this.settingMode + 'b_' + + nextKeyCode + '.jpg';
+                    let nextSetting = this.globalSettings[letterIndex];
+                    this.typeThisLetterClass = nextSetting.cssClass;
 
-                    if (nextKeyCode != 32 && nextKeyCode != 96) {
-                        let nextSetting = this.globalSettings[65 + letterIndex];
-                        this.typeThisLetterClass = nextSetting.cssClass;
-
-                        if (this.clickRightSound) {
-                            if (this.clickRightSound == 'click') {
-                                let clickSound = new Howl({
-                                    src: ['../assets/sounds/right-click.mp3']
-                                });
-                                clickSound.play();
-                            } else if (this.clickRightSound == 'play-letter') {
-                                let sound = '../assets/sounds/' + this.settingMode + 's_' + keyCode + '.mp3'
-                                if (this.grid == 1 || this.grid == 5) {
-                                    sound = '../assets/sounds/' + this.settingMode + 's_' + nextKeyCode + '.mp3'
-                                }
-                                let clickSound = new Howl({
-                                    src: [sound]
-                                });
-                                clickSound.play();
-                            } else if (this.clickRightSound == 'icon-sound') {
-                                let sound = '../assets/sounds/icon-sound/w_' + keySettings.tast_wort + '.mp3'
-                                if (this.grid == 1 || this.grid == 5) {
-                                    sound = '../assets/sounds/icon-sound/w_' + nextSetting.tast_wort + '.mp3'
-                                }
-                                let clickSound = new Howl({
-                                    src: [sound]
-                                });
-                                clickSound.play();
+                    if (this.clickRightSound) {
+                        if (this.clickRightSound == 'click') {
+                            let clickSound = new Howl({
+                                src: ['../assets/sounds/right-click.mp3']
+                            });
+                            clickSound.play();
+                        } else if (this.clickRightSound == 'play-letter') {
+                            let sound = '../assets/sounds/' + this.settingMode + 's_' + keyCode + '.mp3'
+                            if (this.grid == 1 || this.grid == 5) {
+                                sound = '../assets/sounds/' + this.settingMode + 's_' + nextKeyCode + '.mp3'
                             }
+                            let clickSound = new Howl({
+                                src: [sound]
+                            });
+                            clickSound.play();
+                        } else if (this.clickRightSound == 'icon-sound') {
+                            let sound = '../assets/sounds/icon-sound/w_' + keySettings.tast_wort + '.mp3'
+                            if (this.grid == 1 || this.grid == 5) {
+                                sound = '../assets/sounds/icon-sound/w_' + nextSetting.tast_wort + '.mp3'
+                            }
+                            let clickSound = new Howl({
+                                src: [sound]
+                            });
+                            clickSound.play();
                         }
                     }
+
 
                 }
             } else {
@@ -294,37 +322,39 @@ export class ExerciseComponent implements OnInit {
                 this.remainingValue.splice(typedIndex, 1);
                 let randString = Math.floor(Math.random() * this.remainingValue.length);
                 this.typeThisLetter = this.remainingValue[randString];
-                let letterIndex = this.letterIndexes.indexOf(this.typeThisLetter);
-                let nextKeCode = letterIndex + 96 + 1;
-                if (this.typeThisLetter == ' ') {
-                    nextKeCode = 32;
+                let letterIndex = this.letterIndexes[this.typeThisLetter];
+                let nextKeyCode;
+                if (letterIndex < 64) {
+                    nextKeyCode = letterIndex;
+                } else {
+                    nextKeyCode = letterIndex + 32;
                 }
 
-                this.typeThisImage = '../assets/images/typer/' + this.settingMode + 'b_' + + nextKeCode + '.jpg';
-                if (nextKeCode != 32 && nextKeCode != 96) {
-                    let nextSetting = this.globalSettings[65 + letterIndex];
-                    this.typeThisLetterClass = nextSetting.cssClass;
+                this.typeThisImage = '../assets/images/typer/' + this.settingMode + 'b_' + + nextKeyCode + '.jpg';
 
-                    if (this.clickRightSound) {
-                        if (this.clickRightSound == 'click') {
-                            let clickSound = new Howl({
-                                src: ['../assets/sounds/right-click.mp3']
-                            });
-                            clickSound.play();
-                        } else if (this.clickRightSound == 'play-letter') {
-                            let clickSound = new Howl({
-                                src: ['../assets/sounds/' + this.settingMode + 's_' + nextKeCode + '.mp3']
-                            });
-                            clickSound.play();
-                        } else if (this.clickRightSound == 'icon-sound') {
+                let nextSetting = this.globalSettings[letterIndex];
+                this.typeThisLetterClass = nextSetting.cssClass;
 
-                            let clickSound = new Howl({
-                                src: ['../assets/sounds/icon-sound/w_' + nextSetting.tast_wort + '.mp3']
-                            });
-                            clickSound.play();
-                        }
+                if (this.clickRightSound) {
+                    if (this.clickRightSound == 'click') {
+                        let clickSound = new Howl({
+                            src: ['../assets/sounds/right-click.mp3']
+                        });
+                        clickSound.play();
+                    } else if (this.clickRightSound == 'play-letter') {
+                        let clickSound = new Howl({
+                            src: ['../assets/sounds/' + this.settingMode + 's_' + nextKeyCode + '.mp3']
+                        });
+                        clickSound.play();
+                    } else if (this.clickRightSound == 'icon-sound') {
+
+                        let clickSound = new Howl({
+                            src: ['../assets/sounds/icon-sound/w_' + nextSetting.tast_wort + '.mp3']
+                        });
+                        clickSound.play();
                     }
                 }
+
             } else {
                 this.clickWrongSound = new Howl({
                     src: ['../assets/sounds/wrong-click.mp3']
@@ -336,7 +366,7 @@ export class ExerciseComponent implements OnInit {
             let keySettings = this.globalSettings[event.keyCode];
             if (this.currentLetters.indexOf(this.keyValue) >= 0) {
                 this.remainingText.replace(this.keyValue, '');
-                let keyCode = event.keyCode == 32 ? 32 : (event.keyCode + 32);
+                let keyCode = event.keyCode < 64 ? event.keyCode : (event.keyCode + 32);
                 this.currentLetterImage = '../assets/images/typer/' + this.settingMode + 'b_' + + keyCode + '.jpg';
                 this.currentTypedLetter = this.keyValue;
                 this.totalRight++;
@@ -406,7 +436,7 @@ export class ExerciseComponent implements OnInit {
 
 
     setSound(value: string) {
-        console.log(value);
+
         this.typeSettings.sound = value;
         this.localStorageService.insert('typeSettings', this.typeSettings);
         if (value.indexOf('hg') >= 0) {
@@ -476,17 +506,18 @@ export class ExerciseComponent implements OnInit {
 
 
     repeatExercise() {
-        this.router.navigate(['exercise', this.currentLessionIndex]);
-        window.location.reload();
+        this.showCompleteBox = false;
+        this.setUpExercise();
+
     }
 
     setNextPractice() {
-        for (let i = 1; i <= this.typeSettings.stringLength; i++) {
-            this.typingValue += this.typeSettings.value + ' ';
-        }
-        this.keyboard.typingValue = this.typingValue.trim().split('');
-        this.totalWords = this.typingValue.length;
         this.showCompleteBox = false;
+        this.currentLessionIndex = this.currentLessionIndex + 1;
+        if (this.currentLessionIndex >= this.exercises.length) {
+            this.currentLessionIndex = 0;
+        }
+        this.setUpExercise();
     }
 
     showTooltipBox() {
@@ -643,14 +674,15 @@ export class ExerciseComponent implements OnInit {
             this.typeSettings.soundVolume = 50;
             let randString = Math.floor(Math.random() * this.remainingValue.length);
             this.typeThisLetter = this.remainingValue[randString];
-            console.log()
-            let letterIndex = this.letterIndexes.indexOf(this.typeThisLetter);
-            let nextKeCode = letterIndex + 96 + 1;
-            if (this.typeThisLetter == ' ') {
-                nextKeCode = 32;
+            let letterIndex = this.letterIndexes[this.typeThisLetter];
+            let nextKeyCode;
+            if (letterIndex < 64) {
+                nextKeyCode = letterIndex;
+            } else {
+                nextKeyCode = letterIndex + 32;
             }
-            this.typeThisImage = '../assets/images/typer/' + this.settingMode + 'b_' + + nextKeCode + '.jpg';
-            let nextSetting = this.globalSettings[65 + letterIndex];
+            this.typeThisImage = '../assets/images/typer/' + this.settingMode + 'b_' + + nextKeyCode + '.jpg';
+            let nextSetting = this.globalSettings[letterIndex];
             this.typeThisLetterClass = nextSetting.cssClass;
 
             let clickSound = new Howl({
@@ -669,30 +701,37 @@ export class ExerciseComponent implements OnInit {
         return activeClass;
     }
     getIcon(letter) {
-        let letterIndex = this.letterIndexes.indexOf(letter);
-        let nextKeCode = letterIndex + 96 + 1;
-        return '../assets/images/typer/' + this.settingMode + 'b_' + + nextKeCode + '.jpg';
+        let letterIndex = this.letterIndexes[this.typeThisLetter];
+        let nextKeyCode;
+        if (letterIndex < 64) {
+            nextKeyCode = letterIndex;
+        } else {
+            nextKeyCode = letterIndex + 32;
+        }
+        return '../assets/images/typer/' + this.settingMode + 'b_' + + nextKeyCode + '.jpg';
     }
 
     nextExercise() {
+        this.showCompleteBox = false;
         this.currentLessionIndex = this.currentLessionIndex + 1;
         if (this.currentLessionIndex >= this.exercises.length) {
             this.currentLessionIndex = 0;
         }
-        this.router.navigate(['exercise', this.currentLessionIndex]);
-        window.location.reload();
+        this.setUpExercise();
     }
 
     prevExercise() {
+        this.showCompleteBox = false;
         this.currentLessionIndex = this.currentLessionIndex - 1;
         if (this.currentLessionIndex <= 0) {
             this.currentLessionIndex = this.exercises.length - 1;
         }
-        this.currentExercise = this.exercises[this.currentLessionIndex];
+        this.setUpExercise();
     }
 
     saveExercisePerformance() {
-        if (this.totalAccuracy > this.currentExercise.percent && this.totalAccuracy > this.currentExercise.grayPercent) {
+        // if (this.totalAccuracy >= this.currentExercise.percent && this.totalAccuracy >= this.currentExercise.grayPercent) {
+        if (1 == 1) {
             let betterExercises = this.localStorageService.select('betterExercises');
             if (!betterExercises) {
                 betterExercises = [];

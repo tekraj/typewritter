@@ -86,7 +86,6 @@ export class LoginComponent implements OnInit {
       globalSettings.row4 = [];
       if (setting.hasOwnProperty('tast_name')) {
         setting.tast_name.forEach((element, index) => {
-          console.log(index);
           if (globalSettings.hasOwnProperty(element)) {
             if (setting.tast_umschalt[index] == 1) {
               globalSettings[element].letters.shift = setting.letters[index];
@@ -100,6 +99,7 @@ export class LoginComponent implements OnInit {
           }
         });
       }
+      globalSettings[32] = { tast_finger:'', tast_bname:'', tast_wort: ' ', tast_lekt:'', t_reihe: '', zeichen: '', tnr_asc: '', letters: { normal: ' ', shift: '', ctrl: '', alt: '' },cssClass:'' };
       globalSettings.row4 = [
         {asci_cod:"220",letters:{normal:"^",ctrl:"",shift:"°",alt:""},cssClass:''},
         {asci_cod:"49",letters:{normal:"1",ctrl:"",shift:"!",alt:""},cssClass:''},

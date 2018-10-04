@@ -51,16 +51,21 @@ export class HomeComponent implements OnInit {
         let _currentBookIndex = this.localStorageService.select('currentBookIndex');
         let _lessions = this.localStorageService.select('homeLessions');
         let _homeBooks = this.localStorageService.select('homeBooks');
-        if (_currentBookIndex && _lessions && _homeBooks) {
+        let _titles = this.localStorageService.select('exerciseTitles');
+        if (_currentBookIndex>=0 && _lessions && _homeBooks) {
             this.books = _homeBooks;
             this.currentBookIndex = _currentBookIndex;
             this.lessions = _lessions;
             this.copyBooks = this.books;
             this.totalBooksPage = Array(Math.ceil(this.books.length / 12)).fill(0).map((x, i) => i);
+            this.titles = _titles;
+            this.totalTitlesPage = Array(Math.ceil((this.titles.length > 24 ? 24 : this.titles.length) / 12)).fill(0).map((x, i) => i);
+            this.currentLession = this.localStorageService.select('currentLession');
         } else {
             this.findBooks();
         }
         this.betterExercises = this.localStorageService.select('betterExercise');
+        
     }
 
     public findBooks = () => {
@@ -89,7 +94,6 @@ export class HomeComponent implements OnInit {
         this.showAllBooks = false;
         this.localStorageService.insert('currentBookIndex', this.currentBookIndex);
         this.loadingLession = true;
-        this.titles = [];
         this.lessions = [];
         this._apiService.getLessions(bookId).then((lessions) => {
             let ids = lessions[3].replace('lekt_nr=', '').split('|');
@@ -107,11 +111,14 @@ export class HomeComponent implements OnInit {
     };
 
     findTitle(lessionId: number, currentLession: number) {
+       
         if (this.loadingEx) {
             return false;
         }
         this.currentLessionId = lessionId;
+        
         this.currentLession = currentLession;
+        this.localStorageService.insert('currentLession',currentLession);
         this.titles = [];
         this.loadingEx = true;
         this._apiService.getTitles(lessionId).then((titles) => {

@@ -1736,10 +1736,17 @@ span.text-warning,p.text-warning {
 }
 .finger-position .text-right p{padding-right:8%;}
 .finger-position .text-left p{padding-left:8%;}
-.animation-9{position: absolute;top:0;bottom:0;left:0;right:0;height:100%;width:100%;}
+.animation-9 {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 15px;
+    right: 14px;
+    height: 100%;
+}
 .animation-9 span{
     display:block;
-    float:left;
+    float:left; 
     width:33.33%;
     background:#d21212;
     height:33%;
@@ -1857,6 +1864,16 @@ header.header-more{
     margin-bottom: 10px;
 }
 .save-exercise-btns .btn.rounded-button{width: 100%;background:#fff;color:#ea0408!important;border-color: #ea0408;}
+.ex-img-holder{
+    border:3px solid #000;
+    border-radius:5px;
+    background:#fff;
+    text-align: center;
+}
+.ex-img-holder img{
+    width: 100%;
+    height: 18vh;
+}
 @media screen and (min-width: 1024px) and (max-width: 1200px){
     .info-group{
         margin-left: 4px;
