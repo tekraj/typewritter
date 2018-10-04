@@ -105,11 +105,13 @@ export class ExerciseComponent implements OnInit {
         { class: 'success', letters: ['4', '$', '9', ')', 'i', 'k', ';', ',', 'd', 'e'] },
         { class: 'danger', letters: ['5', '%', '5', '&', '7', '/', '8', '(', 'r', 't', 'y', 'u', 'f', 'g', 'h', 'j', 'v', 'b', 'n', 'm'] }];
         this.currentExercise = this.exercises[this.currentLessionIndex];
+        console.log(this.currentExercise);
         this.globalSettings = this.localStorageService.select('globalSettings');
         this.settingMode = this.localStorageService.select('settingMode');
     }
 
     private setUpExercise() {
+        this.typingValue = '';
         this.headerHide = true;
         this.zoomButtonAnimation = false;
         this.showHeaderText = false;
@@ -137,7 +139,7 @@ export class ExerciseComponent implements OnInit {
             this.typingValue += this.typeSettings.value + ' ';
 
         }
-        if (this.practiceMode !== 1) {
+        if (this.practiceMode >0) {
             this.typeSettings.value = this.typeSettings.value.replace(/\s/g, '');
             this.typingValue = this.typingValue.replace(/\s/g, '')
         }

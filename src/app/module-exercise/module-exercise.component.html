@@ -1065,14 +1065,14 @@
   <div class="bottom-botton-holder">
     <div class="row">
       <div class="col-sm-4 text-left">
-        <a class="btn rounded-button" (click)="nextExercise()">
+        <a class="btn rounded-button" routerLink="/module">
           Ubung abbrechen
         </a>
       </div>
       <div class="col-sm-4 text-center">
-        <a style="display:none;" class="btn rounded-button middle-btn" (click)="nextExercise()">
+        <!-- <a style="display:none;" class="btn rounded-button middle-btn" (click)="nextExercise()">
           Arbeit fortsetzen
-        </a>
+        </a> -->
       </div>
       <div class="col-sm-4 text-right">
         <a class="btn rounded-button" routerLink="/home">
@@ -1120,30 +1120,23 @@
             </div>
             <div class="col-sm-6 ">
               <!-- Stick to Image -->
-              <button class="btn rounded-button rounded-white btn-block" (click)="saveImageToGallery()" *ngIf="betterPerformance">Bild einkleben</button>
-              <div class="text-center status-group" *ngIf="!betterPerformance">
+              <button class="btn rounded-button rounded-white btn-block" (click)="saveImageToGallery()" *ngIf="betterPerformance  && exerciseCompleted>=9">Bild einkleben</button>
+              <div class="text-center status-group" *ngIf="!betterPerformance || exerciseCompleted<9">
                 <span>R: {{totalAccuracy}}%</span>
                 <span>A: {{typingSpeed}}</span>
                 <span>T: {{typingTime}}</span>
               </div>
             </div>
             <div class="col-sm-12 underline-div"></div>
-            <div class="col-sm-6">
-              <p class="text-red">
-                Die nachste Ubung heibt: Information
-              </p>
-            </div>
-            <div class="col-sm-6"></div>
             <div class="col-sm-12"></div>
             <div class="col-sm-6">
-              <button class="btn rounded-button rounded-white btn-block" (click)="setNextPractice()">Nachste Ubung</button>
+              <!-- <button class="btn rounded-button rounded-white btn-block" (click)="setNextPractice()">Nachste Ubung</button> -->
             </div>
             <div class="col-sm-6">
               <button class="btn rounded-button rounded-white btn-block" (click)="saveExercisePerformance()">Lektion beenden</button>
             </div>
             <div class="col-sm-12">
               <button class="btn rounded-button btn-block sm-btn" (click)="showTooltipBox()">Erklarung zu diesem Zwischenergebnis</button>
-    
             </div>
           </div>
           <div class="info-tooltip" *ngIf="showTooltipInfo">

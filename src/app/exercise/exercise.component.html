@@ -1120,8 +1120,8 @@
             </div>
             <div class="col-sm-6 ">
               <!-- Stick to Image -->
-              <button class="btn rounded-button rounded-white btn-block" (click)="saveImageToGallery()" *ngIf="betterPerformance">Bild einkleben</button>
-              <div class="text-center status-group" *ngIf="!betterPerformance">
+              <button class="btn rounded-button rounded-white btn-block" (click)="saveImageToGallery()" *ngIf="betterPerformance  && exerciseCompleted>=9">Bild einkleben</button>
+              <div class="text-center status-group" *ngIf="!betterPerformance || exerciseCompleted<9">
                 <span>R: {{totalAccuracy}}%</span>
                 <span>A: {{typingSpeed}}</span>
                 <span>T: {{typingTime}}</span>

@@ -81,7 +81,7 @@ export class ModuleComponent implements OnInit {
         let indexArray = ['one', 'two', 'three', 'four', 'five'];
         let type = indexArray[this.typeSettings.presentation - 1];
         type = (type && type.length>2) ? type : 'one';
-        let redirectUrl = 'typewriter-' + this.typeSettings.typewriterMode + '/' + type;
+        let redirectUrl = 'module-exercise/' + this.typeSettings.typewriterMode + '/' + type;
         this.localStorageService.insert('typeSettings', this.typeSettings);
         this.router.navigate([redirectUrl]);
     }

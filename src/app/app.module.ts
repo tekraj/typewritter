@@ -14,14 +14,9 @@ import {  MatSliderModule } from '@angular/material';
 
 
 
-import { TypewriterSpComponent } from './typewriter-sp/typewriter-sp.component';
+
 import { ExerciseComponent } from './exercise/exercise.component';
 import { GalleryComponent } from './gallery/gallery.component';
-import { TypewriterSmComponent } from './typewriter-sm/typewriter-sm.component';
-import { TypewriterDzComponent } from './typewriter-dz/typewriter-dz.component';
-import { TypewriterDtComponent } from './typewriter-dt/typewriter-dt.component';
-import { TypewriterBsComponent } from './typewriter-bs/typewriter-bs.component';
-import { AlbumForLessionComponent } from './album-for-lession/album-for-lession.component';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { SortablejsModule } from 'angular-sortablejs/dist';
 import { ModuleExerciseComponent } from './module-exercise/module-exercise.component';
@@ -34,13 +29,7 @@ import { ModuleExerciseComponent } from './module-exercise/module-exercise.compo
     ModuleComponent,
     InfoComponent,
     ExerciseComponent,
-    TypewriterSmComponent,
-    TypewriterDzComponent,
-    TypewriterSpComponent,
-    TypewriterDtComponent,
-    TypewriterBsComponent,
     GalleryComponent,
-    AlbumForLessionComponent,
     MainLayoutComponent,
     ModuleExerciseComponent
   ],

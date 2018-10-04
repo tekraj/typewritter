@@ -82,7 +82,6 @@ export class ModuleExerciseComponent implements OnInit {
     public currentLettersArray: Array<{ letter: string, del: boolean, animation: boolean, left: number, initial: boolean }>;
     public currentLetters = '';
     public remainingText = '';
-    public exerciseParams: any;
     public practiceMode: number;
     public grid: number;
     public zoomButtonAnimation = false;
@@ -97,65 +96,71 @@ export class ModuleExerciseComponent implements OnInit {
     public currentExerciseImage = '';
     public betterPerformance = false;
     constructor(private _apiService: ApiService, private localStorageService: LocalStorageService, private route: ActivatedRoute, private router: Router) {
-        this.exerciseParams = this.route.params['value'];
-        this.currentLessionIndex = parseInt(this.exerciseParams.lessionIndex);
+        let exerciseParams = this.route.params['value'];
+        let exerciseMode = ['sm','dz','dt','bs','sp'].indexOf(exerciseParams.exercise);
+        let type = ['','one','two','three','four'].indexOf(exerciseParams.type);        
         this.exercises = this.localStorageService.select('exerciseTitles');
         this.letterIndexes = { "0": 48, "1": 49, "2": 50, "3": 51, "4": 52, "5": 53, "6": 54, "7": 55, "8": 56, "9": 57, "a": 65, "b": 66, "c": 67, "d": 68, "e": 69, "f": 70, "g": 71, "h": 72, "i": 73, "j": 74, "k": 75, "l": 76, "m": 77, "n": 78, "o": 79, "p": 80, "q": 81, "r": 82, "s": 83, "t": 84, "u": 85, "v": 86, "w": 87, "x": 88, "y": 89, "z": 90, "Shift": 16, "~": 192, "`": 192, "!": 49, "@": 50, "#": 51, "$": 52, "%": 53, "^": 54, "&": 55, "*": 56, "(": 57, ")": 48, "_": 189, "+": 187, "|": 220, "}": 221, "{": 219, "]": 221, "[": 219, "'": 222, ";": 186, ":": 186, "\"": 222, ">": 190, "<": 188, ",": 188, ".": 190, "?": 191, "/": 191 };
         this.letterClasses = [{ class: 'primary', letters: ['a', 'q', 'z', '1', , '!', '2', '"', 'ß', '?', '´', '`', 'p', 'ü', '-', '_', 'ö', 'ä'] },
         { class: 'warning', letters: ['3', '§', 'w', 's', 'x', '0', '=', 'o', 'l', ':', '.'] },
         { class: 'success', letters: ['4', '$', '9', ')', 'i', 'k', ';', ',', 'd', 'e'] },
         { class: 'danger', letters: ['5', '%', '5', '&', '7', '/', '8', '(', 'r', 't', 'y', 'u', 'f', 'g', 'h', 'j', 'v', 'b', 'n', 'm'] }];
-        this.currentExercise = this.exercises[this.currentLessionIndex];
+        
         this.globalSettings = this.localStorageService.select('globalSettings');
         this.settingMode = this.localStorageService.select('settingMode');
+        this.typeSettings = this.localStorageService.select('typeSettings');
+        this.typeSettings.value = this.typeSettings.value.replace('/\s+/', ' ');
+        this.currentExercise = {
+            content: "aaa ddd ggg sss fff",
+            flagTitle: "Ich gebe dir oft Tipps -mein Name ist Fred!",
+            grayPercent: 0,
+            id: "11580",
+            mode: 2,
+            name: "Demoubung",
+            percent: 0,
+            repeat: this.typeSettings.repeat,
+            topBarTitle: "Schreiben Sie die vorgegebenen Buchstaben, Wrote order Satze!",
+            type: ["1", exerciseMode, type, "1", "0"],
+            yellowPercent: 0
+        }
+        this.clickWrongSound = new Howl({
+            src: ['../assets/sounds/wrong-click.mp3']
+        });
+        this.currentSoundLevel = this.typeSettings.soundVolume;
+        Howler.volume(this.typeSettings.soundVolume / 100);
+        this.setSound(this.typeSettings.sound);
+        this.setUpExercise();
     }
 
     private setUpExercise() {
+        this.typingValue ='';
         this.headerHide = true;
         this.zoomButtonAnimation = false;
         this.showHeaderText = false;
         this.totalAccuracy = 0;
         this.typingSpeed = 0;
         this.typingTime = 0;
-        this.currentExercise = this.exercises[this.currentLessionIndex];
+        this.totalRight = 0;
+        this.totalWrong =0;
         this.practiceMode = this.currentExercise.type[1];
         this.grid = this.currentExercise.type[2];
         if (this.grid > 5) {
             this.animationMode = 'icon';
         }
         this.grid = this.grid > 5 ? 1 : this.grid;
-
-        this.typeSettings = { stringLength: this.currentExercise.repeat, value: this.currentExercise.content, typewriterMode: '', presentation: 0, sound: 'kein_sound', soundVolume: 50, muteSound: false };
-        let settings = this.localStorageService.select('typeSettings');
-        if (settings && settings.soundVolume) {
-            this.typeSettings.soundVolume = settings.soundVolume;
-        } else {
-            this.typeSettings.soundVolume = 50;
-        }
-        this.typeSettings.value = this.typeSettings.value.replace('/\s+/', ' ');
-        this.currentSoundLevel = this.typeSettings.soundVolume;
         for (let i = 1; i <= this.typeSettings.stringLength; i++) {
             this.typingValue += this.typeSettings.value + ' ';
-
         }
-        if (this.practiceMode !== 1) {
-            this.typeSettings.value = this.typeSettings.value.replace(/\s/g, '');
+        if (this.practiceMode> 0) {
             this.typingValue = this.typingValue.replace(/\s/g, '')
         }
-        this.remainingText = this.typingValue;
 
+        this.remainingText = this.typingValue;
         this.keyboard.typingValue = this.typingValue.trim().split('');
         this.totalWords = this.typingValue.length;
         this.remainingValue = this.keyboard.typingValue;
 
-        this.clickWrongSound = new Howl({
-            src: ['../assets/sounds/wrong-click.mp3']
-        });
-
-        Howler.volume(this.typeSettings.soundVolume / 100);
-        let sounds = ['kein_sound', 'click', 'bst', 'icon', 'hg1', 'hg2', 'hg3', 'hg4', 'hg5', 'hg6', 'hg7', 'hg8', 'hg9'];
-        this.typeSettings.sound = sounds[this.currentExercise.type[4]];
-        this.setSound(this.typeSettings.sound);
+       
         this.totalWordWidth = 15 * this.keyboard.typingValue.length;
 
         this.currentLettersArray = [];
