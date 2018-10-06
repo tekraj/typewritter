@@ -157,7 +157,8 @@ export class ExerciseComponent implements OnInit {
         let sounds = ['kein_sound', 'click', 'bst', 'icon', 'hg1', 'hg2', 'hg3', 'hg4', 'hg5', 'hg6', 'hg7', 'hg8', 'hg9'];
         this.typeSettings.sound = sounds[this.currentExercise.type[4]];
         this.setSound(this.typeSettings.sound);
-        this.totalWordWidth = 15 * this.keyboard.typingValue.length;
+        let widthFactor = this.totalWidth/80;
+        this.totalWordWidth = widthFactor * this.typingValue.length;
 
         this.currentLettersArray = [];
         //script for ballon animations
@@ -418,7 +419,7 @@ export class ExerciseComponent implements OnInit {
                 }
             }, 300);
             let mod = this.currentExercise.id % 71;
-            let type = (this.totalAccuracy < 60 ? 0 : ((this.totalAccuracy >= 60 && this.totalAccuracy < 100) ? 1 : 2));
+            let type = (this.totalAccuracy < 30 ? 0 : ((this.totalAccuracy >= 30 && this.totalAccuracy < 60) ? 1 : 2));
             this.currentExerciseImage = '../assets/images/alb/i_0' + (mod < 10 ? '0' + mod : mod) + '_' + type + '.jpg'
             this.showCompleteBox = true;
             if (this.totalAccuracy == 100) {

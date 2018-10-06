@@ -278,7 +278,7 @@
   <div class="container-fluid container5 " *ngIf="grid==3 || grid==4">
     <div class="keyboard-input-field simple-typing">
       <div class="typing-text">
-        <div [style.width.px]="14*keyboard.typingValue.length">
+        <div [style.width.px]="totalWordWidth">
           <span *ngFor="let i of keyboard.typingValue,let a=index" [ngClass]="{'underline':a==letterNextTyped ,'active': a<=letterTypedIndex}">{{i==' '?'&nbsp;':i}}</span>
         </div>
       </div>
@@ -577,7 +577,7 @@
   <div class="container5 keyboard-holder" *ngIf="grid==1">
     <div class="keyboard-input-field">
       <div class="typing-text">
-        <div [style.width.px]="14*keyboard.typingValue.length">
+        <div [style.width.px]="totalWordWidth">
           <span *ngFor="let i of typedStringArray,let a=index" class="active">{{i}}</span>
         </div>
       </div>
@@ -788,7 +788,7 @@
   <div class="container5 keyboard-holder" *ngIf="grid==1">
     <div class="keyboard-input-field">
       <div class="typing-text">
-        <div [style.width.px]="14*keyboard.typingValue.length">
+        <div [style.width.px]="totalWordWidth">
           <span *ngFor="let i of typedStringArray,let a=index" class="active">{{i}}</span>
         </div>
       </div>
@@ -1172,7 +1172,7 @@
             <li>
               <span class="red">{{currentExercise.mode}}</span>
               <span class="text-span">{{'Ü'+currentLessionIndex+': '+currentExercise.name}}</span>
-              <span class="percent-indicator" [ngClass]="{'blue-zone':typingSpeed<60,'yellow-zone':(typingSpeed>=60 && typingSpeed<100),'red-zone':(typingSpeed>=100)}" [ngStyle]="{'width':currentExercise.percent+'%'}"></span>
+              <span class="percent-indicator" [ngClass]="{'blue-zone':typingSpeed<30,'yellow-zone':(typingSpeed>=30 && typingSpeed<60),'red-zone':(typingSpeed>=100)}" [ngStyle]="{'width':currentExercise.percent+'%'}"></span>
               <span class="gray-percent" [ngStyle]="{'width':typingSpeed+'%'}"></span>
               <span class="yellow-percent" [ngStyle]="{'width':currentExercise.yellowPercent+'%'}"></span>
               <span class="three-params" *ngIf="currentExercise.mode>0">

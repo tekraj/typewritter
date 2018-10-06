@@ -217,6 +217,7 @@ export class HomeComponent implements OnInit {
                     });
                 }
             });
+            this.localStorageService.insert('currentExercise',false);
             this._apiService.getExercise(lessionId).then((lessions) => {
                 let lessionTypes = lessions[2].replace('uebg_opt=', '').split('|');
                 let allTopTitles = lessions[4].replace('uebg_anw=', '').split('|');
